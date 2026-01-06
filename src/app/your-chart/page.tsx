@@ -153,7 +153,12 @@ export default function YourChartPage() {
         <div className="min-h-[80vh] flex flex-col items-center justify-center">
           <div className="text-center">
             {/* Moon phases animation - all 8 phases with active one highlighted */}
-            <div className="flex items-center justify-center gap-2 mb-8">
+            <div
+              className="flex items-center justify-center gap-2 mb-8"
+              style={{
+                filter: 'saturate(0.3) brightness(1.1)',
+              }}
+            >
               {moonPhases.map((phase, index) => (
                 <span
                   key={index}
@@ -198,13 +203,13 @@ export default function YourChartPage() {
           </div>
 
           {/* Form Section */}
-          <section className="container-editorial py-16 md:py-24">
-            <div className="max-w-md">
+          <section className="container-editorial py-16 md:py-24 min-h-[60vh] flex items-center justify-center">
+            <div className="max-w-md w-full text-center">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
                 Enter your birth details
               </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 text-left">
                 <div>
                   <label htmlFor="birthdate" className="block text-sm text-[#6B6B6B] mb-2">
                     Date of birth
@@ -218,7 +223,11 @@ export default function YourChartPage() {
                       setFormData({ ...formData, birthdate: e.target.value });
                       setDateError(null);
                     }}
-                    className={`w-full px-4 py-3 border bg-transparent text-[#2A2A2A] focus:outline-none transition-colors ${
+                    className={`w-full px-4 py-3 border bg-transparent focus:outline-none transition-colors ${
+                      formData.birthdate
+                        ? 'text-[#2A2A2A] [&::-webkit-datetime-edit]:text-[#2A2A2A] [&::-webkit-datetime-edit-fields-wrapper]:text-[#2A2A2A]'
+                        : 'text-[#6B6B6B]/50 [&::-webkit-datetime-edit]:text-[#6B6B6B]/50 [&::-webkit-datetime-edit-fields-wrapper]:text-[#6B6B6B]/50'
+                    } ${
                       dateError
                         ? 'border-red-400 focus:border-red-500'
                         : 'border-[#2A2A2A]/10 focus:border-[#2A2A2A]/30'
@@ -238,7 +247,11 @@ export default function YourChartPage() {
                     id="birthtime"
                     value={formData.birthtime}
                     onChange={(e) => setFormData({ ...formData, birthtime: e.target.value })}
-                    className="w-full px-4 py-3 border border-[#2A2A2A]/10 bg-transparent text-[#2A2A2A] focus:outline-none focus:border-[#2A2A2A]/30 transition-colors"
+                    className={`w-full px-4 py-3 border border-[#2A2A2A]/10 bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${
+                      formData.birthtime
+                        ? 'text-[#2A2A2A] [&::-webkit-datetime-edit]:text-[#2A2A2A] [&::-webkit-datetime-edit-fields-wrapper]:text-[#2A2A2A]'
+                        : 'text-[#6B6B6B]/50 [&::-webkit-datetime-edit]:text-[#6B6B6B]/50 [&::-webkit-datetime-edit-fields-wrapper]:text-[#6B6B6B]/50'
+                    }`}
                   />
                   <p className="mt-2 text-xs text-[#6B6B6B]">
                     If you don&apos;t know your exact time, noon is a reasonable estimate.
@@ -483,7 +496,7 @@ export default function YourChartPage() {
           </div>
 
           {/* Next Steps */}
-          <section className="container-editorial py-16 md:py-24">
+          <section className="container-editorial py-8 md:py-12">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-12">
               Continue exploring
             </h2>
@@ -513,7 +526,7 @@ export default function YourChartPage() {
       </main>
 
       {/* Footer */}
-      <footer className="container-editorial py-16 border-t border-[#2A2A2A]/10">
+      <footer className="container-editorial py-16">
         <div className="flex justify-end">
           <div className="flex gap-8 text-sm text-[#6B6B6B]">
             <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">

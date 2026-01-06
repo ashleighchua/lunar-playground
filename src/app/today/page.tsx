@@ -75,9 +75,9 @@ export default function TodayPage() {
 
       {/* Moon Phase Display */}
       <section className="container-editorial py-16 md:py-24">
-        <div className="grid md:grid-cols-2 gap-16 items-start">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
           {/* Moon Visual */}
-          <div className="flex flex-col items-center justify-center py-12">
+          <div className="flex flex-col items-center justify-center">
             <div
               className="text-[120px] md:text-[180px] leading-none"
               style={{

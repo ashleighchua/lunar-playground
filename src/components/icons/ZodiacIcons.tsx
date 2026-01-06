@@ -270,7 +270,13 @@ export const zodiacIcons: Record<string, React.FC<IconProps>> = {
   Pisces: PiscesIcon,
 };
 
-export function getZodiacIcon(signName: string, size: number = 48): React.ReactNode {
+// Get the icon component (for dynamic rendering with custom props)
+export function getZodiacIcon(signName: string): React.FC<IconProps> {
+  return zodiacIcons[signName] || AriesIcon;
+}
+
+// Render a zodiac icon directly (for inline usage)
+export function renderZodiacIcon(signName: string, size: number = 48, className: string = ''): React.ReactNode {
   const Icon = zodiacIcons[signName] || AriesIcon;
-  return <Icon size={size} />;
+  return <Icon size={size} className={className} />;
 }

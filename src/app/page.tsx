@@ -29,12 +29,12 @@ export default function Home() {
               Find your moon
             </Link>
           </div>
-          {/* Moon watercolor image */}
+          {/* Moon image */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/Images/moon-watercolor.png"
+            src="/Images/mooncolour.png"
             alt=""
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-[300px] md:w-[400px] lg:w-[500px] h-auto opacity-60 pointer-events-none hidden md:block"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-[400px] md:w-[550px] lg:w-[700px] h-auto opacity-60 pointer-events-none hidden md:block"
           />
         </div>
       </section>

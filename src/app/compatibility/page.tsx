@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Navigation } from '@/components/Navigation';
-import { getZodiacIcon } from '@/components/icons/ZodiacIcons';
+import { renderZodiacIcon } from '@/components/icons/ZodiacIcons';
 
 type ZodiacSign = 'Aries' | 'Taurus' | 'Gemini' | 'Cancer' | 'Leo' | 'Virgo' |
                   'Libra' | 'Scorpio' | 'Sagittarius' | 'Capricorn' | 'Aquarius' | 'Pisces';
@@ -1886,6 +1886,10 @@ export default function Compatibility2Page() {
   const [sign1, setSign1] = useState<ZodiacSign | null>(null);
   const [sign2, setSign2] = useState<ZodiacSign | null>(null);
   const [showResults, setShowResults] = useState(false);
+  const [email, setEmail] = useState('');
+  const [subscribeToNewsletter, setSubscribeToNewsletter] = useState(true);
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
 
   const handleSignClick = (sign: ZodiacSign) => {
     if (!sign1) {
@@ -1900,6 +1904,28 @@ export default function Compatibility2Page() {
     setSign1(null);
     setSign2(null);
     setShowResults(false);
+    setEmail('');
+    setEmailSent(false);
+    setSubscribeToNewsletter(true);
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !sign1 || !sign2) return;
+
+    setEmailSending(true);
+
+    // Simulate sending email (replace with actual API call)
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Here you would send to your backend with:
+    // - email
+    // - sign1, sign2
+    // - subscribeToNewsletter
+    console.log('Email results to:', email, 'Newsletter:', subscribeToNewsletter);
+
+    setEmailSending(false);
+    setEmailSent(true);
   };
 
   const compatibility = sign1 && sign2 ? getCompatibility(sign1, sign2) : null;
@@ -1932,8 +1958,8 @@ export default function Compatibility2Page() {
 
         {/* Sign Selection */}
         {!showResults && (
-          <section className="container-editorial py-16 md:py-24">
-            <div className="max-w-4xl">
+          <section className="container-editorial py-16 md:py-24 min-h-[60vh] flex items-center">
+            <div className="max-w-4xl w-full mx-auto">
               {sign1 && (
                 <button
                   onClick={handleReset}
@@ -1948,7 +1974,7 @@ export default function Compatibility2Page() {
                 <div className="flex items-center justify-center gap-8 mb-12">
                   <div className="flex flex-col items-center">
                     <div className="w-20 h-20 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#FAF7F2]">
-                      {getZodiacIcon(sign1, 40)}
+                      {renderZodiacIcon(sign1, 40)}
                     </div>
                     <p className="mt-2 font-serif text-lg text-[#2A2A2A]">{sign1}</p>
                     <p className="text-xs text-[#6B6B6B]">{signElements[sign1].element}</p>
@@ -1986,7 +2012,7 @@ export default function Compatibility2Page() {
                       }`}
                     >
                       <div className={`mb-2 ${isSelected ? 'text-[#FAF7F2]' : 'text-[#2A2A2A]'}`}>
-                        {getZodiacIcon(sign, 32)}
+                        {renderZodiacIcon(sign, 32)}
                       </div>
                       <p className={`text-sm font-medium ${isSelected ? 'text-[#FAF7F2]' : 'text-[#2A2A2A]'}`}>
                         {sign}
@@ -2005,19 +2031,19 @@ export default function Compatibility2Page() {
         {/* Results */}
         {showResults && sign1 && sign2 && compatibility && (
           <section className="container-editorial py-16 md:py-24">
-            <div className="max-w-3xl">
-              <button
-                onClick={handleReset}
-                className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
-              >
-                ← Try another pairing
-              </button>
+            <button
+              onClick={handleReset}
+              className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
+            >
+              ← Try another pairing
+            </button>
+            <div className="max-w-3xl mx-auto">
 
               {/* Signs header */}
               <div className="flex items-center justify-center gap-8 mb-12">
                 <div className="flex flex-col items-center">
                   <div className="w-24 h-24 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#FAF7F2]">
-                    {getZodiacIcon(sign1, 48)}
+                    {renderZodiacIcon(sign1, 48)}
                   </div>
                   <p className="mt-3 font-serif text-xl text-[#2A2A2A]">{sign1}</p>
                   <p className="text-sm text-[#6B6B6B]">{signElements[sign1].element}</p>
@@ -2027,7 +2053,7 @@ export default function Compatibility2Page() {
                 </div>
                 <div className="flex flex-col items-center">
                   <div className="w-24 h-24 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#FAF7F2]">
-                    {getZodiacIcon(sign2, 48)}
+                    {renderZodiacIcon(sign2, 48)}
                   </div>
                   <p className="mt-3 font-serif text-xl text-[#2A2A2A]">{sign2}</p>
                   <p className="text-sm text-[#6B6B6B]">{signElements[sign2].element}</p>
@@ -2057,7 +2083,7 @@ export default function Compatibility2Page() {
               <div className="grid md:grid-cols-2 gap-8 mb-16">
                 <div className="p-6 border border-[#2A2A2A]/10">
                   <div className="flex items-center gap-3 mb-4">
-                    {getZodiacIcon(sign1, 24)}
+                    {renderZodiacIcon(sign1, 24)}
                     <h3 className="font-serif text-lg text-[#2A2A2A]">{sign1}</h3>
                   </div>
                   <p className="text-sm text-[#6B6B6B] leading-relaxed">
@@ -2066,7 +2092,7 @@ export default function Compatibility2Page() {
                 </div>
                 <div className="p-6 border border-[#2A2A2A]/10">
                   <div className="flex items-center gap-3 mb-4">
-                    {getZodiacIcon(sign2, 24)}
+                    {renderZodiacIcon(sign2, 24)}
                     <h3 className="font-serif text-lg text-[#2A2A2A]">{sign2}</h3>
                   </div>
                   <p className="text-sm text-[#6B6B6B] leading-relaxed">
@@ -2114,33 +2140,103 @@ export default function Compatibility2Page() {
                 </ul>
               </div>
 
-              {/* CTA */}
-              <div className="pt-8 border-t border-[#2A2A2A]/10">
-                <p className="text-sm text-[#6B6B6B] mb-4">
-                  Want to explore more?
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <button
-                    onClick={handleReset}
-                    className="px-6 py-3 border border-[#2A2A2A]/20 text-sm text-[#2A2A2A] hover:border-[#2A2A2A]/40 transition-colors"
-                  >
-                    Try another pairing
-                  </button>
-                  <Link
-                    href="/your-chart"
-                    className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
-                  >
-                    See your full chart
-                  </Link>
-                </div>
-              </div>
             </div>
           </section>
+        )}
+
+        {/* Email Results Section */}
+        {showResults && sign1 && sign2 && compatibility && (
+          <>
+            <div className="container-editorial">
+              <div className="h-px bg-[#2A2A2A]/10" />
+            </div>
+            <section className="container-editorial py-16 md:py-24">
+              <div className="max-w-xl mx-auto text-center">
+                {!emailSent ? (
+                  <>
+                    <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-4">
+                      Save your reading
+                    </h2>
+                    <p className="text-[#6B6B6B] mb-8">
+                      Get your {sign1} & {sign2} compatibility sent to your inbox.
+                    </p>
+                    <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="your@email.com"
+                          className="flex-1 px-4 py-3 rounded-lg border border-[#2A2A2A]/10 bg-[#FAF7F2] text-[#2A2A2A] placeholder-[#6B6B6B]/50 focus:outline-none focus:ring-2 focus:ring-[#C4A484]/30 focus:border-[#C4A484]/50 transition-colors"
+                          required
+                        />
+                        <button
+                          type="submit"
+                          disabled={emailSending}
+                          className="px-6 py-3 rounded-lg bg-[#C4A484] text-white hover:bg-[#B8956E] transition-colors disabled:opacity-50 whitespace-nowrap"
+                        >
+                          {emailSending ? 'Sending...' : 'Send to me'}
+                        </button>
+                      </div>
+                      <label className="inline-flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={subscribeToNewsletter}
+                          onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
+                          className="w-3 h-3 rounded accent-[#C4A484]"
+                        />
+                        <span className="text-xs text-[#6B6B6B]">
+                          Also receive occasional notes from Lunar Playground
+                        </span>
+                      </label>
+                    </form>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
+                      On its way
+                    </h2>
+                    <p className="text-[#6B6B6B]">
+                      Check your inbox for your {sign1} & {sign2} compatibility reading.
+                    </p>
+                  </>
+                )}
+              </div>
+            </section>
+          </>
+        )}
+
+        {/* Explore More CTA */}
+        {showResults && sign1 && sign2 && compatibility && (
+          <>
+            <div className="container-editorial">
+              <div className="h-px bg-[#2A2A2A]/10" />
+            </div>
+            <section className="container-editorial py-8 md:py-12">
+              <p className="text-sm text-[#6B6B6B] mb-4">
+                Want to explore more?
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={handleReset}
+                  className="px-6 py-3 border border-[#2A2A2A]/20 text-sm text-[#2A2A2A] hover:border-[#2A2A2A]/40 transition-colors"
+                >
+                  Try another pairing
+                </button>
+                <Link
+                  href="/your-chart"
+                  className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
+                >
+                  See your full chart
+                </Link>
+              </div>
+            </section>
+          </>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="container-editorial py-16 border-t border-[#2A2A2A]/10">
+      <footer className="container-editorial py-16">
         <div className="flex justify-end">
           <div className="flex gap-8 text-sm text-[#6B6B6B]">
             <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">

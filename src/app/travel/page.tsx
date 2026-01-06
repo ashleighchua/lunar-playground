@@ -22,6 +22,10 @@ export default function TravelPage() {
   const [birthplace, setBirthplace] = useState<City | null>(null);
   const [destination, setDestination] = useState<Destination | null>(null);
   const [loadingPhase, setLoadingPhase] = useState(0);
+  const [email, setEmail] = useState('');
+  const [subscribeToNewsletter, setSubscribeToNewsletter] = useState(true);
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
 
   const moonPhases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
 
@@ -68,6 +72,20 @@ export default function TravelPage() {
     setBirthtime('');
     setBirthplace(null);
     setDestination(null);
+    setEmail('');
+    setEmailSent(false);
+    setSubscribeToNewsletter(true);
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !destination) return;
+
+    setEmailSending(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log('Email travel result to:', email, 'Newsletter:', subscribeToNewsletter);
+    setEmailSending(false);
+    setEmailSent(true);
   };
 
   return (
@@ -206,9 +224,15 @@ export default function TravelPage() {
 
         {/* Loading Step */}
         {step === 'loading' && (
-          <section className="container-editorial py-24 md:py-32">
+          <section className="container-editorial py-24 md:py-32 min-h-[60vh] flex items-center justify-center">
             <div className="flex flex-col items-center justify-center text-center">
-              <div className="text-6xl mb-8 transition-all duration-300">
+              <div
+                className="text-7xl md:text-8xl mb-8 transition-all duration-300"
+                style={{
+                  filter: 'saturate(0.3) brightness(1.1)',
+                  opacity: 0.85
+                }}
+              >
                 {moonPhases[loadingPhase]}
               </div>
               <p className="font-serif text-xl text-[#2A2A2A]">
@@ -223,73 +247,143 @@ export default function TravelPage() {
 
         {/* Result Step */}
         {step === 'result' && destination && selectedCategory && (
-          <section className="container-editorial py-16 md:py-24">
-            <div className="max-w-3xl">
+          <>
+            <section className="container-editorial pt-8 pb-16 md:pt-12 md:pb-24">
+              {/* Left-aligned: Try another category - closer to top */}
               <button
                 onClick={handleReset}
-                className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-8"
+                className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
               >
                 ← Try another category
               </button>
 
-              <div className="flex items-center gap-4 mb-6">
+              {/* Centered: Header and subheader */}
+              <div className="text-center mb-8">
+                <h2 className="font-serif text-3xl md:text-4xl text-[#2A2A2A] mb-2">
+                  {destination.city}
+                </h2>
+                <p className="text-lg text-[#6B6B6B]">
+                  {destination.country}
+                </p>
+              </div>
+
+              {/* Centered: Planet info */}
+              <div className="flex items-center justify-center gap-4 mb-8">
                 <span className="text-2xl">{categoryInfo[selectedCategory].symbol}</span>
                 <p className="text-sm text-[#6B6B6B]">
                   Your {categoryInfo[selectedCategory].name}
                 </p>
               </div>
 
-              <h2 className="font-serif text-3xl md:text-4xl text-[#2A2A2A] mb-2">
-                {destination.city}
-              </h2>
-              <p className="text-lg text-[#6B6B6B] mb-8">
-                {destination.country}
-              </p>
-
-              {/* Map */}
-              <div className="mb-12 border border-[#2A2A2A]/10 p-4 md:p-8 bg-[#FAF7F2]">
+              {/* Centered: Map */}
+              <div className="max-w-3xl mx-auto mb-12">
                 <WorldMap
                   destination={destination}
-                  originLat={birthplace?.lat}
-                  originLng={birthplace?.lng}
                   className="w-full"
                 />
               </div>
 
-              {/* Description */}
-              <div className="max-w-2xl">
+              {/* Centered: Description */}
+              <div className="max-w-2xl mx-auto text-center mb-12">
                 <p className="text-[#6B6B6B] leading-relaxed text-lg">
                   {destination.description}
                 </p>
               </div>
+            </section>
 
-              {/* CTA */}
-              <div className="mt-16 pt-8 border-t border-[#2A2A2A]/10">
-                <p className="text-sm text-[#6B6B6B] mb-4">
-                  Curious about other aspects of your chart?
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <button
-                    onClick={handleReset}
-                    className="px-6 py-3 border border-[#2A2A2A]/20 text-sm text-[#2A2A2A] hover:border-[#2A2A2A]/40 transition-colors"
-                  >
-                    Explore another line
-                  </button>
-                  <Link
-                    href="/your-chart"
-                    className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
-                  >
-                    See your full chart
-                  </Link>
-                </div>
-              </div>
+            {/* Full-width divider */}
+            <div className="container-editorial">
+              <div className="h-px bg-[#2A2A2A]/10" />
             </div>
-          </section>
+
+            {/* Email Results - Centered */}
+            <section className="container-editorial py-16 md:py-24">
+              <div className="max-w-xl mx-auto text-center">
+                {!emailSent ? (
+                  <>
+                    <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-4">
+                      Save your destination
+                    </h2>
+                    <p className="text-[#6B6B6B] mb-8">
+                      Get your {categoryInfo[selectedCategory].name} reading for {destination.city} sent to your inbox.
+                    </p>
+                    <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="your@email.com"
+                          className="flex-1 px-4 py-3 rounded-lg border border-[#2A2A2A]/10 bg-[#FAF7F2] text-[#2A2A2A] placeholder-[#6B6B6B]/50 focus:outline-none focus:ring-2 focus:ring-[#C4A484]/30 focus:border-[#C4A484]/50 transition-colors"
+                          required
+                        />
+                        <button
+                          type="submit"
+                          disabled={emailSending}
+                          className="px-6 py-3 rounded-lg bg-[#C4A484] text-white hover:bg-[#B8956E] transition-colors disabled:opacity-50 whitespace-nowrap"
+                        >
+                          {emailSending ? 'Sending...' : 'Send to me'}
+                        </button>
+                      </div>
+                      <label className="inline-flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={subscribeToNewsletter}
+                          onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
+                          className="w-3 h-3 rounded accent-[#C4A484]"
+                        />
+                        <span className="text-xs text-[#6B6B6B]">
+                          Also receive occasional notes from Lunar Playground
+                        </span>
+                      </label>
+                    </form>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
+                      On its way
+                    </h2>
+                    <p className="text-[#6B6B6B]">
+                      Check your inbox for your {destination.city} travel reading.
+                    </p>
+                  </>
+                )}
+              </div>
+            </section>
+          </>
+        )}
+
+        {/* Explore More CTA */}
+        {step === 'result' && destination && selectedCategory && (
+          <>
+            <div className="container-editorial">
+              <div className="h-px bg-[#2A2A2A]/10" />
+            </div>
+            <section className="container-editorial py-8 md:py-12">
+              <p className="text-sm text-[#6B6B6B] mb-4">
+                Curious about other aspects of your chart?
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={handleReset}
+                  className="px-6 py-3 border border-[#2A2A2A]/20 text-sm text-[#2A2A2A] hover:border-[#2A2A2A]/40 transition-colors"
+                >
+                  Explore another line
+                </button>
+                <Link
+                  href="/your-chart"
+                  className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
+                >
+                  See your full chart
+                </Link>
+              </div>
+            </section>
+          </>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="container-editorial py-16 border-t border-[#2A2A2A]/10">
+      <footer className="container-editorial py-16">
         <div className="flex justify-end">
           <div className="flex gap-8 text-sm text-[#6B6B6B]">
             <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
