@@ -8,25 +8,34 @@ export default function Home() {
       <Navigation currentPage="home" />
 
       {/* Hero - Clear CTA to primary feature */}
-      <section className="container-editorial pt-20 pb-24 md:pt-32 md:pb-32">
-        <div className="max-w-3xl">
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-[#2A2A2A] leading-[1.1] tracking-tight">
-            What did the moon
-            <br />
-            look like the night
-            <br />
-            you were born?
-          </h1>
-          <p className="mt-8 text-xl text-[#6B6B6B] max-w-xl leading-relaxed">
-            Discover your birth chart, your lunar signature, and the places
-            in the world where you might feel most alive.
-          </p>
-          <Link
-            href="/your-chart"
-            className="inline-block mt-10 px-8 py-4 bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors"
-          >
-            Find your moon
-          </Link>
+      <section className="relative overflow-hidden">
+        <div className="container-editorial pt-20 pb-24 md:pt-32 md:pb-32 relative">
+          <div className="max-w-3xl relative z-10">
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-[#2A2A2A] leading-[1.1] tracking-tight">
+              What did the moon
+              <br />
+              look like the night
+              <br />
+              you were born?
+            </h1>
+            <p className="mt-8 text-xl text-[#6B6B6B] max-w-xl leading-relaxed">
+              Discover your birth chart, your lunar signature, and the places
+              in the world where you might feel most alive.
+            </p>
+            <Link
+              href="/your-chart"
+              className="inline-block mt-10 px-8 py-4 bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors"
+            >
+              Find your moon
+            </Link>
+          </div>
+          {/* Moon watercolor image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/Images/moon-watercolor.png"
+            alt=""
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-[300px] md:w-[400px] lg:w-[500px] h-auto opacity-60 pointer-events-none hidden md:block"
+          />
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { EmailCapture } from '@/components/ui/EmailCapture';
 import { Navigation } from '@/components/Navigation';
+import { MoonPhaseDisplay } from '@/components/MoonPhaseDisplay';
 import { getCurrentMoonPhase } from '@/lib/moon';
 
 // Daily reflections for each moon phase
@@ -78,10 +79,8 @@ export default function TodayPage() {
         <div className="grid md:grid-cols-2 gap-16 items-start">
           {/* Moon Visual */}
           <div className="flex flex-col items-center justify-center py-12">
-            <div className="text-[120px] md:text-[180px] leading-none">
-              {moonPhase.emoji}
-            </div>
-            <p className="font-serif text-2xl text-[#2A2A2A] mt-6">
+            <MoonPhaseDisplay phase={moonPhase.name} size={180} />
+            <p className="font-serif text-2xl text-[#2A2A2A] mt-8">
               {moonPhase.name}
             </p>
             <p className="text-sm text-[#6B6B6B] mt-2">

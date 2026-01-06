@@ -24,11 +24,11 @@ export function Navigation({ currentPage }: NavigationProps) {
       <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/Images/logo.png"
+            src="/Images/Untitled (1920 x 1080 px) (6).png"
             alt="The Lunar Playground"
-            width={48}
-            height={48}
-            className="h-20 w-auto mix-blend-multiply"
+            width={96}
+            height={96}
+            className="h-24 w-auto"
           />
           <span className="font-serif text-xl text-[#2A2A2A]">The Lunar Playground</span>
         </Link>

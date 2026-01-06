@@ -144,9 +144,10 @@ export default function YourChartPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
+    <div className="min-h-screen bg-[#FAF7F2] flex flex-col">
       <Navigation currentPage="your-chart" />
 
+      <main className="flex-1">
       {showLoading ? (
         // Loading Screen with Moon Phases Animation
         <div className="min-h-[80vh] flex flex-col items-center justify-center">
@@ -509,6 +510,7 @@ export default function YourChartPage() {
           </section>
         </>
       )}
+      </main>
 
       {/* Footer */}
       <footer className="container-editorial py-16 border-t border-[#2A2A2A]/10">

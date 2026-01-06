@@ -5,8 +5,8 @@
 
 const LUNAR_CYCLE = 29.53058867; // Average length of lunar cycle in days
 
-// Known new moon reference: January 6, 2000 at 18:14 UTC
-const KNOWN_NEW_MOON = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
+// Known new moon reference: December 20, 2025 at 01:43 UTC
+const KNOWN_NEW_MOON = new Date(Date.UTC(2025, 11, 20, 1, 43, 0));
 
 export interface MoonPhase {
   name: string;
@@ -81,8 +81,10 @@ export function getMoonPhase(date: Date): MoonPhase {
 
   // Determine which of the 8 phases we're in
   // Each phase is roughly 3.69 days (29.53 / 8)
+  // Offset by half a phase so phases are centered on their peak moments
   const phaseLength = LUNAR_CYCLE / 8;
-  const phaseIndex = Math.floor(daysIntoCycle / phaseLength) % 8;
+  const adjustedDays = (daysIntoCycle + phaseLength / 2) % LUNAR_CYCLE;
+  const phaseIndex = Math.floor(adjustedDays / phaseLength) % 8;
 
   const phase = moonPhaseData[phaseIndex];
 
