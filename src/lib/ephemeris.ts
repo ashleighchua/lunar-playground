@@ -1,0 +1,358 @@
+/**
+ * Astronomical calculations for birth chart
+ * Uses simplified algorithms for moon and rising sign calculation
+ */
+
+const zodiacSigns = [
+  { name: 'Aries', symbol: '♈', element: 'Fire', quality: 'Cardinal' },
+  { name: 'Taurus', symbol: '♉', element: 'Earth', quality: 'Fixed' },
+  { name: 'Gemini', symbol: '♊', element: 'Air', quality: 'Mutable' },
+  { name: 'Cancer', symbol: '♋', element: 'Water', quality: 'Cardinal' },
+  { name: 'Leo', symbol: '♌', element: 'Fire', quality: 'Fixed' },
+  { name: 'Virgo', symbol: '♍', element: 'Earth', quality: 'Mutable' },
+  { name: 'Libra', symbol: '♎', element: 'Air', quality: 'Cardinal' },
+  { name: 'Scorpio', symbol: '♏', element: 'Water', quality: 'Fixed' },
+  { name: 'Sagittarius', symbol: '♐', element: 'Fire', quality: 'Mutable' },
+  { name: 'Capricorn', symbol: '♑', element: 'Earth', quality: 'Cardinal' },
+  { name: 'Aquarius', symbol: '♒', element: 'Air', quality: 'Fixed' },
+  { name: 'Pisces', symbol: '♓', element: 'Water', quality: 'Mutable' },
+];
+
+// Context-specific descriptions for each sign placement
+const sunSignDescriptions: Record<string, string> = {
+  Aries: "Your core identity is forged in fire. You're here to initiate, to lead, to be first. There's a pioneering spirit in you that refuses to wait for permission. You learn by doing, sometimes leaping before you look—but that courage is exactly what allows you to begin things others only dream about. Your life force is strong, direct, and unapologetically bold.",
+  Taurus: "Your essence is rooted in the physical world—beauty, comfort, stability, and the slow cultivation of what matters. You're here to build things that last, to show others that patience is its own kind of power. Reliability isn't boring to you; it's a form of love. You understand that the best things take time.",
+  Gemini: "Your spirit is curious, restless, endlessly hungry for new information and connections. You're here to learn, communicate, and weave ideas together in ways others can't see. Versatility is your gift—you contain multitudes and see no reason to be just one thing. Life is a conversation, and you want to have all of it.",
+  Cancer: "Your identity is tied to nurturing, protecting, and creating emotional safety—for yourself and those you love. You feel the undercurrents that others miss. Home isn't just a place for you; it's a feeling you carry and create. Your sensitivity is your strength, allowing you to care deeply in a world that often forgets how.",
+  Leo: "You're here to shine, create, and inspire. There's a natural radiance to your presence that draws others in. Generosity flows from you easily—you want everyone to feel as alive as you do. Your need for recognition isn't vanity; it's the honest desire to be seen for who you truly are. When you lead with your heart, you light up rooms.",
+  Virgo: "Your purpose is refinement—taking what exists and making it better, clearer, more useful. You notice what others overlook and find satisfaction in solving problems others didn't know they had. Service isn't beneath you; it's how you express love. Your analytical mind is a gift, though learning to quiet your inner critic is part of your journey.",
+  Libra: "You're here to create harmony, beauty, and balance. Relationships are your laboratory—you understand yourself through others and genuinely need partnership to feel complete. Fairness matters deeply to you, sometimes to the point of indecision. Your gift is seeing all sides, even when it makes choosing harder.",
+  Scorpio: "Your identity runs deep. You're here to transform—yourself, situations, sometimes the people around you. Surface-level existence doesn't interest you; you want truth, even when it's uncomfortable. There's an intensity to your presence that some find magnetic and others find unsettling. You're not afraid of the dark, because you know that's where the real treasure is buried.",
+  Sagittarius: "Your spirit is expansive, optimistic, and perpetually aimed at the horizon. You're here to explore—places, ideas, philosophies, possibilities. Freedom isn't a luxury for you; it's oxygen. You teach others that life is an adventure meant to be embraced, that meaning is found in the journey itself.",
+  Capricorn: "You're here to build, achieve, and leave something lasting behind. There's an old soul quality to you, a quiet determination that plays the long game. You understand that real success requires discipline, patience, and sometimes doing the unglamorous work. Your ambition isn't about ego—it's about proving what's possible through sustained effort.",
+  Aquarius: "Your identity is tied to the collective, to progress, to what could be rather than what is. You're here to innovate and challenge the status quo. Independence matters fiercely to you—you need space to think your own thoughts and be your own person. You care deeply about humanity, sometimes more easily than individuals.",
+  Pisces: "Your essence is boundless, empathic, and connected to something larger than the material world. You're here to dream, to heal, to remind others of the magic that exists beneath everyday life. Boundaries can be challenging because you feel everything so deeply. Your imagination is a doorway, and your compassion is medicine.",
+};
+
+const moonSignDescriptions: Record<string, string> = {
+  Aries: "Emotionally, you need action. Sitting with feelings isn't your style—you'd rather do something about them. Your emotional responses are quick, honest, and sometimes impulsive. You process through movement and confrontation rather than reflection. When you're upset, everyone knows it. When you're over it, you're genuinely over it. You need independence even in your closest relationships.",
+  Taurus: "Your emotional world craves stability, comfort, and sensory pleasure. You process feelings slowly and need time to adjust to change. Once you've committed emotionally, you're deeply loyal—sometimes to a fault. Physical comfort soothes you: good food, soft textures, beautiful surroundings. Your emotional nature is patient, but push too hard and your stubborn side emerges with force.",
+  Gemini: "You process emotions through talking, thinking, and analyzing. Feelings that can't be articulated make you restless. You need mental stimulation even in emotional matters—boredom is harder for you than sadness. Your moods can shift quickly, and you might intellectualize feelings rather than fully experiencing them. Communication is how you connect and feel safe.",
+  Cancer: "Your emotional depths are vast. You feel everything—your own pain and others'—with remarkable intensity. Home and family aren't abstract concepts; they're emotional necessities. You remember how things felt long after others have moved on. Nurturing comes naturally, but you must learn to let others care for you too. Your intuition is uncanny; trust it.",
+  Leo: "You need to be seen and appreciated emotionally. Recognition isn't vanity—it's how you know you matter. Your feelings are dramatic and generous; when you love, you love completely. Pride can make it hard to admit hurt, but beneath that confident exterior is someone who deeply needs warmth and validation. You bring sunshine to emotional connections.",
+  Virgo: "You process emotions through analysis and often express care through practical help. Feelings can feel messy and unpredictable, so you try to make sense of them. You're harder on yourself emotionally than anyone else could be. Learning to accept imperfection—in yourself and others—is part of your growth. Your love language is often acts of service.",
+  Libra: "Emotional harmony is essential to your wellbeing. Conflict genuinely distresses you, and you'll go far to maintain peace—sometimes too far. You need partnership to feel emotionally balanced and may struggle with decisions when alone. Your feelings are refined, romantic, and deeply tied to your relationships. Beauty and aesthetics affect your mood more than most realize.",
+  Scorpio: "Your emotional world runs deeper than most people will ever know. You feel everything intensely—love, loss, loyalty, betrayal—and you don't do surface-level connections. Trust is earned slowly, but once given, your devotion is absolute. You need emotional honesty and can sense deception instantly. Transformation is your emotional superpower; you're endlessly capable of rising from the ashes.",
+  Sagittarius: "Emotionally, you need freedom and space to explore. Heavy feelings can make you restless; your instinct is to seek meaning or escape rather than dwell. Optimism is your emotional default, which serves you well but can sometimes mean avoiding necessary processing. You need a partner who gives you room to roam while still being your home base.",
+  Capricorn: "Your emotional nature is reserved, controlled, and deeply private. Feelings are processed internally, often slowly, and you're uncomfortable with emotional displays—your own or others'. Beneath that composed exterior is someone who feels profoundly but learned early that vulnerability wasn't safe. Achievement is tied to your emotional security. With time, you learn to let trusted people in.",
+  Aquarius: "You experience emotions from a slight distance, observing them as much as feeling them. Intense emotional demands can feel overwhelming, and you need space to process in your own way. You care deeply about humanity and causes, though individual emotional intimacy requires more effort. Your emotional nature is unconventional; you love in your own unique way.",
+  Pisces: "Your emotional world has no boundaries—you absorb feelings like a sponge, often unsure which emotions are yours and which belong to others. This makes you incredibly compassionate but also easily overwhelmed. You need solitude to discharge emotional energy. Dreams, music, art, and spirituality are essential outlets. Your capacity for unconditional love is rare and profound.",
+};
+
+const risingSignDescriptions: Record<string, string> = {
+  Aries: "You enter rooms with energy. People see you as confident, direct, maybe even intimidating before they know you. First impressions suggest someone who knows what they want and isn't afraid to go after it. You appear more competitive and assertive than you might actually feel inside. Your presence says: 'I'm here, and I'm ready.'",
+  Taurus: "You come across as calm, grounded, and perhaps a bit reserved until people get to know you. There's something steady and reassuring about your presence. People might assume you're more traditional or stubborn than you are. You appear reliable and unhurried, someone who can't be rushed. Beauty and quality in your appearance matter to you.",
+  Gemini: "You appear curious, chatty, and mentally quick. People see you as versatile and interesting, someone who can talk about anything. First impressions might suggest you're more scattered or superficial than you actually are. Your presence is youthful and adaptable. You seem approachable, witty, and always ready with a question or observation.",
+  Cancer: "You come across as nurturing, approachable, and perhaps a bit guarded initially. There's a softness to your presence that makes people want to open up to you. You might appear more traditional or family-oriented than you are inside. Your face is expressive; your emotions show whether you want them to or not. People sense your depth.",
+  Leo: "You radiate warmth and presence. People notice you when you enter a room—there's something magnetic about your energy. You appear confident, generous, and perhaps more dramatic than you feel inside. First impressions suggest someone creative and proud. Your appearance matters to you; you understand the power of presentation.",
+  Virgo: "You come across as put-together, observant, and perhaps a bit reserved. People see you as competent and detail-oriented, someone who has their life in order. You might appear more critical or perfectionist than you actually are. Your presence is modest but precise. People sense they can rely on you to notice what others miss.",
+  Libra: "You appear graceful, charming, and socially skilled. People see you as pleasant and easy to be around—you know how to make others comfortable. Your sense of style and aesthetics shows in how you present yourself. First impressions suggest someone diplomatic and relationship-oriented. You might seem more indecisive than you are.",
+  Scorpio: "Your presence is intense—people notice something penetrating about your gaze or demeanor. You appear mysterious, private, and perhaps more intimidating than you intend. First impressions suggest depth and complexity; people sense there's much more beneath the surface. You don't reveal yourself easily, and that creates intrigue.",
+  Sagittarius: "You enter rooms with warmth and infectious enthusiasm that puts people at ease. You appear open, honest, and perhaps a bit restless—always looking toward the next horizon. People see you as adventurous and philosophical, someone who asks big questions. Your presence suggests possibility and optimism. You might seem more carefree than you actually are.",
+  Capricorn: "You come across as mature, composed, and perhaps reserved or serious initially. People see you as competent and ambitious, someone who has clear goals. First impressions suggest reliability and authority beyond your years. You might appear more traditional or stern than you feel inside. Your presence commands quiet respect.",
+  Aquarius: "You appear unique, independent, and slightly detached—like you're observing the world from your own perspective. People see you as unconventional and intellectual, someone who thinks differently. First impressions suggest friendliness but also a certain distance. You seem like someone who doesn't follow crowds.",
+  Pisces: "You come across as gentle, dreamy, and perhaps a bit elusive. There's something otherworldly about your presence that people find hard to pin down. First impressions suggest creativity and sensitivity. You might appear more passive or uncertain than you actually are. People sense your compassion and imagination immediately.",
+};
+
+// Generic fallback descriptions
+const signDescriptions: Record<string, string> = {
+  Aries: 'Bold, direct, and unafraid to begin. The initiator who forges new paths.',
+  Taurus: 'Steady, sensual, and deeply rooted. The builder who values stability.',
+  Gemini: 'Curious, adaptable, and quick-minded. The communicator who connects ideas.',
+  Cancer: 'Protective, intuitive, and emotionally deep. The nurturer who creates home.',
+  Leo: 'Generous, creative, and naturally radiant. The performer who inspires.',
+  Virgo: 'Precise, helpful, and quietly devoted. The analyst who refines.',
+  Libra: 'Graceful, fair-minded, and relationship-oriented. The harmonizer who balances.',
+  Scorpio: 'Intense, perceptive, and unafraid of depth. The transformer who sees truth.',
+  Sagittarius: 'Optimistic, philosophical, and freedom-seeking. The explorer who expands.',
+  Capricorn: 'Ambitious, disciplined, and quietly determined. The achiever who builds.',
+  Aquarius: 'Independent, innovative, and humanitarian. The visionary who revolutionizes.',
+  Pisces: 'Empathic, imaginative, and spiritually attuned. The dreamer who transcends.',
+};
+
+export interface PlanetPosition {
+  name: string;
+  symbol: string;
+  longitude: number;
+  sign: string;
+  signSymbol: string;
+  degree: number;
+  element: string;
+  quality: string;
+  description: string;
+}
+
+export interface ChartData {
+  sun: PlanetPosition;
+  moon: PlanetPosition;
+  rising: PlanetPosition | null;
+  mercury: PlanetPosition;
+  venus: PlanetPosition;
+  mars: PlanetPosition;
+  jupiter: PlanetPosition;
+  saturn: PlanetPosition;
+}
+
+export interface BirthData {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  latitude: number;
+  longitude: number;
+  timezone: number;
+}
+
+/**
+ * Convert longitude to zodiac sign
+ * @param context - 'sun', 'moon', 'rising', or undefined for generic description
+ */
+function longitudeToSign(longitude: number, context?: 'sun' | 'moon' | 'rising'): PlanetPosition {
+  const signIndex = Math.floor(longitude / 30) % 12;
+  const degree = longitude % 30;
+  const sign = zodiacSigns[signIndex];
+
+  // Use context-specific description if available
+  let description = signDescriptions[sign.name];
+  if (context === 'sun') {
+    description = sunSignDescriptions[sign.name];
+  } else if (context === 'moon') {
+    description = moonSignDescriptions[sign.name];
+  } else if (context === 'rising') {
+    description = risingSignDescriptions[sign.name];
+  }
+
+  return {
+    name: '',
+    symbol: '',
+    longitude,
+    sign: sign.name,
+    signSymbol: sign.symbol,
+    degree: Math.floor(degree),
+    element: sign.element,
+    quality: sign.quality,
+    description,
+  };
+}
+
+/**
+ * Calculate Julian Day Number from date/time
+ */
+function toJulianDay(year: number, month: number, day: number, hour: number): number {
+  // Adjust for months January and February
+  let y = year;
+  let m = month;
+  if (m <= 2) {
+    y -= 1;
+    m += 12;
+  }
+
+  const a = Math.floor(y / 100);
+  const b = 2 - a + Math.floor(a / 4);
+
+  return Math.floor(365.25 * (y + 4716)) +
+         Math.floor(30.6001 * (m + 1)) +
+         day + hour / 24 + b - 1524.5;
+}
+
+/**
+ * Calculate Moon's ecliptic longitude using simplified algorithm
+ * Based on Meeus "Astronomical Algorithms"
+ */
+function calculateMoonLongitude(jd: number): number {
+  // Days since J2000.0
+  const T = (jd - 2451545.0) / 36525;
+
+  // Moon's mean longitude
+  const L0 = 218.3164477 + 481267.88123421 * T - 0.0015786 * T * T;
+
+  // Moon's mean anomaly
+  const M = 134.9633964 + 477198.8675055 * T + 0.0087414 * T * T;
+
+  // Moon's argument of latitude
+  const F = 93.272095 + 483202.0175233 * T - 0.0036539 * T * T;
+
+  // Sun's mean anomaly
+  const Ms = 357.5291092 + 35999.0502909 * T - 0.0001536 * T * T;
+
+  // Moon's mean elongation
+  const D = 297.8501921 + 445267.1114034 * T - 0.0018819 * T * T;
+
+  // Convert to radians
+  const Lrad = L0 * Math.PI / 180;
+  const Mrad = M * Math.PI / 180;
+  const Frad = F * Math.PI / 180;
+  const Msrad = Ms * Math.PI / 180;
+  const Drad = D * Math.PI / 180;
+
+  // Calculate main perturbations (simplified)
+  let longitude = L0;
+  longitude += 6.289 * Math.sin(Mrad);
+  longitude += 1.274 * Math.sin(2 * Drad - Mrad);
+  longitude += 0.658 * Math.sin(2 * Drad);
+  longitude += 0.214 * Math.sin(2 * Mrad);
+  longitude -= 0.186 * Math.sin(Msrad);
+  longitude -= 0.114 * Math.sin(2 * Frad);
+
+  // Normalize to 0-360
+  longitude = longitude % 360;
+  if (longitude < 0) longitude += 360;
+
+  return longitude;
+}
+
+/**
+ * Calculate Rising Sign (Ascendant) using accurate algorithm
+ * Based on standard astrological calculation methods
+ */
+function calculateAscendant(jd: number, latitude: number, longitude: number): number {
+  // Calculate Julian centuries from J2000.0
+  const T = (jd - 2451545.0) / 36525;
+
+  // Calculate Greenwich Mean Sidereal Time (in degrees)
+  // Using IAU formula
+  let GMST = 280.46061837 + 360.98564736629 * (jd - 2451545.0) +
+             0.000387933 * T * T - T * T * T / 38710000;
+
+  // Normalize GMST to 0-360
+  GMST = GMST % 360;
+  if (GMST < 0) GMST += 360;
+
+  // Local Sidereal Time (add geographic longitude)
+  let LST = GMST + longitude;
+  LST = LST % 360;
+  if (LST < 0) LST += 360;
+
+  // RAMC (Right Ascension of Midheaven) equals LST
+  const RAMC = LST;
+
+  // Convert to radians
+  const ramcRad = RAMC * Math.PI / 180;
+  const latRad = latitude * Math.PI / 180;
+
+  // Obliquity of the ecliptic (more accurate formula)
+  const eps = 23.439291 - 0.0130042 * T - 0.00000016 * T * T + 0.000000504 * T * T * T;
+  const epsRad = eps * Math.PI / 180;
+
+  // Calculate Ascendant using the standard formula
+  // ASC = atan2(-cos(RAMC), sin(eps)*tan(lat) + cos(eps)*sin(RAMC))
+  const y = -Math.cos(ramcRad);
+  const x = Math.sin(epsRad) * Math.tan(latRad) + Math.cos(epsRad) * Math.sin(ramcRad);
+
+  let asc = Math.atan2(y, x) * 180 / Math.PI;
+
+  // The atan2 result needs to be adjusted to ecliptic longitude
+  // Add 180 degrees to get the correct quadrant for the ascendant
+  asc = asc + 180;
+
+  // Normalize to 0-360
+  asc = asc % 360;
+  if (asc < 0) asc += 360;
+
+  return asc;
+}
+
+/**
+ * Calculate birth chart using astronomical algorithms
+ */
+export async function calculateChart(birthData: BirthData): Promise<ChartData | null> {
+  try {
+    // Convert local time to UTC
+    const utcHour = birthData.hour + birthData.minute / 60 - birthData.timezone;
+
+    // Calculate Julian Day
+    const jd = toJulianDay(birthData.year, birthData.month, birthData.day, utcHour);
+
+    // Calculate Moon position
+    const moonLongitude = calculateMoonLongitude(jd);
+    const moonSign = longitudeToSign(moonLongitude, 'moon');
+    const moon: PlanetPosition = {
+      ...moonSign,
+      name: 'Moon',
+      symbol: '☽',
+    };
+
+    // Calculate Ascendant (Rising sign)
+    let rising: PlanetPosition | null = null;
+    if (birthData.latitude && birthData.longitude) {
+      const ascLongitude = calculateAscendant(jd, birthData.latitude, birthData.longitude);
+      const ascSign = longitudeToSign(ascLongitude, 'rising');
+      rising = {
+        ...ascSign,
+        name: 'Rising',
+        symbol: '↑',
+      };
+    }
+
+    // Calculate Sun position
+    const sunLongitude = calculateSunLongitude(jd);
+    const sunSign = longitudeToSign(sunLongitude, 'sun');
+    const sun: PlanetPosition = {
+      ...sunSign,
+      name: 'Sun',
+      symbol: '☉',
+    };
+
+    return {
+      sun,
+      moon,
+      rising,
+      mercury: sun, // Placeholder
+      venus: sun,   // Placeholder
+      mars: sun,    // Placeholder
+      jupiter: sun, // Placeholder
+      saturn: sun,  // Placeholder
+    };
+  } catch (error) {
+    console.error('Error calculating chart:', error);
+    return null;
+  }
+}
+
+/**
+ * Calculate Sun's ecliptic longitude
+ */
+function calculateSunLongitude(jd: number): number {
+  const T = (jd - 2451545.0) / 36525;
+
+  // Mean longitude of the Sun
+  const L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+
+  // Mean anomaly of the Sun
+  const M = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
+  const Mrad = M * Math.PI / 180;
+
+  // Equation of center
+  const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(Mrad) +
+            (0.019993 - 0.000101 * T) * Math.sin(2 * Mrad) +
+            0.000289 * Math.sin(3 * Mrad);
+
+  // Sun's true longitude
+  let longitude = L0 + C;
+
+  // Normalize to 0-360
+  longitude = longitude % 360;
+  if (longitude < 0) longitude += 360;
+
+  return longitude;
+}
+
+/**
+ * Get timezone offset from location (simplified - assumes standard time)
+ * For accurate results, you'd want to use a timezone API
+ */
+export function estimateTimezone(longitude: number): number {
+  // Rough estimate: 15 degrees = 1 hour
+  return Math.round(longitude / 15);
+}

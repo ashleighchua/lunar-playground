@@ -1,26 +1,92 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* The Lunar Playground Palette */
+  --warm-white: #FAF7F2;
+  --deep-grey: #2A2A2A;
+  --dusty-lilac: #D6CFE3;
+  --muted-clay: #E4D6CC;
+  --soft-sage: #D8E0D2;
+  --powder-blue: #C9D6E3;
+
+  /* Semantic */
+  --background: var(--warm-white);
+  --foreground: var(--deep-grey);
+  --muted: #6B6B6B;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Editorial typography */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+p {
+  line-height: 1.75;
+}
+
+::selection {
+  background: var(--dusty-lilac);
+  color: var(--deep-grey);
+}
+
+:focus-visible {
+  outline: 2px solid var(--dusty-lilac);
+  outline-offset: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Container */
+.container-editorial {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-editorial {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* Numbered list styling */
+.numbered-item {
+  counter-increment: section;
+}
+
+.numbered-item::before {
+  content: "0" counter(section);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 1rem;
 }
