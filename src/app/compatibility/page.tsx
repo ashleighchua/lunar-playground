@@ -2034,20 +2034,14 @@ export default function Compatibility2Page() {
                 </div>
               </div>
 
-              {/* Compatibility score */}
+              {/* Compatibility description */}
               <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-4 px-8 py-4 border border-[#2A2A2A]/10">
-                  <span className="text-5xl font-serif text-[#2A2A2A]">{compatibility.percentage}%</span>
-                  <div className="text-left">
-                    <p className={`text-sm font-medium ${
-                      compatibility.level === 'High' ? 'text-green-700' :
-                      compatibility.level === 'Moderate' ? 'text-amber-700' :
-                      'text-red-700'
-                    }`}>
-                      {compatibility.level} Compatibility
-                    </p>
-                    <p className="text-xs text-[#6B6B6B]">Overall match</p>
-                  </div>
+                <div className="inline-block px-6 py-3 border border-[#2A2A2A]/10">
+                  <p className="font-serif text-lg text-[#2A2A2A]">
+                    {compatibility.level === 'High' ? 'Natural Harmony' :
+                     compatibility.level === 'Moderate' ? 'Balanced Energy' :
+                     'Growth-Oriented'}
+                  </p>
                 </div>
               </div>
 
@@ -2087,20 +2081,20 @@ export default function Compatibility2Page() {
                 <ul className="space-y-3">
                   {compatibility.strengths.map((strength, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-green-600 mt-1">✓</span>
+                      <span className="text-[#6B6B6B] mt-1">·</span>
                       <span className="text-[#6B6B6B]">{strength}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Challenges */}
+              {/* Areas for Growth */}
               <div className="mb-16">
-                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6">Potential Challenges</h2>
+                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6">Areas for Growth</h2>
                 <ul className="space-y-3">
                   {compatibility.challenges.map((challenge, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-amber-600 mt-1">○</span>
+                      <span className="text-[#6B6B6B] mt-1">○</span>
                       <span className="text-[#6B6B6B]">{challenge}</span>
                     </li>
                   ))}
