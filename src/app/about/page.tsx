@@ -54,30 +54,6 @@ export default function AboutPage() {
           <div className="h-px bg-[#2A2A2A]/10" />
         </div>
 
-        {/* Why We're Different */}
-        <section className="container-editorial py-12 md:py-16">
-          <div className="max-w-2xl">
-            <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
-              Why we&apos;re different
-            </h2>
-            <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
-              <p>
-                Most astrology sites tell you who you are. We&apos;d rather help you ask
-                better questions.
-              </p>
-              <p>
-                No paywalls. No fear-based predictions. No pressure to believe anything.
-                Just tools for reflection, offered with warmth.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Divider */}
-        <div className="container-editorial">
-          <div className="h-px bg-[#2A2A2A]/10" />
-        </div>
-
         {/* Values */}
         <section className="container-editorial pt-12 md:pt-16 pb-6 md:pb-8">
           <div className="max-w-4xl mx-auto">
@@ -163,6 +139,10 @@ export default function AboutPage() {
               </p>
               <p>
                 Think poetry, not science. Take what resonates. Leave what doesn&apos;t.
+              </p>
+              <p>
+                No paywalls. No fear-based predictions. No pressure to believe anything.
+                Just tools for reflection, offered with warmth.
               </p>
             </div>
           </div>
