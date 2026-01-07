@@ -15,7 +15,7 @@ export default function AboutPage() {
               About
             </h1>
             <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed">
-              A playground for the curious. Not a prophecy.
+              A playground for the curious.
             </p>
           </div>
         </section>
