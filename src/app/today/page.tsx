@@ -74,8 +74,8 @@ export default function TodayPage() {
       </div>
 
       {/* Moon Phase Display */}
-      <section className="container-editorial py-16 md:py-24">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="container-editorial py-12 md:py-16">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Moon Visual */}
           <div className="flex flex-col items-center justify-center">
             <div
@@ -109,10 +109,15 @@ export default function TodayPage() {
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="container-editorial">
+        <div className="h-px bg-[#2A2A2A]/10" />
+      </div>
+
       {/* Email Capture */}
-      <section className="container-editorial py-16 md:py-24">
+      <section className="container-editorial py-12 md:py-16">
         <div className="max-w-xl mx-auto text-center">
-          <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-4">
+          <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
             Receive the lunar note
           </h2>
           <p className="text-[#6B6B6B] mb-8">
@@ -135,30 +140,28 @@ export default function TodayPage() {
       </div>
 
       {/* Next Step */}
-      <section className="container-editorial py-16 md:py-24">
-        <div className="max-w-xl mx-auto">
-          <p className="text-[#6B6B6B] mb-6">
-            Want to explore more?
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/your-chart"
-              className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors text-center"
-            >
-              See your birth moon
-            </Link>
-            <Link
-              href="/compatibility"
-              className="px-6 py-3 border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm tracking-wide hover:border-[#2A2A2A]/40 transition-colors text-center"
-            >
-              Check compatibility
-            </Link>
-          </div>
+      <section className="container-editorial py-8 md:py-12">
+        <p className="text-sm text-[#6B6B6B] mb-4">
+          Want to explore more?
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <Link
+            href="/your-chart"
+            className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
+          >
+            See your birth moon
+          </Link>
+          <Link
+            href="/compatibility"
+            className="px-6 py-3 border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm hover:border-[#2A2A2A]/40 transition-colors"
+          >
+            Check compatibility
+          </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="container-editorial py-16 border-t border-[#2A2A2A]/10">
+      <footer className="container-editorial py-16">
         <div className="flex justify-end">
           <div className="flex gap-8 text-sm text-[#6B6B6B]">
             <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">

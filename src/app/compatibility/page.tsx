@@ -1958,42 +1958,45 @@ export default function Compatibility2Page() {
 
         {/* Sign Selection */}
         {!showResults && (
-          <section className="container-editorial py-16 md:py-24 min-h-[60vh] flex items-center">
-            <div className="max-w-4xl w-full mx-auto">
-              {sign1 && (
-                <button
-                  onClick={handleReset}
-                  className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-8"
-                >
-                  ← Start over
-                </button>
-              )}
+          <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16 min-h-[60vh]">
+            {sign1 && (
+              <button
+                onClick={handleReset}
+                className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
+              >
+                ← Start over
+              </button>
+            )}
+            <div className="max-w-4xl w-full mx-auto flex flex-col items-center min-h-[50vh]">
 
               {/* Selected signs display */}
               {sign1 && (
                 <div className="flex items-center justify-center gap-8 mb-12">
                   <div className="flex flex-col items-center">
-                    <div className="w-20 h-20 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#FAF7F2]">
-                      {renderZodiacIcon(sign1, 40)}
+                    <div className="w-24 h-24 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#FAF7F2]">
+                      {renderZodiacIcon(sign1, 48)}
                     </div>
-                    <p className="mt-2 font-serif text-lg text-[#2A2A2A]">{sign1}</p>
-                    <p className="text-xs text-[#6B6B6B]">{signElements[sign1].element}</p>
+                    <p className="mt-3 font-serif text-xl text-[#2A2A2A]">{sign1}</p>
+                    <p className="text-sm text-[#6B6B6B]">{signElements[sign1].element}</p>
                   </div>
-                  <span className="text-3xl text-[#6B6B6B]">&</span>
+                  <div className="text-center">
+                    <span className="text-4xl text-[#6B6B6B]">&</span>
+                  </div>
                   <div className="flex flex-col items-center">
-                    <div className="w-20 h-20 rounded-full border-2 border-dashed border-[#2A2A2A]/20 flex items-center justify-center text-[#6B6B6B]">
+                    <div className="w-24 h-24 rounded-full border-2 border-dashed border-[#2A2A2A]/20 flex items-center justify-center text-[#6B6B6B] text-2xl">
                       ?
                     </div>
-                    <p className="mt-2 font-serif text-lg text-[#6B6B6B]">Their sign</p>
+                    <p className="mt-3 font-serif text-xl text-[#6B6B6B]">Their sign</p>
+                    <p className="text-sm text-transparent">.</p>
                   </div>
                 </div>
               )}
 
-              <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
+              <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8 text-center">
                 {!sign1 ? 'Choose your sign' : 'Choose their sign'}
               </h2>
 
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 justify-items-center">
                 {zodiacSigns.map((sign) => {
                   const isSelected = sign === sign1;
                   const isDisabled = sign === sign1;
@@ -2030,7 +2033,7 @@ export default function Compatibility2Page() {
 
         {/* Results */}
         {showResults && sign1 && sign2 && compatibility && (
-          <section className="container-editorial py-16 md:py-24">
+          <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
             <button
               onClick={handleReset}
               className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
@@ -2150,11 +2153,11 @@ export default function Compatibility2Page() {
             <div className="container-editorial">
               <div className="h-px bg-[#2A2A2A]/10" />
             </div>
-            <section className="container-editorial py-16 md:py-24">
+            <section className="container-editorial py-12 md:py-16">
               <div className="max-w-xl mx-auto text-center">
                 {!emailSent ? (
                   <>
-                    <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-4">
+                    <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
                       Save your reading
                     </h2>
                     <p className="text-[#6B6B6B] mb-8">

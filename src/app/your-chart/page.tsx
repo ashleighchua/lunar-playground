@@ -25,6 +25,7 @@ import {
   RisingIcon,
 } from '@/components/icons/ZodiacIcons';
 import { getChineseZodiacIcon } from '@/components/icons/ChineseZodiacIcons';
+import { saveBirthData } from '@/lib/birthData';
 
 // Moon phase emojis for loading animation
 const moonPhases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
@@ -74,6 +75,19 @@ export default function YourChartPage() {
     }
 
     setDateError(null);
+
+    // Save birth data for use on other pages
+    saveBirthData({
+      birthdate: formData.birthdate,
+      birthtime: formData.birthtime,
+      birthplace: selectedCity ? {
+        name: selectedCity.name,
+        country: selectedCity.country || '',
+        lat: selectedCity.lat,
+        lng: selectedCity.lng,
+      } : null,
+    });
+
     setIsCalculating(true);
     setShowLoading(true);
     setLoadingPhase(0);
@@ -203,7 +217,7 @@ export default function YourChartPage() {
           </div>
 
           {/* Form Section */}
-          <section className="container-editorial py-16 md:py-24 min-h-[60vh] flex items-center justify-center">
+          <section className="container-editorial py-12 md:py-16 min-h-[60vh] flex items-center justify-center">
             <div className="max-w-md w-full text-center">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
                 Enter your birth details
@@ -291,33 +305,29 @@ export default function YourChartPage() {
               <span>←</span> Enter different details
             </button>
 
-            <p className="text-sm text-[#6B6B6B] tracking-wide uppercase">
-              The night you were born
-            </p>
             {birthMoon && (
-              <div className="mt-8 flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
-                <div className="text-center">
-                  <div
-                    className="text-[120px] md:text-[180px] leading-none"
-                    style={{
-                      filter: 'saturate(0.3) brightness(1.1)',
-                      opacity: 0.85
-                    }}
-                  >
-                    {birthMoon.emoji}
-                  </div>
-                  <p className="text-sm text-[#6B6B6B] mt-2">
-                    {birthMoon.illumination}% illuminated
-                  </p>
+              <div className="mt-8 flex flex-col items-center text-center">
+                <p className="text-sm text-[#6B6B6B] tracking-wide uppercase mb-8">
+                  The night you were born
+                </p>
+                <div
+                  className="text-[120px] md:text-[180px] leading-none"
+                  style={{
+                    filter: 'saturate(0.3) brightness(1.1)',
+                    opacity: 0.85
+                  }}
+                >
+                  {birthMoon.emoji}
                 </div>
-                <div className="max-w-lg">
-                  <h1 className="font-serif text-4xl md:text-5xl text-[#2A2A2A] leading-[1.1]">
-                    {birthMoon.name}
-                  </h1>
-                  <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed">
-                    {birthMoon.description}
-                  </p>
-                </div>
+                <p className="text-sm text-[#6B6B6B] mt-2">
+                  {birthMoon.illumination}% illuminated
+                </p>
+                <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] mt-8">
+                  {birthMoon.name}
+                </h1>
+                <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed max-w-lg">
+                  {birthMoon.description}
+                </p>
               </div>
             )}
           </section>
@@ -328,7 +338,7 @@ export default function YourChartPage() {
           </div>
 
           {/* Your Chart - Big Three */}
-          <section className="container-editorial py-16 md:py-24">
+          <section className="container-editorial py-12 md:py-16">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-12">
               Your chart
             </h2>
@@ -415,7 +425,7 @@ export default function YourChartPage() {
           </div>
 
           {/* Chinese Zodiac & Life Path */}
-          <section className="container-editorial py-16 md:py-24">
+          <section className="container-editorial py-12 md:py-16">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-12">
               Additional insights
             </h2>
@@ -467,7 +477,7 @@ export default function YourChartPage() {
           </div>
 
           {/* Email Capture */}
-          <section className="container-editorial py-16 md:py-20">
+          <section className="container-editorial py-12 md:py-16">
             <div className="max-w-xl mx-auto text-center">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
                 Save your chart
@@ -504,19 +514,19 @@ export default function YourChartPage() {
 
           {/* Next Steps */}
           <section className="container-editorial py-8 md:py-12">
-            <p className="text-[#6B6B6B] mb-6">
+            <p className="text-sm text-[#6B6B6B] mb-4">
               Want to explore more?
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-wrap gap-4">
               <Link
                 href="/compatibility"
-                className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors text-center"
+                className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
               >
                 Check compatibility
               </Link>
               <Link
                 href="/travel"
-                className="px-6 py-3 border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm tracking-wide hover:border-[#2A2A2A]/40 transition-colors text-center"
+                className="px-6 py-3 border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm hover:border-[#2A2A2A]/40 transition-colors"
               >
                 Explore your travel map
               </Link>

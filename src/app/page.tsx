@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { EmailCapture } from '@/components/ui/EmailCapture';
 import { Navigation } from '@/components/Navigation';
+import { HomeEmailCapture } from '@/components/ui/HomeEmailCapture';
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
 
       {/* Hero - Clear CTA to primary feature */}
       <section className="relative overflow-hidden">
-        <div className="container-editorial pt-20 pb-24 md:pt-32 md:pb-32 relative">
+        <div className="container-editorial pt-16 pb-20 md:pt-24 md:pb-28 relative">
           <div className="max-w-3xl relative z-10">
             <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-[#2A2A2A] leading-[1.1] tracking-tight">
               What did the moon
@@ -34,7 +34,7 @@ export default function Home() {
           <img
             src="/Images/mooncolour.png"
             alt=""
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-[400px] md:w-[550px] lg:w-[700px] h-auto opacity-60 pointer-events-none hidden md:block"
+            className="absolute right-0 top-1/3 -translate-y-1/3 translate-x-[10%] w-[400px] md:w-[550px] lg:w-[700px] h-auto opacity-60 pointer-events-none hidden md:block"
           />
         </div>
       </section>
@@ -45,7 +45,7 @@ export default function Home() {
       </div>
 
       {/* Primary Feature - Your Chart */}
-      <section className="container-editorial py-24 md:py-32">
+      <section className="container-editorial py-16 md:py-24">
         <Link href="/your-chart" className="group block max-w-2xl">
           <span className="text-xs tracking-[0.15em] uppercase text-[#6B6B6B]">
             Start here
@@ -69,8 +69,8 @@ export default function Home() {
       </div>
 
       {/* Secondary Features Grid */}
-      <section className="container-editorial py-24 md:py-32">
-        <div className="grid md:grid-cols-3 gap-12 md:gap-16">
+      <section className="container-editorial py-16 md:py-24">
+        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
           {/* Today's Moon */}
           <Link href="/today" className="group block">
             <h3 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] group-hover:text-[#6B6B6B] transition-colors">
@@ -91,11 +91,11 @@ export default function Home() {
               Compatibility
             </h3>
             <p className="mt-4 text-[#6B6B6B] leading-relaxed">
-              How two charts speak to each other. The dynamics, tensions,
-              and harmonies between you.
+              How two signs speak to each other. The dynamics, tensions,
+              and harmonies between you and another.
             </p>
             <span className="inline-block mt-4 text-sm text-[#6B6B6B] group-hover:text-[#2A2A2A] transition-colors">
-              Compare charts
+              Compare signs
             </span>
           </Link>
 
@@ -121,24 +121,8 @@ export default function Home() {
       </div>
 
       {/* Email Capture */}
-      <section className="container-editorial py-24 md:py-32">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="font-serif text-3xl md:text-4xl text-[#2A2A2A] mb-4">
-            Get your lunar note
-          </h2>
-          <p className="text-[#6B6B6B] mb-8">
-            A short reflection sent with each new moon phase.
-            No spam, no daily overwhelm. Just the moon.
-          </p>
-          <EmailCapture
-            headline=""
-            description=""
-            buttonText="Subscribe"
-            variant="minimal"
-            tags={['homepage', 'lunar-notes']}
-            showDisclaimer
-          />
-        </div>
+      <section className="container-editorial py-16 md:py-24">
+        <HomeEmailCapture />
       </section>
 
       {/* Divider */}
@@ -147,19 +131,21 @@ export default function Home() {
       </div>
 
       {/* Philosophy */}
-      <section className="container-editorial py-24 md:py-32">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="font-serif text-2xl md:text-3xl text-[#2A2A2A] leading-relaxed">
-            Astrology gives language to intuition, making the unseen easier to hold.
-          </p>
-          <p className="mt-8 text-[#6B6B6B]">
-            A playground, not a prophecy.
-          </p>
+      <section className="py-16 md:py-24 bg-[#2A2A2A]">
+        <div className="container-editorial">
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="font-serif text-2xl md:text-3xl text-[#FAF7F2] leading-relaxed">
+              Astrology gives language to intuition, making the unseen easier to hold.
+            </p>
+            <p className="mt-8 text-[#FAF7F2]/60">
+              A playground, not a prophecy.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="container-editorial py-16 border-t border-[#2A2A2A]/10">
+      <footer className="container-editorial py-16">
         <div className="flex justify-end">
           <div className="flex gap-8 text-sm text-[#6B6B6B]">
             <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">

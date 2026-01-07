@@ -11,6 +11,7 @@ import {
   categoryInfo,
   type Destination
 } from '@/lib/travel';
+import { loadBirthData } from '@/lib/birthData';
 
 type Category = 'sun' | 'jupiter' | 'venus' | 'moon' | 'mercury' | 'mars';
 
@@ -84,6 +85,23 @@ export default function TravelPage() {
   const [emailSending, setEmailSending] = useState(false);
 
   const moonPhases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
+
+  // Load saved birth data on mount
+  useEffect(() => {
+    const savedData = loadBirthData();
+    if (savedData) {
+      setBirthdate(savedData.birthdate);
+      setBirthtime(savedData.birthtime);
+      if (savedData.birthplace) {
+        setBirthplace({
+          name: savedData.birthplace.name,
+          country: savedData.birthplace.country,
+          lat: savedData.birthplace.lat,
+          lng: savedData.birthplace.lng,
+        });
+      }
+    }
+  }, []);
 
   // Loading animation
   useEffect(() => {
@@ -169,7 +187,7 @@ export default function TravelPage() {
 
         {/* Category Selection Step */}
         {step === 'category' && (
-          <section className="container-editorial py-16 md:py-24">
+          <section className="container-editorial py-12 md:py-16">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
                 What are you looking for?
@@ -201,23 +219,23 @@ export default function TravelPage() {
 
         {/* Form Step */}
         {step === 'form' && selectedCategory && (
-          <section className="container-editorial py-16 md:py-24">
-            <div className="max-w-md">
-              <button
-                onClick={() => setStep('category')}
-                className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-8"
-              >
-                ← Back to categories
-              </button>
+          <section className="container-editorial pt-8 pb-16 md:pt-12 md:pb-24">
+            <button
+              onClick={() => setStep('category')}
+              className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
+            >
+              ← Back to categories
+            </button>
 
-              <div className="flex items-center gap-4 mb-8">
+            <div className="max-w-md mx-auto text-center">
+              <div className="flex items-center justify-center gap-4 mb-8">
                 <PlanetIcon planet={selectedCategory} className="w-8 h-8 text-[#2A2A2A]" />
                 <h2 className="font-serif text-2xl text-[#2A2A2A]">
                   {categoryInfo[selectedCategory].title}
                 </h2>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 text-left">
                 <div>
                   <label htmlFor="birthdate" className="block text-sm text-[#6B6B6B] mb-2">
                     Date of birth
@@ -272,7 +290,7 @@ export default function TravelPage() {
 
         {/* Loading Step */}
         {step === 'loading' && (
-          <section className="container-editorial py-24 md:py-32 min-h-[60vh] flex items-center justify-center">
+          <section className="container-editorial py-16 md:py-24 min-h-[60vh] flex items-center justify-center">
             <div className="flex flex-col items-center justify-center text-center">
               <div
                 className="text-7xl md:text-8xl mb-8 transition-all duration-300"
@@ -307,7 +325,7 @@ export default function TravelPage() {
 
               {/* Centered: Header and subheader */}
               <div className="text-center mb-8">
-                <h2 className="font-serif text-3xl md:text-4xl text-[#2A2A2A] mb-2">
+                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-2">
                   {destination.city}
                 </h2>
                 <p className="text-lg text-[#6B6B6B]">
@@ -332,7 +350,7 @@ export default function TravelPage() {
               </div>
 
               {/* Centered: Description */}
-              <div className="max-w-2xl mx-auto text-center mb-12">
+              <div className="max-w-2xl mx-auto text-center pb-12 md:pb-16">
                 <p className="text-[#6B6B6B] leading-relaxed text-lg">
                   {destination.description}
                 </p>
@@ -345,11 +363,11 @@ export default function TravelPage() {
             </div>
 
             {/* Email Results - Centered */}
-            <section className="container-editorial py-16 md:py-24">
+            <section className="container-editorial py-12 md:py-16">
               <div className="max-w-xl mx-auto text-center">
                 {!emailSent ? (
                   <>
-                    <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-4">
+                    <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
                       Save your destination
                     </h2>
                     <p className="text-[#6B6B6B] mb-8">
@@ -362,25 +380,25 @@ export default function TravelPage() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="flex-1 px-4 py-3 rounded-lg border border-[#2A2A2A]/10 bg-[#FAF7F2] text-[#2A2A2A] placeholder-[#6B6B6B]/50 focus:outline-none focus:ring-2 focus:ring-[#C4A484]/30 focus:border-[#C4A484]/50 transition-colors"
+                          className="flex-1 px-5 py-4 rounded-lg border border-[#2A2A2A]/10 bg-white text-[#2A2A2A] placeholder-[#6B6B6B]/50 focus:outline-none focus:ring-2 focus:ring-[#B8A090]/30 focus:border-[#B8A090]/50 transition-colors"
                           required
                         />
                         <button
                           type="submit"
                           disabled={emailSending}
-                          className="px-6 py-3 rounded-lg bg-[#C4A484] text-white hover:bg-[#B8956E] transition-colors disabled:opacity-50 whitespace-nowrap"
+                          className="px-8 py-4 rounded-lg bg-[#B8A090] text-white hover:bg-[#A89080] transition-colors disabled:opacity-50 whitespace-nowrap"
                         >
                           {emailSending ? 'Sending...' : 'Send to me'}
                         </button>
                       </div>
-                      <label className="inline-flex items-center gap-2 cursor-pointer">
+                      <label className="flex items-center justify-center gap-2 cursor-pointer mt-4">
                         <input
                           type="checkbox"
                           checked={subscribeToNewsletter}
                           onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
-                          className="w-3 h-3 rounded accent-[#C4A484]"
+                          className="w-4 h-4 rounded border-[#2A2A2A]/20 accent-[#B8A090]"
                         />
-                        <span className="text-xs text-[#6B6B6B]">
+                        <span className="text-sm text-[#6B6B6B]">
                           Also receive occasional notes from Lunar Playground
                         </span>
                       </label>

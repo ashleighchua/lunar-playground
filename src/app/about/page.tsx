@@ -26,7 +26,7 @@ export default function AboutPage() {
         </div>
 
         {/* My Story */}
-        <section className="container-editorial py-16 md:py-24">
+        <section className="container-editorial py-12 md:py-16">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
               The story
@@ -55,7 +55,7 @@ export default function AboutPage() {
         </div>
 
         {/* Why We're Different */}
-        <section className="container-editorial py-16 md:py-24">
+        <section className="container-editorial py-12 md:py-16">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
               Why we&apos;re different
@@ -79,7 +79,7 @@ export default function AboutPage() {
         </div>
 
         {/* Values */}
-        <section className="container-editorial pt-16 md:pt-24 pb-8 md:pb-12">
+        <section className="container-editorial pt-12 md:pt-16 pb-6 md:pb-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6 text-center">
               What guides us
@@ -151,7 +151,7 @@ export default function AboutPage() {
         </div>
 
         {/* Philosophy */}
-        <section className="container-editorial py-16 md:py-24">
+        <section className="container-editorial py-12 md:py-16">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
               What we believe
@@ -174,7 +174,7 @@ export default function AboutPage() {
         </div>
 
         {/* Contact */}
-        <section className="container-editorial py-16 md:py-24">
+        <section className="container-editorial py-12 md:py-16">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
               Say hello
@@ -197,7 +197,7 @@ export default function AboutPage() {
       </main>
 
       {/* Footer */}
-      <footer className="container-editorial py-16 border-t border-[#2A2A2A]/10">
+      <footer className="container-editorial py-16">
         <div className="flex justify-end">
           <div className="flex gap-8 text-sm text-[#6B6B6B]">
             <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
