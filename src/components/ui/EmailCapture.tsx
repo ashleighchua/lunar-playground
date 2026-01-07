@@ -26,6 +26,7 @@ interface EmailCaptureProps {
   variant?: 'inline' | 'card' | 'minimal';
   className?: string;
   onSuccess?: () => void;
+  showDisclaimer?: boolean;
 }
 
 /**
@@ -41,11 +42,13 @@ export function EmailCapture({
   variant = 'card',
   className,
   onSuccess,
+  showDisclaimer = false,
 }: EmailCaptureProps) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [optInNotes, setOptInNotes] = useState(true);
 
   // Check localStorage on mount
   useEffect(() => {
@@ -127,21 +130,35 @@ export function EmailCapture({
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your@email.com"
           className={cn(
-            'flex-1 px-4 py-3 rounded-lg border bg-cream-50 text-warm-900 placeholder:text-warm-300',
-            'focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta/50',
+            'flex-1 px-5 py-4 rounded-lg border bg-white text-[#2A2A2A] placeholder:text-[#6B6B6B]/50',
+            'focus:outline-none focus:ring-2 focus:ring-[#B8A090]/30 focus:border-[#B8A090]/50',
             'transition-colors duration-200',
-            status === 'error' ? 'border-red-300' : 'border-warm-900/10'
+            status === 'error' ? 'border-red-300' : 'border-[#2A2A2A]/10'
           )}
           disabled={status === 'loading'}
         />
-        <Button
+        <button
           type="submit"
           disabled={status === 'loading'}
-          className="bg-terracotta hover:bg-terracotta-dark text-cream-50 whitespace-nowrap"
+          className="px-8 py-4 bg-[#B8A090] hover:bg-[#A89080] text-white rounded-lg whitespace-nowrap transition-colors disabled:opacity-50"
         >
-          {status === 'loading' ? 'Joining...' : buttonText}
-        </Button>
+          {status === 'loading' ? 'Sending...' : buttonText}
+        </button>
       </div>
+
+      {showDisclaimer && (
+        <label className="flex items-center justify-center gap-2 cursor-pointer mt-4">
+          <input
+            type="checkbox"
+            checked={optInNotes}
+            onChange={(e) => setOptInNotes(e.target.checked)}
+            className="w-4 h-4 rounded border-[#2A2A2A]/20 text-[#B8A090] focus:ring-[#B8A090]/30 accent-[#B8A090]"
+          />
+          <span className="text-sm text-[#6B6B6B]">
+            Also receive occasional notes from Lunar Playground
+          </span>
+        </label>
+      )}
 
       <AnimatePresence>
         {status === 'error' && errorMessage && (
@@ -149,7 +166,7 @@ export function EmailCapture({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="text-sm text-red-600"
+            className="text-sm text-red-600 text-center"
           >
             {errorMessage}
           </motion.p>

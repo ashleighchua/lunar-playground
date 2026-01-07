@@ -2086,7 +2086,7 @@ export default function Compatibility2Page() {
                     {renderZodiacIcon(sign1, 24)}
                     <h3 className="font-serif text-lg text-[#2A2A2A]">{sign1}</h3>
                   </div>
-                  <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                  <p className="text-lg text-[#6B6B6B] leading-relaxed">
                     {signDescriptions[sign1]}
                   </p>
                 </div>
@@ -2095,7 +2095,7 @@ export default function Compatibility2Page() {
                     {renderZodiacIcon(sign2, 24)}
                     <h3 className="font-serif text-lg text-[#2A2A2A]">{sign2}</h3>
                   </div>
-                  <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                  <p className="text-lg text-[#6B6B6B] leading-relaxed">
                     {signDescriptions[sign2]}
                   </p>
                 </div>
@@ -2107,8 +2107,8 @@ export default function Compatibility2Page() {
                 <ul className="space-y-3">
                   {compatibility.strengths.map((strength, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-[#6B6B6B] mt-1">·</span>
-                      <span className="text-[#6B6B6B]">{strength}</span>
+                      <span className="text-lg text-[#6B6B6B] mt-1">·</span>
+                      <span className="text-lg text-[#6B6B6B] leading-relaxed">{strength}</span>
                     </li>
                   ))}
                 </ul>
@@ -2120,8 +2120,8 @@ export default function Compatibility2Page() {
                 <ul className="space-y-3">
                   {compatibility.challenges.map((challenge, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-[#6B6B6B] mt-1">○</span>
-                      <span className="text-[#6B6B6B]">{challenge}</span>
+                      <span className="text-lg text-[#6B6B6B] mt-1">○</span>
+                      <span className="text-lg text-[#6B6B6B] leading-relaxed">{challenge}</span>
                     </li>
                   ))}
                 </ul>
@@ -2133,8 +2133,8 @@ export default function Compatibility2Page() {
                 <ul className="space-y-3">
                   {compatibility.tips.map((tip, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-[#2A2A2A] mt-1">→</span>
-                      <span className="text-[#6B6B6B]">{tip}</span>
+                      <span className="text-lg text-[#2A2A2A] mt-1">→</span>
+                      <span className="text-lg text-[#6B6B6B] leading-relaxed">{tip}</span>
                     </li>
                   ))}
                 </ul>
@@ -2167,25 +2167,25 @@ export default function Compatibility2Page() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="flex-1 px-4 py-3 rounded-lg border border-[#2A2A2A]/10 bg-[#FAF7F2] text-[#2A2A2A] placeholder-[#6B6B6B]/50 focus:outline-none focus:ring-2 focus:ring-[#C4A484]/30 focus:border-[#C4A484]/50 transition-colors"
+                          className="flex-1 px-5 py-4 rounded-lg border border-[#2A2A2A]/10 bg-white text-[#2A2A2A] placeholder-[#6B6B6B]/50 focus:outline-none focus:ring-2 focus:ring-[#B8A090]/30 focus:border-[#B8A090]/50 transition-colors"
                           required
                         />
                         <button
                           type="submit"
                           disabled={emailSending}
-                          className="px-6 py-3 rounded-lg bg-[#C4A484] text-white hover:bg-[#B8956E] transition-colors disabled:opacity-50 whitespace-nowrap"
+                          className="px-8 py-4 rounded-lg bg-[#B8A090] text-white hover:bg-[#A89080] transition-colors disabled:opacity-50 whitespace-nowrap"
                         >
                           {emailSending ? 'Sending...' : 'Send to me'}
                         </button>
                       </div>
-                      <label className="inline-flex items-center gap-2 cursor-pointer">
+                      <label className="flex items-center justify-center gap-2 cursor-pointer mt-4">
                         <input
                           type="checkbox"
                           checked={subscribeToNewsletter}
                           onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
-                          className="w-3 h-3 rounded accent-[#C4A484]"
+                          className="w-4 h-4 rounded border-[#2A2A2A]/20 accent-[#B8A090]"
                         />
-                        <span className="text-xs text-[#6B6B6B]">
+                        <span className="text-sm text-[#6B6B6B]">
                           Also receive occasional notes from Lunar Playground
                         </span>
                       </label>

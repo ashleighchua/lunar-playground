@@ -136,6 +136,7 @@ export default function Home() {
             buttonText="Subscribe"
             variant="minimal"
             tags={['homepage', 'lunar-notes']}
+            showDisclaimer
           />
         </div>
       </section>
@@ -149,8 +150,7 @@ export default function Home() {
       <section className="container-editorial py-24 md:py-32">
         <div className="max-w-2xl mx-auto text-center">
           <p className="font-serif text-2xl md:text-3xl text-[#2A2A2A] leading-relaxed">
-            We do not believe astrology predicts your future.
-            We believe it offers a language for what you already sense.
+            Astrology gives language to intuition, making the unseen easier to hold.
           </p>
           <p className="mt-8 text-[#6B6B6B]">
             A playground, not a prophecy.

@@ -12,7 +12,63 @@ import {
   type Destination
 } from '@/lib/travel';
 
-type Category = 'sun' | 'jupiter' | 'venus' | 'moon' | 'mercury';
+type Category = 'sun' | 'jupiter' | 'venus' | 'moon' | 'mercury' | 'mars';
+
+// SVG Planet Icons with consistent stroke width
+function PlanetIcon({ planet, className = '' }: { planet: string; className?: string }) {
+  const strokeWidth = 1.5;
+
+  switch (planet) {
+    case 'sun':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} className={className}>
+          <circle cx="12" cy="12" r="5" />
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case 'moon':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} className={className}>
+          <path d="M19 12c0 3.866-3.134 7-7 7-2.55 0-4.78-1.365-6-3.404C7.17 17.44 9.39 18.5 12 18.5c3.59 0 6.5-2.91 6.5-6.5 0-2.61-1.06-4.83-2.904-5.996C17.635 7.224 19 9.45 19 12z" />
+        </svg>
+      );
+    case 'mercury':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} className={className}>
+          <circle cx="12" cy="10" r="4" />
+          <path d="M12 14v6" />
+          <path d="M9 18h6" />
+          <path d="M8 6c0 0 2-2 4-2s4 2 4 2" />
+        </svg>
+      );
+    case 'venus':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} className={className}>
+          <circle cx="12" cy="9" r="5" />
+          <path d="M12 14v7" />
+          <path d="M9 18h6" />
+        </svg>
+      );
+    case 'mars':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} className={className}>
+          <circle cx="10" cy="14" r="5" />
+          <path d="M14.5 9.5L19 5" />
+          <path d="M15 5h4v4" />
+        </svg>
+      );
+    case 'jupiter':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} className={className}>
+          <path d="M7 4v16" />
+          <path d="M7 4c4 0 8 2 8 6s-4 6-8 6" />
+          <path d="M4 12h10" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
 
 export default function TravelPage() {
   const [step, setStep] = useState<'category' | 'form' | 'loading' | 'result'>('category');
@@ -114,7 +170,7 @@ export default function TravelPage() {
         {/* Category Selection Step */}
         {step === 'category' && (
           <section className="container-editorial py-16 md:py-24">
-            <div className="max-w-3xl">
+            <div className="max-w-4xl mx-auto text-center">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
                 What are you looking for?
               </h2>
@@ -122,25 +178,20 @@ export default function TravelPage() {
                 Different planetary lines suggest different experiences. Choose what calls to you.
               </p>
 
-              <div className="grid gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {(Object.entries(categoryInfo) as [Category, typeof categoryInfo.sun][]).map(([key, info]) => (
                   <button
                     key={key}
                     onClick={() => handleCategorySelect(key)}
-                    className="group flex items-start gap-6 p-6 text-left border border-[#2A2A2A]/10 hover:border-[#2A2A2A]/30 transition-colors"
+                    className="group flex flex-col items-center p-6 text-center border border-[#2A2A2A]/10 hover:border-[#2A2A2A]/30 transition-colors"
                   >
-                    <span className="text-3xl font-light">{info.symbol}</span>
-                    <div>
-                      <p className="text-xs text-[#6B6B6B] uppercase tracking-wider mb-1">
-                        {info.name}
-                      </p>
-                      <h3 className="font-serif text-lg text-[#2A2A2A] group-hover:underline">
-                        {info.title}
-                      </h3>
-                      <p className="mt-2 text-sm text-[#6B6B6B]">
-                        {info.description}
-                      </p>
-                    </div>
+                    <PlanetIcon planet={key} className="w-8 h-8 mb-4 text-[#2A2A2A]" />
+                    <h3 className="font-serif text-lg text-[#2A2A2A] group-hover:underline">
+                      {info.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-[#6B6B6B]">
+                      {info.description}
+                    </p>
                   </button>
                 ))}
               </div>
@@ -160,13 +211,10 @@ export default function TravelPage() {
               </button>
 
               <div className="flex items-center gap-4 mb-8">
-                <span className="text-3xl">{categoryInfo[selectedCategory].symbol}</span>
-                <div>
-                  <p className="text-sm text-[#6B6B6B]">{categoryInfo[selectedCategory].name}</p>
-                  <h2 className="font-serif text-2xl text-[#2A2A2A]">
-                    {categoryInfo[selectedCategory].title}
-                  </h2>
-                </div>
+                <PlanetIcon planet={selectedCategory} className="w-8 h-8 text-[#2A2A2A]" />
+                <h2 className="font-serif text-2xl text-[#2A2A2A]">
+                  {categoryInfo[selectedCategory].title}
+                </h2>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -268,10 +316,10 @@ export default function TravelPage() {
               </div>
 
               {/* Centered: Planet info */}
-              <div className="flex items-center justify-center gap-4 mb-8">
-                <span className="text-2xl">{categoryInfo[selectedCategory].symbol}</span>
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <PlanetIcon planet={selectedCategory} className="w-6 h-6 text-[#6B6B6B]" />
                 <p className="text-sm text-[#6B6B6B]">
-                  Your {categoryInfo[selectedCategory].name}
+                  {categoryInfo[selectedCategory].title}
                 </p>
               </div>
 
@@ -305,7 +353,7 @@ export default function TravelPage() {
                       Save your destination
                     </h2>
                     <p className="text-[#6B6B6B] mb-8">
-                      Get your {categoryInfo[selectedCategory].name} reading for {destination.city} sent to your inbox.
+                      Get your {categoryInfo[selectedCategory].title} reading for {destination.city} sent to your inbox.
                     </p>
                     <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
                       <div className="flex flex-col sm:flex-row gap-3">

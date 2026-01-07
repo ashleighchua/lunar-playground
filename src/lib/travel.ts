@@ -1,7 +1,7 @@
 // Curated destinations for each planetary line
 // Excludes: Ukraine, Russia, Syria, Yemen, Sudan, South Sudan, Myanmar, Libya, Somalia,
 // Afghanistan, Iraq, North Korea, Iran, Venezuela, Haiti, Central African Republic,
-// Mali, Burkina Faso, Niger, Ethiopia, Pakistan, Lebanon
+// Mali, Burkina Faso, Niger, Ethiopia, Pakistan, Lebanon, Israel
 
 export interface Destination {
   city: string;
@@ -26,7 +26,6 @@ export const sunDestinations: Destination[] = [
   { city: 'Nashville', country: 'USA', lat: 36.16, lng: -86.78, description: 'Where authentic self-expression is the currency. Nashville could help you find your voice and the confidence to use it.' },
   { city: 'Gold Coast', country: 'Australia', lat: -28.02, lng: 153.43, description: 'Sun-soaked and laid-back confident. A place where you could settle into a more relaxed but equally assured sense of self.' },
   { city: 'Cannes', country: 'France', lat: 43.55, lng: 7.02, description: 'Where being seen is an art form. Cannes could help you become more comfortable in the spotlight, more at ease with visibility.' },
-  { city: 'Tel Aviv', country: 'Israel', lat: 32.08, lng: 34.78, description: 'Creative, bold, and unapologetically modern. Tel Aviv\'s entrepreneurial energy could fuel your confidence in new directions.' },
   { city: 'Miami', country: 'USA', lat: 25.76, lng: -80.19, description: 'Vibrant, diverse, and always performing. Miami\'s energy could help you embrace the more colorful, confident parts of your personality.' },
 ];
 
@@ -106,11 +105,29 @@ export const mercuryDestinations: Destination[] = [
   { city: 'Santa Fe', country: 'USA', lat: 35.69, lng: -105.94, description: 'Where creativity and spirituality intersect. Your Mercury line suggests learning through art, through beauty, through experience.' },
 ];
 
+// Mars Line - Energy & Drive
+export const marsDestinations: Destination[] = [
+  { city: 'New York', country: 'USA', lat: 40.71, lng: -74.01, description: 'The city that never sleeps matches your drive. Your Mars line here suggests relentless energy finding its outlet—ambition that doesn\'t apologize.' },
+  { city: 'Tokyo', country: 'Japan', lat: 35.68, lng: 139.69, description: 'Precision meets intensity. Mars here suggests channeling your drive into mastery, where discipline becomes second nature.' },
+  { city: 'São Paulo', country: 'Brazil', lat: -23.55, lng: -46.63, description: 'Raw energy and unstoppable momentum. Your Mars line suggests a place where your competitive spirit thrives.' },
+  { city: 'Lagos', country: 'Nigeria', lat: 6.52, lng: 3.38, description: 'Hustle culture personified. Mars here suggests your entrepreneurial fire could blaze bright in Africa\'s most dynamic city.' },
+  { city: 'Mumbai', country: 'India', lat: 19.08, lng: 72.88, description: 'Where ambition meets chaos and wins. Your Mars line suggests breaking through obstacles that would stop others.' },
+  { city: 'Berlin', country: 'Germany', lat: 52.52, lng: 13.41, description: 'Rebellious energy channeled into creation. Mars suggests your fighting spirit finding worthy causes and creative outlets.' },
+  { city: 'Chicago', country: 'USA', lat: 41.88, lng: -87.63, description: 'Built by determination, sustained by grit. Your Mars line suggests hard work that actually pays off here.' },
+  { city: 'Hong Kong', country: 'Hong Kong', lat: 22.32, lng: 114.17, description: 'Aggressive ambition in concentrated form. Mars here suggests competing at the highest levels and holding your own.' },
+  { city: 'Johannesburg', country: 'South Africa', lat: -26.20, lng: 28.04, description: 'Where survival instinct becomes success instinct. Your Mars line suggests transformation through tenacity.' },
+  { city: 'Seoul', country: 'South Korea', lat: 37.57, lng: 126.98, description: 'Relentless pursuit of excellence. Mars suggests your competitive drive finding a culture that matches its intensity.' },
+  { city: 'Los Angeles', country: 'USA', lat: 34.05, lng: -118.24, description: 'Where dreams are chased aggressively. Your Mars line suggests the courage to pursue what others only talk about.' },
+  { city: 'Mexico City', country: 'Mexico', lat: 19.43, lng: -99.13, description: 'Vibrant chaos that rewards the bold. Your Mars line suggests thriving where others feel overwhelmed.' },
+  { city: 'Singapore', country: 'Singapore', lat: 1.35, lng: 103.82, description: 'Efficiency as a competitive advantage. Mars suggests your discipline and drive creating outsized results.' },
+  { city: 'Denver', country: 'USA', lat: 39.74, lng: -104.99, description: 'Mile-high ambition and outdoor intensity. Your Mars line suggests physical and professional challenges conquered together.' },
+];
+
 // Calculate destination based on birth date, time, and category
 export function calculateDestination(
   birthDate: Date,
   birthTime: string | undefined,
-  category: 'sun' | 'jupiter' | 'venus' | 'moon' | 'mercury'
+  category: 'sun' | 'jupiter' | 'venus' | 'moon' | 'mercury' | 'mars'
 ): Destination {
   // Create a seed from birth date and time
   const year = birthDate.getFullYear();
@@ -133,6 +150,7 @@ export function calculateDestination(
     venus: venusDestinations,
     moon: moonDestinations,
     mercury: mercuryDestinations,
+    mars: marsDestinations,
   }[category];
 
   // Use seed to select destination (deterministic for same input)
@@ -172,5 +190,11 @@ export const categoryInfo = {
     title: 'Communication & Learning',
     symbol: '☿',
     description: 'Places where your mind comes alive, where ideas flow freely.',
+  },
+  mars: {
+    name: 'Mars Line',
+    title: 'Energy & Drive',
+    symbol: '♂',
+    description: 'Places where your ambition ignites, where action creates results.',
   },
 };

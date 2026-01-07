@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Navigation } from '@/components/Navigation';
 
 export default function AboutPage() {
@@ -24,33 +25,25 @@ export default function AboutPage() {
           <div className="h-px bg-[#2A2A2A]/10" />
         </div>
 
-        {/* Philosophy */}
+        {/* My Story */}
         <section className="container-editorial py-16 md:py-24">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
-              What we believe
+              The story
             </h2>
             <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
               <p>
-                We don&apos;t believe astrology predicts your future. We don&apos;t think
-                the planets control your destiny or that your birth chart is a fixed blueprint
-                you&apos;re doomed to follow.
+                I was stuck. Good job on paper, but something felt off. The city, the
+                routine, the life I&apos;d built—none of it fit anymore.
               </p>
               <p>
-                What we do believe is that astrology offers a language—a surprisingly useful
-                one—for talking about the parts of yourself that are hard to name. The way
-                you process emotions. The patterns you keep falling into. The things you
-                need but struggle to ask for.
+                I turned to astrology, not for answers, but for a different way of seeing.
+                It gave me language for the restlessness I couldn&apos;t name. Eventually,
+                it gave me courage. I quit. I moved countries. I started over.
               </p>
               <p>
-                Think of it like poetry rather than science. A metaphor that helps you see
-                something you already knew but couldn&apos;t quite articulate. The moon
-                didn&apos;t make you intuitive—but maybe &quot;moon in Pisces&quot; gives you
-                a way to understand why you feel everything so deeply.
-              </p>
-              <p>
-                This is a playground, not a prophecy. Explore it lightly. Take what
-                resonates. Leave what doesn&apos;t.
+                Lunar Playground grew from that. I wanted to build the space I wish I&apos;d
+                had—somewhere to explore these tools with curiosity instead of pressure.
               </p>
             </div>
           </div>
@@ -61,27 +54,115 @@ export default function AboutPage() {
           <div className="h-px bg-[#2A2A2A]/10" />
         </div>
 
-        {/* How we calculate */}
+        {/* Why We're Different */}
         <section className="container-editorial py-16 md:py-24">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
-              How we calculate
+              Why we&apos;re different
             </h2>
             <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
               <p>
-                Our birth chart calculations use established astronomical algorithms to
-                determine planetary positions at the moment of your birth. Sun signs are
-                calculated from your birth date. Moon and rising signs require your birth
-                time and location for accuracy.
+                Most astrology sites tell you who you are. We&apos;d rather help you ask
+                better questions.
               </p>
               <p>
-                Chinese zodiac calculations account for the lunar new year—not just the
-                calendar year—so someone born in January might belong to the previous
-                year&apos;s animal.
+                No paywalls. No fear-based predictions. No pressure to believe anything.
+                Just tools for reflection, offered with warmth.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Divider */}
+        <div className="container-editorial">
+          <div className="h-px bg-[#2A2A2A]/10" />
+        </div>
+
+        {/* Values */}
+        <section className="container-editorial pt-16 md:pt-24 pb-8 md:pb-12">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6 text-center">
+              What guides us
+            </h2>
+            <div className="space-y-4">
+              {/* Curiosity */}
+              <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                <div className="relative w-[380px] h-[500px] flex-shrink-0">
+                  <Image
+                    src="/Images/the-cups.png"
+                    alt="The Cups tarot card"
+                    fill
+                    className="object-contain object-center"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Curiosity</h3>
+                  <p className="text-[#6B6B6B] leading-relaxed">
+                    Wonder over certainty. Questions over answers. We approach astrology as an
+                    invitation to explore, not a prescription to follow.
+                  </p>
+                </div>
+              </div>
+
+              {/* Love */}
+              <div className="flex flex-col md:flex-row-reverse items-center gap-6 md:gap-10">
+                <div className="relative w-[380px] h-[500px] flex-shrink-0">
+                  <Image
+                    src="/Images/the-lovers.png"
+                    alt="The Lovers tarot card"
+                    fill
+                    className="object-contain object-center"
+                  />
+                </div>
+                <div className="md:text-right">
+                  <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Love</h3>
+                  <p className="text-[#6B6B6B] leading-relaxed">
+                    At its heart, this is about self-understanding. We want you to feel seen,
+                    and a little more at home in yourself.
+                  </p>
+                </div>
+              </div>
+
+              {/* Accessibility */}
+              <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                <div className="relative w-[380px] h-[500px] flex-shrink-0">
+                  <Image
+                    src="/Images/the-star.png"
+                    alt="The Star tarot card"
+                    fill
+                    className="object-contain object-center"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Accessibility</h3>
+                  <p className="text-[#6B6B6B] leading-relaxed">
+                    Astrology shouldn&apos;t be gatekept. We believe these tools belong to
+                    everyone—no jargon, no barriers, just exploration.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Divider */}
+        <div className="container-editorial">
+          <div className="h-px bg-[#2A2A2A]/10" />
+        </div>
+
+        {/* Philosophy */}
+        <section className="container-editorial py-16 md:py-24">
+          <div className="max-w-2xl">
+            <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
+              What we believe
+            </h2>
+            <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
+              <p>
+                Astrology doesn&apos;t predict your future. It&apos;s a language for the parts
+                of yourself that are hard to name.
               </p>
               <p>
-                Life path numbers follow traditional numerology methods, reducing your
-                birth date to a single digit (or master number) through addition.
+                Think poetry, not science. Take what resonates. Leave what doesn&apos;t.
               </p>
             </div>
           </div>
@@ -96,18 +177,21 @@ export default function AboutPage() {
         <section className="container-editorial py-16 md:py-24">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
-              Get in touch
+              Say hello
             </h2>
-            <p className="text-[#6B6B6B] leading-relaxed">
-              Questions, feedback, or just want to say hello?
-              We&apos;d love to hear from you at{' '}
-              <a
-                href="mailto:hello@thelunarplayground.com"
-                className="text-[#2A2A2A] underline hover:no-underline"
-              >
-                hello@thelunarplayground.com
-              </a>
-            </p>
+            <div className="space-y-4 text-[#6B6B6B] leading-relaxed">
+              <p>
+                Questions, ideas, or just want to share what resonated? I&apos;d love to hear from you.
+              </p>
+              <p>
+                <a
+                  href="mailto:hello@thelunarplayground.com"
+                  className="text-[#2A2A2A] underline hover:no-underline"
+                >
+                  hello@thelunarplayground.com
+                </a>
+              </p>
+            </div>
           </div>
         </section>
       </main>

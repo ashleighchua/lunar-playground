@@ -297,7 +297,13 @@ export default function YourChartPage() {
             {birthMoon && (
               <div className="mt-8 flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
                 <div className="text-center">
-                  <div className="text-[120px] md:text-[180px] leading-none">
+                  <div
+                    className="text-[120px] md:text-[180px] leading-none"
+                    style={{
+                      filter: 'saturate(0.3) brightness(1.1)',
+                      opacity: 0.85
+                    }}
+                  >
                     {birthMoon.emoji}
                   </div>
                   <p className="text-sm text-[#6B6B6B] mt-2">
@@ -472,9 +478,10 @@ export default function YourChartPage() {
               <EmailCapture
                 headline=""
                 description=""
-                buttonText="Save my chart"
+                buttonText="Send to me"
                 variant="minimal"
                 tags={['birth-chart', 'your-chart']}
+                showDisclaimer
                 metadata={{
                   birthDate: formData.birthdate,
                   birthTime: formData.birthtime || undefined,
@@ -497,27 +504,21 @@ export default function YourChartPage() {
 
           {/* Next Steps */}
           <section className="container-editorial py-8 md:py-12">
-            <h2 className="font-serif text-2xl text-[#2A2A2A] mb-12">
-              Continue exploring
-            </h2>
-
-            <div className="grid sm:grid-cols-2 gap-8 max-w-2xl">
-              <Link href="/compatibility" className="group block p-6 border border-[#2A2A2A]/10 hover:border-[#2A2A2A]/30 transition-colors">
-                <h3 className="font-serif text-xl text-[#2A2A2A] group-hover:text-[#6B6B6B] transition-colors">
-                  Compatibility
-                </h3>
-                <p className="mt-2 text-sm text-[#6B6B6B]">
-                  See how your chart interacts with someone else&apos;s.
-                </p>
+            <p className="text-[#6B6B6B] mb-6">
+              Want to explore more?
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/compatibility"
+                className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors text-center"
+              >
+                Check compatibility
               </Link>
-
-              <Link href="/travel" className="group block p-6 border border-[#2A2A2A]/10 hover:border-[#2A2A2A]/30 transition-colors">
-                <h3 className="font-serif text-xl text-[#2A2A2A] group-hover:text-[#6B6B6B] transition-colors">
-                  Travel
-                </h3>
-                <p className="mt-2 text-sm text-[#6B6B6B]">
-                  Discover places where your chart comes alive.
-                </p>
+              <Link
+                href="/travel"
+                className="px-6 py-3 border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm tracking-wide hover:border-[#2A2A2A]/40 transition-colors text-center"
+              >
+                Explore your travel map
               </Link>
             </div>
           </section>

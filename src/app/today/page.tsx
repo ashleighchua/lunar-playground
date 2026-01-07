@@ -109,11 +109,6 @@ export default function TodayPage() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="container-editorial">
-        <div className="h-px bg-[#2A2A2A]/10" />
-      </div>
-
       {/* Email Capture */}
       <section className="container-editorial py-16 md:py-24">
         <div className="max-w-xl mx-auto text-center">
@@ -129,7 +124,36 @@ export default function TodayPage() {
             buttonText="Subscribe"
             variant="minimal"
             tags={['today-page', 'lunar-notes']}
+            showDisclaimer
           />
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="container-editorial">
+        <div className="h-px bg-[#2A2A2A]/10" />
+      </div>
+
+      {/* Next Step */}
+      <section className="container-editorial py-16 md:py-24">
+        <div className="max-w-xl mx-auto">
+          <p className="text-[#6B6B6B] mb-6">
+            Want to explore more?
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/your-chart"
+              className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors text-center"
+            >
+              See your birth moon
+            </Link>
+            <Link
+              href="/compatibility"
+              className="px-6 py-3 border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm tracking-wide hover:border-[#2A2A2A]/40 transition-colors text-center"
+            >
+              Check compatibility
+            </Link>
+          </div>
         </div>
       </section>
 
