@@ -25,25 +25,142 @@ export default function AboutPage() {
           <div className="h-px bg-[#2A2A2A]/10" />
         </div>
 
-        {/* My Story */}
+        {/* The Story - Left text, Right image */}
         <section className="container-editorial py-12 md:py-16">
-          <div className="max-w-2xl">
-            <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
-              The story
-            </h2>
-            <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
-              <p>
-                I was stuck. Good job on paper, but something felt off. The city, the
-                routine, the life I&apos;d built—none of it fit anymore.
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+            <div className="flex-1">
+              <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
+                The story
+              </h2>
+              <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
+                <p>
+                  I was stuck. Good job on paper, but something felt off. The city, the
+                  routine, the life I&apos;d built—none of it fit anymore.
+                </p>
+                <p>
+                  I turned to astrology, not for answers, but for a different way of seeing.
+                  It gave me language for the restlessness I couldn&apos;t name. Eventually,
+                  it gave me courage. I quit. I moved countries. I started over.
+                </p>
+                <p>
+                  Lunar Playground grew from that. I wanted to build the space I wish I&apos;d
+                  had—somewhere to explore these tools with curiosity instead of pressure.
+                </p>
+              </div>
+            </div>
+            <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
+              <Image
+                src="/Images/the-fool.png"
+                alt="The Fool tarot card"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Divider */}
+        <div className="container-editorial">
+          <div className="h-px bg-[#2A2A2A]/10" />
+        </div>
+
+        {/* What We Believe - Left image, Right text */}
+        <section className="container-editorial py-12 md:py-16">
+          <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16">
+            <div className="flex-1 md:text-left">
+              <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
+                What we believe
+              </h2>
+              <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
+                <p>
+                  Astrology gives shape to feelings you already recognise.
+                  It offers symbols, cycles, and stories to sit with your life as it unfolds.
+                </p>
+                <p>
+                  Approach it like poetry, not instruction.
+                  Curious, open, and personal.
+                </p>
+                <p>
+                  What resonates stays. What doesn&apos;t can pass.
+                  No pressure. Just space to reflect.
+                </p>
+              </div>
+            </div>
+            <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
+              <Image
+                src="/Images/the-priestess.png"
+                alt="The High Priestess tarot card"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Divider */}
+        <div className="container-editorial">
+          <div className="h-px bg-[#2A2A2A]/10" />
+        </div>
+
+        {/* What Guides Us - Values Section */}
+        <section className="container-editorial py-12 md:py-16">
+          <h2 className="font-serif text-2xl text-[#2A2A2A] mb-12">
+            What guides us
+          </h2>
+
+          {/* Curiosity - Left image, Right text */}
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16 mb-16">
+            <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
+              <Image
+                src="/Images/the-cups.png"
+                alt="Page of Cups tarot card"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Curiosity</h3>
+              <p className="text-[#6B6B6B] leading-relaxed">
+                Wonder over certainty. Questions over answers. We approach astrology as an
+                invitation to explore, not a prescription to follow.
               </p>
-              <p>
-                I turned to astrology, not for answers, but for a different way of seeing.
-                It gave me language for the restlessness I couldn&apos;t name. Eventually,
-                it gave me courage. I quit. I moved countries. I started over.
+            </div>
+          </div>
+
+          {/* Love - Right image, Left text */}
+          <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16 mb-16">
+            <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
+              <Image
+                src="/Images/the lovers.png"
+                alt="The Lovers tarot card"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <div className="flex-1 md:text-right">
+              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Love</h3>
+              <p className="text-[#6B6B6B] leading-relaxed">
+                At its heart, this is about self-understanding. We want you to feel seen,
+                and a little more at home in yourself.
               </p>
-              <p>
-                Lunar Playground grew from that. I wanted to build the space I wish I&apos;d
-                had—somewhere to explore these tools with curiosity instead of pressure.
+            </div>
+          </div>
+
+          {/* Accessibility - Left image, Right text */}
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+            <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
+              <Image
+                src="/Images/the-star.png"
+                alt="The Star tarot card"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Accessibility</h3>
+              <p className="text-[#6B6B6B] leading-relaxed">
+                Astrology shouldn&apos;t be gatekept. We believe these tools belong to
+                everyone—no jargon, no barriers, just exploration.
               </p>
             </div>
           </div>
@@ -54,123 +171,22 @@ export default function AboutPage() {
           <div className="h-px bg-[#2A2A2A]/10" />
         </div>
 
-        {/* Values */}
-        <section className="container-editorial pt-12 md:pt-16 pb-6 md:pb-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6 text-center">
-              What guides us
-            </h2>
-            <div className="space-y-4">
-              {/* Curiosity */}
-              <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
-                <div className="relative w-[380px] h-[500px] flex-shrink-0">
-                  <Image
-                    src="/Images/the-cups.png"
-                    alt="The Cups tarot card"
-                    fill
-                    className="object-contain object-center"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Curiosity</h3>
-                  <p className="text-[#6B6B6B] leading-relaxed">
-                    Wonder over certainty. Questions over answers. We approach astrology as an
-                    invitation to explore, not a prescription to follow.
-                  </p>
-                </div>
-              </div>
-
-              {/* Love */}
-              <div className="flex flex-col md:flex-row-reverse items-center gap-6 md:gap-10">
-                <div className="relative w-[380px] h-[500px] flex-shrink-0">
-                  <Image
-                    src="/Images/the-lovers.png"
-                    alt="The Lovers tarot card"
-                    fill
-                    className="object-contain object-center"
-                  />
-                </div>
-                <div className="md:text-right">
-                  <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Love</h3>
-                  <p className="text-[#6B6B6B] leading-relaxed">
-                    At its heart, this is about self-understanding. We want you to feel seen,
-                    and a little more at home in yourself.
-                  </p>
-                </div>
-              </div>
-
-              {/* Accessibility */}
-              <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
-                <div className="relative w-[380px] h-[500px] flex-shrink-0">
-                  <Image
-                    src="/Images/the-star.png"
-                    alt="The Star tarot card"
-                    fill
-                    className="object-contain object-center"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Accessibility</h3>
-                  <p className="text-[#6B6B6B] leading-relaxed">
-                    Astrology shouldn&apos;t be gatekept. We believe these tools belong to
-                    everyone—no jargon, no barriers, just exploration.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Divider */}
-        <div className="container-editorial">
-          <div className="h-px bg-[#2A2A2A]/10" />
-        </div>
-
-        {/* Philosophy */}
+        {/* Say Hello - Encapsulated box */}
         <section className="container-editorial py-12 md:py-16">
-          <div className="max-w-2xl">
-            <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
-              What we believe
-            </h2>
-            <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
-              <p>
-                Astrology doesn&apos;t predict your future. It&apos;s a language for the parts
-                of yourself that are hard to name.
-              </p>
-              <p>
-                Think poetry, not science. Take what resonates. Leave what doesn&apos;t.
-              </p>
-              <p>
-                No paywalls. No fear-based predictions. No pressure to believe anything.
-                Just tools for reflection, offered with warmth.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Divider */}
-        <div className="container-editorial">
-          <div className="h-px bg-[#2A2A2A]/10" />
-        </div>
-
-        {/* Contact */}
-        <section className="container-editorial py-12 md:py-16">
-          <div className="max-w-2xl">
-            <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
-              Say hello
-            </h2>
-            <div className="space-y-4 text-[#6B6B6B] leading-relaxed">
-              <p>
+          <div className="rounded-2xl bg-gradient-to-r from-[#D4C4B0] to-[#E8DED4] p-8 md:p-12">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-6">
+                Say hello
+              </h2>
+              <p className="text-[#6B6B6B] leading-relaxed mb-6">
                 Questions, ideas, or just want to share what resonated? I&apos;d love to hear from you.
               </p>
-              <p>
-                <a
-                  href="mailto:hello@thelunarplayground.com"
-                  className="text-[#2A2A2A] underline hover:no-underline"
-                >
-                  hello@thelunarplayground.com
-                </a>
-              </p>
+              <a
+                href="mailto:hello@thelunarplayground.com"
+                className="inline-block px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors"
+              >
+                hello@thelunarplayground.com
+              </a>
             </div>
           </div>
         </section>
