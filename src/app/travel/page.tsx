@@ -168,7 +168,7 @@ export default function TravelPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="container-editorial pt-16 pb-12 md:pt-24 md:pb-16">
+        <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
           <div className="max-w-2xl">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight">
               Where to Travel
@@ -204,7 +204,7 @@ export default function TravelPage() {
                     className="group flex flex-col items-center p-6 text-center border border-[#2A2A2A]/10 rounded-lg hover:border-[#B8A090] hover:bg-[#B8A090]/20 transition-colors"
                   >
                     <PlanetIcon planet={key} className="w-8 h-8 mb-4 text-[#2A2A2A]" />
-                    <h3 className="font-serif text-lg text-[#2A2A2A] group-hover:text-[#6B6B6B] transition-colors">
+                    <h3 className="text-lg font-medium text-[#2A2A2A] group-hover:text-[#6B6B6B] transition-colors">
                       {info.title}
                     </h3>
                     <p className="mt-2 text-sm text-[#6B6B6B]">
@@ -314,18 +314,18 @@ export default function TravelPage() {
         {/* Result Step */}
         {step === 'result' && destination && selectedCategory && (
           <>
-            <section className="container-editorial pt-8 pb-16 md:pt-12 md:pb-24">
+            <section className="container-editorial pt-6 pb-4 md:pt-8 md:pb-6">
               {/* Left-aligned: Try another category - closer to top */}
               <button
                 onClick={handleReset}
-                className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
+                className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-6"
               >
                 ← Try another category
               </button>
 
               {/* Centered: Header and subheader */}
-              <div className="text-center mb-8">
-                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-2">
+              <div className="text-center mb-4">
+                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-1">
                   {destination.city}
                 </h2>
                 <p className="text-lg text-[#6B6B6B]">
@@ -334,7 +334,7 @@ export default function TravelPage() {
               </div>
 
               {/* Centered: Planet info */}
-              <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="flex items-center justify-center gap-3 mb-4">
                 <PlanetIcon planet={selectedCategory} className="w-6 h-6 text-[#6B6B6B]" />
                 <p className="text-sm text-[#6B6B6B]">
                   {categoryInfo[selectedCategory].title}
@@ -342,7 +342,7 @@ export default function TravelPage() {
               </div>
 
               {/* Centered: Map */}
-              <div className="max-w-3xl mx-auto mb-12">
+              <div className="max-w-3xl mx-auto mb-6">
                 <WorldMap
                   destination={destination}
                   className="w-full"
@@ -350,9 +350,12 @@ export default function TravelPage() {
               </div>
 
               {/* Centered: Description */}
-              <div className="max-w-2xl mx-auto text-center pb-12 md:pb-16">
-                <p className="text-[#6B6B6B] leading-relaxed text-lg">
+              <div className="max-w-3xl mx-auto text-center pb-4 md:pb-6">
+                <p className="text-[#6B6B6B] leading-relaxed">
                   {destination.description}
+                </p>
+                <p className="text-xs text-[#6B6B6B]/60 mt-6">
+                  This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
                 </p>
               </div>
             </section>
@@ -449,15 +452,17 @@ export default function TravelPage() {
       </main>
 
       {/* Footer */}
-      <footer className="container-editorial py-16">
-        <div className="flex justify-end">
-          <div className="flex gap-8 text-sm text-[#6B6B6B]">
-            <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-              Terms
-            </Link>
+      <footer className="py-8">
+        <div className="container-editorial">
+          <div className="flex justify-end">
+            <div className="flex gap-8 text-sm text-[#6B6B6B]">
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
+                Terms
+              </Link>
+            </div>
           </div>
         </div>
       </footer>

@@ -9,7 +9,7 @@ export default function AboutPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="container-editorial pt-16 pb-12 md:pt-24 md:pb-16">
+        <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
           <div className="max-w-2xl">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight">
               About
@@ -177,15 +177,17 @@ export default function AboutPage() {
       </main>
 
       {/* Footer */}
-      <footer className="container-editorial py-16">
-        <div className="flex justify-end">
-          <div className="flex gap-8 text-sm text-[#6B6B6B]">
-            <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-              Terms
-            </Link>
+      <footer className="py-8">
+        <div className="container-editorial">
+          <div className="flex justify-end">
+            <div className="flex gap-8 text-sm text-[#6B6B6B]">
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
+                Terms
+              </Link>
+            </div>
           </div>
         </div>
       </footer>

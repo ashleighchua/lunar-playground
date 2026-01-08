@@ -86,7 +86,7 @@ export function HomeEmailCapture() {
               disabled={status === 'loading'}
               className="px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors whitespace-nowrap disabled:opacity-50"
             >
-              {status === 'loading' ? 'Sending...' : 'Subscribe'}
+              {status === 'loading' ? 'Sending...' : 'Send to me'}
             </button>
           </form>
           <AnimatePresence>

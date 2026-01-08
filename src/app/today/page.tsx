@@ -52,7 +52,7 @@ export default function TodayPage() {
       <Navigation currentPage="today" />
 
       {/* Hero */}
-      <section className="container-editorial pt-16 pb-12 md:pt-24 md:pb-16">
+      <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
         <div className="max-w-2xl">
           <p className="text-sm text-[#6B6B6B] tracking-wide">
             {new Date().toLocaleDateString('en-US', {
@@ -126,7 +126,7 @@ export default function TodayPage() {
           <EmailCapture
             headline=""
             description=""
-            buttonText="Subscribe"
+            buttonText="Send to me"
             variant="minimal"
             tags={['today-page', 'lunar-notes']}
             showDisclaimer
@@ -161,15 +161,17 @@ export default function TodayPage() {
       </section>
 
       {/* Footer */}
-      <footer className="container-editorial py-16">
-        <div className="flex justify-end">
-          <div className="flex gap-8 text-sm text-[#6B6B6B]">
-            <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-              Terms
-            </Link>
+      <footer className="py-8">
+        <div className="container-editorial">
+          <div className="flex justify-end">
+            <div className="flex gap-8 text-sm text-[#6B6B6B]">
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
+                Terms
+              </Link>
+            </div>
           </div>
         </div>
       </footer>

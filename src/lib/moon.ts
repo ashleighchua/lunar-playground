@@ -48,9 +48,9 @@ const moonPhaseData = [
     description: 'You arrived as sharing began. Waning gibbous souls are natural teachers—compelled to pass on what they have learned. You carry wisdom that wants to be given away, knowledge that grows by being offered.'
   },
   {
-    name: 'Last Quarter',
+    name: 'Third Quarter',
     emoji: '🌗',
-    description: 'You arrived at release. Last quarter souls understand endings—capable of letting go, clearing space for what comes next. You know, perhaps more than others, that completion is its own kind of beginning.'
+    description: 'You arrived at release. Third quarter souls understand endings—capable of letting go, clearing space for what comes next. You know, perhaps more than others, that completion is its own kind of beginning.'
   },
   {
     name: 'Waning Crescent',

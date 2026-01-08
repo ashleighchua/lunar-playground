@@ -1936,7 +1936,7 @@ export default function Compatibility2Page() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="container-editorial pt-16 pb-12 md:pt-24 md:pb-16">
+        <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
           <div className="max-w-2xl">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight">
               Compatibility
@@ -1999,18 +1999,14 @@ export default function Compatibility2Page() {
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 justify-items-center">
                 {zodiacSigns.map((sign) => {
                   const isSelected = sign === sign1;
-                  const isDisabled = sign === sign1;
 
                   return (
                     <button
                       key={sign}
-                      onClick={() => !isDisabled && handleSignClick(sign)}
-                      disabled={isDisabled}
+                      onClick={() => handleSignClick(sign)}
                       className={`group flex flex-col items-center p-4 border rounded-lg transition-all ${
                         isSelected
                           ? 'border-[#B8A090] bg-[#B8A090] text-[#FAF7F2]'
-                          : isDisabled
-                          ? 'border-[#B8A090]/30 opacity-50 cursor-not-allowed'
                           : 'border-[#2A2A2A]/10 hover:border-[#B8A090] hover:bg-[#B8A090]/20'
                       }`}
                     >
@@ -2075,75 +2071,79 @@ export default function Compatibility2Page() {
               </div>
 
               {/* Overview */}
-              <div className="mb-16">
-                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6">Overview</h2>
+              <div className="mb-10">
+                <h2 className="font-serif text-xl text-[#2A2A2A] mb-4">Overview</h2>
                 <p className="text-[#6B6B6B] leading-relaxed text-lg">
                   {compatibility.overview}
                 </p>
               </div>
 
               {/* Sign descriptions */}
-              <div className="grid md:grid-cols-2 gap-8 mb-16">
-                <div className="p-6 border border-[#2A2A2A]/10 rounded-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    {renderZodiacIcon(sign1, 24)}
-                    <h3 className="font-serif text-lg text-[#2A2A2A]">{sign1}</h3>
+              <div className="grid md:grid-cols-2 gap-6 mb-10">
+                <div className="p-5 border border-[#2A2A2A]/10 rounded-lg">
+                  <div className="flex items-center gap-3 mb-3">
+                    {renderZodiacIcon(sign1, 20)}
+                    <h3 className="font-serif text-base text-[#2A2A2A]">{sign1}</h3>
                   </div>
-                  <p className="text-lg text-[#6B6B6B] leading-relaxed">
+                  <p className="text-sm text-[#6B6B6B] leading-relaxed">
                     {signDescriptions[sign1]}
                   </p>
                 </div>
-                <div className="p-6 border border-[#2A2A2A]/10 rounded-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    {renderZodiacIcon(sign2, 24)}
-                    <h3 className="font-serif text-lg text-[#2A2A2A]">{sign2}</h3>
+                <div className="p-5 border border-[#2A2A2A]/10 rounded-lg">
+                  <div className="flex items-center gap-3 mb-3">
+                    {renderZodiacIcon(sign2, 20)}
+                    <h3 className="font-serif text-base text-[#2A2A2A]">{sign2}</h3>
                   </div>
-                  <p className="text-lg text-[#6B6B6B] leading-relaxed">
+                  <p className="text-sm text-[#6B6B6B] leading-relaxed">
                     {signDescriptions[sign2]}
                   </p>
                 </div>
               </div>
 
               {/* Strengths */}
-              <div className="mb-16">
-                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6">Strengths of This Pairing</h2>
-                <ul className="space-y-3">
+              <div className="mb-10">
+                <h2 className="font-serif text-xl text-[#2A2A2A] mb-4">Strengths of This Pairing</h2>
+                <ul className="space-y-2">
                   {compatibility.strengths.map((strength, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-lg text-[#6B6B6B] mt-1">·</span>
-                      <span className="text-lg text-[#6B6B6B] leading-relaxed">{strength}</span>
+                      <span className="text-sm text-[#6B6B6B] mt-0.5">·</span>
+                      <span className="text-sm text-[#6B6B6B] leading-relaxed">{strength}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Areas for Growth */}
-              <div className="mb-16">
-                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6">Areas for Growth</h2>
-                <ul className="space-y-3">
+              <div className="mb-10">
+                <h2 className="font-serif text-xl text-[#2A2A2A] mb-4">Areas for Growth</h2>
+                <ul className="space-y-2">
                   {compatibility.challenges.map((challenge, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-lg text-[#6B6B6B] mt-1">○</span>
-                      <span className="text-lg text-[#6B6B6B] leading-relaxed">{challenge}</span>
+                      <span className="text-sm text-[#6B6B6B] mt-0.5">○</span>
+                      <span className="text-sm text-[#6B6B6B] leading-relaxed">{challenge}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Tips */}
-              <div className="mb-16">
-                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6">Making It Work</h2>
-                <ul className="space-y-3">
+              <div className="mb-10">
+                <h2 className="font-serif text-xl text-[#2A2A2A] mb-4">Making It Work</h2>
+                <ul className="space-y-2">
                   {compatibility.tips.map((tip, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-lg text-[#2A2A2A] mt-1">→</span>
-                      <span className="text-lg text-[#6B6B6B] leading-relaxed">{tip}</span>
+                      <span className="text-sm text-[#2A2A2A] mt-0.5">→</span>
+                      <span className="text-sm text-[#6B6B6B] leading-relaxed">{tip}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
             </div>
+
+              <p className="text-xs text-[#6B6B6B]/60 mt-8 text-center">
+                This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
+              </p>
           </section>
         )}
 
@@ -2239,15 +2239,17 @@ export default function Compatibility2Page() {
       </main>
 
       {/* Footer */}
-      <footer className="container-editorial py-16">
-        <div className="flex justify-end">
-          <div className="flex gap-8 text-sm text-[#6B6B6B]">
-            <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-              Terms
-            </Link>
+      <footer className="py-8">
+        <div className="container-editorial">
+          <div className="flex justify-end">
+            <div className="flex gap-8 text-sm text-[#6B6B6B]">
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
+                Terms
+              </Link>
+            </div>
           </div>
         </div>
       </footer>

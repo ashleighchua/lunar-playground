@@ -145,15 +145,17 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="container-editorial py-16">
-        <div className="flex justify-end">
-          <div className="flex gap-8 text-sm text-[#6B6B6B]">
-            <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-              Terms
-            </Link>
+      <footer className="py-8">
+        <div className="container-editorial">
+          <div className="flex justify-end">
+            <div className="flex gap-8 text-sm text-[#6B6B6B]">
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
+                Terms
+              </Link>
+            </div>
           </div>
         </div>
       </footer>

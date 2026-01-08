@@ -199,7 +199,7 @@ export default function YourChartPage() {
       ) : !showResults ? (
         <>
           {/* Hero */}
-          <section className="container-editorial pt-16 pb-12 md:pt-24 md:pb-16">
+          <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
             <div className="max-w-2xl">
               <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight">
                 Your Chart
@@ -297,17 +297,17 @@ export default function YourChartPage() {
       ) : (
         <>
           {/* Results: Birth Moon Hero */}
-          <section className="container-editorial pt-16 pb-12 md:pt-24 md:pb-16">
+          <section className="container-editorial pt-8 pb-8 md:pt-12 md:pb-12">
             <button
               onClick={handleBack}
-              className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-8 flex items-center gap-2"
+              className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-4 flex items-center gap-2"
             >
               <span>←</span> Enter different details
             </button>
 
             {birthMoon && (
-              <div className="mt-8 flex flex-col items-center text-center">
-                <p className="text-sm text-[#6B6B6B] tracking-wide uppercase mb-8">
+              <div className="mt-4 flex flex-col items-center text-center">
+                <p className="text-sm text-[#6B6B6B] tracking-wide uppercase mb-4">
                   The night you were born
                 </p>
                 <div
@@ -322,10 +322,10 @@ export default function YourChartPage() {
                 <p className="text-sm text-[#6B6B6B] mt-2">
                   {birthMoon.illumination}% illuminated
                 </p>
-                <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] mt-8">
+                <h1 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] leading-[1.1] mt-6">
                   {birthMoon.name}
                 </h1>
-                <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed max-w-lg">
+                <p className="mt-4 text-base text-[#6B6B6B] leading-relaxed max-w-lg">
                   {birthMoon.description}
                 </p>
               </div>
@@ -338,14 +338,14 @@ export default function YourChartPage() {
           </div>
 
           {/* Your Chart - Big Three */}
-          <section className="container-editorial py-12 md:py-16">
+          <section className="container-editorial pt-12 md:pt-16">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-12">
               Your chart
             </h2>
 
             <div className="grid md:grid-cols-3 gap-6 md:gap-8">
               {/* Sun Sign Card */}
-              <div className="p-6 md:p-8 border border-[#2A2A2A]/10">
+              <div className="p-6 md:p-8 border border-[#2A2A2A]/10 rounded-lg">
                 <div className="flex items-center gap-3 mb-4">
                   <SunIcon size={24} className="text-[#2A2A2A]" />
                   <span className="text-xs tracking-wide uppercase text-[#6B6B6B]">Sun</span>
@@ -366,7 +366,7 @@ export default function YourChartPage() {
               </div>
 
               {/* Moon Sign Card */}
-              <div className="p-6 md:p-8 border border-[#2A2A2A]/10">
+              <div className="p-6 md:p-8 border border-[#2A2A2A]/10 rounded-lg">
                 <div className="flex items-center gap-3 mb-4">
                   <MoonIcon size={24} className="text-[#2A2A2A]" />
                   <span className="text-xs tracking-wide uppercase text-[#6B6B6B]">Moon</span>
@@ -392,7 +392,7 @@ export default function YourChartPage() {
               </div>
 
               {/* Rising Sign Card */}
-              <div className="p-6 md:p-8 border border-[#2A2A2A]/10">
+              <div className="p-6 md:p-8 border border-[#2A2A2A]/10 rounded-lg">
                 <div className="flex items-center gap-3 mb-4">
                   <RisingIcon size={24} className="text-[#2A2A2A]" />
                   <span className="text-xs tracking-wide uppercase text-[#6B6B6B]">Rising</span>
@@ -419,13 +419,8 @@ export default function YourChartPage() {
             </div>
           </section>
 
-          {/* Divider */}
-          <div className="container-editorial">
-            <div className="h-px bg-[#2A2A2A]/10" />
-          </div>
-
           {/* Chinese Zodiac & Life Path */}
-          <section className="container-editorial py-12 md:py-16">
+          <section className="container-editorial pt-12 pb-12 md:pb-16">
             <h2 className="font-serif text-2xl text-[#2A2A2A] mb-12">
               Additional insights
             </h2>
@@ -433,7 +428,7 @@ export default function YourChartPage() {
             <div className="grid md:grid-cols-2 gap-6 md:gap-8">
               {/* Chinese Zodiac Card */}
               {chineseZodiac && (
-                <div className="p-6 md:p-8 border border-[#2A2A2A]/10">
+                <div className="p-6 md:p-8 border border-[#2A2A2A]/10 rounded-lg">
                   <p className="text-xs tracking-wide uppercase text-[#6B6B6B] mb-4">Chinese Zodiac</p>
                   {(() => {
                     const AnimalIcon = getChineseZodiacIcon(chineseZodiac.animal);
@@ -453,7 +448,7 @@ export default function YourChartPage() {
 
               {/* Life Path Card */}
               {lifePath && (
-                <div className="p-6 md:p-8 border border-[#2A2A2A]/10">
+                <div className="p-6 md:p-8 border border-[#2A2A2A]/10 rounded-lg">
                   <p className="text-xs tracking-wide uppercase text-[#6B6B6B] mb-4">Life Path Number</p>
                   <div className="flex items-baseline gap-3 mb-4">
                     <p className="font-serif text-4xl text-[#2A2A2A]">{lifePath.number}</p>
@@ -537,15 +532,17 @@ export default function YourChartPage() {
       </main>
 
       {/* Footer */}
-      <footer className="container-editorial py-16">
-        <div className="flex justify-end">
-          <div className="flex gap-8 text-sm text-[#6B6B6B]">
-            <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-              Terms
-            </Link>
+      <footer className="py-8">
+        <div className="container-editorial">
+          <div className="flex justify-end">
+            <div className="flex gap-8 text-sm text-[#6B6B6B]">
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
+                Terms
+              </Link>
+            </div>
           </div>
         </div>
       </footer>
