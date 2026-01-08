@@ -81,7 +81,7 @@ export default function YourChartPage() {
       birthdate: formData.birthdate,
       birthtime: formData.birthtime,
       birthplace: selectedCity ? {
-        name: selectedCity.name,
+        name: selectedCity.label,
         country: selectedCity.country || '',
         lat: selectedCity.lat,
         lng: selectedCity.lng,

@@ -94,7 +94,8 @@ export default function TravelPage() {
       setBirthtime(savedData.birthtime);
       if (savedData.birthplace) {
         setBirthplace({
-          name: savedData.birthplace.name,
+          label: savedData.birthplace.name,
+          value: savedData.birthplace.name,
           country: savedData.birthplace.country,
           lat: savedData.birthplace.lat,
           lng: savedData.birthplace.lng,
