@@ -201,10 +201,10 @@ export default function TravelPage() {
                   <button
                     key={key}
                     onClick={() => handleCategorySelect(key)}
-                    className="group flex flex-col items-center p-6 text-center border border-[#2A2A2A]/10 hover:border-[#2A2A2A]/30 transition-colors"
+                    className="group flex flex-col items-center p-6 text-center border border-[#2A2A2A]/10 rounded-lg hover:border-[#B8A090] hover:bg-[#B8A090]/20 transition-colors"
                   >
                     <PlanetIcon planet={key} className="w-8 h-8 mb-4 text-[#2A2A2A]" />
-                    <h3 className="font-serif text-lg text-[#2A2A2A] group-hover:underline">
+                    <h3 className="font-serif text-lg text-[#2A2A2A] group-hover:text-[#6B6B6B] transition-colors">
                       {info.title}
                     </h3>
                     <p className="mt-2 text-sm text-[#6B6B6B]">
@@ -246,7 +246,7 @@ export default function TravelPage() {
                     value={birthdate}
                     onChange={(e) => setBirthdate(e.target.value)}
                     required
-                    className={`w-full px-4 py-3 border border-[#2A2A2A]/10 bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${birthdate ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/50'}`}
+                    className={`w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${birthdate ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/50'}`}
                   />
                 </div>
 
@@ -259,7 +259,7 @@ export default function TravelPage() {
                     id="birthtime"
                     value={birthtime}
                     onChange={(e) => setBirthtime(e.target.value)}
-                    className={`w-full px-4 py-3 border border-[#2A2A2A]/10 bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${birthtime ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/50'}`}
+                    className={`w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${birthtime ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/50'}`}
                   />
                 </div>
 
@@ -279,7 +279,7 @@ export default function TravelPage() {
 
                 <button
                   type="submit"
-                  className="w-full px-8 py-4 bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors mt-4"
+                  className="w-full px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors mt-4"
                 >
                   Find my destination
                 </button>
@@ -432,13 +432,13 @@ export default function TravelPage() {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={handleReset}
-                  className="px-6 py-3 border border-[#2A2A2A]/20 text-sm text-[#2A2A2A] hover:border-[#2A2A2A]/40 transition-colors"
+                  className="px-6 py-3 rounded-lg border border-[#2A2A2A]/20 text-sm text-[#2A2A2A] hover:border-[#2A2A2A]/40 transition-colors"
                 >
                   Explore another line
                 </button>
                 <Link
                   href="/your-chart"
-                  className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
+                  className="px-6 py-3 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
                 >
                   See your full chart
                 </Link>

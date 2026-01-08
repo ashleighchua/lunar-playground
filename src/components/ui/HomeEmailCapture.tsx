@@ -79,12 +79,12 @@ export function HomeEmailCapture() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               disabled={status === 'loading'}
-              className="flex-1 px-6 py-4 rounded-full border border-white/50 bg-white/80 text-[#2A2A2A] placeholder-[#6B6B6B] focus:outline-none focus:ring-2 focus:ring-[#B8A090]/50 focus:bg-white transition-colors disabled:opacity-50"
+              className="flex-1 px-6 py-4 rounded-lg border border-white/50 bg-white/80 text-[#2A2A2A] placeholder-[#6B6B6B] focus:outline-none focus:ring-2 focus:ring-[#B8A090]/50 focus:bg-white transition-colors disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="px-8 py-4 rounded-full bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors whitespace-nowrap disabled:opacity-50"
+              className="px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors whitespace-nowrap disabled:opacity-50"
             >
               {status === 'loading' ? 'Sending...' : 'Subscribe'}
             </button>

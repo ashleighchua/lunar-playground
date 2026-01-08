@@ -147,13 +147,13 @@ export default function TodayPage() {
         <div className="flex flex-wrap gap-4">
           <Link
             href="/your-chart"
-            className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
+            className="px-6 py-3 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
           >
             See your birth moon
           </Link>
           <Link
             href="/compatibility"
-            className="px-6 py-3 border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm hover:border-[#2A2A2A]/40 transition-colors"
+            className="px-6 py-3 rounded-lg border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm hover:border-[#2A2A2A]/40 transition-colors"
           >
             Check compatibility
           </Link>

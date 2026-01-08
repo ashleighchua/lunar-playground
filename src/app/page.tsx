@@ -24,7 +24,7 @@ export default function Home() {
             </p>
             <Link
               href="/your-chart"
-              className="inline-block mt-10 px-8 py-4 bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors"
+              className="inline-block mt-10 px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors"
             >
               Find your moon
             </Link>
@@ -34,7 +34,7 @@ export default function Home() {
           <img
             src="/Images/mooncolour.png"
             alt=""
-            className="absolute right-0 top-1/3 -translate-y-1/3 translate-x-[10%] w-[400px] md:w-[550px] lg:w-[700px] h-auto opacity-60 pointer-events-none hidden md:block"
+            className="absolute right-0 top-0 translate-x-[30%] -translate-y-[10%] w-[280px] md:w-[550px] lg:w-[700px] md:top-1/3 md:-translate-y-1/3 md:translate-x-[10%] h-auto opacity-50 md:opacity-60 pointer-events-none"
           />
         </div>
       </section>

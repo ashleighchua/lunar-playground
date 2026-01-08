@@ -160,7 +160,7 @@ export function CitySelect({
           // Selected value display
           <div
             onClick={() => setIsOpen(true)}
-            className="w-full px-4 py-3 pr-16 border border-[#2A2A2A]/10 bg-transparent text-[#2A2A2A] cursor-pointer"
+            className="w-full px-4 py-3 pr-16 border border-[#2A2A2A]/10 rounded-lg bg-transparent text-[#2A2A2A] cursor-pointer"
           >
             <span className="truncate block">{value}</span>
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -195,7 +195,7 @@ export function CitySelect({
               onFocus={() => setIsOpen(true)}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2A2A2A]/10 bg-transparent text-[#2A2A2A] placeholder:text-[#6B6B6B]/50 focus:outline-none focus:border-[#2A2A2A]/30 transition-colors"
+              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2A2A2A]/10 rounded-lg bg-transparent text-[#2A2A2A] placeholder:text-[#6B6B6B]/50 focus:outline-none focus:border-[#2A2A2A]/30 transition-colors"
             />
             {isLoading ? (
               <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6B6B] animate-spin" />
@@ -213,7 +213,7 @@ export function CitySelect({
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute z-50 w-full mt-1 bg-[#FAF7F2] border border-[#2A2A2A]/10 shadow-lg max-h-72 overflow-y-auto">
+        <div className="absolute z-50 w-full mt-1 bg-[#FAF7F2] border border-[#2A2A2A]/10 rounded-lg shadow-lg max-h-72 overflow-y-auto">
           {value && (
             <div className="p-2 border-b border-[#2A2A2A]/10">
               <div className="relative">
@@ -225,7 +225,7 @@ export function CitySelect({
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Search for another city..."
-                  className="w-full px-3 py-2 pl-9 text-sm border border-[#2A2A2A]/10 bg-transparent focus:outline-none focus:border-[#2A2A2A]/30"
+                  className="w-full px-3 py-2 pl-9 text-sm border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30"
                   autoFocus
                 />
                 {isLoading && (

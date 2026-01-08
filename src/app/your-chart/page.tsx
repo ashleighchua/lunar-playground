@@ -237,7 +237,7 @@ export default function YourChartPage() {
                       setFormData({ ...formData, birthdate: e.target.value });
                       setDateError(null);
                     }}
-                    className={`w-full px-4 py-3 border bg-transparent focus:outline-none transition-colors ${
+                    className={`w-full px-4 py-3 border rounded-lg bg-transparent focus:outline-none transition-colors ${
                       formData.birthdate
                         ? 'text-[#2A2A2A] [&::-webkit-datetime-edit]:text-[#2A2A2A] [&::-webkit-datetime-edit-fields-wrapper]:text-[#2A2A2A]'
                         : 'text-[#6B6B6B]/50 [&::-webkit-datetime-edit]:text-[#6B6B6B]/50 [&::-webkit-datetime-edit-fields-wrapper]:text-[#6B6B6B]/50'
@@ -261,7 +261,7 @@ export default function YourChartPage() {
                     id="birthtime"
                     value={formData.birthtime}
                     onChange={(e) => setFormData({ ...formData, birthtime: e.target.value })}
-                    className={`w-full px-4 py-3 border border-[#2A2A2A]/10 bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${
+                    className={`w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${
                       formData.birthtime
                         ? 'text-[#2A2A2A] [&::-webkit-datetime-edit]:text-[#2A2A2A] [&::-webkit-datetime-edit-fields-wrapper]:text-[#2A2A2A]'
                         : 'text-[#6B6B6B]/50 [&::-webkit-datetime-edit]:text-[#6B6B6B]/50 [&::-webkit-datetime-edit-fields-wrapper]:text-[#6B6B6B]/50'
@@ -286,7 +286,7 @@ export default function YourChartPage() {
                 <button
                   type="submit"
                   disabled={isCalculating}
-                  className="w-full px-8 py-4 bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isCalculating ? 'Calculating...' : 'Calculate my chart'}
                 </button>
@@ -520,13 +520,13 @@ export default function YourChartPage() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/compatibility"
-                className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
+                className="px-6 py-3 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
               >
                 Check compatibility
               </Link>
               <Link
                 href="/travel"
-                className="px-6 py-3 border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm hover:border-[#2A2A2A]/40 transition-colors"
+                className="px-6 py-3 rounded-lg border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm hover:border-[#2A2A2A]/40 transition-colors"
               >
                 Explore your travel map
               </Link>

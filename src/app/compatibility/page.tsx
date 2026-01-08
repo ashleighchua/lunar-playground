@@ -1973,7 +1973,7 @@ export default function Compatibility2Page() {
               {sign1 && (
                 <div className="flex items-center justify-center gap-8 mb-12">
                   <div className="flex flex-col items-center">
-                    <div className="w-24 h-24 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#FAF7F2]">
+                    <div className="w-24 h-24 rounded-full bg-[#B8A090] flex items-center justify-center text-[#FAF7F2]">
                       {renderZodiacIcon(sign1, 48)}
                     </div>
                     <p className="mt-3 font-serif text-xl text-[#2A2A2A]">{sign1}</p>
@@ -1983,7 +1983,7 @@ export default function Compatibility2Page() {
                     <span className="text-4xl text-[#6B6B6B]">&</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="w-24 h-24 rounded-full border-2 border-dashed border-[#2A2A2A]/20 flex items-center justify-center text-[#6B6B6B] text-2xl">
+                    <div className="w-24 h-24 rounded-full border-2 border-dashed border-[#B8A090]/40 flex items-center justify-center text-[#6B6B6B] text-2xl">
                       ?
                     </div>
                     <p className="mt-3 font-serif text-xl text-[#6B6B6B]">Their sign</p>
@@ -2006,12 +2006,12 @@ export default function Compatibility2Page() {
                       key={sign}
                       onClick={() => !isDisabled && handleSignClick(sign)}
                       disabled={isDisabled}
-                      className={`group flex flex-col items-center p-4 border transition-all ${
+                      className={`group flex flex-col items-center p-4 border rounded-lg transition-all ${
                         isSelected
-                          ? 'border-[#2A2A2A] bg-[#2A2A2A] text-[#FAF7F2]'
+                          ? 'border-[#B8A090] bg-[#B8A090] text-[#FAF7F2]'
                           : isDisabled
-                          ? 'border-[#2A2A2A]/10 opacity-50 cursor-not-allowed'
-                          : 'border-[#2A2A2A]/10 hover:border-[#2A2A2A]/30 hover:bg-[#2A2A2A]/5'
+                          ? 'border-[#B8A090]/30 opacity-50 cursor-not-allowed'
+                          : 'border-[#2A2A2A]/10 hover:border-[#B8A090] hover:bg-[#B8A090]/20'
                       }`}
                     >
                       <div className={`mb-2 ${isSelected ? 'text-[#FAF7F2]' : 'text-[#2A2A2A]'}`}>
@@ -2045,7 +2045,7 @@ export default function Compatibility2Page() {
               {/* Signs header */}
               <div className="flex items-center justify-center gap-8 mb-12">
                 <div className="flex flex-col items-center">
-                  <div className="w-24 h-24 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#FAF7F2]">
+                  <div className="w-24 h-24 rounded-full bg-[#B8A090] flex items-center justify-center text-[#FAF7F2]">
                     {renderZodiacIcon(sign1, 48)}
                   </div>
                   <p className="mt-3 font-serif text-xl text-[#2A2A2A]">{sign1}</p>
@@ -2055,7 +2055,7 @@ export default function Compatibility2Page() {
                   <span className="text-4xl text-[#6B6B6B]">&</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="w-24 h-24 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#FAF7F2]">
+                  <div className="w-24 h-24 rounded-full bg-[#B8A090] flex items-center justify-center text-[#FAF7F2]">
                     {renderZodiacIcon(sign2, 48)}
                   </div>
                   <p className="mt-3 font-serif text-xl text-[#2A2A2A]">{sign2}</p>
@@ -2069,7 +2069,7 @@ export default function Compatibility2Page() {
                   <p className="font-serif text-lg text-[#2A2A2A]">
                     {compatibility.level === 'High' ? 'Natural Harmony' :
                      compatibility.level === 'Moderate' ? 'Balanced Energy' :
-                     'Growth-Oriented'}
+                     'Takes Effort'}
                   </p>
                 </div>
               </div>
@@ -2084,7 +2084,7 @@ export default function Compatibility2Page() {
 
               {/* Sign descriptions */}
               <div className="grid md:grid-cols-2 gap-8 mb-16">
-                <div className="p-6 border border-[#2A2A2A]/10">
+                <div className="p-6 border border-[#2A2A2A]/10 rounded-lg">
                   <div className="flex items-center gap-3 mb-4">
                     {renderZodiacIcon(sign1, 24)}
                     <h3 className="font-serif text-lg text-[#2A2A2A]">{sign1}</h3>
@@ -2093,7 +2093,7 @@ export default function Compatibility2Page() {
                     {signDescriptions[sign1]}
                   </p>
                 </div>
-                <div className="p-6 border border-[#2A2A2A]/10">
+                <div className="p-6 border border-[#2A2A2A]/10 rounded-lg">
                   <div className="flex items-center gap-3 mb-4">
                     {renderZodiacIcon(sign2, 24)}
                     <h3 className="font-serif text-lg text-[#2A2A2A]">{sign2}</h3>
@@ -2222,13 +2222,13 @@ export default function Compatibility2Page() {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={handleReset}
-                  className="px-6 py-3 border border-[#2A2A2A]/20 text-sm text-[#2A2A2A] hover:border-[#2A2A2A]/40 transition-colors"
+                  className="px-6 py-3 rounded-lg border border-[#2A2A2A]/20 text-sm text-[#2A2A2A] hover:border-[#2A2A2A]/40 transition-colors"
                 >
                   Try another pairing
                 </button>
                 <Link
                   href="/your-chart"
-                  className="px-6 py-3 bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
+                  className="px-6 py-3 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
                 >
                   See your full chart
                 </Link>
