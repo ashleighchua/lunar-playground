@@ -71,11 +71,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, id: result.data?.id });
   } catch (error) {
     console.error('Email send error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Failed to send email';
     return NextResponse.json(
-      { error: 'Failed to send email' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
+}
+
+// Handle other HTTP methods
+export async function GET() {
+  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
 }
 
 function generateChartEmail(data: any, styles: string): string {
