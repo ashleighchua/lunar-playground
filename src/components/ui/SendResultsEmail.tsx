@@ -37,10 +37,15 @@ export function SendResultsEmail({ type, data, className }: SendResultsEmailProp
         body: JSON.stringify({ to: email, type, data }),
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to send email');
+        let errorMsg = 'Failed to send email';
+        try {
+          const result = await response.json();
+          errorMsg = result.error || errorMsg;
+        } catch {
+          // Response wasn't JSON
+        }
+        throw new Error(errorMsg);
       }
 
       setStatus('success');
