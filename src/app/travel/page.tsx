@@ -154,13 +154,42 @@ export default function TravelPage() {
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !destination) return;
+    if (!email || !destination || !selectedCategory) return;
 
     setEmailSending(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('Email travel result to:', email, 'Newsletter:', subscribeToNewsletter);
-    setEmailSending(false);
-    setEmailSent(true);
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: email,
+          type: 'travel',
+          data: {
+            destination: {
+              name: destination.city,
+              country: destination.country,
+              description: destination.description,
+            },
+            category: {
+              title: categoryInfo[selectedCategory].title,
+              description: categoryInfo[selectedCategory].description,
+            },
+            planetaryInfluence: `Your ${categoryInfo[selectedCategory].title} line passes through ${destination.city}, ${destination.country}. This is a place where you may experience ${categoryInfo[selectedCategory].description.toLowerCase()}.`,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
+      setEmailSent(true);
+    } catch (error) {
+      console.error('Email send error:', error);
+    } finally {
+      setEmailSending(false);
+    }
   };
 
   return (

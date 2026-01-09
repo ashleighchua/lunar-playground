@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { EmailCapture } from '@/components/ui/EmailCapture';
+import { SendResultsEmail } from '@/components/ui/SendResultsEmail';
 import { Navigation } from '@/components/Navigation';
 import { CitySelect } from '@/components/ui/CitySelect';
 import {
@@ -471,7 +471,7 @@ export default function YourChartPage() {
             <div className="h-px bg-[#2A2A2A]/10" />
           </div>
 
-          {/* Email Capture */}
+          {/* Email Results */}
           <section className="container-editorial py-12 md:py-16">
             <div className="max-w-xl mx-auto text-center">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
@@ -480,23 +480,35 @@ export default function YourChartPage() {
               <p className="text-[#6B6B6B] mb-8">
                 We&apos;ll send your full chart to your inbox so you can revisit it anytime.
               </p>
-              <EmailCapture
-                headline=""
-                description=""
-                buttonText="Send to me"
-                variant="minimal"
-                tags={['birth-chart', 'your-chart']}
-                showDisclaimer
-                metadata={{
-                  birthDate: formData.birthdate,
-                  birthTime: formData.birthtime || undefined,
-                  birthPlace: selectedCity?.label,
-                  sunSign: sunSign?.name,
-                  moonSign: ephemerisChart?.moon?.sign,
-                  risingSign: ephemerisChart?.rising?.sign,
-                  birthMoonPhase: birthMoon?.name,
-                  chineseZodiac: chineseZodiac ? `${chineseZodiac.element} ${chineseZodiac.animal}` : undefined,
-                  lifePathNumber: lifePath?.number,
+              <SendResultsEmail
+                type="your-chart"
+                data={{
+                  birthMoon: birthMoon ? {
+                    name: birthMoon.name,
+                    emoji: birthMoon.emoji,
+                    illumination: birthMoon.illumination,
+                    description: birthMoon.description,
+                  } : null,
+                  sunSign: sunSign ? {
+                    name: sunSign.name,
+                    description: sunSign.description,
+                  } : null,
+                  moonSign: ephemerisChart?.moon ? {
+                    name: ephemerisChart.moon.sign,
+                    description: ephemerisChart.moon.description,
+                  } : null,
+                  risingSign: ephemerisChart?.rising ? {
+                    name: ephemerisChart.rising.sign,
+                    description: ephemerisChart.rising.description,
+                  } : null,
+                  chineseZodiac: chineseZodiac ? {
+                    animal: `${chineseZodiac.element} ${chineseZodiac.animal}`,
+                    description: chineseZodiac.animalDescription,
+                  } : null,
+                  lifePath: lifePath ? {
+                    number: lifePath.number,
+                    description: lifePath.description,
+                  } : null,
                 }}
               />
             </div>

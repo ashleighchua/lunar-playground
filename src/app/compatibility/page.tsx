@@ -1911,21 +1911,43 @@ export default function Compatibility2Page() {
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !sign1 || !sign2) return;
+    if (!email || !sign1 || !sign2 || !compatibility) return;
 
     setEmailSending(true);
 
-    // Simulate sending email (replace with actual API call)
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: email,
+          type: 'compatibility',
+          data: {
+            person1: {
+              name: sign1,
+              moonEmoji: signElements[sign1].symbol,
+            },
+            person2: {
+              name: sign2,
+              moonEmoji: signElements[sign2].symbol,
+            },
+            moonCompatibility: compatibility.overview,
+            elementCompatibility: `${sign1} (${signElements[sign1].element}) and ${sign2} (${signElements[sign2].element}) - ${compatibility.level} compatibility at ${compatibility.percentage}%`,
+            overallReading: `Strengths: ${compatibility.strengths.join('. ')}. Tips: ${compatibility.tips.join('. ')}`,
+          },
+        }),
+      });
 
-    // Here you would send to your backend with:
-    // - email
-    // - sign1, sign2
-    // - subscribeToNewsletter
-    console.log('Email results to:', email, 'Newsletter:', subscribeToNewsletter);
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
 
-    setEmailSending(false);
-    setEmailSent(true);
+      setEmailSent(true);
+    } catch (error) {
+      console.error('Email send error:', error);
+    } finally {
+      setEmailSending(false);
+    }
   };
 
   const compatibility = sign1 && sign2 ? getCompatibility(sign1, sign2) : null;
