@@ -80,6 +80,70 @@ const signDescriptions: Record<string, string> = {
   Pisces: 'Empathic, imaginative, and spiritually attuned. The dreamer who transcends.',
 };
 
+// Mercury descriptions - how you think and communicate
+const mercurySignDescriptions: Record<string, string> = {
+  Aries: "Your mind moves fast and wants to get to the point. You think in straight lines, speak directly, and have little patience for drawn-out explanations. You're quick to form opinions and quick to voice them. Your communication style is bold and sometimes blunt—you'd rather be honest than diplomatic.",
+  Taurus: "Your thinking is deliberate, practical, and grounded. You take time to process information thoroughly before forming conclusions. Once you've decided something, you're not easily swayed. Your communication style is steady and reliable—you say what you mean and mean what you say.",
+  Gemini: "Your mind is endlessly curious and remarkably versatile. You can hold multiple perspectives simultaneously and shift between ideas with ease. Information energises you. Your communication is quick, witty, and wide-ranging—you can talk to anyone about almost anything.",
+  Cancer: "Your thinking is intuitive and emotionally influenced. You remember how things felt as much as what happened. Your mind holds onto the past and processes through personal connection. Communication tends to be indirect—you sense what others need to hear.",
+  Leo: "Your thinking is creative, confident, and presentation-aware. You like ideas that are bold and worth sharing. Your communication has flair—you tell stories, not just facts. You think about how things sound and how they'll land.",
+  Virgo: "Your mind is analytical, detail-oriented, and constantly refining. You notice what others miss and can break complex problems into solvable parts. Communication is precise—you choose words carefully and may edit yourself frequently.",
+  Libra: "Your thinking naturally weighs multiple perspectives. You see all sides of an argument, which aids diplomacy but can slow decision-making. Communication is tactful and considerate—you think about how your words affect others.",
+  Scorpio: "Your mind goes deep rather than wide. You're drawn to hidden meanings, unspoken dynamics, and what's really going on. Your thinking is probing and strategic. Communication is purposeful—you share selectively.",
+  Sagittarius: "Your thinking is expansive, seeking the big picture and larger meaning. Details bore you; principles interest you. You learn by exploring ideas from many sources. Communication is enthusiastic, honest, and sometimes tactless.",
+  Capricorn: "Your mind is practical, strategic, and focused on real-world application. You think about what works and what can be built. Communication is measured and authoritative—you speak when you have something worth saying.",
+  Aquarius: "Your thinking is independent, innovative, and often unconventional. You see patterns others miss and enjoy ideas that challenge norms. Communication is intellectual and sometimes detached—you prefer logic to emotional appeals.",
+  Pisces: "Your thinking is intuitive, imaginative, and non-linear. You absorb information through impression as much as analysis. Your mind wanders productively through associations. Communication flows poetically—you speak in images and feelings.",
+};
+
+// Venus descriptions - how you love and what you value
+const venusSignDescriptions: Record<string, string> = {
+  Aries: "You fall fast and pursue directly. In love, you want excitement, passion, and a sense of conquest. You're attracted to confidence and independence. You value authenticity over politeness. When you want something, you go after it—in love and in life.",
+  Taurus: "You love steadily, sensually, and with remarkable patience. Physical affection and quality time matter deeply. You're attracted to reliability and good taste. You value comfort, beauty, and things that last. Loyalty is everything.",
+  Gemini: "You need mental connection to feel romantic attraction. Boredom kills love faster than conflict. You're attracted to wit, versatility, and good conversation. You value freedom within partnership. Love should be fun and interesting.",
+  Cancer: "You love protectively and need to feel emotionally safe before opening up. Nurturing is your love language. You're attracted to those who feel like home. You value emotional availability and commitment. Family matters deeply.",
+  Leo: "You love generously, dramatically, and with your whole heart. Romance should feel special and celebratory. You're attracted to confidence and creativity. You value being appreciated and adored. Love should feel like a grand adventure.",
+  Virgo: "You show love through acts of service and attention to detail. Romance is practical as much as emotional. You're attracted to competence and self-improvement. You value effort and devotion. Love is demonstrated through actions, not words.",
+  Libra: "You're built for partnership and feel incomplete without it. Harmony, beauty, and fairness in relationships matter deeply. You're attracted to grace, charm, and aesthetic sensibility. You value balance and mutual consideration.",
+  Scorpio: "You love with intensity, depth, and fierce loyalty. Surface-level connection doesn't interest you—you want all or nothing. You're attracted to mystery and emotional courage. You value honesty and transformative intimacy. Trust is sacred.",
+  Sagittarius: "You need freedom within love and find it in shared adventures and growth. You're attracted to optimism, intelligence, and enthusiasm. You value honesty over tact. Love should expand your world, not shrink it.",
+  Capricorn: "You take love seriously and build it like you build everything else—with patience and long-term vision. You're attracted to ambition, competence, and maturity. You value commitment and reliability. Love is demonstrated through loyalty and effort.",
+  Aquarius: "You need intellectual connection and space for individuality within partnership. You're attracted to uniqueness, intelligence, and independence. You value friendship as the foundation of romance. Love should honour who you each are.",
+  Pisces: "You love unconditionally, idealistically, and with boundless compassion. You're attracted to sensitivity, creativity, and depth. You value emotional connection and transcendent moments. Love is a spiritual experience for you.",
+};
+
+// Mars descriptions - how you assert, pursue goals, and handle conflict
+const marsSignDescriptions: Record<string, string> = {
+  Aries: "Your drive is direct, competitive, and immediate. You go after what you want without hesitation and prefer action to planning. Conflict doesn't scare you—you face it head-on and move past it quickly. You work in bursts of intense energy.",
+  Taurus: "Your drive is steady, patient, and remarkably persistent. You don't rush—you build momentum gradually and keep going long after others have stopped. Conflict is something you'd rather avoid, but when pushed too far, your anger is formidable.",
+  Gemini: "Your drive is versatile and mentally oriented. You pursue goals through strategy, communication, and keeping options open. Conflict is handled verbally—you argue with words and wit. You work on multiple things simultaneously.",
+  Cancer: "Your drive is emotionally fueled and protective. You're motivated by security and care for loved ones. Conflict makes you defensive and indirect—you retreat before you attack. You work hardest when emotionally invested.",
+  Leo: "Your drive is creative, proud, and visibility-seeking. You want your efforts to be seen and appreciated. Conflict engages your pride—you need to win, but ideally with grace. You work best when inspired and recognised.",
+  Virgo: "Your drive is detailed, efficient, and improvement-focused. You pursue goals through careful planning and systematic effort. Conflict makes you critical and anxious. You work methodically and can maintain effort indefinitely.",
+  Libra: "Your drive is partnership-oriented and harmony-seeking. You pursue goals through collaboration and diplomacy. Conflict disturbs you—you'll avoid it if possible and seek fair resolution when you can't. You work best with others.",
+  Scorpio: "Your drive is intense, strategic, and relentless when activated. You pursue goals with laser focus and don't back down. Conflict brings out your most formidable side—you can hold grudges. You work with sustained intensity.",
+  Sagittarius: "Your drive is enthusiastic, freedom-seeking, and meaning-oriented. You pursue goals that align with your beliefs and values. Conflict is handled directly and then quickly forgotten. You work in passionate bursts.",
+  Capricorn: "Your drive is ambitious, disciplined, and strategically patient. You pursue long-term goals with remarkable determination. Conflict is handled carefully—you prefer winning through persistence. You work extremely hard.",
+  Aquarius: "Your drive is independent and often oriented toward causes larger than yourself. You pursue goals in your own unconventional way. Conflict is approached intellectually—you want to be right, not just to win. You work in unpredictable patterns.",
+  Pisces: "Your drive is subtle, inspired, and often passive until activated by meaning or compassion. You pursue goals through intuition and flow. Conflict drains you—you'd rather escape than fight. You work when the mood strikes.",
+};
+
+// Saturn descriptions - where pressure shapes you over time
+const saturnSignDescriptions: Record<string, string> = {
+  Aries: "Patience with yourself and your pace is the long lesson here. You may feel pressure to prove yourself quickly, to be first, to be independent before you're ready. Confidence around initiative and self-assertion builds slowly through experience, not declarations.",
+  Taurus: "Security and self-worth are areas of slow, persistent growth. You may carry anxiety around money, stability, or whether you're building something solid enough. Real confidence in what you have and who you are develops through sustained effort, not quick wins.",
+  Gemini: "Communication and intellectual confidence develop through discipline, not just natural ability. You may feel pressure around learning, speaking, or being understood. Clarity comes from doing the work, not from waiting for inspiration.",
+  Cancer: "Emotional security and belonging are earned through patience with yourself. You may carry weight around family, home, or your capacity to nurture. Safety is built internally first. Walls you've constructed for protection may eventually become unnecessary.",
+  Leo: "Creative confidence and the ability to be seen develop through persistent effort. You may feel pressure around visibility, recognition, or whether your contributions matter. Authentic expression comes from practice, not permission. Self-worth isn't given; it's claimed.",
+  Virgo: "Competence and health are areas of focused growth. You may carry anxiety around being useful, getting things right, or maintaining order. Perfection isn't the goal. Sustainable systems and self-compassion are built through incremental progress.",
+  Libra: "Relationships and fairness are areas of serious work. You may feel pressure around partnership, commitment, or balancing your needs with others'. Healthy relating is learned, not assumed. Boundaries and connection can coexist.",
+  Scorpio: "Power, trust, and emotional depth are areas of intense growth. You may carry weight around vulnerability, control, or what you've lost. Transformation is your territory, but it asks for patience. What you release makes room for what you become.",
+  Sagittarius: "Meaning, faith, and expansion are earned through discipline. You may feel pressure around beliefs, purpose, or whether your life is heading somewhere significant. Wisdom comes from experience, not just philosophy. Freedom deepens when it's chosen, not escaped to.",
+  Capricorn: "Achievement, responsibility, and structure are your familiar territory, but also your weight. You may carry pressure around success, authority, or whether you're doing enough. Real mastery comes from sustained effort and self-recognition, not external validation alone.",
+  Aquarius: "Independence, community, and vision develop through patience. You may feel pressure around belonging, being different, or whether your ideas matter. Authentic individuality is built, not declared. Connection and autonomy can coexist.",
+  Pisces: "Spirituality, compassion, and boundaries are areas of slow growth. You may carry weight around faith, escapism, or whether you're too sensitive for the world. Grounded transcendence is possible. Boundaries don't diminish your capacity to feel.",
+};
+
 export interface PlanetPosition {
   name: string;
   symbol: string;
@@ -116,9 +180,9 @@ export interface BirthData {
 
 /**
  * Convert longitude to zodiac sign
- * @param context - 'sun', 'moon', 'rising', or undefined for generic description
+ * @param context - 'sun', 'moon', 'rising', 'mercury', 'venus', 'mars', 'saturn' or undefined for generic description
  */
-function longitudeToSign(longitude: number, context?: 'sun' | 'moon' | 'rising'): PlanetPosition {
+function longitudeToSign(longitude: number, context?: 'sun' | 'moon' | 'rising' | 'mercury' | 'venus' | 'mars' | 'saturn'): PlanetPosition {
   const signIndex = Math.floor(longitude / 30) % 12;
   const degree = longitude % 30;
   const sign = zodiacSigns[signIndex];
@@ -131,6 +195,14 @@ function longitudeToSign(longitude: number, context?: 'sun' | 'moon' | 'rising')
     description = moonSignDescriptions[sign.name];
   } else if (context === 'rising') {
     description = risingSignDescriptions[sign.name];
+  } else if (context === 'mercury') {
+    description = mercurySignDescriptions[sign.name];
+  } else if (context === 'venus') {
+    description = venusSignDescriptions[sign.name];
+  } else if (context === 'mars') {
+    description = marsSignDescriptions[sign.name];
+  } else if (context === 'saturn') {
+    description = saturnSignDescriptions[sign.name];
   }
 
   return {
@@ -304,15 +376,51 @@ export async function calculateChart(birthData: BirthData): Promise<ChartData | 
       symbol: '☉',
     };
 
+    // Calculate Mercury position
+    const mercuryLongitude = calculateMercuryLongitude(jd);
+    const mercurySign = longitudeToSign(mercuryLongitude, 'mercury');
+    const mercury: PlanetPosition = {
+      ...mercurySign,
+      name: 'Mercury',
+      symbol: '☿',
+    };
+
+    // Calculate Venus position
+    const venusLongitude = calculateVenusLongitude(jd);
+    const venusSign = longitudeToSign(venusLongitude, 'venus');
+    const venus: PlanetPosition = {
+      ...venusSign,
+      name: 'Venus',
+      symbol: '♀',
+    };
+
+    // Calculate Mars position
+    const marsLongitude = calculateMarsLongitude(jd);
+    const marsSign = longitudeToSign(marsLongitude, 'mars');
+    const mars: PlanetPosition = {
+      ...marsSign,
+      name: 'Mars',
+      symbol: '♂',
+    };
+
+    // Calculate Saturn position
+    const saturnLongitude = calculateSaturnLongitude(jd);
+    const saturnSign = longitudeToSign(saturnLongitude, 'saturn');
+    const saturn: PlanetPosition = {
+      ...saturnSign,
+      name: 'Saturn',
+      symbol: '♄',
+    };
+
     return {
       sun,
       moon,
       rising,
-      mercury: sun, // Placeholder
-      venus: sun,   // Placeholder
-      mars: sun,    // Placeholder
-      jupiter: sun, // Placeholder
-      saturn: sun,  // Placeholder
+      mercury,
+      venus,
+      mars,
+      jupiter: sun, // Placeholder - outer planets need more complex calculations
+      saturn,
     };
   } catch (error) {
     console.error('Error calculating chart:', error);
@@ -340,6 +448,129 @@ function calculateSunLongitude(jd: number): number {
 
   // Sun's true longitude
   let longitude = L0 + C;
+
+  // Normalize to 0-360
+  longitude = longitude % 360;
+  if (longitude < 0) longitude += 360;
+
+  return longitude;
+}
+
+/**
+ * Calculate Mercury's ecliptic longitude using simplified algorithm
+ * Mercury orbits the Sun in ~88 days with significant perturbations
+ */
+function calculateMercuryLongitude(jd: number): number {
+  const T = (jd - 2451545.0) / 36525;
+
+  // Mercury's mean longitude
+  const L = 252.2509 + 149474.0722 * T;
+
+  // Mercury's mean anomaly
+  const M = 174.7948 + 149472.5153 * T;
+  const Mrad = (M % 360) * Math.PI / 180;
+
+  // Equation of center (simplified)
+  const C = 23.4400 * Math.sin(Mrad) + 2.9818 * Math.sin(2 * Mrad) + 0.5255 * Math.sin(3 * Mrad);
+
+  // True longitude
+  let longitude = L + C;
+
+  // Add perturbation from Jupiter
+  const Mj = 20.020 + 3034.906 * T;
+  const MjRad = (Mj % 360) * Math.PI / 180;
+  longitude += 0.1 * Math.sin(MjRad);
+
+  // Normalize to 0-360
+  longitude = longitude % 360;
+  if (longitude < 0) longitude += 360;
+
+  return longitude;
+}
+
+/**
+ * Calculate Venus's ecliptic longitude using simplified algorithm
+ * Venus orbits the Sun in ~225 days
+ */
+function calculateVenusLongitude(jd: number): number {
+  const T = (jd - 2451545.0) / 36525;
+
+  // Venus's mean longitude
+  const L = 181.9798 + 58519.2130 * T;
+
+  // Venus's mean anomaly
+  const M = 50.4161 + 58517.8039 * T;
+  const Mrad = (M % 360) * Math.PI / 180;
+
+  // Equation of center (simplified)
+  const C = 0.7758 * Math.sin(Mrad) + 0.0033 * Math.sin(2 * Mrad);
+
+  // True longitude
+  let longitude = L + C;
+
+  // Normalize to 0-360
+  longitude = longitude % 360;
+  if (longitude < 0) longitude += 360;
+
+  return longitude;
+}
+
+/**
+ * Calculate Mars's ecliptic longitude using simplified algorithm
+ * Mars orbits the Sun in ~687 days
+ */
+function calculateMarsLongitude(jd: number): number {
+  const T = (jd - 2451545.0) / 36525;
+
+  // Mars's mean longitude
+  const L = 355.4330 + 19141.6964 * T;
+
+  // Mars's mean anomaly
+  const M = 19.3730 + 19139.8585 * T;
+  const Mrad = (M % 360) * Math.PI / 180;
+
+  // Equation of center (simplified)
+  const C = 10.6912 * Math.sin(Mrad) + 0.6228 * Math.sin(2 * Mrad) + 0.0503 * Math.sin(3 * Mrad);
+
+  // True longitude
+  let longitude = L + C;
+
+  // Add perturbation from Jupiter
+  const Mj = 20.020 + 3034.906 * T;
+  const MjRad = (Mj % 360) * Math.PI / 180;
+  longitude += 0.3 * Math.sin(MjRad);
+
+  // Normalize to 0-360
+  longitude = longitude % 360;
+  if (longitude < 0) longitude += 360;
+
+  return longitude;
+}
+
+/**
+ * Calculate Saturn's ecliptic longitude using simplified algorithm
+ * Saturn orbits the Sun in ~29.5 years
+ */
+function calculateSaturnLongitude(jd: number): number {
+  const T = (jd - 2451545.0) / 36525;
+
+  // Saturn's mean longitude
+  const L = 50.0774 + 1223.5110 * T;
+
+  // Saturn's mean anomaly
+  const M = 317.0207 + 1222.1138 * T;
+  const Mrad = (M % 360) * Math.PI / 180;
+
+  // Equation of center (simplified)
+  const C = 6.4000 * Math.sin(Mrad) + 0.2300 * Math.sin(2 * Mrad);
+
+  // True longitude
+  let longitude = L + C;
+
+  // Add perturbation from Jupiter
+  const Mj = 20.020 + 3034.906 * T;
+  const MjRad = (Mj % 360) * Math.PI / 180;
+  longitude += 0.8 * Math.sin(MjRad);
 
   // Normalize to 0-360
   longitude = longitude % 360;

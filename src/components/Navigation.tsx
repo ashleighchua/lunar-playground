@@ -5,15 +5,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 interface NavigationProps {
-  currentPage?: 'home' | 'your-chart' | 'today' | 'compatibility' | 'travel' | 'about';
+  currentPage?: 'home' | 'your-chart' | 'today' | 'transit' | 'compatibility' | 'travel' | 'about';
 }
 
 export function Navigation({ currentPage }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '/your-chart', label: 'Your Chart', key: 'your-chart' },
-    { href: '/today', label: 'Today', key: 'today' },
+    { href: '/birth-report', label: 'Your Chart', key: 'your-chart' },
+    { href: '/transit', label: 'Sky Guide', key: 'transit' },
     { href: '/compatibility', label: 'Compatibility', key: 'compatibility' },
     { href: '/travel', label: 'Travel', key: 'travel' },
     { href: '/about', label: 'About', key: 'about' },
