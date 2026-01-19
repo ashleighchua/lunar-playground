@@ -85,70 +85,128 @@ export async function GET() {
 }
 
 function generateChartEmail(data: any, styles: string): string {
+  const enhancedStyles = `
+    body { font-family: Georgia, serif; background-color: #FAF7F2; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+    .header { text-align: center; margin-bottom: 32px; }
+    .logo { font-size: 24px; color: #2A2A2A; margin-bottom: 8px; }
+    .big-three { display: flex; justify-content: center; gap: 24px; margin: 24px 0; text-align: center; }
+    .big-three-item { flex: 1; max-width: 120px; }
+    .big-three-symbol { font-size: 24px; margin-bottom: 4px; }
+    .big-three-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #6B6B6B; }
+    .big-three-sign { font-size: 14px; font-weight: 500; color: #2A2A2A; }
+    .section { margin-bottom: 28px; padding: 20px; background: white; border-radius: 12px; border: 1px solid #E8E4DE; }
+    .section-icon { font-size: 18px; margin-right: 8px; }
+    .section-title { font-size: 18px; color: #2A2A2A; margin-bottom: 12px; display: flex; align-items: center; }
+    .section-subtitle { font-size: 14px; color: #6B6B6B; margin-bottom: 8px; font-style: italic; }
+    .content { color: #4A4A4A; line-height: 1.7; font-size: 14px; }
+    .highlight { background-color: #F5F0EB; padding: 20px; border-radius: 8px; margin: 16px 0; }
+    .drives-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .drive-tag { background: #FAF7F2; padding: 6px 12px; border-radius: 16px; font-size: 12px; color: #2A2A2A; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #E8DED4; color: #6B6B6B; font-size: 14px; }
+    a { color: #2A2A2A; }
+    .cta-button { display: inline-block; background: #2A2A2A; color: white !important; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 16px; }
+  `;
+
   return `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
-      <style>${styles}</style>
+      <style>${enhancedStyles}</style>
     </head>
     <body>
       <div class="container">
         <div class="header">
           <div class="logo">The Lunar Playground</div>
-          <p style="color: #6B6B6B;">Your Lunar Chart</p>
+          <p style="color: #6B6B6B; margin-top: 8px;">Your Birth Chart Report</p>
         </div>
 
-        <div class="highlight" style="text-align: center;">
-          <div style="font-size: 48px; margin-bottom: 8px;">${data.birthMoon?.emoji || '🌙'}</div>
-          <div style="font-size: 20px; color: #2A2A2A; margin-bottom: 4px;">${data.birthMoon?.name || 'Moon Phase'}</div>
-          <div style="color: #6B6B6B;">${data.birthMoon?.illumination || 0}% illuminated</div>
+        <!-- Big Three Summary -->
+        <div class="highlight" style="text-align: center; padding: 24px;">
+          <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #6B6B6B; margin-bottom: 16px;">Your Operating System</p>
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+            <tr>
+              <td width="33%" style="text-align: center; padding: 8px;">
+                <div style="font-size: 20px; margin-bottom: 4px;">☉</div>
+                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #6B6B6B;">Sun</div>
+                <div style="font-size: 14px; font-weight: 500; color: #2A2A2A;">${data.sunSign?.name || '—'}</div>
+              </td>
+              <td width="33%" style="text-align: center; padding: 8px;">
+                <div style="font-size: 20px; margin-bottom: 4px;">☽</div>
+                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #6B6B6B;">Moon</div>
+                <div style="font-size: 14px; font-weight: 500; color: #2A2A2A;">${data.moonSign?.name || '—'}</div>
+              </td>
+              <td width="33%" style="text-align: center; padding: 8px;">
+                <div style="font-size: 20px; margin-bottom: 4px;">↑</div>
+                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #6B6B6B;">Rising</div>
+                <div style="font-size: 14px; font-weight: 500; color: #2A2A2A;">${data.risingSign?.name || '—'}</div>
+              </td>
+            </tr>
+          </table>
         </div>
 
-        ${data.birthMoon?.description ? `
+        <!-- Core Drives -->
+        ${(data.mercurySign || data.venusSign || data.marsSign || data.saturnSign) ? `
         <div class="section">
-          <div class="section-title">Your Birth Moon</div>
-          <p class="content">${data.birthMoon.description}</p>
+          <div class="section-title"><span class="section-icon">☿</span> Core Drives</div>
+          <p class="section-subtitle">How you think, connect, act, and persist</p>
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 12px;">
+            ${data.mercurySign ? `<tr><td style="padding: 6px 0; color: #6B6B6B; font-size: 13px;">Mercury (thinking)</td><td style="padding: 6px 0; text-align: right; color: #2A2A2A; font-size: 13px;">${data.mercurySign.name}</td></tr>` : ''}
+            ${data.venusSign ? `<tr><td style="padding: 6px 0; color: #6B6B6B; font-size: 13px;">Venus (connecting)</td><td style="padding: 6px 0; text-align: right; color: #2A2A2A; font-size: 13px;">${data.venusSign.name}</td></tr>` : ''}
+            ${data.marsSign ? `<tr><td style="padding: 6px 0; color: #6B6B6B; font-size: 13px;">Mars (acting)</td><td style="padding: 6px 0; text-align: right; color: #2A2A2A; font-size: 13px;">${data.marsSign.name}</td></tr>` : ''}
+            ${data.saturnSign ? `<tr><td style="padding: 6px 0; color: #6B6B6B; font-size: 13px;">Saturn (persisting)</td><td style="padding: 6px 0; text-align: right; color: #2A2A2A; font-size: 13px;">${data.saturnSign.name}</td></tr>` : ''}
+          </table>
         </div>
         ` : ''}
 
-        ${data.sunSign ? `
+        <!-- Sun Sign -->
+        ${data.sunSign?.description ? `
         <div class="section">
-          <div class="section-title">Sun Sign: ${data.sunSign.name}</div>
-          <p class="content">${data.sunSign.description || ''}</p>
+          <div class="section-title"><span class="section-icon">☉</span> Sun in ${data.sunSign.name}</div>
+          <p class="section-subtitle">Your core identity and direction</p>
+          <p class="content">${data.sunSign.description}</p>
         </div>
         ` : ''}
 
-        ${data.moonSign ? `
+        <!-- Moon Sign -->
+        ${data.moonSign?.description ? `
         <div class="section">
-          <div class="section-title">Moon Sign: ${data.moonSign.name}</div>
-          <p class="content">${data.moonSign.description || ''}</p>
+          <div class="section-title"><span class="section-icon">☽</span> Moon in ${data.moonSign.name}</div>
+          <p class="section-subtitle">Your emotional nature and inner world</p>
+          <p class="content">${data.moonSign.description}</p>
         </div>
         ` : ''}
 
-        ${data.risingSign ? `
+        <!-- Rising Sign -->
+        ${data.risingSign?.description ? `
         <div class="section">
-          <div class="section-title">Rising Sign: ${data.risingSign.name}</div>
-          <p class="content">${data.risingSign.description || ''}</p>
+          <div class="section-title"><span class="section-icon">↑</span> Rising in ${data.risingSign.name}</div>
+          <p class="section-subtitle">How you meet the world</p>
+          <p class="content">${data.risingSign.description}</p>
         </div>
         ` : ''}
 
-        ${data.chineseZodiac ? `
+        <!-- Birth Moon Phase -->
+        ${data.birthMoon ? `
         <div class="section">
-          <div class="section-title">Chinese Zodiac: ${data.chineseZodiac.animal}</div>
-          <p class="content">${data.chineseZodiac.description || ''}</p>
+          <div class="section-title"><span class="section-icon">${data.birthMoon.emoji}</span> Birth Moon: ${data.birthMoon.name}</div>
+          <p class="section-subtitle">${data.birthMoon.illumination}% illuminated</p>
+          ${data.birthMoon.description ? `<p class="content">${data.birthMoon.description}</p>` : ''}
         </div>
         ` : ''}
 
-        ${data.lifePath ? `
-        <div class="section">
-          <div class="section-title">Life Path Number: ${data.lifePath.number}</div>
-          <p class="content">${data.lifePath.description || ''}</p>
+        <!-- View Full Report CTA -->
+        <div style="text-align: center; margin: 32px 0;">
+          <p style="color: #6B6B6B; font-size: 14px; margin-bottom: 16px;">
+            This is a summary of your birth chart. Your full report includes detailed sections on emotional patterns, relationships, work style, shadow & growth, and practical takeaways.
+          </p>
+          <a href="https://www.thelunarplayground.com/birth-report" class="cta-button">View Full Report</a>
         </div>
-        ` : ''}
 
         <div class="footer">
-          <p>The Lunar Playground</p>
+          <p style="margin-bottom: 8px;">The Lunar Playground</p>
+          <p style="font-size: 12px; color: #8B8B8B;">A playground, not a prophecy.</p>
           <p><a href="https://www.thelunarplayground.com">www.thelunarplayground.com</a></p>
         </div>
       </div>
