@@ -9,7 +9,7 @@ export default function AboutPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
+        <section className="container-editorial pt-6 pb-8 md:pt-8 md:pb-10">
           <div className="max-w-2xl">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight">
               About
@@ -26,7 +26,7 @@ export default function AboutPage() {
         </div>
 
         {/* The Story - Left text, Right image */}
-        <section className="container-editorial py-12 md:py-16">
+        <section className="container-editorial py-8 md:py-10">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
             <div className="flex-1">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
@@ -65,7 +65,7 @@ export default function AboutPage() {
         </div>
 
         {/* What We Believe - Left image, Right text */}
-        <section className="container-editorial py-12 md:py-16">
+        <section className="container-editorial py-8 md:py-10">
           <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16">
             <div className="flex-1 md:text-left">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
@@ -103,13 +103,13 @@ export default function AboutPage() {
         </div>
 
         {/* What Guides Us - Values Section */}
-        <section className="container-editorial py-12 md:py-16">
+        <section className="container-editorial py-8 md:py-10">
           <h2 className="font-serif text-2xl text-[#2A2A2A] mb-12">
             What guides us
           </h2>
 
           {/* Curiosity - Left image, Right text */}
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16 mb-16">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16 mb-10">
             <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
               <Image
                 src="/Images/the-cups.png"
@@ -128,7 +128,7 @@ export default function AboutPage() {
           </div>
 
           {/* Love - Right image, Left text */}
-          <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16 mb-16">
+          <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16 mb-10">
             <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
               <Image
                 src="/Images/the lovers.png"
@@ -172,7 +172,7 @@ export default function AboutPage() {
         </div>
 
         {/* Say Hello - Encapsulated box */}
-        <section className="container-editorial py-12 md:py-16">
+        <section className="container-editorial py-8 md:py-10">
           <div className="rounded-2xl bg-gradient-to-r from-[#D4C4B0] to-[#E8DED4] p-8 md:p-12">
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-6">

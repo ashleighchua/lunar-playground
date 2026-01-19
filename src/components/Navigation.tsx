@@ -14,8 +14,6 @@ export function Navigation({ currentPage }: NavigationProps) {
   const navLinks = [
     { href: '/birth-report', label: 'Your Chart', key: 'your-chart' },
     { href: '/transit', label: 'Sky Guide', key: 'transit' },
-    { href: '/compatibility', label: 'Compatibility', key: 'compatibility' },
-    { href: '/travel', label: 'Travel', key: 'travel' },
     { href: '/about', label: 'About', key: 'about' },
   ];
 

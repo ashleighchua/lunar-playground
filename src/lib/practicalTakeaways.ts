@@ -49,11 +49,11 @@ export const leanInto: Record<string, string[]> = {
     "Dedication that follows through completely",
   ],
   Libra: [
-    "Your ability to see patterns and possibilities others miss",
-    "Thinking beyond personal interest toward collective impact",
-    "Friendship and intellectual connection as valid forms of intimacy",
-    "Questioning assumptions instead of accepting them by default",
-    "Comfort with difference, ambiguity, and unconventional paths",
+    "Your ability to create harmony without sacrificing truth",
+    "Seeing all sides of a situation with genuine fairness",
+    "Making others feel heard and valued in your presence",
+    "Creating beauty and balance in environments you touch",
+    "Building partnerships where both people genuinely thrive",
   ],
   Scorpio: [
     "Your ability to see truth others avoid",
@@ -137,11 +137,11 @@ export const watchFor: Record<string, string[]> = {
     "Helpfulness that avoids receiving",
   ],
   Libra: [
-    "Mental distance that turns into emotional unavailability",
-    "Questioning for the sake of distance rather than curiosity",
-    "Choosing ideas over relationships when both are needed",
-    "Explaining feelings instead of staying present with them",
-    "Standing apart so long that connection weakens",
+    "Keeping the peace at the cost of your own needs",
+    "Indecision that delays necessary action",
+    "Accommodating others until resentment builds",
+    "Avoiding conflict when honesty would serve better",
+    "Losing yourself in the effort to please everyone",
   ],
   Scorpio: [
     "Intensity that overwhelms others",
@@ -220,9 +220,9 @@ That question alone will bring peace more than fixing will.`,
 
   Libra: `When something feels off, ask:
 
-"Am I choosing clarity over presence right now, or do I need both?"
+"Am I keeping the peace, or keeping myself small?"
 
-That question alone will bring you back into balance more often than analysis ever will.`,
+That question alone will bring you back into balance more often than accommodating ever will.`,
 
   Scorpio: `When something feels suspicious, ask:
 
