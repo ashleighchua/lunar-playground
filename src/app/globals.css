@@ -13,6 +13,133 @@
   --background: var(--warm-white);
   --foreground: var(--deep-grey);
   --muted: #6B6B6B;
+
+  /* Core Neutral System */
+  --ink-primary: #2A2A2A;
+  --ink-secondary: #6A6762;
+  --ink-tertiary: #7A746C;
+
+  --paper-background: #FAF7F2;
+  --paper-card: #FFFFFF;
+  --paper-muted: #F6F0E6;
+
+  --border-soft: #D7D0C6;
+  --border-medium: #C9C2B8;
+
+  /* Identity Triangle: Sun (Purpose, Identity) - Amber */
+  --sun-fill: #FDF3E3;
+  --sun-ring: #F5D89A;
+  --sun-stroke: #D4A84B;
+  --sun-glyph: #8B6914;
+
+  /* Identity Triangle: Moon (Emotion, Processing) - Clay */
+  --moon-fill: #F5EBE4;
+  --moon-ring: #E4D6CC;
+  --moon-stroke: #C4A88F;
+  --moon-glyph: #7A5C45;
+
+  /* Identity Triangle: Rising (Presentation, Interface) - Sage */
+  --rising-fill: #EDF4ED;
+  --rising-ring: #D8E0D2;
+  --rising-stroke: #9CB896;
+  --rising-glyph: #4A6B44;
+
+  /* Triangle Structure */
+  --triangle-fill-top: #F6F0E6;
+  --triangle-fill-bottom: #F3EEE6;
+  --triangle-shadow: rgba(0, 0, 0, 0.10);
+  --node-glow-opacity: 0.25;
+
+  /* Interaction & UI Accents */
+  --accent-hover: #C9C2B8;
+  --accent-active: #AFA89E;
+  --accent-focus: #7A746C;
+
+  /* Core Drives: Planet Colors */
+  --mercury-fill: #E8EDF2;
+  --mercury-ring: #B8C4D1;
+  --mercury-glyph: #5A6B7A;
+
+  --venus-fill: #F5EBE8;
+  --venus-ring: #E4CCC4;
+  --venus-glyph: #8B6B60;
+
+  --mars-fill: #F2EAE4;
+  --mars-ring: #D4B8A4;
+  --mars-glyph: #8B5A3C;
+
+  --saturn-fill: #ECEEF0;
+  --saturn-ring: #C4C8CC;
+  --saturn-glyph: #5A5E64;
+}
+
+/* Dark mode color scheme */
+.dark {
+  --warm-white: #1A1A1A;
+  --deep-grey: #F0EDE8;
+  --dusty-lilac: #3D3654;
+  --muted-clay: #3D3530;
+  --soft-sage: #2D352D;
+  --powder-blue: #2A3340;
+
+  --background: var(--warm-white);
+  --foreground: var(--deep-grey);
+  --muted: #9A9A9A;
+
+  --ink-primary: #F0EDE8;
+  --ink-secondary: #B5B0A8;
+  --ink-tertiary: #8A847C;
+
+  --paper-background: #1A1A1A;
+  --paper-card: #242424;
+  --paper-muted: #2A2A2A;
+
+  --border-soft: #3A3A3A;
+  --border-medium: #4A4A4A;
+
+  /* Sun - Amber (adjusted for dark) */
+  --sun-fill: #2E2518;
+  --sun-ring: #5A4820;
+  --sun-stroke: #D4A84B;
+  --sun-glyph: #E8C87A;
+
+  /* Moon - Clay (adjusted for dark) */
+  --moon-fill: #2A2420;
+  --moon-ring: #4A3D35;
+  --moon-stroke: #C4A88F;
+  --moon-glyph: #D4C4B0;
+
+  /* Rising - Sage (adjusted for dark) */
+  --rising-fill: #1E251E;
+  --rising-ring: #2D3D2D;
+  --rising-stroke: #7A9A74;
+  --rising-glyph: #A8C8A0;
+
+  --triangle-fill-top: #252520;
+  --triangle-fill-bottom: #2A2A25;
+  --triangle-shadow: rgba(0, 0, 0, 0.40);
+  --node-glow-opacity: 0.4;
+
+  --accent-hover: #3A3A3A;
+  --accent-active: #4A4A4A;
+  --accent-focus: #5A5A5A;
+
+  /* Core Drives for dark mode */
+  --mercury-fill: #1E2328;
+  --mercury-ring: #3A4550;
+  --mercury-glyph: #8A9AA8;
+
+  --venus-fill: #282220;
+  --venus-ring: #4A3A35;
+  --venus-glyph: #C8A8A0;
+
+  --mars-fill: #282420;
+  --mars-ring: #4A3A30;
+  --mars-glyph: #C8886A;
+
+  --saturn-fill: #222426;
+  --saturn-ring: #3A3E42;
+  --saturn-glyph: #9A9EA4;
 }
 
 @theme inline {
@@ -89,4 +216,145 @@ img {
   color: var(--muted);
   display: block;
   margin-bottom: 1rem;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scroll-triggered animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Staggered animation delays */
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+
+/* Print styles for Birth Report PDF - use .print-hidden class instead of complex selectors */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 10pt;
+    line-height: 1.6;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  nav, footer, button {
+    display: none !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  /* Print-specific visibility */
+  .print-visible {
+    display: block !important;
+  }
+
+  /* Card styling for print */
+  [id="operating-system"],
+  [id="core-drives"],
+  [id="emotional-pattern"],
+  [id="relationship-blueprint"],
+  [id="work-style"],
+  [id="shadow-growth"],
+  [id="takeaways"] {
+    page-break-before: always;
+    page-break-inside: avoid;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* First card shouldn't break */
+  [id="operating-system"] {
+    page-break-before: auto;
+  }
+
+  /* Prevent orphaned headers */
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+  }
+
+  /* Keep content together */
+  .rounded-xl, .rounded-2xl {
+    page-break-inside: avoid;
+  }
+
+  /* Links */
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  /* Container */
+  .container-editorial {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* SVG visuals */
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Executive summary for print */
+  .bg-gradient-to-br {
+    background: #2A2A2A !important;
+  }
+
+  /* Better table of contents for print */
+  .print-toc {
+    display: block !important;
+    page-break-after: always;
+  }
+
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+
+  @page :first {
+    margin-top: 2cm;
+  }
 }

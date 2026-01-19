@@ -8,13 +8,14 @@ interface SendResultsEmailProps {
   type: 'your-chart' | 'compatibility' | 'travel';
   data: any;
   className?: string;
+  defaultEmail?: string;
 }
 
 /**
  * Component to send results to user's email via Resend
  */
-export function SendResultsEmail({ type, data, className }: SendResultsEmailProps) {
-  const [email, setEmail] = useState('');
+export function SendResultsEmail({ type, data, className, defaultEmail = '' }: SendResultsEmailProps) {
+  const [email, setEmail] = useState(defaultEmail);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
