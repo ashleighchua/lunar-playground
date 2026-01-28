@@ -457,123 +457,185 @@ function calculateSunLongitude(jd: number): number {
 }
 
 /**
- * Calculate Mercury's ecliptic longitude using simplified algorithm
- * Mercury orbits the Sun in ~88 days with significant perturbations
+ * Helper to normalize angle to 0-360
+ */
+function normalizeAngle(angle: number): number {
+  let result = angle % 360;
+  if (result < 0) result += 360;
+  return result;
+}
+
+/**
+ * Helper to calculate Earth's heliocentric position
+ */
+function getEarthHeliocentricPosition(jd: number): { x: number; y: number; r: number; lon: number } {
+  const sunLon = calculateSunLongitude(jd);
+  const earthLon = normalizeAngle(sunLon + 180);
+
+  const T = (jd - 2451545.0) / 36525;
+  const Me = normalizeAngle(357.52911 + 35999.05029 * T);
+  const MeRad = Me * Math.PI / 180;
+  const ee = 0.016709;
+  const re = 1.0 * (1 - ee * ee) / (1 + ee * Math.cos(MeRad));
+
+  const earthLonRad = earthLon * Math.PI / 180;
+  return {
+    x: re * Math.cos(earthLonRad),
+    y: re * Math.sin(earthLonRad),
+    r: re,
+    lon: earthLon
+  };
+}
+
+/**
+ * Calculate Mercury's GEOCENTRIC ecliptic longitude
  */
 function calculateMercuryLongitude(jd: number): number {
   const T = (jd - 2451545.0) / 36525;
 
-  // Mercury's mean longitude
-  const L = 252.2509 + 149474.0722 * T;
-
-  // Mercury's mean anomaly
-  const M = 174.7948 + 149472.5153 * T;
-  const Mrad = (M % 360) * Math.PI / 180;
-
-  // Equation of center (simplified)
+  // Mercury's heliocentric position
+  const L = normalizeAngle(252.2509 + 149474.0722 * T);
+  const M = normalizeAngle(174.7948 + 149472.5153 * T);
+  const Mrad = M * Math.PI / 180;
   const C = 23.4400 * Math.sin(Mrad) + 2.9818 * Math.sin(2 * Mrad) + 0.5255 * Math.sin(3 * Mrad);
+  const mercuryHelioLon = normalizeAngle(L + C);
 
-  // True longitude
-  let longitude = L + C;
+  // Mercury's orbital radius
+  const em = 0.205630;
+  const am = 0.387098;
+  const rm = am * (1 - em * em) / (1 + em * Math.cos(Mrad));
 
-  // Add perturbation from Jupiter
-  const Mj = 20.020 + 3034.906 * T;
-  const MjRad = (Mj % 360) * Math.PI / 180;
-  longitude += 0.1 * Math.sin(MjRad);
+  // Convert to rectangular
+  const mercuryHelioRad = mercuryHelioLon * Math.PI / 180;
+  const xm = rm * Math.cos(mercuryHelioRad);
+  const ym = rm * Math.sin(mercuryHelioRad);
 
-  // Normalize to 0-360
-  longitude = longitude % 360;
+  // Earth's position
+  const earth = getEarthHeliocentricPosition(jd);
+
+  // Geocentric position
+  const xg = xm - earth.x;
+  const yg = ym - earth.y;
+
+  // Geocentric longitude
+  let longitude = Math.atan2(yg, xg) * 180 / Math.PI;
   if (longitude < 0) longitude += 360;
 
   return longitude;
 }
 
 /**
- * Calculate Venus's ecliptic longitude using simplified algorithm
- * Venus orbits the Sun in ~225 days
+ * Calculate Venus's GEOCENTRIC ecliptic longitude
  */
 function calculateVenusLongitude(jd: number): number {
   const T = (jd - 2451545.0) / 36525;
 
-  // Venus's mean longitude
-  const L = 181.9798 + 58519.2130 * T;
-
-  // Venus's mean anomaly
-  const M = 50.4161 + 58517.8039 * T;
-  const Mrad = (M % 360) * Math.PI / 180;
-
-  // Equation of center (simplified)
+  // Venus's heliocentric position
+  const L = normalizeAngle(181.9798 + 58519.2130 * T);
+  const M = normalizeAngle(50.4161 + 58517.8039 * T);
+  const Mrad = M * Math.PI / 180;
   const C = 0.7758 * Math.sin(Mrad) + 0.0033 * Math.sin(2 * Mrad);
+  const venusHelioLon = normalizeAngle(L + C);
 
-  // True longitude
-  let longitude = L + C;
+  // Venus's orbital radius
+  const ev = 0.006773;
+  const av = 0.723332;
+  const rv = av * (1 - ev * ev) / (1 + ev * Math.cos(Mrad));
 
-  // Normalize to 0-360
-  longitude = longitude % 360;
+  // Convert to rectangular
+  const venusHelioRad = venusHelioLon * Math.PI / 180;
+  const xv = rv * Math.cos(venusHelioRad);
+  const yv = rv * Math.sin(venusHelioRad);
+
+  // Earth's position
+  const earth = getEarthHeliocentricPosition(jd);
+
+  // Geocentric position
+  const xg = xv - earth.x;
+  const yg = yv - earth.y;
+
+  // Geocentric longitude
+  let longitude = Math.atan2(yg, xg) * 180 / Math.PI;
   if (longitude < 0) longitude += 360;
 
   return longitude;
 }
 
 /**
- * Calculate Mars's ecliptic longitude using simplified algorithm
- * Mars orbits the Sun in ~687 days
+ * Calculate Mars's GEOCENTRIC ecliptic longitude
  */
 function calculateMarsLongitude(jd: number): number {
   const T = (jd - 2451545.0) / 36525;
 
-  // Mars's mean longitude
-  const L = 355.4330 + 19141.6964 * T;
-
-  // Mars's mean anomaly
-  const M = 19.3730 + 19139.8585 * T;
-  const Mrad = (M % 360) * Math.PI / 180;
-
-  // Equation of center (simplified)
+  // Mars's heliocentric position
+  const L = normalizeAngle(355.4330 + 19141.6964 * T);
+  const M = normalizeAngle(19.3730 + 19139.8585 * T);
+  const Mrad = M * Math.PI / 180;
   const C = 10.6912 * Math.sin(Mrad) + 0.6228 * Math.sin(2 * Mrad) + 0.0503 * Math.sin(3 * Mrad);
+  const marsHelioLon = normalizeAngle(L + C);
 
-  // True longitude
-  let longitude = L + C;
+  // Mars's orbital radius
+  const ema = 0.093394;
+  const ama = 1.523679;
+  const rma = ama * (1 - ema * ema) / (1 + ema * Math.cos(Mrad));
 
-  // Add perturbation from Jupiter
-  const Mj = 20.020 + 3034.906 * T;
-  const MjRad = (Mj % 360) * Math.PI / 180;
-  longitude += 0.3 * Math.sin(MjRad);
+  // Convert to rectangular
+  const marsHelioRad = marsHelioLon * Math.PI / 180;
+  const xma = rma * Math.cos(marsHelioRad);
+  const yma = rma * Math.sin(marsHelioRad);
 
-  // Normalize to 0-360
-  longitude = longitude % 360;
+  // Earth's position
+  const earth = getEarthHeliocentricPosition(jd);
+
+  // Geocentric position
+  const xg = xma - earth.x;
+  const yg = yma - earth.y;
+
+  // Geocentric longitude
+  let longitude = Math.atan2(yg, xg) * 180 / Math.PI;
   if (longitude < 0) longitude += 360;
 
   return longitude;
 }
 
 /**
- * Calculate Saturn's ecliptic longitude using simplified algorithm
- * Saturn orbits the Sun in ~29.5 years
+ * Calculate Saturn's GEOCENTRIC ecliptic longitude
  */
 function calculateSaturnLongitude(jd: number): number {
   const T = (jd - 2451545.0) / 36525;
 
-  // Saturn's mean longitude
-  const L = 50.0774 + 1223.5110 * T;
-
-  // Saturn's mean anomaly
-  const M = 317.0207 + 1222.1138 * T;
-  const Mrad = (M % 360) * Math.PI / 180;
-
-  // Equation of center (simplified)
+  // Saturn's heliocentric position
+  const L = normalizeAngle(50.0774 + 1223.5110 * T);
+  const M = normalizeAngle(317.0207 + 1222.1138 * T);
+  const Mrad = M * Math.PI / 180;
   const C = 6.4000 * Math.sin(Mrad) + 0.2300 * Math.sin(2 * Mrad);
 
-  // True longitude
-  let longitude = L + C;
+  // Jupiter perturbation
+  const Mj = normalizeAngle(20.020 + 3034.906 * T);
+  const MjRad = Mj * Math.PI / 180;
+  const Cj = 0.8 * Math.sin(MjRad);
 
-  // Add perturbation from Jupiter
-  const Mj = 20.020 + 3034.906 * T;
-  const MjRad = (Mj % 360) * Math.PI / 180;
-  longitude += 0.8 * Math.sin(MjRad);
+  const saturnHelioLon = normalizeAngle(L + C + Cj);
 
-  // Normalize to 0-360
-  longitude = longitude % 360;
+  // Saturn's orbital radius
+  const es = 0.054151;
+  const as = 9.554909;
+  const rs = as * (1 - es * es) / (1 + es * Math.cos(Mrad));
+
+  // Convert to rectangular
+  const saturnHelioRad = saturnHelioLon * Math.PI / 180;
+  const xs = rs * Math.cos(saturnHelioRad);
+  const ys = rs * Math.sin(saturnHelioRad);
+
+  // Earth's position
+  const earth = getEarthHeliocentricPosition(jd);
+
+  // Geocentric position
+  const xg = xs - earth.x;
+  const yg = ys - earth.y;
+
+  // Geocentric longitude
+  let longitude = Math.atan2(yg, xg) * 180 / Math.PI;
   if (longitude < 0) longitude += 360;
 
   return longitude;
