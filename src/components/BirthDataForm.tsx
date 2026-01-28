@@ -122,22 +122,20 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
         />
       </div>
 
-      {!compact && (
-        <div className="pt-2">
-          <label htmlFor="email" className="block text-sm text-[#6B6B6B] mb-2">
-            Email <span className="text-[#6B6B6B]/60">(optional)</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-            placeholder="you@example.com"
-            className="w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors text-[#2A2A2A] placeholder:text-[#6B6B6B]/40"
-          />
-          <p className="mt-2 text-xs text-[#6B6B6B]">We&apos;ll email you a copy of your report</p>
-        </div>
-      )}
+      <div className={compact ? '' : 'pt-2'}>
+        <label htmlFor="email" className="block text-sm text-[#6B6B6B] mb-2">
+          Email <span className="text-[#6B6B6B]/60">(optional)</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          value={userEmail}
+          onChange={(e) => setUserEmail(e.target.value)}
+          placeholder="you@example.com"
+          className="w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors text-[#2A2A2A] placeholder:text-[#6B6B6B]/40"
+        />
+        {!compact && <p className="mt-2 text-xs text-[#6B6B6B]">We&apos;ll email you a copy of your report</p>}
+      </div>
 
       <button
         type="submit"

@@ -73,20 +73,20 @@ export default function Home() {
       {/* Hero with Form */}
       <section className="relative overflow-hidden">
         <div className="container-editorial pt-8 pb-16 md:pt-12 md:pb-24 relative">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="grid lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-12 items-start">
             {/* Left: Headline + Form */}
             <div className="relative z-10">
-              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight">
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-5xl text-[#2A2A2A] leading-[1.1] tracking-tight">
                 Understand yourself
                 <br />
                 <span className="text-[#6B6B6B]">through the stars</span>
               </h1>
-              <p className="mt-6 text-lg text-[#6B6B6B] max-w-md leading-relaxed">
-                A comprehensive birth chart report exploring your personality, patterns, and potential. Not prediction. Reflection.
+              <p className="mt-5 text-base text-[#6B6B6B] leading-relaxed">
+                A comprehensive birth chart report exploring your personality, patterns, and potential.
               </p>
 
               {/* Form */}
-              <div className="mt-8 max-w-md">
+              <div className="mt-6">
                 <BirthDataForm compact />
               </div>
             </div>

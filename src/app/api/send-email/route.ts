@@ -54,6 +54,10 @@ export async function POST(request: NextRequest) {
         subject = 'Your Travel Destination';
         html = generateTravelEmail(data, styles);
         break;
+      case 'feedback':
+        subject = 'Feedback from The Lunar Playground';
+        html = generateFeedbackEmail(data, styles);
+        break;
       default:
         return NextResponse.json(
           { error: 'Invalid email type' },
@@ -62,7 +66,8 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await resend.emails.send({
-      from: 'The Lunar Playground <hello@thelunarplayground.com>',
+      from: 'The Lunar Playground <noreply@thelunarplayground.com>',
+      replyTo: 'thelunarplayground@gmail.com',
       to: [to],
       subject,
       html,
@@ -314,6 +319,34 @@ function generateTravelEmail(data: any, styles: string): string {
         <div class="footer">
           <p>The Lunar Playground</p>
           <p><a href="https://www.thelunarplayground.com">www.thelunarplayground.com</a></p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+function generateFeedbackEmail(data: any, styles: string): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>${styles}</style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <div class="logo">The Lunar Playground</div>
+          <p style="color: #6B6B6B;">New Feedback</p>
+        </div>
+
+        <div class="highlight">
+          <p class="content" style="white-space: pre-wrap;">${data.message || 'No message provided'}</p>
+        </div>
+
+        <div class="footer">
+          <p style="font-size: 12px; color: #999;">Sent from the feedback widget</p>
         </div>
       </div>
     </body>

@@ -182,10 +182,11 @@ export default function AboutPage() {
                 Questions, ideas, or just want to share what resonated? I&apos;d love to hear from you.
               </p>
               <a
-                href="mailto:hello@thelunarplayground.com"
-                className="inline-block px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors"
+                href="mailto:thelunarplayground@gmail.com"
+                className="inline-block px-6 md:px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors text-sm md:text-base"
               >
-                hello@thelunarplayground.com
+                <span className="md:hidden">Email me</span>
+                <span className="hidden md:inline">thelunarplayground@gmail.com</span>
               </a>
             </div>
           </div>

@@ -1,7 +1,8 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
+import FeedbackButton from '@/components/FeedbackButton';
 
 const GA_MEASUREMENT_ID = 'G-MP7S8LJ1XG';
 const CLARITY_PROJECT_ID = 'uy38asrmsr';
@@ -18,9 +19,19 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
+
 export const metadata: Metadata = {
   title: 'The Lunar Playground',
-  description: 'Astrology for the quietly curious',
+  description: 'Generate your free birth chart. Understand your personality through Sun, Moon, Rising signs and planetary placements.',
+  icons: {
+    icon: '/Images/logo.png',
+    apple: '/Images/logo.png',
+  },
 };
 
 export default function RootLayout({
@@ -58,6 +69,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
+        <FeedbackButton />
       </body>
     </html>
   );
