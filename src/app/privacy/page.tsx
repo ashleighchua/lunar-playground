@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Navigation } from '@/components/Navigation';
 
 export const metadata = {
   title: 'Privacy Policy | The Lunar Playground',
@@ -8,6 +9,7 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-[#FAF7F2]">
+      <Navigation />
       <main className="container-editorial py-16 md:py-24">
         <div className="max-w-2xl mx-auto">
           <Link
