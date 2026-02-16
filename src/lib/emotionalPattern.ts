@@ -68,7 +68,7 @@ This makes you thoughtful and considerate, but it can blur the line between your
 
 You're not being intense. You're being thorough.
 
-This makes you perceptive and loyal, but it can mean you hold feelings until they've been fully processed—which takes time.`,
+This makes you perceptive and loyal, but it can mean you hold feelings until they've been fully processed, which takes time.`,
 
   Sagittarius: `You process emotions through meaning and movement. When feelings arise, you want to understand what they teach and then move forward.
 
@@ -88,7 +88,7 @@ You're not being detached. You're being objective.
 
 This makes you calm in crisis, but it can mean you intellectualise feelings rather than letting them move through you.`,
 
-  Pisces: `You process emotions through absorption and release. When feelings arise, you feel them fully—yours and everyone else's.
+  Pisces: `You process emotions through absorption and release. When feelings arise, you feel them fully, yours and everyone else's.
 
 You're not being oversensitive. You're being permeable.
 
@@ -131,7 +131,7 @@ The risk is that expression can become performance. If no one sees your pain, it
 
 You look for what caused the feeling and what can be done about it. This keeps you useful.
 
-The risk is that fixing can become avoiding. Some feelings don't have solutions—they just need to be felt.`,
+The risk is that fixing can become avoiding. Some feelings don't have solutions. They just need to be felt.`,
 
   Libra: `When emotional intensity rises or conflict feels imminent, your first move is to step back mentally.
 
@@ -143,19 +143,19 @@ Over time, however, unexpressed feelings can accumulate. What stays unspoken doe
 
 You want to understand the root, the pattern, the real issue beneath the surface. This keeps you honest.
 
-The risk is that depth can become rumination. Some feelings don't need excavation—they just need release.`,
+The risk is that depth can become rumination. Some feelings don't need excavation. They just need release.`,
 
   Sagittarius: `When emotional intensity rises, your first move is to zoom out.
 
 You look for the lesson, the silver lining, the bigger picture. This keeps you hopeful.
 
-The risk is that perspective can become bypass. Not every feeling needs meaning—some just need acknowledgment.`,
+The risk is that perspective can become bypass. Not every feeling needs meaning. Some just need acknowledgment.`,
 
   Capricorn: `When emotional intensity rises, your first move is to contain.
 
 You put feelings aside until there's time to address them properly. This keeps you functional.
 
-The risk is that proper time never comes. Contained emotions don't disappear—they accumulate interest.`,
+The risk is that proper time never comes. Contained emotions don't disappear. They accumulate interest.`,
 
   Aquarius: `When emotional intensity rises, your first move is to observe.
 
@@ -186,11 +186,11 @@ You can explain your emotions perfectly while remaining disconnected from them. 
 
   Cancer: `Because you're skilled at emotional depth, you may not notice when the past is running the present.
 
-You can feel everything so vividly that old wounds stay fresh. This often shows up as disproportionate reactions—feeling more than the current situation warrants.`,
+You can feel everything so vividly that old wounds stay fresh. This often shows up as disproportionate reactions, feeling more than the current situation warrants.`,
 
   Leo: `Because you're skilled at emotional expression, you may not notice when you're performing instead of feeling.
 
-You can show emotion without actually processing it. This often shows up as feeling empty after dramatic expression—like the feeling was released but not resolved.`,
+You can show emotion without actually processing it. This often shows up as feeling empty after dramatic expression, like the feeling was released but not resolved.`,
 
   Virgo: `Because you're skilled at emotional management, you may not notice when you're overworking your own feelings.
 
@@ -206,11 +206,11 @@ You can process so thoroughly that you never actually let go. This often shows u
 
   Sagittarius: `Because you're skilled at emotional perspective, you may not notice when you're avoiding depth.
 
-You can find meaning so quickly that you never sit with meaninglessness. This often shows up as a vague restlessness—knowing something's unfinished but not what.`,
+You can find meaning so quickly that you never sit with meaninglessness. This often shows up as a vague restlessness, knowing something's unfinished but not what.`,
 
   Capricorn: `Because you're skilled at emotional control, you may not notice when containment has become suppression.
 
-You can function through anything, but function isn't feeling. This often shows up as emotional eruptions that surprise you—or physical symptoms instead of feelings.`,
+You can function through anything, but function isn't feeling. This often shows up as emotional eruptions that surprise you, or physical symptoms instead of feelings.`,
 
   Aquarius: `Because you're skilled at emotional objectivity, you may not notice when distance has become disconnection.
 
@@ -281,7 +281,7 @@ What matters is eventually landing somewhere, not just moving.`,
 
 Completing meaningful work helps you reset. Clear progress, competent action, and earned rest feel replenishing.
 
-What matters is recognising that rest doesn't have to be earned—sometimes it just has to be taken.`,
+What matters is recognising that rest doesn't have to be earned. Sometimes it just has to be taken.`,
 
   Aquarius: `You restore yourself through ideas, community, and independence.
 
@@ -300,7 +300,7 @@ What matters is having enough structure to return from dissolution to daily life
 export const signalToNotice: Record<string, string> = {
   Aries: `If you feel restless but can't identify what you want, or irritated without a clear target, this pattern is likely active.
 
-That's the moment to pause before the next action—not to stop, but to check what's driving the movement.`,
+That's the moment to pause before the next action. Not to stop, but to check what's driving the movement.`,
 
   Taurus: `If you feel stuck but can't identify what's holding you, or attached to things that no longer serve you, this pattern is likely active.
 
@@ -328,11 +328,11 @@ That's the moment to check in with yourself before smoothing things over again.`
 
   Scorpio: `If you feel that you're holding something you can't release, or that understanding hasn't led to peace, this pattern is likely active.
 
-That's the moment to ask whether more depth is needed—or whether it's time to simply let go.`,
+That's the moment to ask whether more depth is needed, or whether it's time to simply let go.`,
 
   Sagittarius: `If you feel restless without direction, or optimistic but hollow, this pattern is likely active.
 
-That's the moment to ask what you're running toward—or what you're running from.`,
+That's the moment to ask what you're running toward, or what you're running from.`,
 
   Capricorn: `If you feel functional but empty, or accomplished but unmoved, this pattern is likely active.
 

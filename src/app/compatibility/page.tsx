@@ -14,18 +14,18 @@ const zodiacSigns: ZodiacSign[] = [
 ];
 
 const signDates: Record<ZodiacSign, string> = {
-  Aries: 'Mar 21 – Apr 19',
-  Taurus: 'Apr 20 – May 20',
-  Gemini: 'May 21 – Jun 20',
-  Cancer: 'Jun 21 – Jul 22',
-  Leo: 'Jul 23 – Aug 22',
-  Virgo: 'Aug 23 – Sep 22',
-  Libra: 'Sep 23 – Oct 22',
-  Scorpio: 'Oct 23 – Nov 21',
-  Sagittarius: 'Nov 22 – Dec 21',
-  Capricorn: 'Dec 22 – Jan 19',
-  Aquarius: 'Jan 20 – Feb 18',
-  Pisces: 'Feb 19 – Mar 20',
+  Aries: 'Mar 21 - Apr 19',
+  Taurus: 'Apr 20 - May 20',
+  Gemini: 'May 21 - Jun 20',
+  Cancer: 'Jun 21 - Jul 22',
+  Leo: 'Jul 23 - Aug 22',
+  Virgo: 'Aug 23 - Sep 22',
+  Libra: 'Sep 23 - Oct 22',
+  Scorpio: 'Oct 23 - Nov 21',
+  Sagittarius: 'Nov 22 - Dec 21',
+  Capricorn: 'Dec 22 - Jan 19',
+  Aquarius: 'Jan 20 - Feb 18',
+  Pisces: 'Feb 19 - Mar 20',
 };
 
 const signElements: Record<ZodiacSign, { element: string; symbol: string }> = {
@@ -48,13 +48,13 @@ const signDescriptions: Record<ZodiacSign, string> = {
   Aries: 'Bold, ambitious, and fiercely independent. Aries charges into life headfirst, driven by passion and a need to lead. They\'re direct communicators who value honesty over diplomacy, and they bring infectious enthusiasm to everything they do.',
   Taurus: 'Grounded, sensual, and steadfast. Taurus moves through life at their own pace, savoring pleasures and building security. They\'re loyal to their core, sometimes to the point of stubbornness, and they show love through consistent actions rather than grand gestures.',
   Gemini: 'Curious, adaptable, and endlessly communicative. Gemini\'s mind moves quickly, making connections others miss. They need variety and mental stimulation, and they bring levity and wit to their relationships. Beneath the social butterfly is someone seeking genuine understanding.',
-  Cancer: 'Intuitive, nurturing, and deeply emotional. Cancer feels everything intensely and creates safe harbors for those they love. Their tough outer shell protects a remarkably sensitive interior. They remember everything—especially how you made them feel.',
+  Cancer: 'Intuitive, nurturing, and deeply emotional. Cancer feels everything intensely and creates safe harbors for those they love. Their tough outer shell protects a remarkably sensitive interior. They remember everything, especially how you made them feel.',
   Leo: 'Warm, generous, and magnificently confident. Leo brings light and drama wherever they go, naturally drawing others into their orbit. They love deeply and need to be appreciated in return. Behind the bold exterior is someone who genuinely wants to make others feel special.',
   Virgo: 'Analytical, devoted, and quietly perfectionist. Virgo shows love through acts of service and attention to detail. They notice everything and work tirelessly to improve what they care about. Their criticism comes from a place of wanting the best for everyone.',
   Libra: 'Harmonious, charming, and deeply fair-minded. Libra seeks balance in all things and has a natural gift for seeing multiple perspectives. They thrive in partnership and put real effort into creating beauty and peace in their relationships.',
-  Scorpio: 'Intense, perceptive, and profoundly loyal. Scorpio experiences life at full depth and expects the same from those close to them. They\'re transformative partners who will go to the ends of the earth for those they trust—but that trust must be earned.',
-  Sagittarius: 'Adventurous, optimistic, and refreshingly honest. Sagittarius needs freedom to explore—ideas, places, possibilities. They bring enthusiasm and big-picture thinking to relationships, always looking toward the horizon while staying genuinely present with those they love.',
-  Capricorn: 'Ambitious, disciplined, and quietly devoted. Capricorn plays the long game in love as in everything else. They may seem reserved at first, but they build relationships with the same care they bring to their goals—solid foundations meant to last.',
+  Scorpio: 'Intense, perceptive, and profoundly loyal. Scorpio experiences life at full depth and expects the same from those close to them. They\'re transformative partners who will go to the ends of the earth for those they trust, but that trust must be earned.',
+  Sagittarius: 'Adventurous, optimistic, and refreshingly honest. Sagittarius needs freedom to explore: ideas, places, possibilities. They bring enthusiasm and big-picture thinking to relationships, always looking toward the horizon while staying genuinely present with those they love.',
+  Capricorn: 'Ambitious, disciplined, and quietly devoted. Capricorn plays the long game in love as in everything else. They may seem reserved at first, but they build relationships with the same care they bring to their goals: solid foundations meant to last.',
   Aquarius: 'Independent, innovative, and genuinely humanitarian. Aquarius thinks differently and values authenticity above all. They need space to be themselves and offer the same freedom to their partners. Their love may be unconventional, but it\'s deeply principled.',
   Pisces: 'Empathetic, imaginative, and spiritually attuned. Pisces feels the world deeply and often absorbs others\' emotions as their own. They bring creativity and compassion to relationships, seeing the best in people even when others can\'t.',
 };
@@ -71,7 +71,7 @@ const compatibilityData: Record<string, {
   'Aries-Aries': {
     level: 'High',
     percentage: 85,
-    overview: 'Two Aries together is a bonfire—brilliant, consuming, and impossible to ignore. You match each other\'s pace, understand the need for independence, and never bore each other. This is a relationship of equals who respect each other\'s strength.',
+    overview: 'Two Aries together is a bonfire: brilliant, consuming, and impossible to ignore. You match each other\'s pace, understand the need for independence, and never bore each other. This is a relationship of equals who respect each other\'s strength.',
     strengths: [
       'Mutual understanding of each other\'s need for independence and adventure',
       'Shared enthusiasm and energy that keeps the relationship exciting',
@@ -94,7 +94,7 @@ const compatibilityData: Record<string, {
   'Aries-Taurus': {
     level: 'Challenging',
     percentage: 55,
-    overview: 'Aries charges forward while Taurus digs in. You operate at completely different speeds—Aries wants action now, Taurus needs time to consider. Yet there\'s something grounding here that can work if both respect what the other brings.',
+    overview: 'Aries charges forward while Taurus digs in. You operate at completely different speeds. Aries wants action now, Taurus needs time to consider. Yet there\'s something grounding here that can work if both respect what the other brings.',
     strengths: [
       'Taurus provides stability that helps ground Aries\' scattered energy',
       'Aries brings excitement and spontaneity to Taurus\' routine',
@@ -104,12 +104,12 @@ const compatibilityData: Record<string, {
     challenges: [
       'Fundamentally different paces can lead to frustration',
       'Aries finds Taurus stubborn; Taurus finds Aries reckless',
-      'Financial approaches often clash—saver vs. spender',
+      'Financial approaches often clash (saver vs. spender)',
       'Taurus needs security that Aries may not naturally provide',
     ],
     tips: [
       'Appreciate patience isn\'t weakness and impulsivity isn\'t irresponsibility',
-      'Find activities that satisfy both—adventure with comfortable accommodations',
+      'Find activities that satisfy both, like adventure with comfortable accommodations',
       'Communicate clearly about expectations around change and stability',
       'Let Taurus set the pace for major decisions; let Aries plan adventures',
     ],
@@ -119,7 +119,7 @@ const compatibilityData: Record<string, {
     percentage: 88,
     overview: 'This pairing crackles with energy. Aries brings boldness and direction; Gemini brings ideas and adaptability. You keep each other entertained, challenged, and moving. Neither of you does well with routine, so life together is an adventure.',
     strengths: [
-      'Constant stimulation—neither ever gets bored with the other',
+      'Constant stimulation, so neither ever gets bored with the other',
       'Both value independence and won\'t smother each other',
       'Excellent communication and mental connection',
       'Shared love of novelty and new experiences',
@@ -157,13 +157,13 @@ const compatibilityData: Record<string, {
       'Aries: slow down and ask how Cancer is feeling, then listen',
       'Cancer: practice asking directly for what you need',
       'Create a home base that satisfies Cancer while allowing Aries freedom',
-      'Learn each other\'s love languages—they\'re probably very different',
+      'Learn each other\'s love languages, because they\'re probably very different',
     ],
   },
   'Aries-Leo': {
     level: 'High',
     percentage: 92,
-    overview: 'Fire meets fire in the most dramatic way possible. You\'re both proud, passionate, and hungry for life. Together you\'re a power couple—confident, generous, and magnetic. This is a relationship that others notice.',
+    overview: 'Fire meets fire in the most dramatic way possible. You\'re both proud, passionate, and hungry for life. Together you\'re a power couple: confident, generous, and magnetic. This is a relationship that others notice.',
     strengths: [
       'Mutual admiration and genuine appreciation for each other',
       'Shared optimism and enthusiasm for life',
@@ -209,7 +209,7 @@ const compatibilityData: Record<string, {
   'Aries-Libra': {
     level: 'Moderate',
     percentage: 70,
-    overview: 'Opposites on the zodiac wheel, you\'re naturally drawn to each other. Aries is self-focused and direct; Libra is partner-focused and diplomatic. You balance each other beautifully—or drive each other crazy. Often both.',
+    overview: 'Opposites on the zodiac wheel, you\'re naturally drawn to each other. Aries is self-focused and direct; Libra is partner-focused and diplomatic. You balance each other beautifully, or drive each other crazy. Often both.',
     strengths: [
       'Natural attraction of opposites creates magnetic chemistry',
       'Libra softens Aries\' rough edges',
@@ -219,7 +219,7 @@ const compatibilityData: Record<string, {
     challenges: [
       'Aries can feel like Libra never takes a stand',
       'Libra can feel like Aries never considers their impact',
-      'Different approaches to conflict—direct vs. avoidant',
+      'Different approaches to conflict (direct vs. avoidant)',
       'Aries\' independence vs. Libra\'s need for partnership',
     ],
     tips: [
@@ -232,7 +232,7 @@ const compatibilityData: Record<string, {
   'Aries-Scorpio': {
     level: 'Challenging',
     percentage: 58,
-    overview: 'Both ruled by Mars, you share intensity but express it differently. Aries is obvious; Scorpio runs deep. There\'s magnetic attraction here—you recognize something powerful in each other. But control becomes the issue.',
+    overview: 'Both ruled by Mars, you share intensity but express it differently. Aries is obvious; Scorpio runs deep. There\'s magnetic attraction here, and you recognize something powerful in each other. But control becomes the issue.',
     strengths: [
       'Intense physical and emotional chemistry',
       'Both are fiercely loyal once committed',
@@ -255,7 +255,7 @@ const compatibilityData: Record<string, {
   'Aries-Sagittarius': {
     level: 'High',
     percentage: 95,
-    overview: 'Adventure calls and you both answer. This is one of the most naturally compatible pairings—two fire signs who love freedom, honesty, and forward motion. You encourage each other\'s boldest dreams and never try to cage each other.',
+    overview: 'Adventure calls and you both answer. This is one of the most naturally compatible pairings: two fire signs who love freedom, honesty, and forward motion. You encourage each other\'s boldest dreams and never try to cage each other.',
     strengths: [
       'Shared love of adventure, travel, and new experiences',
       'Both value honesty and direct communication',
@@ -301,7 +301,7 @@ const compatibilityData: Record<string, {
   'Aries-Aquarius': {
     level: 'High',
     percentage: 85,
-    overview: 'Two independent spirits who refuse to be conventional. You give each other space, respect each other\'s autonomy, and never try to change each other. Intellectually you click—both of you love ideas and innovation.',
+    overview: 'Two independent spirits who refuse to be conventional. You give each other space, respect each other\'s autonomy, and never try to change each other. Intellectually you click, and both of you love ideas and innovation.',
     strengths: [
       'Strong respect for each other\'s independence',
       'Shared love of ideas and innovation',
@@ -356,7 +356,7 @@ const compatibilityData: Record<string, {
       'Natural domestic harmony and shared values',
     ],
     challenges: [
-      'Arguments are rare but legendary—two bulls locking horns',
+      'Arguments are rare but legendary: two bulls locking horns',
       'Risk of stagnation and getting too comfortable',
       'Both can be stubborn to the point of deadlock',
       'May avoid necessary changes and growth',
@@ -428,7 +428,7 @@ const compatibilityData: Record<string, {
       'Leo may find Taurus boring; Taurus may find Leo exhausting',
       'Different needs for attention and recognition',
       'Both are stubborn and struggle to compromise',
-      'Clashes over money—display vs. security',
+      'Clashes over money (display vs. security)',
     ],
     tips: [
       'Leo: appreciate Taurus\'s quiet devotion as a form of love',
@@ -445,12 +445,12 @@ const compatibilityData: Record<string, {
       'Natural understanding and shared values',
       'Both are reliable and follow through',
       'Excellent at building stable, comfortable lives together',
-      'Show love in similar ways—practical care',
+      'Show love in similar ways, through practical care',
     ],
     challenges: [
       'May become too focused on practical matters',
       'Risk of getting stuck in routine',
-      'Both can be critical—Virgo more vocally',
+      'Both can be critical, Virgo more vocally',
       'May neglect romance and spontaneity',
     ],
     tips: [
@@ -463,7 +463,7 @@ const compatibilityData: Record<string, {
   'Taurus-Libra': {
     level: 'Moderate',
     percentage: 68,
-    overview: 'Both Venus-ruled, you share an appreciation for beauty, harmony, and the finer things. Taurus grounds Libra\'s airy indecision; Libra softens Taurus\'s stubbornness. The challenge is pace—you move very differently.',
+    overview: 'Both Venus-ruled, you share an appreciation for beauty, harmony, and the finer things. Taurus grounds Libra\'s airy indecision; Libra softens Taurus\'s stubbornness. The challenge is pace, because you move very differently.',
     strengths: [
       'Shared love of beauty, art, and aesthetics',
       'Both value harmony and avoid unnecessary conflict',
@@ -486,7 +486,7 @@ const compatibilityData: Record<string, {
   'Taurus-Scorpio': {
     level: 'Challenging',
     percentage: 65,
-    overview: 'Opposite signs with an almost magnetic pull. Both of you are fixed, stubborn, and possessive—but Taurus possesses things while Scorpio possesses souls. There\'s incredible depth here, but also potential for intense conflict.',
+    overview: 'Opposite signs with an almost magnetic pull. Both of you are fixed, stubborn, and possessive, but Taurus possesses things while Scorpio possesses souls. There\'s incredible depth here, but also potential for intense conflict.',
     strengths: [
       'Powerful physical and emotional attraction',
       'Both are deeply loyal and committed',
@@ -503,13 +503,13 @@ const compatibilityData: Record<string, {
       'Channel the intensity into passion rather than conflict',
       'Establish clear boundaries and respect them',
       'When stuck, agree to step back before re-engaging',
-      'Trust is everything—build it carefully and protect it',
+      'Trust is everything, so build it carefully and protect it',
     ],
   },
   'Taurus-Sagittarius': {
     level: 'Challenging',
     percentage: 42,
-    overview: 'Taurus builds roots; Sagittarius grows wings. You want fundamentally different things—Taurus craves security and routine, Sagittarius craves adventure and freedom. Yet you can teach each other valuable lessons about balance.',
+    overview: 'Taurus builds roots; Sagittarius grows wings. You want fundamentally different things. Taurus craves security and routine, Sagittarius craves adventure and freedom. Yet you can teach each other valuable lessons about balance.',
     strengths: [
       'Sagittarius brings excitement to Taurus\'s routine',
       'Taurus provides grounding for Sagittarius\'s scattered energy',
@@ -548,7 +548,7 @@ const compatibilityData: Record<string, {
     tips: [
       'Schedule fun as deliberately as you schedule everything else',
       'Make time for romance amid all the building',
-      'Remember why you\'re building—to enjoy life together',
+      'Remember why you\'re building: to enjoy life together',
       'Let Taurus handle comfort; let Capricorn handle strategy',
     ],
   },
@@ -572,7 +572,7 @@ const compatibilityData: Record<string, {
       'Focus on shared stubborn determination as common ground',
       'Aquarius: provide more emotional consistency than feels natural',
       'Taurus: allow more experimentation than feels comfortable',
-      'Respect that you\'ll never fully understand each other—and that\'s okay',
+      'Respect that you\'ll never fully understand each other, and that\'s okay',
     ],
   },
   'Taurus-Pisces': {
@@ -580,7 +580,7 @@ const compatibilityData: Record<string, {
     percentage: 88,
     overview: 'A gentle, nurturing connection. Taurus provides the stability Pisces craves; Pisces brings imagination and emotional depth to Taurus\'s practical world. You soften each other\'s rough edges beautifully.',
     strengths: [
-      'Natural complementarity—grounding meets dreams',
+      'Natural complementarity: grounding meets dreams',
       'Both are romantic and appreciate beauty',
       'Taurus provides security; Pisces provides imagination',
       'Gentle, supportive dynamic',
@@ -595,14 +595,14 @@ const compatibilityData: Record<string, {
       'Meet in the middle between dreams and reality',
       'Taurus: make space for Pisces\'s imagination',
       'Pisces: appreciate Taurus\'s grounding as supportive, not limiting',
-      'Create beauty together—it\'s your shared language',
+      'Create beauty together. It\'s your shared language',
     ],
   },
   // Continue with Gemini pairings
   'Gemini-Gemini': {
     level: 'High',
     percentage: 82,
-    overview: 'Two Geminis together is a constant conversation—ideas ping-ponging, plans shifting, curiosity never resting. You understand each other\'s need for variety and mental stimulation. Boredom is impossible.',
+    overview: 'Two Geminis together is a constant conversation: ideas ping-ponging, plans shifting, curiosity never resting. You understand each other\'s need for variety and mental stimulation. Boredom is impossible.',
     strengths: [
       'Endless conversation and mental stimulation',
       'Neither tries to pin the other down',
@@ -641,7 +641,7 @@ const compatibilityData: Record<string, {
     tips: [
       'Gemini: learn to sit still emotionally sometimes',
       'Cancer: don\'t take Gemini\'s need for space personally',
-      'Find activities that satisfy both—travel with cozy accommodations',
+      'Find activities that satisfy both, like travel with cozy accommodations',
       'Balance intellectual conversation with emotional check-ins',
     ],
   },
@@ -671,7 +671,7 @@ const compatibilityData: Record<string, {
   'Gemini-Virgo': {
     level: 'Challenging',
     percentage: 52,
-    overview: 'Both Mercury-ruled, you share intellectual curiosity but express it differently. Gemini scatters; Virgo focuses. You can learn from each other—Gemini to follow through, Virgo to lighten up.',
+    overview: 'Both Mercury-ruled, you share intellectual curiosity but express it differently. Gemini scatters; Virgo focuses. You can learn from each other. Gemini can learn to follow through, and Virgo can learn to lighten up.',
     strengths: [
       'Shared intellectual curiosity and love of learning',
       'Excellent communication when aligned',
@@ -727,7 +727,7 @@ const compatibilityData: Record<string, {
     challenges: [
       'Scorpio finds Gemini superficial and evasive',
       'Gemini finds Scorpio intense and controlling',
-      'Trust issues—Scorpio needs it; Gemini is casual about it',
+      'Trust is a major tension point: Scorpio needs it deeply, while Gemini is casual about it',
       'Different communication styles create friction',
     ],
     tips: [
@@ -820,7 +820,7 @@ const compatibilityData: Record<string, {
       'Gemini may feel Pisces is too emotional',
       'Pisces may feel Gemini is too detached',
       'Neither provides stability or grounding',
-      'Different processing styles—head vs. heart',
+      'Different processing styles (head vs. heart)',
     ],
     tips: [
       'Appreciate your different ways of processing the world',
@@ -833,7 +833,7 @@ const compatibilityData: Record<string, {
   'Cancer-Cancer': {
     level: 'High',
     percentage: 85,
-    overview: 'Two Cancers create an emotional cocoon—a relationship where feelings are understood without words and nurturing flows both ways. You know instinctively what the other needs.',
+    overview: 'Two Cancers create an emotional cocoon, a relationship where feelings are understood without words and nurturing flows both ways. You know instinctively what the other needs.',
     strengths: [
       'Deep emotional understanding and empathy',
       'Natural nurturing and caregiving',
@@ -841,7 +841,7 @@ const compatibilityData: Record<string, {
       'Intuitive connection without words',
     ],
     challenges: [
-      'Mood spirals—when both retreat, who draws the other out?',
+      'Mood spirals can be a problem: when both retreat, who draws the other out?',
       'Can become too insular and isolated',
       'Both can be passive-aggressive rather than direct',
       'May avoid conflict until it explodes',
@@ -856,7 +856,7 @@ const compatibilityData: Record<string, {
   'Cancer-Leo': {
     level: 'Moderate',
     percentage: 65,
-    overview: 'Cancer nurtures; Leo performs. There\'s potential for a beautiful dynamic—Cancer as the supportive force behind Leo\'s throne. But it requires Leo to truly see Cancer and Cancer to let Leo shine.',
+    overview: 'Cancer nurtures; Leo performs. There\'s potential for a beautiful dynamic, with Cancer as the supportive force behind Leo\'s throne. But it requires Leo to truly see Cancer and Cancer to let Leo shine.',
     strengths: [
       'Cancer provides emotional support Leo craves',
       'Leo brings fun and excitement to Cancer\'s life',
@@ -887,7 +887,7 @@ const compatibilityData: Record<string, {
       'Natural compatibility in daily life',
     ],
     challenges: [
-      'Both can be sensitive—criticism wounds deeply',
+      'Both can be sensitive, and criticism wounds deeply',
       'Virgo\'s analytical nature can hurt Cancer\'s feelings',
       'Both may worry and create anxiety together',
       'May struggle to express needs directly',
@@ -913,7 +913,7 @@ const compatibilityData: Record<string, {
       'Cancer wants emotional depth; Libra wants social harmony',
       'Libra may find Cancer\'s moods draining',
       'Cancer may find Libra\'s diplomacy superficial',
-      'Different conflict styles—emotional vs. avoidant',
+      'Different conflict styles (emotional vs. avoidant)',
     ],
     tips: [
       'Cancer: teach Libra about emotional depth gently',
@@ -939,10 +939,10 @@ const compatibilityData: Record<string, {
       'When trust is broken, recovery is very difficult',
     ],
     tips: [
-      'Build in ways to surface for air—lightness and fun',
+      'Build in ways to surface for air, with lightness and fun',
       'Maintain outside friendships and interests',
       'When stuck in darkness together, someone must reach for light',
-      'Trust is everything—protect it carefully',
+      'Trust is everything, so protect it carefully',
     ],
   },
   'Cancer-Sagittarius': {
@@ -965,15 +965,15 @@ const compatibilityData: Record<string, {
       'Sagittarius: provide consistent reassurance about commitment',
       'Cancer: give Sagittarius space without making it personal',
       'Create adventures together as well as cozy home time',
-      'Communicate clearly about needs—neither should have to guess',
+      'Communicate clearly about needs, because neither should have to guess',
     ],
   },
   'Cancer-Capricorn': {
     level: 'Moderate',
     percentage: 75,
-    overview: 'Opposite signs who can balance beautifully. Cancer provides the emotional foundation; Capricorn provides the material one. Together you can build something lasting—a real life, a real family.',
+    overview: 'Opposite signs who can balance beautifully. Cancer provides the emotional foundation; Capricorn provides the material one. Together you can build something lasting: a real life, a real family.',
     strengths: [
-      'Complementary strengths—emotional and material security',
+      'Complementary strengths: emotional and material security',
       'Both value building something lasting',
       'Shared commitment to family and future',
       'Each provides what the other lacks',
@@ -985,7 +985,7 @@ const compatibilityData: Record<string, {
       'Work-life balance issues',
     ],
     tips: [
-      'Learn each other\'s love languages—they\'re different',
+      'Learn each other\'s love languages, because they\'re different',
       'Capricorn: make time for emotional connection',
       'Cancer: appreciate Capricorn\'s provision as a form of love',
       'Build the life you both want with both emotional and material security',
@@ -994,7 +994,7 @@ const compatibilityData: Record<string, {
   'Cancer-Aquarius': {
     level: 'Challenging',
     percentage: 40,
-    overview: 'Cancer leads with feeling; Aquarius leads with ideas. You process the world so differently that understanding requires real effort. Yet you can expand each other—Cancer learns detachment, Aquarius learns emotional engagement.',
+    overview: 'Cancer leads with feeling; Aquarius leads with ideas. You process the world so differently that understanding requires real effort. Yet you can expand each other. Cancer learns detachment, Aquarius learns emotional engagement.',
     strengths: [
       'Can learn tremendously from each other',
       'Aquarius helps Cancer think more objectively',
@@ -1011,7 +1011,7 @@ const compatibilityData: Record<string, {
       'Meet in the middle between head and heart',
       'Aquarius: provide more emotional presence than natural',
       'Cancer: give Aquarius space without taking it personally',
-      'Appreciate that you\'ll always be different—find value in that',
+      'Appreciate that you\'ll always be different, and find value in that',
     ],
   },
   'Cancer-Pisces': {
@@ -1041,7 +1041,7 @@ const compatibilityData: Record<string, {
   'Leo-Leo': {
     level: 'High',
     percentage: 82,
-    overview: 'Two Leos together is pure theatre—grand gestures, passionate declarations, and enough drama for a dynasty. You understand each other\'s need for recognition because you share it.',
+    overview: 'Two Leos together is pure theatre: grand gestures, passionate declarations, and enough drama for a dynasty. You understand each other\'s need for recognition because you share it.',
     strengths: [
       'Mutual understanding of need for recognition',
       'Shared generosity and warmth',
@@ -1055,7 +1055,7 @@ const compatibilityData: Record<string, {
       'Neither easily admits they\'re wrong',
     ],
     tips: [
-      'Create space for both to shine—different stages',
+      'Create space for both to shine on different stages',
       'Genuinely admire each other rather than competing',
       'Take turns being the star',
       'Practice humility and compromise',
@@ -1064,7 +1064,7 @@ const compatibilityData: Record<string, {
   'Leo-Virgo': {
     level: 'Challenging',
     percentage: 50,
-    overview: 'Leo wants praise; Virgo offers critique. The fundamental languages differ—Leo speaks in grand gestures, Virgo in precise details. Yet Virgo\'s service is a form of love, and Leo\'s warmth can help Virgo lighten up.',
+    overview: 'Leo wants praise; Virgo offers critique. The fundamental languages differ. Leo speaks in grand gestures, Virgo in precise details. Yet Virgo\'s service is a form of love, and Leo\'s warmth can help Virgo lighten up.',
     strengths: [
       'Virgo provides practical support for Leo\'s dreams',
       'Leo brings warmth and fun to Virgo\'s life',
@@ -1074,7 +1074,7 @@ const compatibilityData: Record<string, {
     challenges: [
       'Leo feels Virgo is never satisfied',
       'Virgo feels Leo is self-absorbed',
-      'Different love languages—praise vs. service',
+      'Different love languages (praise vs. service)',
       'Virgo\'s criticism wounds Leo\'s pride',
     ],
     tips: [
@@ -1110,7 +1110,7 @@ const compatibilityData: Record<string, {
   'Leo-Scorpio': {
     level: 'Challenging',
     percentage: 55,
-    overview: 'Fixed signs locked in a power struggle. Leo rules through visibility; Scorpio rules through secrets. There\'s undeniable attraction—you recognize each other\'s strength. This works only with mutual respect.',
+    overview: 'Fixed signs locked in a power struggle. Leo rules through visibility; Scorpio rules through secrets. There\'s undeniable attraction, and you recognize each other\'s strength. This works only with mutual respect.',
     strengths: [
       'Powerful attraction and magnetic chemistry',
       'Both are intensely loyal',
@@ -1159,7 +1159,7 @@ const compatibilityData: Record<string, {
     overview: 'Leo wants recognition now; Capricorn plays the long game. You have different definitions of success and different timelines. Yet you\'re both ambitious and determined.',
     strengths: [
       'Both are ambitious and driven',
-      'Complementary skills—showmanship meets strategy',
+      'Complementary skills: showmanship meets strategy',
       'When aligned, a powerful team',
       'Both value achievement and success',
     ],
@@ -1202,7 +1202,7 @@ const compatibilityData: Record<string, {
   'Leo-Pisces': {
     level: 'Moderate',
     percentage: 62,
-    overview: 'Leo shines; Pisces reflects. There\'s creative potential here—Pisces\' imagination can inspire Leo, and Leo\'s confidence can help Pisces manifest dreams. Meet in the realm of art and heart.',
+    overview: 'Leo shines; Pisces reflects. There\'s creative potential here. Pisces\' imagination can inspire Leo, and Leo\'s confidence can help Pisces manifest dreams. Meet in the realm of art and heart.',
     strengths: [
       'Strong creative and artistic potential',
       'Pisces supports Leo\'s dreams',
@@ -1226,7 +1226,7 @@ const compatibilityData: Record<string, {
   'Virgo-Virgo': {
     level: 'High',
     percentage: 85,
-    overview: 'Two Virgos together create a well-oiled machine—efficient, organized, and constantly improving. You understand each other\'s need for order and attention to detail.',
+    overview: 'Two Virgos together create a well-oiled machine: efficient, organized, and constantly improving. You understand each other\'s need for order and attention to detail.',
     strengths: [
       'Natural understanding and shared standards',
       'Both are reliable and dedicated',
@@ -1235,7 +1235,7 @@ const compatibilityData: Record<string, {
     ],
     challenges: [
       'Two perfectionists can analyze a relationship to death',
-      'Critical spiraling—both picking at each other',
+      'Critical spiraling, with both picking at each other',
       'May forget that imperfection is human',
       'Can become too focused on flaws',
     ],
@@ -1260,7 +1260,7 @@ const compatibilityData: Record<string, {
       'Virgo may find Libra indecisive',
       'Libra may find Virgo critical',
       'Both avoid conflict, leading to unaddressed issues',
-      'Different approaches—analysis vs. harmony',
+      'Different approaches (analysis vs. harmony)',
     ],
     tips: [
       'Focus on creating beauty together',
@@ -1272,7 +1272,7 @@ const compatibilityData: Record<string, {
   'Virgo-Scorpio': {
     level: 'High',
     percentage: 88,
-    overview: 'A surprisingly powerful combination. Both of you are analytical and perceptive—you see what others miss. Scorpio brings emotional depth; Virgo brings practical grounding. You trust each other because neither does anything carelessly.',
+    overview: 'A surprisingly powerful combination. Both of you are analytical and perceptive, and you see what others miss. Scorpio brings emotional depth; Virgo brings practical grounding. You trust each other because neither does anything carelessly.',
     strengths: [
       'Shared depth and analytical nature',
       'Both value trust and loyalty',
@@ -1288,7 +1288,7 @@ const compatibilityData: Record<string, {
     tips: [
       'Build in lightness and fun deliberately',
       'Use your analytical skills to understand, not criticize',
-      'Trust each other—you\'ve both earned it',
+      'Trust each other, because you\'ve both earned it',
       'Balance depth with moments of simple joy',
     ],
   },
@@ -1297,10 +1297,10 @@ const compatibilityData: Record<string, {
     percentage: 45,
     overview: 'Virgo sees the trees; Sagittarius sees the forest. You approach life very differently. Yet Sagittarius can help Virgo see the bigger picture, and Virgo can help Sagittarius with follow-through.',
     strengths: [
-      'Complementary perspectives—detail and vision',
+      'Complementary perspectives: detail and vision',
       'Both are intelligent and curious',
       'Can learn a great deal from each other',
-      'Mutable signs—both can adapt',
+      'Mutable signs, so both can adapt',
     ],
     challenges: [
       'Virgo finds Sagittarius reckless and careless',
@@ -1344,7 +1344,7 @@ const compatibilityData: Record<string, {
     overview: 'Virgo is practical; Aquarius is theoretical. Both of you want to make things better but approach it completely differently. Align your visions and you might actually change something.',
     strengths: [
       'Both want to improve things',
-      'Complementary approaches—practical and theoretical',
+      'Complementary approaches (practical and theoretical)',
       'Both are intelligent and analytical',
       'Can accomplish much when aligned',
     ],
@@ -1388,7 +1388,7 @@ const compatibilityData: Record<string, {
   'Libra-Libra': {
     level: 'High',
     percentage: 82,
-    overview: 'Two Libras together is an elegant dance—harmonious, beautiful, and carefully balanced. You understand each other\'s need for partnership and aversion to conflict.',
+    overview: 'Two Libras together is an elegant dance: harmonious, beautiful, and carefully balanced. You understand each other\'s need for partnership and aversion to conflict.',
     strengths: [
       'Natural harmony and understanding',
       'Shared appreciation for beauty and balance',
@@ -1461,7 +1461,7 @@ const compatibilityData: Record<string, {
     strengths: [
       'Both are ambitious in different ways',
       'Can build an impressive life together',
-      'Complementary strengths—social and professional',
+      'Complementary strengths (social and professional)',
       'Both value commitment and follow-through',
     ],
     challenges: [
@@ -1527,7 +1527,7 @@ const compatibilityData: Record<string, {
   'Scorpio-Scorpio': {
     level: 'High',
     percentage: 85,
-    overview: 'Two Scorpios together is the deep end of the deep end—intensity squared, understanding that doesn\'t require words, loyalty unto death. You know each other\'s darkness because you share it.',
+    overview: 'Two Scorpios together is the deep end of the deep end: intensity squared, understanding that doesn\'t require words, loyalty unto death. You know each other\'s darkness because you share it.',
     strengths: [
       'Profound understanding and connection',
       'Absolute loyalty and commitment',
@@ -1544,7 +1544,7 @@ const compatibilityData: Record<string, {
       'Establish extraordinary trust and clear boundaries',
       'When you fight, remember you\'re on the same side',
       'Build in lightness to balance the intensity',
-      'Practice forgiveness—you\'ll both need it',
+      'Practice forgiveness, because you\'ll both need it',
     ],
   },
   'Scorpio-Sagittarius': {
@@ -1589,7 +1589,7 @@ const compatibilityData: Record<string, {
     tips: [
       'Someone needs to risk vulnerability first',
       'Balance ambition with emotional connection',
-      'Create warmth deliberately—it won\'t happen naturally',
+      'Create warmth deliberately, because it won\'t happen naturally',
       'Trust each other\'s loyalty and commitment',
     ],
   },
@@ -1643,7 +1643,7 @@ const compatibilityData: Record<string, {
   'Sagittarius-Sagittarius': {
     level: 'High',
     percentage: 90,
-    overview: 'Two Sagittarians together is a perpetual adventure—travel, philosophy, big dreams, and bigger laughs. You understand each other\'s need for freedom because you share it.',
+    overview: 'Two Sagittarians together is a perpetual adventure: travel, philosophy, big dreams, and bigger laughs. You understand each other\'s need for freedom because you share it.',
     strengths: [
       'Shared love of adventure and exploration',
       'Natural optimism and enthusiasm multiply',
@@ -1651,7 +1651,7 @@ const compatibilityData: Record<string, {
       'Constant learning and growth together',
     ],
     challenges: [
-      'No one anchors—both always looking at the horizon',
+      'No one anchors, since both are always looking at the horizon',
       'May miss what\'s right in front of you',
       'Practical matters fall through the cracks',
       'Commitment may be difficult for both',
@@ -1722,7 +1722,7 @@ const compatibilityData: Record<string, {
     challenges: [
       'Sagittarius finds Pisces too passive',
       'Pisces finds Sagittarius too blunt',
-      'Different approaches—action vs. contemplation',
+      'Different approaches (action vs. contemplation)',
       'Sagittarius\'s honesty can hurt sensitive Pisces',
     ],
     tips: [
@@ -1736,7 +1736,7 @@ const compatibilityData: Record<string, {
   'Capricorn-Capricorn': {
     level: 'High',
     percentage: 88,
-    overview: 'Two Capricorns together is a power partnership—ambitious, disciplined, and playing the longest game. You understand each other\'s drive because you share it.',
+    overview: 'Two Capricorns together is a power partnership: ambitious, disciplined, and playing the longest game. You understand each other\'s drive because you share it.',
     strengths: [
       'Shared ambition and work ethic',
       'Natural understanding of each other\'s priorities',
@@ -1762,7 +1762,7 @@ const compatibilityData: Record<string, {
     overview: 'Capricorn respects tradition; Aquarius questions everything. Yet you\'re both Saturn-ruled: determined, principled, and playing long games. Find shared goals and you can accomplish anything.',
     strengths: [
       'Both are determined and principled',
-      'Shared Saturn influence—discipline and commitment',
+      'Shared Saturn influence brings discipline and commitment',
       'Can accomplish significant things when aligned',
       'Both think long-term',
     ],
@@ -1776,7 +1776,7 @@ const compatibilityData: Record<string, {
       'Find shared goals that honor both tradition and innovation',
       'Capricorn: be more open to new approaches',
       'Aquarius: work within some structure',
-      'Create warmth deliberately—it won\'t come naturally',
+      'Create warmth deliberately, because it won\'t come naturally',
     ],
   },
   'Capricorn-Pisces': {
@@ -1784,7 +1784,7 @@ const compatibilityData: Record<string, {
     percentage: 72,
     overview: 'Capricorn builds in the material world; Pisces dreams in the imaginal one. You can complete each other: Capricorn gives Pisces structure to make dreams real, Pisces gives Capricorn soul and meaning.',
     strengths: [
-      'Complementary strengths—structure and imagination',
+      'Complementary strengths: structure and imagination',
       'Capricorn grounds Pisces; Pisces inspires Capricorn',
       'Both are capable of deep commitment',
       'Can create something meaningful together',
@@ -1806,7 +1806,7 @@ const compatibilityData: Record<string, {
   'Aquarius-Aquarius': {
     level: 'High',
     percentage: 85,
-    overview: 'Two Aquarians together is a meeting of minds—unconventional, future-focused, and utterly unique. You understand each other\'s need for independence because you share it.',
+    overview: 'Two Aquarians together is a meeting of minds: unconventional, future-focused, and utterly unique. You understand each other\'s need for independence because you share it.',
     strengths: [
       'Natural understanding without explanation',
       'Both value independence and authenticity',
@@ -1814,7 +1814,7 @@ const compatibilityData: Record<string, {
       'Neither tries to change the other',
     ],
     challenges: [
-      'Risk of emotional distance—two detached people',
+      'Risk of emotional distance, since you\'re two detached people',
       'May bond over ideas but forget to feel',
       'Neither provides emotional warmth naturally',
       'Can be more like friends than romantic partners',
@@ -1839,7 +1839,7 @@ const compatibilityData: Record<string, {
     challenges: [
       'Aquarius finds Pisces irrational',
       'Pisces finds Aquarius cold',
-      'Different processing styles—head vs. heart',
+      'Different processing styles (head vs. heart)',
       'Communication styles clash',
     ],
     tips: [
@@ -1853,7 +1853,7 @@ const compatibilityData: Record<string, {
   'Pisces-Pisces': {
     level: 'High',
     percentage: 88,
-    overview: 'Two Pisces together is a shared dream—boundless, beautiful, and potentially overwhelming. You understand each other\'s sensitivity and spiritual nature without explanation.',
+    overview: 'Two Pisces together is a shared dream: boundless, beautiful, and potentially overwhelming. You understand each other\'s sensitivity and spiritual nature without explanation.',
     strengths: [
       'Profound emotional and spiritual connection',
       'Natural understanding and empathy',
@@ -2265,12 +2265,10 @@ export default function Compatibility2Page() {
         <div className="container-editorial">
           <div className="flex justify-end">
             <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-                Privacy
-              </Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-                Terms
-              </Link>
+              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
+              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
             </div>
           </div>
         </div>

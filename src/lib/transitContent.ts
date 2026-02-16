@@ -38,7 +38,7 @@ This isn't people-pleasing. It's the emotional weather right now.`,
 
 This isn't being dramatic. It's the emotional weather right now.`,
 
-  Sagittarius: `You're likely to feel restless today. Routine may feel confining, and the desire for something bigger—meaning, adventure, possibility—is stronger than usual. The horizon pulls.
+  Sagittarius: `You're likely to feel restless today. Routine may feel confining, and the desire for something bigger (meaning, adventure, possibility) is stronger than usual. The horizon pulls.
 
 This isn't escapism. It's the emotional weather right now.`,
 
@@ -50,7 +50,7 @@ This isn't workaholism. It's the emotional weather right now.`,
 
 This isn't coldness. It's the emotional weather right now.`,
 
-  Pisces: `You're likely to feel the boundaries blur today. Where you end and others begin may be less clear, and emotions—yours or absorbed from elsewhere—may be harder to trace to their source.
+  Pisces: `You're likely to feel the boundaries blur today. Where you end and others begin may be less clear, and emotions, yours or absorbed from elsewhere, may be harder to trace to their source.
 
 This isn't weakness. It's the emotional weather right now.`,
 };
@@ -197,7 +197,7 @@ export const watchForToday: Record<string, string[]> = {
 
 // Single anchor for the day (one thing, not a list)
 export const todayAnchor: Record<string, string> = {
-  Aries: `If you feel the push to act, let yourself—but pause for one breath before speaking in frustration. That breath will not slow you down. It will land you better.`,
+  Aries: `If you feel the push to act, let yourself, but pause for one breath before speaking in frustration. That breath will not slow you down. It will land you better.`,
 
   Taurus: `If the world feels too fast today, you are allowed to move at your own pace. One small pleasure, fully enjoyed, will do more than rushing through several.`,
 
@@ -211,13 +211,13 @@ export const todayAnchor: Record<string, string> = {
 
   Libra: `If you are tempted to smooth things over, ask first: is this peace for everyone, or peace to avoid discomfort? That distinction matters today.`,
 
-  Scorpio: `If everything feels intense today, trust it—but pick your depth wisely. Not every surface needs piercing. Some things can stay light and still be real.`,
+  Scorpio: `If everything feels intense today, trust it, but pick your depth wisely. Not every surface needs piercing. Some things can stay light and still be real.`,
 
   Sagittarius: `If you feel confined today, make one plan for something to look forward to. The container is temporary. The anticipation will help.`,
 
   Capricorn: `If the pressure feels heavy today, remember: not everything is urgent. Pick the one thing that actually matters and let the rest be tomorrow's problem.`,
 
-  Aquarius: `If you need distance today, take it—but stay reachable for the people who matter. You can think clearly and stay connected. They are not opposites.`,
+  Aquarius: `If you need distance today, take it, but stay reachable for the people who matter. You can think clearly and stay connected. They are not opposites.`,
 
   Pisces: `If the boundaries feel blurry today, find one small way to locate yourself. Your own body. Your own breath. The distinction between feeling for someone and feeling instead of them.`,
 };
@@ -323,7 +323,7 @@ export const notYourFault: Record<string, string> = {
 export const moonPhaseFelt: Record<string, { name: string; feeling: string }> = {
   'New Moon': {
     name: 'New Moon',
-    feeling: `The sky is dark and so is the path forward. This is not a time for clarity—it is a time for beginning anyway. Plant something without knowing exactly how it will grow.`,
+    feeling: `The sky is dark and so is the path forward. This is not a time for clarity. It is a time for beginning anyway. Plant something without knowing exactly how it will grow.`,
   },
   'Waxing Crescent': {
     name: 'Waxing Crescent',
@@ -331,7 +331,7 @@ export const moonPhaseFelt: Record<string, { name: string; feeling: string }> = 
   },
   'First Quarter': {
     name: 'First Quarter',
-    feeling: `The first resistance arrives. What you started is meeting the world and the world is pushing back. This tension is not failure—it is the natural shape of growth.`,
+    feeling: `The first resistance arrives. What you started is meeting the world and the world is pushing back. This tension is not failure. It is the natural shape of growth.`,
   },
   'Waxing Gibbous': {
     name: 'Waxing Gibbous',
@@ -347,7 +347,7 @@ export const moonPhaseFelt: Record<string, { name: string; feeling: string }> = 
   },
   'Third Quarter': {
     name: 'Third Quarter',
-    feeling: `What no longer serves is becoming clear. This is a releasing phase—old patterns, completed projects, beliefs that have run their course. Let go before the next cycle begins.`,
+    feeling: `What no longer serves is becoming clear. This is a releasing phase: old patterns, completed projects, beliefs that have run their course. Let go before the next cycle begins.`,
   },
   'Waning Crescent': {
     name: 'Waning Crescent',
@@ -377,7 +377,7 @@ export function getMoonPhaseFelt(phaseName: string): { name: string; feeling: st
 // Get tomorrow's contrast text
 export function getTomorrowContrast(todaySign: string, tomorrowSign: string): string {
   if (todaySign === tomorrowSign) {
-    return `The moon stays in ${todaySign} tomorrow. What you feel today continues—no shift needed, just more of the same rhythm.`;
+    return `The moon stays in ${todaySign} tomorrow. What you feel today continues. No shift needed, just more of the same rhythm.`;
   }
 
   const signContrasts = tomorrowContrast[todaySign];
@@ -483,9 +483,9 @@ export const elementGuidance: Record<string, string> = {
 // Moon phase arc guidance (weekly context)
 export const phaseArcGuidance: Record<string, string> = {
   waxing: `The moon is waxing, building toward fullness. Energy is expanding outward. This week supports growth, action, and manifestation. Momentum is available for what you want to build.`,
-  full: `The full moon illuminates the middle of the week. This is culmination energy—what you have been building becomes visible. Good for completion, clarity, and sometimes release.`,
+  full: `The full moon illuminates the middle of the week. This is culmination energy. What you have been building becomes visible. Good for completion, clarity, and sometimes release.`,
   waning: `The moon is waning, turning attention inward. This is a week for adjusting, releasing, and preparing rather than launching something new. Momentum comes from refinement, not expansion.`,
-  new: `The new moon falls this week, marking a reset. This is seeding energy—good for setting intentions and beginning quietly. Don't expect immediate visibility.`,
+  new: `The new moon falls this week, marking a reset. This is seeding energy, good for setting intentions and beginning quietly. Don't expect immediate visibility.`,
 };
 
 // Weekly anchor questions by dominant element
@@ -523,33 +523,33 @@ export function generateWeeklyOrientation(weekSigns: string[]): string {
   // Build narrative based on shift
   const shiftDescriptions: Record<string, Record<string, string>> = {
     Fire: {
-      Fire: `This week stays active throughout—energy for action is consistently available.`,
+      Fire: `This week stays active throughout. Energy for action is consistently available.`,
       Earth: `This week begins with urgency and action, then gradually slows into grounding and consolidation.`,
       Air: `This week begins with momentum and shifts toward mental processing and communication.`,
       Water: `This week begins with action and gradually turns inward toward feeling and reflection.`,
     },
     Earth: {
       Fire: `This week begins slowly and builds toward action and momentum.`,
-      Earth: `This week stays grounded throughout—steady progress is the theme.`,
+      Earth: `This week stays grounded throughout. Steady progress is the theme.`,
       Air: `This week begins with practicality and shifts toward ideas and connection.`,
       Water: `This week begins with stability and gradually deepens into emotional territory.`,
     },
     Air: {
       Fire: `This week begins with ideas and shifts toward action and initiative.`,
       Earth: `This week begins with mental activity and gradually grounds into practical matters.`,
-      Air: `This week stays mentally active throughout—good for processing and connecting.`,
+      Air: `This week stays mentally active throughout, good for processing and connecting.`,
       Water: `This week begins with thinking and shifts toward feeling and intuition.`,
     },
     Water: {
       Fire: `This week begins inward and gradually builds toward action and expression.`,
       Earth: `This week begins with feeling and shifts toward grounding and practical matters.`,
       Air: `This week begins with emotion and lifts toward mental clarity and communication.`,
-      Water: `This week stays emotionally attuned throughout—depth is consistently available.`,
+      Water: `This week stays emotionally attuned throughout. Depth is consistently available.`,
     },
   };
 
   const shiftDescription = shiftDescriptions[firstElement]?.[lastElement] ||
-    `This week moves through different energies—stay flexible with your pace.`;
+    `This week moves through different energies, so stay flexible with your pace.`;
 
   const paceAdvice = firstElement === lastElement
     ? `The rhythm is consistent, so you can plan accordingly.`

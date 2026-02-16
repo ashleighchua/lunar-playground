@@ -15,7 +15,7 @@ export default function AboutPage() {
               About
             </h1>
             <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed">
-              A playground for the curious.
+              Hi, I&apos;m Ashleigh. I help people figure out where they belong.
             </p>
           </div>
         </section>
@@ -35,16 +35,17 @@ export default function AboutPage() {
               <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
                 <p>
                   I was stuck. Good job on paper, but something felt off. The city, the
-                  routine, the life I&apos;d built—none of it fit anymore.
+                  routine, the life I&apos;d built. None of it fit anymore.
                 </p>
                 <p>
                   I turned to astrology, not for answers, but for a different way of seeing.
-                  It gave me language for the restlessness I couldn&apos;t name. Eventually,
-                  it gave me courage. I quit. I moved countries. I started over.
+                  It gave me language for the restlessness I couldn&apos;t name. Then I discovered
+                  astrocartography, and everything clicked. It wasn&apos;t just about who I was.
+                  It was about <em>where</em> I was.
                 </p>
                 <p>
-                  Lunar Playground grew from that. I wanted to build the space I wish I&apos;d
-                  had—somewhere to explore these tools with curiosity instead of pressure.
+                  I quit my job. I moved countries. I started over in a city that my chart said
+                  would light me up. And it did.
                 </p>
               </div>
             </div>
@@ -64,25 +65,27 @@ export default function AboutPage() {
           <div className="h-px bg-[#2A2A2A]/10" />
         </div>
 
-        {/* What We Believe - Left image, Right text */}
+        {/* What I Do Now - Left image, Right text */}
         <section className="container-editorial py-8 md:py-10">
           <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16">
             <div className="flex-1 md:text-left">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
-                What we believe
+                What I do now
               </h2>
               <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
                 <p>
-                  Astrology gives shape to feelings you already recognise.
-                  It offers symbols, cycles, and stories to sit with your life as it unfolds.
+                  I write personalized astrocartography readings for people who feel that pull.
+                  The ones wondering if they should move, travel, or just try somewhere new.
+                  The ones who sense that where they are might not be where they&apos;re meant to be.
                 </p>
                 <p>
-                  Approach it like poetry, not instruction.
-                  Curious, open, and personal.
+                  Each reading maps your birth chart across the globe and tells you which cities
+                  activate which parts of you. Career, love, creativity, growth. It&apos;s specific
+                  to your chart, your questions, and your life right now.
                 </p>
                 <p>
-                  What resonates stays. What doesn&apos;t can pass.
-                  No pressure. Just space to reflect.
+                  I also built the free tools on this site so anyone can start exploring.
+                  The paid readings go deeper, but curiosity shouldn&apos;t cost anything.
                 </p>
               </div>
             </div>
@@ -102,13 +105,12 @@ export default function AboutPage() {
           <div className="h-px bg-[#2A2A2A]/10" />
         </div>
 
-        {/* What Guides Us - Values Section */}
+        {/* How I Approach This */}
         <section className="container-editorial py-8 md:py-10">
           <h2 className="font-serif text-2xl text-[#2A2A2A] mb-12">
-            What guides us
+            How I approach this
           </h2>
 
-          {/* Curiosity - Left image, Right text */}
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16 mb-10">
             <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
               <Image
@@ -119,15 +121,15 @@ export default function AboutPage() {
               />
             </div>
             <div className="flex-1">
-              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Curiosity</h3>
+              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Honest, not hype</h3>
               <p className="text-[#6B6B6B] leading-relaxed">
-                Wonder over certainty. Questions over answers. We approach astrology as an
-                invitation to explore, not a prescription to follow.
+                I won&apos;t tell you a city will magically fix your life. Astrocartography is a
+                tool for reflection, not a crystal ball. I give you the information and you
+                decide what to do with it.
               </p>
             </div>
           </div>
 
-          {/* Love - Right image, Left text */}
           <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16 mb-10">
             <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
               <Image
@@ -138,15 +140,15 @@ export default function AboutPage() {
               />
             </div>
             <div className="flex-1 md:text-right">
-              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Love</h3>
+              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Personal, not generic</h3>
               <p className="text-[#6B6B6B] leading-relaxed">
-                At its heart, this is about self-understanding. We want you to feel seen,
-                and a little more at home in yourself.
+                Every reading is based on your individual chart. I look at your specific
+                placements, your questions, and what you&apos;re actually going through. No
+                copy-paste reports.
               </p>
             </div>
           </div>
 
-          {/* Accessibility - Left image, Right text */}
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
             <div className="relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] flex-shrink-0">
               <Image
@@ -157,10 +159,11 @@ export default function AboutPage() {
               />
             </div>
             <div className="flex-1">
-              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Accessibility</h3>
+              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Accessible</h3>
               <p className="text-[#6B6B6B] leading-relaxed">
-                Astrology shouldn&apos;t be gatekept. We believe these tools belong to
-                everyone—no jargon, no barriers, just exploration.
+                Astrology can feel gatekept. I try to make it approachable. Plain language,
+                clear explanations, and free tools anyone can use. You don&apos;t need to know
+                anything about astrology to get value from a reading.
               </p>
             </div>
           </div>
@@ -171,23 +174,31 @@ export default function AboutPage() {
           <div className="h-px bg-[#2A2A2A]/10" />
         </div>
 
-        {/* Say Hello - Encapsulated box */}
+        {/* CTA */}
         <section className="container-editorial py-8 md:py-10">
           <div className="rounded-2xl bg-gradient-to-r from-[#D4C4B0] to-[#E8DED4] p-8 md:p-12">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-6">
-                Say hello
+              <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-4">
+                Want to work together?
               </h2>
               <p className="text-[#6B6B6B] leading-relaxed mb-6">
-                Questions, ideas, or just want to share what resonated? I&apos;d love to hear from you.
+                Check out the readings, try the free tools, or just say hi.
               </p>
-              <a
-                href="mailto:thelunarplayground@gmail.com"
-                className="inline-block px-6 md:px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors text-sm md:text-base"
-              >
-                <span className="md:hidden">Email me</span>
-                <span className="hidden md:inline">thelunarplayground@gmail.com</span>
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href="/shop"
+                  className="inline-block px-6 md:px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors text-sm md:text-base"
+                >
+                  View readings
+                </Link>
+                <a
+                  href="mailto:thelunarplayground@gmail.com"
+                  className="inline-block px-6 md:px-8 py-4 rounded-lg border border-[#2A2A2A]/20 text-[#2A2A2A] hover:bg-[#2A2A2A] hover:text-[#FAF7F2] transition-colors text-sm md:text-base"
+                >
+                  <span className="md:hidden">Email me</span>
+                  <span className="hidden md:inline">thelunarplayground@gmail.com</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -198,12 +209,10 @@ export default function AboutPage() {
         <div className="container-editorial">
           <div className="flex justify-end">
             <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-                Privacy
-              </Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-                Terms
-              </Link>
+              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
+              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
             </div>
           </div>
         </div>

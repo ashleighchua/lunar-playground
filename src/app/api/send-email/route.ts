@@ -50,8 +50,8 @@ export async function POST(request: NextRequest) {
         subject = 'Your Compatibility Results';
         html = generateCompatibilityEmail(data, styles);
         break;
-      case 'travel':
-        subject = 'Your Travel Destination';
+      case 'astrocartography':
+        subject = 'Your Astrocartography Reading';
         html = generateTravelEmail(data, styles);
         break;
       case 'feedback':
@@ -135,17 +135,17 @@ function generateChartEmail(data: any, styles: string): string {
               <td width="33%" style="text-align: center; padding: 8px;">
                 <div style="font-size: 20px; margin-bottom: 4px;">☉</div>
                 <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #6B6B6B;">Sun</div>
-                <div style="font-size: 14px; font-weight: 500; color: #2A2A2A;">${data.sunSign?.name || '—'}</div>
+                <div style="font-size: 14px; font-weight: 500; color: #2A2A2A;">${data.sunSign?.name || '-'}</div>
               </td>
               <td width="33%" style="text-align: center; padding: 8px;">
                 <div style="font-size: 20px; margin-bottom: 4px;">☽</div>
                 <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #6B6B6B;">Moon</div>
-                <div style="font-size: 14px; font-weight: 500; color: #2A2A2A;">${data.moonSign?.name || '—'}</div>
+                <div style="font-size: 14px; font-weight: 500; color: #2A2A2A;">${data.moonSign?.name || '-'}</div>
               </td>
               <td width="33%" style="text-align: center; padding: 8px;">
                 <div style="font-size: 20px; margin-bottom: 4px;">↑</div>
                 <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #6B6B6B;">Rising</div>
-                <div style="font-size: 14px; font-weight: 500; color: #2A2A2A;">${data.risingSign?.name || '—'}</div>
+                <div style="font-size: 14px; font-weight: 500; color: #2A2A2A;">${data.risingSign?.name || '-'}</div>
               </td>
             </tr>
           </table>

@@ -21,11 +21,11 @@ function getDriveMode(sign: string): DriveMode {
 export const mercuryThinking: Record<string, string> = {
   Aries: "Your mind moves fast and wants conclusions quickly. You reach decisions before others have finished explaining the problem. Patience with long explanations runs thin. You'd rather be wrong and course-correct than wait for certainty.",
   Taurus: "Your mind moves deliberately. You think things through at your own pace, and you don't rush decisions. Once you've landed somewhere, you're not easily swayed. You value practicality over cleverness.",
-  Gemini: "Your mind is restless and hungry. You collect information the way some people collect objects—voraciously and widely. You think by talking, by exploring, by connecting dots others haven't noticed.",
+  Gemini: "Your mind is restless and hungry. You collect information the way some people collect objects, voraciously and widely. You think by talking, by exploring, by connecting dots others haven't noticed.",
   Cancer: "Your mind holds onto things. Memory is vivid and emotional. You think through feeling, often knowing the answer before you can explain why. Your intuition about people is unusually accurate.",
   Leo: "Your mind gravitates toward what's worth sharing. You think in stories, in narratives that make sense of experience. Ideas that can't be expressed don't interest you as much as ideas that move people.",
-  Virgo: "Your mind notices everything—especially what's wrong or incomplete. You break problems into parts, fix each piece, and reassemble them better. You're harder on your own thinking than anyone else.",
-  Libra: "Your mind sees all sides. You weigh perspectives naturally, which makes you fair but can slow decisions. You think through dialogue—hearing what others think helps you know what you think.",
+  Virgo: "Your mind notices everything, especially what's wrong or incomplete. You break problems into parts, fix each piece, and reassemble them better. You're harder on your own thinking than anyone else.",
+  Libra: "Your mind sees all sides. You weigh perspectives naturally, which makes you fair but can slow decisions. You think through dialogue, and hearing what others think helps you know what you think.",
   Scorpio: "Your mind naturally looks beneath the surface. You're alert to motives, power dynamics, and what's left unsaid. Surface explanations rarely satisfy you. This gives you strategic insight, but it can also make it hard to switch off.",
   Sagittarius: "Your mind reaches for meaning. You're less interested in details than in what they add up to. Big-picture thinking comes naturally; patience with specifics takes effort.",
   Capricorn: "Your mind is practical and strategic. You think about what works, what lasts, what can actually be built. You're skeptical of ideas that can't survive contact with reality.",
@@ -36,7 +36,7 @@ export const mercuryThinking: Record<string, string> = {
 // Venus - how you connect and commit
 export const venusConnecting: Record<string, string> = {
   Aries: "You approach connection with directness and intensity. You fall hard and pursue openly. Trust is built through honesty and action, not patience. Once interested, you don't wait.",
-  Taurus: "You approach connection seriously and steadily. You build trust through consistency, presence, and shared comfort rather than intensity or drama. You don't rush intimacy—you test reliability.",
+  Taurus: "You approach connection seriously and steadily. You build trust through consistency, presence, and shared comfort rather than intensity or drama. You don't rush intimacy. You test reliability.",
   Gemini: "You approach connection through curiosity and conversation. You need mental engagement to feel close. Boredom is more threatening to intimacy than conflict. You stay interested by staying interested.",
   Cancer: "You approach connection through care and emotional attunement. You create safety before you open up. Trust is built through feeling understood, not through grand gestures.",
   Leo: "You approach connection with warmth and generosity. You want to be appreciated for who you are, not just what you do. Trust is built through recognition and loyalty.",
@@ -51,18 +51,18 @@ export const venusConnecting: Record<string, string> = {
 
 // Mars - how you act and assert
 export const marsActing: Record<string, string> = {
-  Aries: "You move through action directly and immediately. When you want something, you go after it. Conflict doesn't scare you—you'd rather have a fight than let tension simmer. You work in bursts of intensity.",
-  Taurus: "You move through action slowly and persistently. You're not easily provoked, but when you are, you're formidable. Your strength is endurance—you win by outlasting, not outrunning.",
+  Aries: "You move through action directly and immediately. When you want something, you go after it. Conflict doesn't scare you. You'd rather have a fight than let tension simmer. You work in bursts of intensity.",
+  Taurus: "You move through action slowly and persistently. You're not easily provoked, but when you are, you're formidable. Your strength is endurance. You win by outlasting, not outrunning.",
   Gemini: "You move through action quickly and adaptively. You fight with words and ideas more than force. When blocked, you find another route. Multiple projects running simultaneously feel natural.",
   Cancer: "You move through action protectively. Your energy rises when someone you love is threatened. Conflict makes you defensive first, aggressive second. You work hardest for what you care about most.",
-  Leo: "You move through action with confidence and flair. You want your efforts noticed and appreciated. Conflict engages your dignity—you need to win, but prefer to do so generously.",
+  Leo: "You move through action with confidence and flair. You want your efforts noticed and appreciated. Conflict engages your dignity. You need to win, but prefer to do so generously.",
   Virgo: "You move through action carefully and methodically. You improve things by refining them. You notice flaws quickly and feel responsible for fixing them. Under stress, this precision can turn inward as self-criticism or outward as quiet frustration.",
-  Libra: "You move through action diplomatically and collaboratively. You prefer to achieve through partnership than competition. Conflict disturbs you—you'll avoid it unless fairness is at stake.",
-  Scorpio: "You move through action with intensity and full commitment. When you decide something matters, you pursue it with laser focus. Conflict doesn't rattle you—you can wait for the right moment.",
+  Libra: "You move through action diplomatically and collaboratively. You prefer to achieve through partnership than competition. Conflict disturbs you, and you'll avoid it unless fairness is at stake.",
+  Scorpio: "You move through action with intensity and full commitment. When you decide something matters, you pursue it with laser focus. Conflict doesn't rattle you. You can wait for the right moment.",
   Sagittarius: "You move through action optimistically and enthusiastically. You're motivated by meaning and possibility. Conflict is handled directly and then forgotten. You work on what inspires you.",
-  Capricorn: "You move through action strategically and with discipline. You play the long game. Conflict is handled carefully—you prefer to win through persistence and positioning. You work extremely hard.",
-  Aquarius: "You move through action independently and unconventionally. You're motivated by ideas and ideals. Conflict is approached intellectually—you want to be right, not just victorious.",
-  Pisces: "You move through action intuitively and passively until something truly matters. You're motivated by meaning and feeling. Conflict drains you—you'd rather flow around obstacles than fight through them.",
+  Capricorn: "You move through action strategically and with discipline. You play the long game. Conflict is handled carefully, and you prefer to win through persistence and positioning. You work extremely hard.",
+  Aquarius: "You move through action independently and unconventionally. You're motivated by ideas and ideals. Conflict is approached intellectually. You want to be right, not just victorious.",
+  Pisces: "You move through action intuitively and passively until something truly matters. You're motivated by meaning and feeling. Conflict drains you, and you'd rather flow around obstacles than fight through them.",
 };
 
 // Saturn - where pressure shapes you over time
@@ -155,7 +155,7 @@ function getMixedPatternText(mercury: DriveMode, venus: DriveMode, mars: DriveMo
   if ((mercury === 'depth' || venus === 'depth') && (mars === 'speed' || mercury === 'speed')) {
     return `You are wired for both depth and momentum.
 
-You think carefully and connect seriously, but you also need movement and action. This creates productive tension—you want things to matter and you want them to move.
+You think carefully and connect seriously, but you also need movement and action. This creates productive tension because you want things to matter and you want them to move.
 
 When aligned, this makes you effective and purposeful. When misaligned, you may rush what needs time or overthink what needs action.`;
   }
@@ -181,7 +181,7 @@ This creates versatility and social fluency, but also a need for enough structur
   // Default mixed
   return `You are wired for different modes depending on the domain.
 
-How you think, connect, and act don't all follow the same rhythm. This isn't inconsistency—it's range. You have access to multiple gears depending on what the situation requires.
+How you think, connect, and act don't all follow the same rhythm. This isn't inconsistency. It's range. You have access to multiple gears depending on what the situation requires.
 
 The work is knowing which mode serves which moment.`;
 }
@@ -189,7 +189,7 @@ The work is knowing which mode serves which moment.`;
 function getComplexPatternText(): string {
   return `Your drives operate in different modes across different areas.
 
-How you think, how you connect, how you act, and how you grow under pressure each follow their own logic. This isn't fragmentation—it's complexity. You have access to multiple approaches depending on context.
+How you think, how you connect, how you act, and how you grow under pressure each follow their own logic. This isn't fragmentation. It's complexity. You have access to multiple approaches depending on context.
 
 The work is integration: knowing when each mode serves you and when they're in tension.`;
 }
@@ -251,7 +251,7 @@ function getPartialInteraction(mercury: DriveMode, venus: DriveMode, mars: Drive
     return `Your thinking and connecting share a rhythm, while your action style operates differently.
 
 When aligned, this gives you both internal coherence and the ability to shift gears when needed.
-When misaligned, you may think and feel one way but act another—creating confusion for yourself and others.`;
+When misaligned, you may think and feel one way but act another, creating confusion for yourself and others.`;
   }
 
   // Mercury and Mars match
@@ -259,23 +259,23 @@ When misaligned, you may think and feel one way but act another—creating confu
     return `Your thinking and acting share a rhythm, while how you connect operates differently.
 
 When aligned, you're effective and decisive, with relationships that balance your drive.
-When misaligned, you may move faster in work than in love—or vice versa—creating imbalance.`;
+When misaligned, you may move faster in work than in love, or vice versa, creating imbalance.`;
   }
 
   // Venus and Mars match
   return `Your connecting and acting share a rhythm, while how you think operates differently.
 
 When aligned, your relationships and pursuits feel natural together, with thinking that provides useful contrast.
-When misaligned, you may know what you want but overthink—or act on impulse before you've thought it through.`;
+When misaligned, you may know what you want but overthink, or act on impulse before you've thought it through.`;
 }
 
 function getComplexInteraction(mercury: DriveMode, venus: DriveMode, mars: DriveMode): string {
   return `Your thinking, connecting, and acting each follow different rhythms.
 
-When aligned, this gives you remarkable range—you can adapt your approach to what each situation requires.
+When aligned, this gives you remarkable range. You can adapt your approach to what each situation requires.
 When misaligned, you may feel pulled in different directions, uncertain which mode to trust.
 
-The work is learning when each mode serves you—and when they're competing for priority.`;
+The work is learning when each mode serves you and when they're competing for priority.`;
 }
 
 // Generate what supports alignment
@@ -363,5 +363,5 @@ export function generateStrengthStatement(
   }
 
   // Mixed
-  return "Your strength is range—the ability to draw from different modes as situations require.";
+  return "Your strength is range: the ability to draw from different modes as situations require.";
 }

@@ -161,6 +161,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Clickable elements */
+a, button, [role="button"], input[type="submit"], summary {
+  cursor: pointer;
+}
+
 /* Editorial typography */
 h1, h2, h3, h4 {
   font-family: var(--font-serif), Georgia, serif;

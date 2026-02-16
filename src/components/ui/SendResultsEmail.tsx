@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface SendResultsEmailProps {
-  type: 'your-chart' | 'compatibility' | 'travel';
+  type: 'your-chart' | 'compatibility' | 'astrocartography';
   data: any;
   className?: string;
   defaultEmail?: string;

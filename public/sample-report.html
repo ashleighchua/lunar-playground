@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Astrocartography Report | The Lunar Playground</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 12pt;
+            line-height: 1.8;
+            color: #2c2c2c;
+            background: #f5f0eb;
+        }
+
+        /* Sample banner */
+        .sample-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: #2A2A2A;
+            color: #FAF7F2;
+            text-align: center;
+            padding: 12px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .sample-banner a {
+            color: #D4A84B;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .sample-banner a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 52px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            background: #f5f0eb;
+            padding: 10px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            border-bottom: 1px solid #e0d8ce;
+        }
+
+        .back-link a {
+            color: #6B6B6B;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            color: #2A2A2A;
+        }
+
+        .report-wrapper {
+            max-width: 800px;
+            margin: 100px auto 60px;
+            padding: 0 20px;
+        }
+
+        .cover-page {
+            width: 100%;
+            min-height: 500px;
+            background: linear-gradient(135deg, #4a7c9b 0%, #8b6e7f 25%, #d4956a 50%, #e8a87c 65%, #d4956a 75%, #8b6e7f 90%, #4a7c9b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            padding: 60px 40px;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.15;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+
+        .cover-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 24px;
+            z-index: 1;
+            filter: brightness(0) invert(1);
+        }
+
+        .cover-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36pt;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+            letter-spacing: 3px;
+            z-index: 1;
+        }
+
+        .cover-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11pt;
+            font-weight: 400;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            z-index: 1;
+        }
+
+        .page {
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px 48px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .client-info {
+            background: #f9f7f4;
+            padding: 22px 28px;
+            margin-bottom: 35px;
+            border-left: 3px solid #d4af37;
+        }
+
+        .client-info p {
+            margin: 6px 0;
+            font-size: 11pt;
+        }
+
+        .client-info strong {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .redacted {
+            background: #e0d8ce;
+            color: transparent;
+            border-radius: 3px;
+            padding: 0 4px;
+            user-select: none;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 16pt;
+            color: #1a1a2e;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #d4af37;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 10pt;
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 28px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 18px;
+        }
+
+        .intro-text {
+            font-size: 13pt;
+            color: #444;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .lines-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 10pt;
+        }
+
+        .lines-table th {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1a1a2e;
+            background: #f9f7f4;
+            padding: 12px 10px;
+            border-bottom: 2px solid #d4af37;
+            text-align: center;
+        }
+
+        .lines-table th:first-child {
+            text-align: left;
+        }
+
+        .lines-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        .lines-table td:first-child {
+            font-weight: 600;
+            text-align: left;
+            color: #1a1a2e;
+        }
+
+        .lines-table .check {
+            color: #d4af37;
+            font-size: 14pt;
+        }
+
+        .glossary-box {
+            background: #f9f7f4;
+            border: 1px solid #e8e4dc;
+            border-radius: 4px;
+            padding: 20px 25px;
+            margin: 30px 0;
+        }
+
+        .glossary-box h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+        }
+
+        .glossary-box dl {
+            margin: 0;
+        }
+
+        .glossary-box dt {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 10pt;
+            color: #d4af37;
+            display: inline;
+        }
+
+        .glossary-box dd {
+            display: inline;
+            margin: 0;
+            font-size: 10.5pt;
+            color: #444;
+        }
+
+        .glossary-box dd::after {
+            content: '';
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .cta-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 48px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .cta-section h2 {
+            border: none;
+            text-align: center;
+            font-size: 20pt;
+        }
+
+        .cta-section p {
+            color: #666;
+            max-width: 480px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 36px;
+            background: #2A2A2A;
+            color: #FAF7F2;
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+        }
+
+        .cta-button:hover {
+            background: #1a1a1a;
+        }
+
+        .closing-page {
+            background: #fff;
+            border-radius: 8px;
+            padding: 48px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .sun-illustration {
+            max-width: 200px;
+            margin: 0 auto 30px;
+            display: block;
+            opacity: 0.85;
+        }
+
+        .closing-message {
+            font-size: 13pt;
+            font-style: italic;
+            color: #555;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            line-height: 1.9;
+        }
+
+        .signature-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 11pt;
+            color: #1a1a2e;
+        }
+
+        .signature-text {
+            font-style: italic;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                padding: 28px 24px;
+            }
+            .cover-title {
+                font-size: 24pt;
+            }
+            .cover-page {
+                min-height: 360px;
+                padding: 40px 24px;
+            }
+            .report-wrapper {
+                margin-top: 90px;
+            }
+            .lines-table {
+                font-size: 8pt;
+            }
+            .lines-table th, .lines-table td {
+                padding: 6px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sample-banner">
+        <span>This is a sample report</span>
+        <a href="/shop">Get yours &rarr;</a>
+    </div>
+
+    <div class="back-link">
+        <a href="/astrocartography">&larr; Back to astrocartography</a>
+    </div>
+
+    <div class="report-wrapper">
+
+        <div class="cover-page">
+            <img src="/sample-report-logo.png" alt="The Lunar Playground" class="cover-logo">
+            <h1 class="cover-title">Astrocartography Report</h1>
+            <p class="cover-subtitle">The Lunar Playground</p>
+        </div>
+
+        <div class="page">
+            <div class="client-info">
+                <p><strong>Client:</strong> <span class="redacted">Name Redacted</span></p>
+                <p><strong>Date of Birth:</strong> <span class="redacted">00 Month 0000</span></p>
+                <p><strong>Time:</strong> <span class="redacted">00:00 AM</span></p>
+                <p><strong>Place of Birth:</strong> <span class="redacted">City, State, USA</span></p>
+                <p><strong>Locations Analyzed:</strong> Patagonia | Eastern China | Perth</p>
+                <p><strong>Focus Areas:</strong> Creative expression and romantic relationships</p>
+            </div>
+
+            <h2>What is Astrocartography?</h2>
+
+            <p class="intro-text">Your birth chart captures the positions of the planets at the exact moment you were born. But if you had been born at that same moment in a different location, the planets would have appeared in different positions relative to you.</p>
+
+            <p>Astrocartography maps these differences across the globe. It shows where each planet was rising, setting, or at its peak at your birth moment. When you visit or live near one of these lines, that planet's themes become more active in your life.</p>
+
+            <div class="glossary-box">
+                <h4>Quick Reference: The Four Angles</h4>
+                <dl>
+                    <dt>AC (Ascendant)</dt>
+                    <dd> &mdash; The eastern horizon. Planets here affect how you present yourself and how others first perceive you.</dd>
+                    <dt>DC (Descendant)</dt>
+                    <dd> &mdash; The western horizon. Planets here influence partnerships, relationships, and one-on-one connections.</dd>
+                    <dt>MC (Midheaven)</dt>
+                    <dd> &mdash; The highest point in the sky. Planets here shape your public image, career, and visibility.</dd>
+                    <dt>IC (Imum Coeli)</dt>
+                    <dd> &mdash; The lowest point. Planets here affect your inner world, home life, and private self.</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="page">
+            <h2>The Planetary Lines in This Reading</h2>
+
+            <h3>Venus DC (Descendant)</h3>
+            <p>Venus on the Descendant can create receptive conditions for romantic connection. You may find yourself more attractive to others and drawn to partners with artistic, affectionate qualities. The Descendant governs partnerships, so Venus here can enhance relationship magnetism.</p>
+
+            <h3>Jupiter AC (Ascendant)</h3>
+            <p>Jupiter on the Ascendant can bring warmth, optimism, and openness to how you present yourself. Doors tend to open more easily. Others may perceive you as generous and adventurous. This line supports expansion and positive first impressions.</p>
+
+            <h3>Saturn AC (Ascendant)</h3>
+            <p>Saturn on the Ascendant can add seriousness and maturity to your presence. First impressions may be more reserved. Whatever develops here tends to require genuine effort. Relationships may lean toward commitment rather than casual connection.</p>
+
+            <h3>Neptune MC (Midheaven)</h3>
+            <p>Neptune on the Midheaven can infuse your public image with creative, artistic qualities. It supports careers in imaginative fields. Others may see you as a visionary or creative professional.</p>
+
+            <h3>Neptune IC (Imum Coeli)</h3>
+            <p>Neptune on the IC can activate deep, inner creativity. Art may emerge from subconscious and spiritual sources rather than external ambition. This line supports introspection, dreams, and work that feels channeled from within.</p>
+
+            <h3>Sun MC (Midheaven)</h3>
+            <p>The Sun on the Midheaven can bring themes of visibility and recognition. Your authentic self may become more publicly known. Creative work tends to get noticed here.</p>
+
+            <h2>Lines at Each Location</h2>
+
+            <table class="lines-table">
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Venus DC</th>
+                        <th>Jupiter AC</th>
+                        <th>Saturn AC</th>
+                        <th>Neptune MC</th>
+                        <th>Neptune IC</th>
+                        <th>Sun MC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Patagonia</td>
+                        <td class="check">&check;</td>
+                        <td class="check">&check;</td>
+                        <td class="check">&check;</td>
+                        <td></td>
+                        <td class="check">&check;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Eastern China</td>
+                        <td class="check">&check;</td>
+                        <td class="check">&check;</td>
+                        <td class="check">&check;</td>
+                        <td class="check">&check;</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Perth</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="check">&check;</td>
+                        <td></td>
+                        <td class="check">&check;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page">
+            <h2>Patagonia, Argentina/Chile</h2>
+            <p><em>Venus DC, Jupiter AC, Saturn AC, Neptune IC</em></p>
+
+            <p>Patagonia carries a strong romantic signature with Venus and Jupiter, tempered by Saturn's tendency to ask for patience and genuine effort. What makes this location unique is Neptune on the IC, which can activate deep inner creativity. Art here may emerge from within, from dreams and intuition, rather than external ambition.</p>
+
+            <p>For romance, the combination suggests connections that develop slowly but carry real meaning. The intimate, remote setting tends to support depth over quantity.</p>
+
+            <p>This location suits someone seeking creative retreat, inner development, and organic connection.</p>
+
+            <h2>Eastern China (Shanghai/Hangzhou)</h2>
+            <p><em>Venus DC, Jupiter AC, Saturn AC, Neptune MC</em></p>
+
+            <p>Eastern China shares the same romantic foundation as Patagonia, but Neptune sits on the Midheaven instead of the IC. This can shift the creative energy outward. Your work may gain more visibility here. Career opportunities in artistic fields can become more available.</p>
+
+            <p>For romance, the larger population means more potential connections. You may meet partners through professional or creative circles. The Saturn influence still applies: relationships tend to develop through genuine effort.</p>
+
+            <p>This location suits someone comfortable with cultural immersion who wants to build creative career alongside romantic life.</p>
+        </div>
+
+        <div class="page">
+            <h2>Perth, Western Australia</h2>
+            <p><em>Sun MC, Neptune MC</em></p>
+
+            <p>Perth stands apart from the other two locations. What Perth offers is a powerful creative career signature. Both Sun and Neptune on the Midheaven suggest your authentic self and artistic vision may become more publicly visible. Work you produce here tends to get noticed.</p>
+
+            <p>The setting is comfortable: English-speaking, beautiful natural environment, active arts community, relaxed pace. If creative career is your priority, Perth can provide strong support.</p>
+
+            <h2>Summary</h2>
+
+            <p>Patagonia and Eastern China both offer favorable conditions for romance through Venus and Jupiter, with Saturn suggesting that what develops may require genuine investment. Patagonia is remote and introspective; Eastern China is urban and career-oriented.</p>
+
+            <p>Perth can offer strong creative visibility. It's a supportive location for being seen and recognized as an artist.</p>
+
+            <p>These are favorable conditions, not guarantees. The planetary lines open doors; walking through them is up to you.</p>
+        </div>
+
+        <div class="closing-page">
+            <img src="/sample-report-illustration.png" alt="Astrocartography illustration" class="sun-illustration">
+
+            <p class="closing-message">
+                Thank you for trusting me with your journey. The stars don't dictate our fate; they illuminate possibilities. Remember that you carry your own magic wherever you go.
+            </p>
+
+            <p class="signature-text">With warmth and cosmic guidance,</p>
+            <p class="signature-name">Ashleigh @ The Lunar Playground</p>
+        </div>
+
+        <div class="cta-section">
+            <h2>Want your own report?</h2>
+            <p>Each reading is personalised to your unique birth chart and the cities that matter most to you.</p>
+            <a href="/shop" class="cta-button">Get your reading</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -187,7 +187,7 @@ export const relationshipStrain: Record<string, string> = {
 
 When your pace isn't matched, frustration builds. You may interpret slowness as lack of enthusiasm. By the time you've moved on, your partner is just catching up.
 
-The strain shows up as feeling alone even when together—like you're always waiting.`,
+The strain shows up as feeling alone even when together, like you're always waiting.`,
 
   Taurus: `You can hold onto patterns long past their usefulness.
 
@@ -264,7 +264,7 @@ Partners who have their own strong center, who can push back without breaking, w
 
   Taurus: `Relationships work best when they offer stability without stagnation.
 
-Partners who value consistency, who understand that trust builds slowly, who don't mistake your pace for lack of passion. Comfort matters, but so does growth—just on your timeline.`,
+Partners who value consistency, who understand that trust builds slowly, who don't mistake your pace for lack of passion. Comfort matters, but so does growth, just on your timeline.`,
 
   Gemini: `Relationships work best when they stay interesting without becoming chaotic.
 
@@ -280,7 +280,7 @@ Partners who see you clearly, who don't withhold recognition, who understand tha
 
   Virgo: `Relationships work best when effort is mutual and improvement is welcome.
 
-Partners who appreciate your attention, who don't interpret helpfulness as criticism, who can meet your standards while helping you soften them. Devotion matters, but so does accepting imperfection—including your own.`,
+Partners who appreciate your attention, who don't interpret helpfulness as criticism, who can meet your standards while helping you soften them. Devotion matters, but so does accepting imperfection, including your own.`,
 
   Libra: `Relationships work best when disagreement is allowed without threatening connection.
 

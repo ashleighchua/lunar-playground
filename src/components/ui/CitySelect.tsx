@@ -160,7 +160,7 @@ export function CitySelect({
           // Selected value display
           <div
             onClick={() => setIsOpen(true)}
-            className="w-full px-4 py-3 pr-16 border border-[#2A2A2A]/10 rounded-lg bg-transparent text-[#2A2A2A] cursor-pointer"
+            className="w-full px-4 py-3 pr-16 border border-[#2A2A2A]/10 rounded-lg bg-white text-[#2A2A2A] cursor-pointer"
           >
             <span className="truncate block">{value}</span>
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -195,7 +195,7 @@ export function CitySelect({
               onFocus={() => setIsOpen(true)}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2A2A2A]/10 rounded-lg bg-transparent text-[#2A2A2A] placeholder:text-[#6B6B6B]/50 focus:outline-none focus:border-[#2A2A2A]/30 transition-colors"
+              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2A2A2A]/10 rounded-lg bg-white text-[#2A2A2A] placeholder:text-[#6B6B6B]/50 focus:outline-none focus:border-[#D4A84B]/50 transition-colors"
             />
             {isLoading ? (
               <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6B6B] animate-spin" />

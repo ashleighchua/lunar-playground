@@ -261,7 +261,7 @@ export function generateSynthesis(
 
   if (!moonSign && !risingSign) {
     // Sun only
-    return `At your core, you're driven to ${sunEssence.verb}. Your ${sunEssence.quality} nature shapes how you approach life's challenges and opportunities. This is your foundation—the rest builds from here.`;
+    return `At your core, you're driven to ${sunEssence.verb}. Your ${sunEssence.quality} nature shapes how you approach life's challenges and opportunities. This is your foundation, and the rest builds from here.`;
   }
 
   if (!moonSign || !risingSign) {
@@ -297,9 +297,9 @@ export function generateSynthesis(
   if (sunMoonHarmony && sunRisingHarmony) {
     return `Your three core placements flow together naturally. The ${sunEssence.quality} identity you're building finds emotional support from your ${moonEssence.quality} inner world, while your ${risingEssence.quality} presence gives others an authentic glimpse of who you are. When you're in alignment, there's an ease to how you move through the world.`;
   } else if (!sunMoonHarmony && !sunRisingHarmony) {
-    return `Your three core placements create productive tension. Your ${sunEssence.quality} drive to ${sunEssence.verb} meets a ${moonEssence.quality} emotional landscape and a ${risingEssence.quality} outer presence—each pulling in different directions. This isn't a flaw; it's range. You contain multitudes, and learning to honor each part is your ongoing work.`;
+    return `Your three core placements create productive tension. Your ${sunEssence.quality} drive to ${sunEssence.verb} meets a ${moonEssence.quality} emotional landscape and a ${risingEssence.quality} outer presence, each pulling in different directions. This isn't a flaw; it's range. You contain multitudes, and learning to honor each part is your ongoing work.`;
   } else {
-    return `Your chart holds both harmony and creative tension. Your ${sunEssence.quality} core ${sunMoonHarmony ? 'resonates with' : 'challenges'} your ${moonEssence.quality} inner world, while your ${risingEssence.quality} presence ${sunRisingHarmony ? 'reflects' : 'contrasts with'} your deeper nature. This complexity gives you flexibility—you can adapt to many situations while staying true to yourself.`;
+    return `Your chart holds both harmony and creative tension. Your ${sunEssence.quality} core ${sunMoonHarmony ? 'resonates with' : 'challenges'} your ${moonEssence.quality} inner world, while your ${risingEssence.quality} presence ${sunRisingHarmony ? 'reflects' : 'contrasts with'} your deeper nature. This complexity gives you flexibility, and you can adapt to many situations while staying true to yourself.`;
   }
 }
 
@@ -357,7 +357,7 @@ export function getRarityContext(sunSign: string, moonSign: string | null): stri
   const combinedPercent = ((sunPercent / 100) * (moonPercent / 100) * 100).toFixed(2);
 
   if (parseFloat(combinedPercent) < 0.6) {
-    return `Your Sun-Moon combination is relatively uncommon—roughly ${combinedPercent}% of people share it.`;
+    return `Your Sun-Moon combination is relatively uncommon, with roughly ${combinedPercent}% of people sharing it.`;
   } else if (parseFloat(combinedPercent) < 0.75) {
     return `About ${combinedPercent}% of people share your Sun-Moon combination.`;
   } else {

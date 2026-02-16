@@ -90,6 +90,8 @@ export default function PrivacyPage() {
         <div className="container-editorial">
           <div className="flex justify-end">
             <div className="flex gap-8 text-sm text-[#6B6B6B]">
+              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
+              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
               <span className="text-[#2A2A2A]">Privacy</span>
               <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
             </div>

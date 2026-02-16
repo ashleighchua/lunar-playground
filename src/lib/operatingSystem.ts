@@ -22,7 +22,7 @@ export const sunOrientation: Record<string, string> = {
 
 // Emotional processing by Moon sign - how you feel and process
 export const moonProcessing: Record<string, string> = {
-  Aries: "Emotionally, you process through action and direct expression. Feelings move through you quickly and demand immediate acknowledgment. Sitting with unresolved emotion feels unbearable—you'd rather fight, move, or solve than linger.",
+  Aries: "Emotionally, you process through action and direct expression. Feelings move through you quickly and demand immediate acknowledgment. Sitting with unresolved emotion feels unbearable. You'd rather fight, move, or solve than linger.",
   Taurus: "Emotionally, you seek stability, comfort, and predictability. You process feelings slowly, through the body, through routine. Change unsettles you not because you're rigid, but because your emotional system needs time to recalibrate.",
   Gemini: "Emotionally, you process through talking, thinking, and analyzing. Feelings become real when you can name them and discuss them. Silence makes you restless; understanding makes you calm.",
   Cancer: "Emotionally, you feel everything deeply and remember what you've felt. You process through nurturing, through memory, through creating safety. Your emotional life is vast, rich, and sometimes overwhelming.",
@@ -33,7 +33,7 @@ export const moonProcessing: Record<string, string> = {
   Sagittarius: "Emotionally, you seek meaning, perspective, and room to breathe. You process by zooming out, by finding the lesson, by moving toward something better. Heavy feelings make you restless; understanding brings relief.",
   Capricorn: "Emotionally, you're reserved, controlled, and private. You process through structure, through accomplishment, through taking responsibility. Vulnerability feels risky, so you often lead with competence instead.",
   Aquarius: "Emotionally, you process from a slight distance, observing your feelings as much as experiencing them. You seek understanding through ideas and patterns. Intense emotional demands can feel overwhelming.",
-  Pisces: "Emotionally, you absorb everything—your own feelings and everyone else's. You process through imagination, through compassion, through dissolving boundaries. This makes you deeply empathic and sometimes lost.",
+  Pisces: "Emotionally, you absorb everything, your own feelings and everyone else's. You process through imagination, through compassion, through dissolving boundaries. This makes you deeply empathic and sometimes lost.",
 };
 
 // Social presentation by Rising sign - how others meet you
@@ -102,10 +102,10 @@ function getIntegrationWithoutMoonRising(sunSign: string): string {
 
 function getCoherentIntegration(sun: string, moon: string, rising: string, style: ProcessingStyle): string {
   const descriptions: Record<ProcessingStyle, string> = {
-    thinking: `You move through life led by understanding, perspective, and dialogue. Internally, you prefer to think things through. Externally, you present as curious and engaged. This creates coherence—you know who you are and rarely feel pulled in conflicting directions. The challenge is staying connected to feeling when thinking comes so naturally.`,
-    feeling: `You move through life led by intuition, emotional depth, and sensitivity. Internally and externally, you navigate through feeling first. This creates coherence—you trust your instincts and rarely disconnect from your emotional reality. The challenge is knowing where you end and others begin.`,
-    doing: `You move through life led by action, expression, and momentum. Internally, you want to move. Externally, you appear ready to engage. This creates coherence—you know who you are and act on it. The challenge is pausing long enough to let others catch up.`,
-    grounding: `You move through life led by practicality, patience, and tangible results. Internally and externally, you value what's real and lasting. This creates coherence—you're reliable and grounded. The challenge is trusting what can't be measured or built.`,
+    thinking: `You move through life led by understanding, perspective, and dialogue. Internally, you prefer to think things through. Externally, you present as curious and engaged. This creates coherence. You know who you are and rarely feel pulled in conflicting directions. The challenge is staying connected to feeling when thinking comes so naturally.`,
+    feeling: `You move through life led by intuition, emotional depth, and sensitivity. Internally and externally, you navigate through feeling first. This creates coherence. You trust your instincts and rarely disconnect from your emotional reality. The challenge is knowing where you end and others begin.`,
+    doing: `You move through life led by action, expression, and momentum. Internally, you want to move. Externally, you appear ready to engage. This creates coherence. You know who you are and act on it. The challenge is pausing long enough to let others catch up.`,
+    grounding: `You move through life led by practicality, patience, and tangible results. Internally and externally, you value what's real and lasting. This creates coherence. You're reliable and grounded. The challenge is trusting what can't be measured or built.`,
   };
   return descriptions[style];
 }
@@ -170,7 +170,7 @@ function generateDominantText(dominant: ProcessingStyle, outlier: ProcessingStyl
 
 Internally, you prefer to process things ${dominant === 'thinking' ? 'mentally' : dominant === 'feeling' ? 'emotionally' : dominant === 'doing' ? 'through action' : 'practically'}. ${contrast}
 
-This contrast can create tension at times, but it also provides balance—a way to break out of your default mode when something different is needed.`;
+This contrast can create tension at times, but it also provides balance, a way to break out of your default mode when something different is needed.`;
 }
 
 function getComplexIntegration(sun: string, moon: string, rising: string, sunStyle: ProcessingStyle, moonStyle: ProcessingStyle, risingStyle: ProcessingStyle): string {
@@ -183,7 +183,7 @@ function getComplexIntegration(sun: string, moon: string, rising: string, sunSty
 
   return `You move through life led by ${styleDescriptions[sunStyle]}, while your emotional world operates through ${styleDescriptions[moonStyle]}, and you present to others with ${styleDescriptions[risingStyle]}.
 
-These don't always speak the same language, which means you're complex—capable of different modes depending on context. Sometimes you might feel like different versions of yourself exist in different settings.
+These don't always speak the same language, which means you're complex, capable of different modes depending on context. Sometimes you might feel like different versions of yourself exist in different settings.
 
 This isn't fragmentation. It's range. You have access to multiple ways of being, and the challenge is integration rather than choosing one.`;
 }
@@ -209,12 +209,12 @@ export function generateCentralTension(sunSign: string, moonSign: string | null,
 
   // Doing sun + feeling moon
   if (sunStyle === 'doing' && moonStyle === 'feeling') {
-    return "You project confidence and momentum, but underneath you feel more than you show. This can look like charging ahead while privately processing complex emotions alone. You're not as simple as you appear—there's depth beneath the directness that others might miss.";
+    return "You project confidence and momentum, but underneath you feel more than you show. This can look like charging ahead while privately processing complex emotions alone. You're not as simple as you appear. There's depth beneath the directness that others might miss.";
   }
 
   // Doing sun + grounding moon
   if (sunStyle === 'doing' && moonStyle === 'grounding') {
-    return "You want to move fast, but you need stability to feel secure. This can create stop-start patterns—bursts of action followed by the need to consolidate. You're not indecisive, but you're learning to balance initiative with foundation.";
+    return "You want to move fast, but you need stability to feel secure. This can create stop-start patterns, bursts of action followed by the need to consolidate. You're not indecisive, but you're learning to balance initiative with foundation.";
   }
 
   // Grounding sun + doing moon
@@ -229,12 +229,12 @@ export function generateCentralTension(sunSign: string, moonSign: string | null,
 
   // Feeling sun + doing moon
   if (sunStyle === 'feeling' && moonStyle === 'doing') {
-    return "You feel deeply, but you express with intensity that can surprise people expecting softness. This can look like emotional reactions that seem disproportionate to the trigger. You're not overreacting—you're feeling at full volume.";
+    return "You feel deeply, but you express with intensity that can surprise people expecting softness. This can look like emotional reactions that seem disproportionate to the trigger. You're not overreacting. You're feeling at full volume.";
   }
 
   // Feeling sun + thinking moon
   if (sunStyle === 'feeling' && moonStyle === 'thinking') {
-    return "You're deeply intuitive, but you process emotionally through thinking and talking. This can look like analyzing your way through feelings rather than surrendering to them. You're not detached—you just need to understand.";
+    return "You're deeply intuitive, but you process emotionally through thinking and talking. This can look like analyzing your way through feelings rather than surrendering to them. You're not detached. You just need to understand.";
   }
 
   // Same style - internal coherence tension
@@ -274,7 +274,7 @@ function getSameStyleTension(style: ProcessingStyle): string {
 }
 
 function getGenericTension(sunSign: string, moonSign: string): string {
-  return `Your ${sunSign} core wants one thing, while your ${moonSign} emotional needs want another. This isn't a problem to solve—it's a conversation to keep having. The tension keeps you growing.`;
+  return `Your ${sunSign} core wants one thing, while your ${moonSign} emotional needs want another. This isn't a problem to solve. It's a conversation to keep having. The tension keeps you growing.`;
 }
 
 // Day to day patterns - NO element language
@@ -297,7 +297,7 @@ export function generateDayToDay(sunSign: string, moonSign: string | null): stri
   // Feeling-influenced patterns
   if (sunStyle === 'feeling' || moonStyle === 'feeling') {
     patterns.push("You absorb others' moods without realizing it");
-    patterns.push("Alone time isn't optional—it's how you process");
+    patterns.push("Alone time isn't optional. It's how you process");
   }
 
   // Doing-influenced patterns
@@ -325,11 +325,11 @@ function getDayToDayFromSun(sunSign: string): string {
     Aries: "Impatience surfaces when things move too slowly\n• You'd rather do something wrong than wait to do it right\n• Boredom feels more unbearable than difficulty",
     Taurus: "You resist change even when you know it's needed\n• Physical comfort affects your mood more than you admit\n• Rushing makes everything worse",
     Gemini: "Your mind runs faster than your circumstances allow\n• You need to talk through things to know what you think\n• Boredom is the enemy, not difficulty",
-    Cancer: "You take care of others before yourself without noticing\n• The past lives vividly in your present\n• Home isn't just a place—it's a feeling you carry",
+    Cancer: "You take care of others before yourself without noticing\n• The past lives vividly in your present\n• Home isn't just a place. It's a feeling you carry",
     Leo: "You notice when you're not appreciated\n• Creating something feels better than consuming something\n• You perform even when no one's watching",
     Virgo: "You notice flaws before you notice strengths\n• 'Good enough' doesn't feel good enough\n• Helping others feels easier than accepting help",
     Libra: "You keep the peace at your own expense\n• Decisions feel harder than they should\n• Conflict affects you more than you show",
-    Scorpio: "You notice what people aren't saying\n• Trust takes longer to build than others realize\n• You remember everything—especially betrayal",
+    Scorpio: "You notice what people aren't saying\n• Trust takes longer to build than others realize\n• You remember everything, especially betrayal",
     Sagittarius: "Routine feels like slow death\n• You overpromise because possibility feels more real than limitation\n• Staying put is harder than moving",
     Capricorn: "Rest feels earned, not given\n• You measure your day by what you accomplished\n• Vulnerability feels like weakness even when it isn't",
     Aquarius: "You feel more comfortable with groups than individuals\n• You question things others accept without thought\n• Emotional intensity makes you step back",
@@ -423,7 +423,7 @@ function getBalanceFromSun(sunSign: string): string {
 // Report framing - NO element language
 export function generateReportFraming(sunSign: string, moonSign: string | null): string {
   if (!moonSign) {
-    return `This report will explore how your nature expresses itself across different life areas—relationships, work, stress, growth.`;
+    return `This report will explore how your nature expresses itself across different life areas: relationships, work, stress, growth.`;
   }
 
   const sunStyle = getProcessingStyle(sunSign);

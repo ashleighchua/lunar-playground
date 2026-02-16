@@ -258,7 +258,7 @@ export function BigThreeTriangle({
           fill="var(--sun-glyph, #8B6914)"
           style={{ font: '500 13px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif' }}
         >
-          {sunSign || '—'}
+          {sunSign || '-'}
         </text>
 
         {/* Moon label - bottom left */}
@@ -278,7 +278,7 @@ export function BigThreeTriangle({
           fill="var(--moon-glyph, #7A5C45)"
           style={{ font: '500 13px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif' }}
         >
-          {moonSign || '—'}
+          {moonSign || '-'}
         </text>
 
         {/* Rising label - bottom right */}
@@ -298,7 +298,7 @@ export function BigThreeTriangle({
           fill="var(--rising-glyph, #4A6B44)"
           style={{ font: '500 13px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif' }}
         >
-          {risingSign || '—'}
+          {risingSign || '-'}
         </text>
       </g>
 

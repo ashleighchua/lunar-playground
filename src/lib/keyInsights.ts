@@ -7,18 +7,18 @@ type ZodiacSign = 'Aries' | 'Taurus' | 'Gemini' | 'Cancer' | 'Leo' | 'Virgo' |
 // Operating System Key Insights (Sun-Moon combinations)
 export const operatingSystemInsights: Record<string, Record<string, string>> = {
   Aries: {
-    Aries: "Your inner and outer selves speak the same language—direct action. The challenge is knowing when to pause.",
+    Aries: "Your inner and outer selves speak the same language: direct action. The challenge is knowing when to pause.",
     Taurus: "You charge forward, but your heart needs time to process. Honor both the spark and the settling.",
     Gemini: "Your instinct to act meets a mind that wants to explore every angle first. Let curiosity inform your courage.",
     Cancer: "Behind your warrior exterior lives someone who deeply needs emotional safety. Both are true.",
-    Leo: "You have double fire energy—use it to inspire others, not just to win personal battles.",
+    Leo: "You have double fire energy, so use it to inspire others, not just to win personal battles.",
     Virgo: "Your bold impulses get filtered through careful analysis. Trust that your precision enhances your power.",
     Libra: "You want to charge ahead but also keep the peace. The tension between these builds your diplomatic strength.",
     Scorpio: "Your directness is fueled by deep emotional intensity. Channel this for transformation, not just conquest.",
     Sagittarius: "Action and philosophy merge in you. Your best moves come when you're fighting for meaning.",
     Capricorn: "Impulsive energy meets long-term thinking. Your ambition has both urgency and staying power.",
     Aquarius: "You pioneer for the collective, not just yourself. Your rebellious energy serves bigger causes.",
-    Pisces: "Your warrior spirit is guided by intuition. Trust the softer voice—it knows where to strike.",
+    Pisces: "Your warrior spirit is guided by intuition. Trust the softer voice. It knows where to strike.",
   },
   Taurus: {
     Aries: "Your steady nature houses an impatient heart. Learning to act from calm urgency is your edge.",
@@ -29,22 +29,22 @@ export const operatingSystemInsights: Record<string, Record<string, string>> = {
     Virgo: "Practicality is your superpower. Watch that perfectionism doesn't slow your natural gifts.",
     Libra: "You appreciate beauty deeply and create harmony naturally. Share this gift, don't hoard it.",
     Scorpio: "Beneath your calm surface runs very deep water. Your emotional intensity is the source of your power.",
-    Sagittarius: "You want both roots and wings. You can have them—just not always at the same time.",
+    Sagittarius: "You want both roots and wings. You can have them, just not always at the same time.",
     Capricorn: "You're building something that will last generations. Remember to enjoy it along the way.",
     Aquarius: "Tradition meets innovation in you. You're uniquely able to bridge the old and new.",
     Pisces: "Your grounded presence is a sanctuary for others. Protect your energy with the same care.",
   },
   Gemini: {
-    Aries: "Quick mind, quick to act. Your speed is a gift—just occasionally check where you're running.",
+    Aries: "Quick mind, quick to act. Your speed is a gift, but occasionally check where you're running.",
     Taurus: "Your mind races but your heart needs stability. Give yourself both stimulation and sanctuary.",
-    Gemini: "You're mentally agile in every direction. Focus isn't your problem—choosing is.",
+    Gemini: "You're mentally agile in every direction. Focus isn't your problem; choosing is.",
     Cancer: "You think fast but feel deep. Your emotional intelligence makes your communication profound.",
     Leo: "Your ideas demand an audience. Share generously, and let others contribute to your vision.",
     Virgo: "Double Mercury gives you exceptional analytical gifts. Use them to help, not just to critique.",
-    Libra: "You see all sides naturally. Your balanced perspective is needed—share your view more often.",
-    Scorpio: "Curious mind, probing heart. You can go deeper than most—don't stay on the surface.",
+    Libra: "You see all sides naturally. Your balanced perspective is needed, so share your view more often.",
+    Scorpio: "Curious mind, probing heart. You can go deeper than most, so don't stay on the surface.",
     Sagittarius: "You gather information; you seek meaning. Together, they make you a natural teacher.",
-    Capricorn: "Ideas need structure to become real. You have both—build something with your thoughts.",
+    Capricorn: "Ideas need structure to become real. You have both, so build something with your thoughts.",
     Aquarius: "You're wired for innovation. Your unconventional thinking isn't a bug, it's your purpose.",
     Pisces: "Logical and intuitive, analytical and imaginative. Let both halves of your brain lead.",
   },
@@ -56,22 +56,22 @@ export const operatingSystemInsights: Record<string, Record<string, string>> = {
     Leo: "You nurture others into their best selves. Don't forget you deserve the same spotlight.",
     Virgo: "You care through doing. Remember that your presence alone is also a gift.",
     Libra: "Harmony and home are your twin anchors. Create beauty in your inner life too.",
-    Scorpio: "Your emotional intensity runs deep as the ocean. Trust your feelings—they know things.",
+    Scorpio: "Your emotional intensity runs deep as the ocean. Trust your feelings. They know things.",
     Sagittarius: "Homebody heart, wandering soul. You can carry home with you wherever you explore.",
     Capricorn: "You protect through providing. Let yourself also protect through presence and softness.",
     Aquarius: "You care deeply but need emotional space. Both closeness and freedom are valid needs.",
-    Pisces: "You're a double water sign—emotionally attuned to everything. Strong boundaries are self-care.",
+    Pisces: "You're a double water sign, emotionally attuned to everything. Strong boundaries are self-care.",
   },
   Leo: {
     Aries: "You're built to lead and to inspire action. Make sure your cause is worthy of your fire.",
-    Taurus: "You shine brightest when creating something lasting. Your legacy matters—choose it wisely.",
+    Taurus: "You shine brightest when creating something lasting. Your legacy matters, so choose it wisely.",
     Gemini: "Your light attracts many conversations. Use your platform to elevate others' voices too.",
-    Cancer: "You lead with heart. Your warmth draws people in—keep that tender center protected.",
+    Cancer: "You lead with heart. Your warmth draws people in, so keep that tender center protected.",
     Leo: "You're here to radiate. The challenge is remembering that others need light too.",
     Virgo: "Your desire to shine meets a need for perfection. You're impressive when you stop performing.",
     Libra: "You light up every room and leave it more beautiful. Give from overflow, not obligation.",
     Scorpio: "Your presence is magnetic and intense. Use your influence for transformation, not just attention.",
-    Sagittarius: "You're meant to inspire big visions. Share your optimism—the world needs your fire.",
+    Sagittarius: "You're meant to inspire big visions. Share your optimism. The world needs your fire.",
     Capricorn: "You want recognition for real achievements. Build something worthy, then own your success.",
     Aquarius: "You shine for the collective. Your individual brilliance serves something larger than yourself.",
     Pisces: "Your creativity has no bounds. Ground your visions enough to share them with others.",
@@ -85,10 +85,10 @@ export const operatingSystemInsights: Record<string, Record<string, string>> = {
     Virgo: "You notice everything that could be better. Notice also what's already working.",
     Libra: "You seek perfection in balance and beauty. Good enough is sometimes actually perfect.",
     Scorpio: "You analyze deeply and see through illusions. Use your discernment to heal, not just diagnose.",
-    Sagittarius: "Details and big picture both matter to you. You can hold both—that's your gift.",
+    Sagittarius: "Details and big picture both matter to you. You can hold both, and that's your gift.",
     Capricorn: "You're built for excellence and achievement. Don't mistake productivity for worth.",
     Aquarius: "You improve systems and question conventions. Your practical idealism changes things.",
-    Pisces: "Your opposite sign lives in you too—precision and flow, analysis and intuition. Honor both.",
+    Pisces: "Your opposite sign lives in you too: precision and flow, analysis and intuition. Honor both.",
   },
   Libra: {
     Aries: "You seek harmony but carry a warrior heart. Sometimes peace requires taking a stand.",
@@ -108,7 +108,7 @@ export const operatingSystemInsights: Record<string, Record<string, string>> = {
     Aries: "You transform through direct action. Your courage to face darkness makes you a powerful healer.",
     Taurus: "Your intensity needs physical grounding. Your body is a resource for your emotional work.",
     Gemini: "You probe deep but communicate on the surface. Let your true depth into your conversations.",
-    Cancer: "You feel with incredible intensity. This depth is your gift—don't numb it away.",
+    Cancer: "You feel with incredible intensity. This depth is your gift, so don't numb it away.",
     Leo: "Your presence is undeniably powerful. Use your magnetism for transformation, not just attention.",
     Virgo: "You analyze the shadows with precision. Your discernment helps others heal their blind spots.",
     Libra: "You seek balance but know life includes darkness. Your honesty about this helps others too.",
@@ -116,7 +116,7 @@ export const operatingSystemInsights: Record<string, Record<string, string>> = {
     Sagittarius: "You seek truth at the depths and the heights. Your philosophy has earned its darkness.",
     Capricorn: "Your ambition is powered by emotional intensity. Build your empire with soul, not just strategy.",
     Aquarius: "You transform systems and revolutionize the collective. Your intensity serves the bigger picture.",
-    Pisces: "You're fluent in the language of the unconscious. Trust your intuition—it's reading the depths.",
+    Pisces: "You're fluent in the language of the unconscious. Trust your intuition. It's reading the depths.",
   },
   Sagittarius: {
     Aries: "You're pure fire, seeking truth through action. Temper your rush with occasional reflection.",
@@ -134,7 +134,7 @@ export const operatingSystemInsights: Record<string, Record<string, string>> = {
   },
   Capricorn: {
     Aries: "Your ambition has urgency. Use that fire to start things, then let patience finish them.",
-    Taurus: "You're built for lasting achievement. Trust the slow build—it compounds over time.",
+    Taurus: "You're built for lasting achievement. Trust the slow build. It compounds over time.",
     Gemini: "Your strategic mind gathers information efficiently. Put your intelligence toward your long game.",
     Cancer: "Behind your ambitious exterior is someone who cares deeply. Let people see that too.",
     Leo: "You build to be recognized. Make sure your achievements reflect what actually matters to you.",
@@ -165,7 +165,7 @@ export const operatingSystemInsights: Record<string, Record<string, string>> = {
     Taurus: "Your imagination needs earthly expression. Create tangible beauty from your visions.",
     Gemini: "You're fluid and adaptable in thought. Trust your intuition as much as your analysis.",
     Cancer: "You're emotionally attuned to everything. Strong boundaries are an act of self-love.",
-    Leo: "Your creativity knows no bounds. Share your unique vision—the world needs your art.",
+    Leo: "Your creativity knows no bounds. Share your unique vision. The world needs your art.",
     Virgo: "Your opposite sign grounds your dreams. Practical steps make your visions real.",
     Libra: "You bring grace and beauty to everything. Your aesthetic sensitivity is a gift.",
     Scorpio: "You feel the full depth of existence. Your emotional courage helps others face their depths.",
@@ -184,7 +184,7 @@ export const coreDrivesInsights: Record<ZodiacSign, string> = {
   Cancer: "Your thinking is guided by feeling. Trust the logic of your emotional intelligence.",
   Leo: "You think in terms of story and impact. Your ideas want to be shared.",
   Virgo: "Your analytical mind catches what others miss. Use it to solve, not just to critique.",
-  Libra: "You naturally see all sides. This is a gift—don't let it become paralysis.",
+  Libra: "You naturally see all sides. This is a gift, but don't let it become paralysis.",
   Scorpio: "You think deeply and see through surfaces. Your perception is a tool for truth.",
   Sagittarius: "Your mind ranges wide, seeking meaning. Connect the dots others can't see.",
   Capricorn: "You think strategically about the long game. Your planning is an asset.",
@@ -198,20 +198,20 @@ export const emotionalPatternInsights: Record<ZodiacSign, string> = {
   Taurus: "You need time to process feelings. Your slow emotional rhythm is wisdom, not avoidance.",
   Gemini: "You think about feelings rather than feel them directly. Both paths to understanding are valid.",
   Cancer: "You feel everything deeply. Your emotional sensitivity is your greatest strength when honored.",
-  Leo: "Your emotions want expression and witness. Sharing how you feel isn't weakness—it's courage.",
+  Leo: "Your emotions want expression and witness. Sharing how you feel isn't weakness; it's courage.",
   Virgo: "You analyze your emotions carefully. Sometimes feelings just need to be felt, not fixed.",
   Libra: "You seek emotional equilibrium. Remember that all feelings, including difficult ones, are welcome.",
-  Scorpio: "You feel with extraordinary intensity. This depth is a gift—don't try to make yourself smaller.",
+  Scorpio: "You feel with extraordinary intensity. This depth is a gift, so don't try to make yourself smaller.",
   Sagittarius: "You process emotions through meaning-making. Finding the lesson helps you move forward.",
   Capricorn: "You may delay emotions for productivity. Schedule time for the feelings you're postponing.",
   Aquarius: "You observe your emotions from a distance. This perspective helps, but don't forget to feel.",
-  Pisces: "You absorb emotions from everywhere. Regular boundaries aren't walls—they're survival.",
+  Pisces: "You absorb emotions from everywhere. Regular boundaries aren't walls; they're survival.",
 };
 
 // Relationship Blueprint Key Insights (based on Venus/Moon)
 export const relationshipInsights: Record<ZodiacSign, string> = {
   Aries: "You love through action and initiative. Remember that presence is also a form of love.",
-  Taurus: "You show love through consistency and care. Your loyalty is a gift—give it where it's valued.",
+  Taurus: "You show love through consistency and care. Your loyalty is a gift, so give it where it's valued.",
   Gemini: "You connect through conversation and curiosity. Deep listening is as important as smart talking.",
   Cancer: "You love through nurturing and protection. Let yourself receive the same care you give.",
   Leo: "You love generously and want love returned visibly. Ask for what you need; hints aren't enough.",
@@ -228,9 +228,9 @@ export const relationshipInsights: Record<ZodiacSign, string> = {
 export const workInsights: Record<ZodiacSign, string> = {
   Aries: "You're built to start things and lead the charge. Make sure you have finishers on your team.",
   Taurus: "You build things that last through patient persistence. Trust your timeline.",
-  Gemini: "You're meant to communicate, connect, and share ideas. Variety isn't distraction—it's fuel.",
+  Gemini: "You're meant to communicate, connect, and share ideas. Variety isn't distraction; it's fuel.",
   Cancer: "You create safe spaces for others to thrive. Your care is leadership.",
-  Leo: "You're here to shine and inspire. Your visibility serves others—don't dim yourself.",
+  Leo: "You're here to shine and inspire. Your visibility serves others, so don't dim yourself.",
   Virgo: "You improve everything you touch. Apply your standards with compassion, especially to yourself.",
   Libra: "You create harmony and beauty wherever you work. This is impact, not just aesthetics.",
   Scorpio: "You transform whatever you touch. Your intensity is a gift to environments that can hold it.",
@@ -271,7 +271,7 @@ export function getTakeawaysInsight(sunSign: string, moonSign: string | null): s
   const moonElement = getElement(moon);
 
   if (sunElement === moonElement) {
-    return `Your Sun and Moon speak the same elemental language. This inner harmony is your foundation—use it to anchor you when life gets complex.`;
+    return `Your Sun and Moon speak the same elemental language. This inner harmony is your foundation, so use it to anchor you when life gets complex.`;
   }
 
   const compatible: Record<string, string[]> = {
@@ -282,10 +282,10 @@ export function getTakeawaysInsight(sunSign: string, moonSign: string | null): s
   };
 
   if (compatible[sunElement]?.includes(moonElement)) {
-    return `Your inner and outer selves support each other naturally. When you're aligned, you move through the world with ease—notice what that alignment feels like.`;
+    return `Your inner and outer selves support each other naturally. When you're aligned, you move through the world with ease. Notice what that alignment feels like.`;
   }
 
-  return `Your inner world and outer expression create productive tension. This isn't a problem to solve—it's a range to inhabit. You contain more than most.`;
+  return `Your inner world and outer expression create productive tension. This isn't a problem to solve; it's a range to inhabit. You contain more than most.`;
 }
 
 function getElement(sign: ZodiacSign): string {

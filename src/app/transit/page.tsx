@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Navigation } from '@/components/Navigation';
+import { ShareButtons } from '@/components/ShareButtons';
 import { getCurrentMoonPhase } from '@/lib/moon';
 import {
   feltExperience,
@@ -823,6 +824,17 @@ export default function TransitPage() {
         {/* Spacer to push footer down */}
         <div className="flex-1" />
 
+        {/* Share Section */}
+        <section className="container-editorial py-6">
+          <div className="bg-white rounded-2xl p-5 border border-[#2A2A2A]/5 text-center">
+            <p className="text-sm text-[#6B6B6B] mb-4">Share today&apos;s moon energy</p>
+            <ShareButtons
+              title={`Moon in ${currentMoonSign} - ${moonPhase.name}`}
+              text={`Today the Moon is in ${currentMoonSign} ${moonSignSymbols[currentMoonSign]} during the ${moonPhase.name} ${moonPhase.emoji}. Get your daily moon guidance at`}
+            />
+          </div>
+        </section>
+
         {/* Disclaimer */}
         <section className="container-editorial py-6">
           <p className="text-xs text-[#6B6B6B]/60 text-center">
@@ -836,12 +848,10 @@ export default function TransitPage() {
         <div className="container-editorial">
           <div className="flex justify-end">
             <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-                Privacy
-              </Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-                Terms
-              </Link>
+              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
+              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
             </div>
           </div>
         </div>

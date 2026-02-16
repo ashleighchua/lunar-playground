@@ -47,7 +47,7 @@ export function CoreDrivesVisual({
               ☿
             </text>
             <text x="50" y="72" textAnchor="middle" className="text-[9px] fill-[var(--mercury-glyph)] opacity-80 pointer-events-none">
-              {mercurySign || '—'}
+              {mercurySign || '-'}
             </text>
           </g>
 
@@ -70,7 +70,7 @@ export function CoreDrivesVisual({
               ♀
             </text>
             <text x="150" y="72" textAnchor="middle" className="text-[9px] fill-[var(--venus-glyph)] opacity-80 pointer-events-none">
-              {venusSign || '—'}
+              {venusSign || '-'}
             </text>
           </g>
 
@@ -93,7 +93,7 @@ export function CoreDrivesVisual({
               ♂
             </text>
             <text x="50" y="172" textAnchor="middle" className="text-[9px] fill-[var(--mars-glyph)] opacity-80 pointer-events-none">
-              {marsSign || '—'}
+              {marsSign || '-'}
             </text>
           </g>
 
@@ -116,7 +116,7 @@ export function CoreDrivesVisual({
               ♄
             </text>
             <text x="150" y="172" textAnchor="middle" className="text-[9px] fill-[var(--saturn-glyph)] opacity-80 pointer-events-none">
-              {saturnSign || '—'}
+              {saturnSign || '-'}
             </text>
           </g>
 

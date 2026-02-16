@@ -52,6 +52,19 @@ export default function YourChartPage() {
   const [showResults, setShowResults] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [loadingPhase, setLoadingPhase] = useState(0);
+  const [loadingStep, setLoadingStep] = useState(0);
+  const chartLoadingSteps = [
+    'Calculating planetary positions at your birth...',
+    'Determining your Sun and Moon signs...',
+    'Computing rising sign from birth coordinates...',
+    'Mapping house placements for each planet...',
+    'Analyzing major aspects between planets...',
+    'Identifying dominant element and modality...',
+    'Evaluating planetary dignity and reception...',
+    'Reading chart patterns and configurations...',
+    'Synthesizing your chart themes...',
+    'Preparing your personalized results...',
+  ];
   const [formData, setFormData] = useState({
     birthdate: '',
     birthtime: '',
@@ -91,11 +104,16 @@ export default function YourChartPage() {
     setIsCalculating(true);
     setShowLoading(true);
     setLoadingPhase(0);
+    setLoadingStep(0);
 
     // Start the loading animation
     const loadingInterval = setInterval(() => {
       setLoadingPhase(prev => (prev + 1) % moonPhases.length);
     }, 200);
+
+    const stepInterval = setInterval(() => {
+      setLoadingStep(prev => Math.min(prev + 1, 9));
+    }, 1000);
 
     // Calculate basic chart data from birth date
     const birthDate = parseBirthDateTime(formData.birthdate, formData.birthtime || undefined);
@@ -144,10 +162,11 @@ export default function YourChartPage() {
       setEphemerisChart(null);
     }
 
-    // Keep loading screen visible for at least 3 seconds for effect
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    // Keep loading screen visible for at least 10 seconds for effect
+    await new Promise(resolve => setTimeout(resolve, 10000));
 
     clearInterval(loadingInterval);
+    clearInterval(stepInterval);
     setIsCalculating(false);
     setShowLoading(false);
     setShowResults(true);
@@ -163,15 +182,11 @@ export default function YourChartPage() {
 
       <main className="flex-1">
       {showLoading ? (
-        // Loading Screen with Moon Phases Animation
         <div className="min-h-[80vh] flex flex-col items-center justify-center">
-          <div className="text-center">
-            {/* Moon phases animation - all 8 phases with active one highlighted */}
+          <div className="text-center max-w-md mx-auto">
             <div
               className="flex items-center justify-center gap-2 mb-8"
-              style={{
-                filter: 'saturate(0.3) brightness(1.1)',
-              }}
+              style={{ filter: 'saturate(0.3) brightness(1.1)' }}
             >
               {moonPhases.map((phase, index) => (
                 <span
@@ -188,12 +203,21 @@ export default function YourChartPage() {
                 </span>
               ))}
             </div>
-            <p className="font-serif text-2xl text-[#2A2A2A] mb-2">
-              Reading the stars...
+            <p className="font-serif text-2xl text-[#2A2A2A] mb-6">
+              Reading the stars
             </p>
-            <p className="text-sm text-[#6B6B6B]">
-              Calculating your birth chart
-            </p>
+            <div className="space-y-2 text-left px-4">
+              {chartLoadingSteps.map((message, i) => (
+                <p
+                  key={i}
+                  className={`text-sm transition-all duration-500 ${
+                    i <= loadingStep ? 'text-[#2A2A2A] opacity-100' : 'text-[#6B6B6B] opacity-0'
+                  }`}
+                >
+                  {i < loadingStep ? '✓' : i === loadingStep ? '·' : ''} {message}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       ) : !showResults ? (
@@ -532,10 +556,10 @@ export default function YourChartPage() {
                 Check compatibility
               </Link>
               <Link
-                href="/travel"
+                href="/astrocartography"
                 className="px-6 py-3 rounded-lg border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm hover:border-[#2A2A2A]/40 transition-colors"
               >
-                Explore your travel map
+                Explore your astrocartography
               </Link>
             </div>
           </section>
@@ -548,12 +572,10 @@ export default function YourChartPage() {
         <div className="container-editorial">
           <div className="flex justify-end">
             <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-                Privacy
-              </Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-                Terms
-              </Link>
+              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
+              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
             </div>
           </div>
         </div>

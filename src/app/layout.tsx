@@ -32,6 +32,29 @@ export const metadata: Metadata = {
     icon: '/Images/logo.png',
     apple: '/Images/logo.png',
   },
+  openGraph: {
+    title: 'The Lunar Playground',
+    description: 'Generate your free birth chart. Understand your personality through Sun, Moon, Rising signs and planetary placements.',
+    url: 'https://thelunarplayground.com',
+    siteName: 'The Lunar Playground',
+    images: [
+      {
+        url: '/Images/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'The Lunar Playground - Free Birth Chart Generator',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Lunar Playground',
+    description: 'Generate your free birth chart. Understand your personality through Sun, Moon, Rising signs and planetary placements.',
+    images: ['/Images/logo.png'],
+  },
+  metadataBase: new URL('https://thelunarplayground.com'),
 };
 
 export default function RootLayout({

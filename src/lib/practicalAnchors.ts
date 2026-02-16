@@ -14,7 +14,7 @@ export const practicalAnchors: Record<ZodiacSign, PracticalAnchor> = {
   Aries: {
     tryThis: "Before your next impulse to act, pause for three breaths. Notice what shifts.",
     notice: "When do you feel most alive? Track the moments this week.",
-    microExperiment: "Start one small thing you've been putting off. Just the first step—today.",
+    microExperiment: "Start one small thing you've been putting off. Just the first step, today.",
   },
   Taurus: {
     tryThis: "Identify one area where you're resisting change. Ask: what am I protecting?",
@@ -24,7 +24,7 @@ export const practicalAnchors: Record<ZodiacSign, PracticalAnchor> = {
   Gemini: {
     tryThis: "Pick one conversation this week to go deeper than you normally would.",
     notice: "When does your mind feel scattered? What triggered it?",
-    microExperiment: "Spend 15 minutes focused on just one thing—no task-switching.",
+    microExperiment: "Spend 15 minutes focused on just one thing. No task-switching.",
   },
   Cancer: {
     tryThis: "Ask someone for help with something small. Notice how it feels.",
@@ -39,7 +39,7 @@ export const practicalAnchors: Record<ZodiacSign, PracticalAnchor> = {
   Virgo: {
     tryThis: "Complete something at 80% quality on purpose. Notice your discomfort.",
     notice: "When does your inner critic get loudest? What's it responding to?",
-    microExperiment: "Praise yourself for three things you did well today—imperfect counts.",
+    microExperiment: "Praise yourself for three things you did well today. Imperfect counts.",
   },
   Libra: {
     tryThis: "Make a decision within 60 seconds. Notice what comes up.",
@@ -47,7 +47,7 @@ export const practicalAnchors: Record<ZodiacSign, PracticalAnchor> = {
     microExperiment: "Express a preference clearly, even when you could 'go either way.'",
   },
   Scorpio: {
-    tryThis: "Share something vulnerable with someone you trust—even something small.",
+    tryThis: "Share something vulnerable with someone you trust, even something small.",
     notice: "When do you feel the urge to control? What's underneath it?",
     microExperiment: "Let something be imperfectly resolved and see what happens.",
   },

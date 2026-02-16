@@ -105,6 +105,8 @@ export default function TermsPage() {
         <div className="container-editorial">
           <div className="flex justify-end">
             <div className="flex gap-8 text-sm text-[#6B6B6B]">
+              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
+              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
               <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
               <span className="text-[#2A2A2A]">Terms</span>
             </div>

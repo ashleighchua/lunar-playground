@@ -6,23 +6,23 @@ import { getCurrentMoonPhase } from '@/lib/moon';
 // Daily reflections for each moon phase
 const reflections: Record<string, string[]> = {
   'New Moon': [
-    'The new moon invites you inward. This is a time for planting seeds—not in the ground, but in your intentions. What do you want to call into being?',
+    'The new moon invites you inward. This is a time for planting seeds, not in the ground, but in your intentions. What do you want to call into being?',
     'In the darkness of the new moon, everything is possible because nothing is yet defined. Rest here. Dream here. The light will return when you are ready.'
   ],
   'Waxing Crescent': [
-    'The first sliver of light appears. Your intentions from the new moon are taking their first tentative shape. Nurture them gently—they are still fragile.',
+    'The first sliver of light appears. Your intentions from the new moon are taking their first tentative shape. Nurture them gently. They are still fragile.',
     'The waxing crescent asks for patience. Growth is happening, even when you cannot see it. Trust the process unfolding beneath the surface.'
   ],
   'First Quarter': [
-    'The first quarter moon brings tension—the productive kind. This is a time for decisions, for choosing which path to walk. Action is called for.',
+    'The first quarter moon brings tension, the productive kind. This is a time for decisions, for choosing which path to walk. Action is called for.',
     'Half light, half shadow. The first quarter asks you to push through resistance. What obstacles need your attention today?'
   ],
   'Waxing Gibbous': [
-    'The waxing gibbous invites you to refine. The initial spark has caught; now comes the careful tending. What began at the new moon is taking shape—not quite complete, but no longer uncertain.',
+    'The waxing gibbous invites you to refine. The initial spark has caught; now comes the careful tending. What began at the new moon is taking shape. Not quite complete, but no longer uncertain.',
     'This is a time for adjustment rather than revolution. Small corrections. Patient observation. Trust that fullness is approaching.'
   ],
   'Full Moon': [
-    'Everything is illuminated. The full moon reveals what has been growing in the dark—for better or worse. Let yourself be seen. Let yourself see clearly.',
+    'Everything is illuminated. The full moon reveals what has been growing in the dark, for better or worse. Let yourself be seen. Let yourself see clearly.',
     'The full moon is culmination. Celebrate what has ripened. Release what no longer serves. Tonight, nothing can hide.'
   ],
   'Waning Gibbous': [
@@ -31,7 +31,7 @@ const reflections: Record<string, string[]> = {
   ],
   'Last Quarter': [
     'Another threshold. The last quarter asks: what are you ready to release? Completion requires letting go. Make space for what comes next.',
-    'Half the moon has returned to shadow. This is a time for clearing—physical spaces, mental clutter, relationships that have run their course.'
+    'Half the moon has returned to shadow. This is a time for clearing: physical spaces, mental clutter, relationships that have run their course.'
   ],
   'Waning Crescent': [
     'The final surrender before renewal. The waning crescent is a time for rest, for dreams, for the quiet wisdom that comes only in stillness.',
@@ -165,12 +165,10 @@ export default function TodayPage() {
         <div className="container-editorial">
           <div className="flex justify-end">
             <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">
-                Privacy
-              </Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">
-                Terms
-              </Link>
+              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
+              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
+              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
             </div>
           </div>
         </div>

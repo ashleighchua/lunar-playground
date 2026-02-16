@@ -222,7 +222,7 @@ export const personalityArchitecture: Record<string, {
     coreMotivation: "Driven by curiosity and the need to understand, connect, and communicate. Information is energising. Motivated by variety and mental stimulation more than singular focus.",
     emotionalRegulation: "Tends to process emotion through talking or writing. May intellectualise feelings rather than sitting with them. Mood can shift quickly. Mental activity can be both coping mechanism and avoidance.",
     decisionMaking: "Decides by gathering information and considering multiple angles. Can struggle with commitment when options remain open. May change mind as new data arrives.",
-    underPressure: "Initial response is often mental activity—analysing, researching, talking. May become scattered or anxious. Tends to seek stimulation or distraction when overwhelmed.",
+    underPressure: "Initial response is often mental activity: analysing, researching, talking. May become scattered or anxious. Tends to seek stimulation or distraction when overwhelmed.",
     recharging: "Restores energy through conversation, learning, and variety. Needs mental engagement and social connection. Monotony and isolation are draining."
   },
   Cancer: {
@@ -264,7 +264,7 @@ export const personalityArchitecture: Record<string, {
     coreMotivation: "Driven by the need for meaning, freedom, and expansion. Seeks truth and broader perspective. Motivated by possibility and growth more than security.",
     emotionalRegulation: "Tends to philosophise feelings or seek meaning in them. May avoid difficult emotions through optimism or escapism. Restless when confined.",
     decisionMaking: "Decides based on what expands possibility and aligns with beliefs. May overlook practical details in favour of vision. Seeks the choice with most freedom.",
-    underPressure: "Initial response is often to seek escape, perspective, or meaning. May become preachy or restless. Tends to want to move—physically or mentally—when stressed.",
+    underPressure: "Initial response is often to seek escape, perspective, or meaning. May become preachy or restless. Tends to want to move, physically or mentally, when stressed.",
     recharging: "Restores energy through adventure, learning, and philosophical engagement. Needs freedom and horizon. Confinement and meaninglessness are draining."
   },
   Capricorn: {
@@ -283,7 +283,7 @@ export const personalityArchitecture: Record<string, {
   },
   Pisces: {
     coreMotivation: "Driven by the need for transcendence, compassion, and creative or spiritual expression. Seeks connection to something larger than individual self. Motivated by meaning and beauty.",
-    emotionalRegulation: "Absorbs feelings readily—own and others'. May struggle with boundaries between self and environment. Creative or spiritual practice can be essential for processing.",
+    emotionalRegulation: "Absorbs feelings readily, both own and others'. May struggle with boundaries between self and environment. Creative or spiritual practice can be essential for processing.",
     decisionMaking: "Decides through intuition and feeling. May struggle with practical realities or firm boundaries. Seeks the choice that feels right at a soul level.",
     underPressure: "Initial response is often to escape, merge, or sacrifice. May become confused or avoidant. Tends to seek solitude, art, or spiritual practice when stressed.",
     recharging: "Restores energy through creativity, spirituality, and gentle solitude. Needs beauty and meaning. Harshness and too much reality are draining."
@@ -400,7 +400,7 @@ export const workAndPurpose: Record<string, {
 }> = {
   Aries: {
     motivationBeyondMoney: "Motivated by challenge, autonomy, and the feeling of forward momentum. Needs to believe in what they're doing and to see direct impact from effort.",
-    ambitionStyle: "Ambitious in bursts—passionate about new challenges, less interested in maintaining what's already built. Competes most with self. Needs to feel pioneering.",
+    ambitionStyle: "Ambitious in bursts, passionate about new challenges, less interested in maintaining what's already built. Competes most with self. Needs to feel pioneering.",
     authorityRelationship: "Struggles with authority that feels arbitrary or controlling. Respects competence and action. Works best with autonomy and clear goals.",
     thriveEnvironment: "Thrives in fast-paced environments with clear challenges and room for initiative. Needs variety and the freedom to take action without excessive approval-seeking.",
     burnoutWarnings: "Burns out from boredom faster than overwork. Warning signs: irritability without cause, starting fights, inability to finish anything, physical restlessness."
@@ -463,7 +463,7 @@ export const workAndPurpose: Record<string, {
   },
   Capricorn: {
     motivationBeyondMoney: "Motivated by achievement, respect, and building something lasting. Needs to feel work contributes to long-term success. Values competence and results.",
-    ambitionStyle: "Highly ambitious in traditional sense—wants advancement, recognition, and increasing responsibility. Plays long game patiently. Takes strategic approach.",
+    ambitionStyle: "Highly ambitious in traditional sense, wanting advancement, recognition, and increasing responsibility. Plays long game patiently. Takes strategic approach.",
     authorityRelationship: "Respects legitimate authority and earned position. Aims to become authority. Works within structures effectively.",
     thriveEnvironment: "Thrives in structured environments with clear hierarchy and paths to advancement. Needs responsibility and recognition for competence.",
     burnoutWarnings: "Burns out from overwork and insufficient recognition. Warning signs: cold withdrawal, excessive control, physical stiffness, depression, loss of work-life boundary."
@@ -716,8 +716,8 @@ export const practicalTakeaways: Record<string, {
 }> = {
   Aries: {
     leanInto: [
-      "Your capacity for initiative—you can start things others won't",
-      "Direct communication—honesty is a gift when delivered with care",
+      "Your capacity for initiative, because you can start things others won't",
+      "Direct communication, because honesty is a gift when delivered with care",
       "Physical activity as emotional processing",
       "The courage to act despite uncertainty",
       "Fresh starts and beginnings as renewable resources"
@@ -732,7 +732,7 @@ export const practicalTakeaways: Record<string, {
   },
   Taurus: {
     leanInto: [
-      "Your steadiness—reliability is a form of love",
+      "Your steadiness, because reliability is a form of love",
       "The wisdom of patience and long-term thinking",
       "Physical and sensory ways of knowing",
       "Building things that last",
@@ -748,7 +748,7 @@ export const practicalTakeaways: Record<string, {
   },
   Gemini: {
     leanInto: [
-      "Your curiosity—it's a way of connecting with life",
+      "Your curiosity, because it's a way of connecting with life",
       "Communication skills and ability to translate between worlds",
       "Adaptability and mental flexibility",
       "The capacity to hold multiple perspectives",
