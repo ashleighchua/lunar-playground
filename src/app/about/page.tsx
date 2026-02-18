@@ -10,14 +10,24 @@ export default function AboutPage() {
       <main className="flex-1">
         {/* Hero */}
         <section className="container-editorial pt-6 pb-8 md:pt-8 md:pb-10">
-          <div className="max-w-2xl">
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight">
-              <span className="text-gradient-gold">Relocation Astrology</span>
-              <br /><span className="text-[#2A2A2A]">Specialist</span>
-            </h1>
-            <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed">
-              Hi, I&apos;m Ashleigh. I&apos;m a relocation astrology specialist. I help people find the city where their career takes off, love finds them, or they finally feel at home.
-            </p>
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+            <div className="flex-1">
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight">
+                <span className="text-gradient-gold">Relocation Astrology</span>
+                <br /><span className="text-[#2A2A2A]">Specialist</span>
+              </h1>
+              <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed">
+                Hi, I&apos;m Ashleigh. I&apos;m a relocation astrology specialist. I help people find the city where their career takes off, love finds them, or they finally feel at home.
+              </p>
+            </div>
+            <div className="relative w-[250px] h-[300px] md:w-[300px] md:h-[380px] flex-shrink-0 rounded-2xl overflow-hidden">
+              <Image
+                src="/Images/me.jpeg"
+                alt="Ashleigh — relocation astrology specialist"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </section>
 
@@ -147,11 +157,11 @@ export default function AboutPage() {
               />
             </div>
             <div className="flex-1 md:text-right">
-              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">Personal, not generic</h3>
+              <h3 className="font-serif text-xl text-[#2A2A2A] mb-3">The whole picture, not one angle</h3>
               <p className="text-[#6B6B6B] leading-relaxed">
-                Every reading is based on your individual chart. I look at your specific
-                placements, your questions, and what you&apos;re actually going through. No
-                copy-paste reports.
+                I don&apos;t just look at one line on a map. I blend Western astrology with
+                Eastern metaphysics to see the full picture — your timing, your environment,
+                and what&apos;s actually going to support your growth.
               </p>
             </div>
           </div>

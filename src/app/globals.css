@@ -320,8 +320,8 @@ img {
 
 /* Atmospheric radial gradient for hero sections */
 .bg-hero-atmosphere {
-  background: radial-gradient(ellipse at 50% 0%, rgba(212, 168, 75, 0.06) 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 50%, rgba(196, 168, 143, 0.04) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 168, 75, 0.35) 0%, transparent 65%),
+              radial-gradient(ellipse at 80% 50%, rgba(196, 168, 143, 0.25) 0%, transparent 55%);
 }
 
 /* Mystic divider */
