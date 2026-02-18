@@ -13,15 +13,15 @@ export function Navigation({ currentPage }: NavigationProps) {
 
   // Key links visible on desktop
   const desktopLinks = [
-    { href: '/astrocartography', label: 'Astrocartography', key: 'astrocartography' },
+    { href: '/astrocartography', label: 'Relocation Reading', key: 'astrocartography' },
     { href: '/shop', label: 'Shop', key: 'shop' },
   ];
 
   // All links in hamburger menu
   const allLinks = [
-    { href: '/astrocartography', label: 'Astrocartography', key: 'astrocartography' },
+    { href: '/astrocartography', label: 'Relocation Reading', key: 'astrocartography' },
     { href: '/shop', label: 'Shop', key: 'shop' },
-    { href: '/birth-report', label: 'Free Birth Chart', key: 'your-chart' },
+    { href: '/birth-report', label: 'Birth Chart', key: 'your-chart' },
     { href: '/transit', label: 'Sky Guide', key: 'transit' },
     { href: '/blog', label: 'Blog', key: 'blog' },
     { href: '/reviews', label: 'Reviews', key: 'reviews' },

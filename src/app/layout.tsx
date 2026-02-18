@@ -27,14 +27,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'The Lunar Playground',
-  description: 'Generate your free birth chart. Understand your personality through Sun, Moon, Rising signs and planetary placements.',
+  description: 'Relocation astrology specialist. Find the city where your career takes off, love finds you, or you finally feel at home. Birth chart + personalised relocation reports.',
   icons: {
     icon: '/Images/logo.png',
     apple: '/Images/logo.png',
   },
   openGraph: {
     title: 'The Lunar Playground',
-    description: 'Generate your free birth chart. Understand your personality through Sun, Moon, Rising signs and planetary placements.',
+    description: 'Relocation astrology specialist. Find the city where your career takes off, love finds you, or you finally feel at home. Birth chart + personalised relocation reports.',
     url: 'https://thelunarplayground.com',
     siteName: 'The Lunar Playground',
     images: [
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'The Lunar Playground',
-    description: 'Generate your free birth chart. Understand your personality through Sun, Moon, Rising signs and planetary placements.',
+    description: 'Relocation astrology specialist. Find the city where your career takes off, love finds you, or you finally feel at home. Birth chart + personalised relocation reports.',
     images: ['/Images/logo.png'],
   },
   metadataBase: new URL('https://thelunarplayground.com'),

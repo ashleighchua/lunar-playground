@@ -312,6 +312,15 @@ function BirthReportContent() {
     <div className="min-h-screen bg-[#FAF7F2] flex flex-col">
       <Navigation currentPage="your-chart" />
 
+      <style jsx>{`
+        @keyframes fadeMessage {
+          0% { opacity: 0; transform: translateY(8px); }
+          15% { opacity: 1; transform: translateY(0); }
+          85% { opacity: 1; transform: translateY(0); }
+          100% { opacity: 0; transform: translateY(-8px); }
+        }
+      `}</style>
+
       <main className="flex-1">
         {/* Initial loading animation */}
         {pageView === 'initialLoading' && (
@@ -330,17 +339,22 @@ function BirthReportContent() {
                 ))}
               </div>
               <p className="font-serif text-2xl text-[#2A2A2A] mb-6">Mapping your cosmos</p>
-              <div className="space-y-2 text-left px-4">
-                {reportLoadingSteps.map((message, i) => (
-                  <p
-                    key={i}
-                    className={`text-sm transition-all duration-500 ${
-                      i <= loadingStep ? 'text-[#2A2A2A] opacity-100' : 'text-[#6B6B6B] opacity-0'
-                    }`}
-                  >
-                    {i < loadingStep ? '✓' : i === loadingStep ? '·' : ''} {message}
-                  </p>
-                ))}
+
+              {/* Single rotating message */}
+              <p
+                key={loadingStep}
+                className="text-sm text-[#2A2A2A] mb-4"
+                style={{ animation: 'fadeMessage 2.5s ease-in-out' }}
+              >
+                {reportLoadingSteps[loadingStep]}
+              </p>
+
+              {/* Progress bar */}
+              <div className="w-48 h-px bg-[#2A2A2A]/10 rounded-full overflow-hidden mx-auto">
+                <div
+                  className="h-full bg-[#D4A84B]/50 transition-all duration-1000 ease-out"
+                  style={{ width: `${((loadingStep + 1) / reportLoadingSteps.length) * 100}%` }}
+                />
               </div>
             </div>
           </div>
@@ -368,7 +382,7 @@ function BirthReportContent() {
               <div className="max-w-md w-full text-center">
                 <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">Enter your birth details</h2>
                 <form onSubmit={handleSubmit} className="space-y-6 text-left">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4 items-end">
                     <div>
                       <label htmlFor="birthdate" className="block text-sm text-[#6B6B6B] mb-2">Date of birth</label>
                       <input
@@ -377,7 +391,7 @@ function BirthReportContent() {
                         required
                         value={formData.birthdate}
                         onChange={(e) => { setFormData({ ...formData, birthdate: e.target.value }); setDateError(null); }}
-                        className={`w-full px-4 py-3 border rounded-lg bg-transparent focus:outline-none transition-colors ${
+                        className={`w-full px-4 py-3 border rounded-lg bg-white focus:outline-none transition-colors ${
                           formData.birthdate ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/60'
                         } ${dateError ? 'border-red-400' : 'border-[#2A2A2A]/10 focus:border-[#2A2A2A]/30'}`}
                       />
@@ -394,7 +408,7 @@ function BirthReportContent() {
                           id="birthtime"
                           value={formData.birthtime}
                           onChange={(e) => setFormData({ ...formData, birthtime: e.target.value })}
-                          className={`w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${
+                          className={`w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-white focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${
                             formData.birthtime ? 'text-[#2A2A2A] pr-10' : 'text-[#6B6B6B]/60'
                           }`}
                         />
@@ -432,7 +446,7 @@ function BirthReportContent() {
                       value={userEmail}
                       onChange={(e) => setUserEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors text-[#2A2A2A] placeholder:text-[#6B6B6B]/40"
+                      className="w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-white focus:outline-none focus:border-[#2A2A2A]/30 transition-colors text-[#2A2A2A] placeholder:text-[#6B6B6B]/40"
                     />
                     <p className="mt-2 text-xs text-[#6B6B6B]">We&apos;ll email you a copy of your report</p>
                   </div>

@@ -268,6 +268,94 @@ img {
 .animate-delay-400 { animation-delay: 400ms; }
 .animate-delay-500 { animation-delay: 500ms; }
 
+/* ================================
+   ESOTERIC DESIGN UTILITIES
+   ================================ */
+
+/* Gradient text - gold-to-warm for key headlines */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #D4A84B 0%, #C4A88F 50%, #D4A84B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Lighter variant for dark backgrounds */
+.text-gradient-gold-light {
+  background: linear-gradient(135deg, #D4A84B 0%, #E8C87A 50%, #D4A84B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gold glow shadows */
+.shadow-glow-gold {
+  box-shadow: 0 0 20px rgba(212, 168, 75, 0.08), 0 4px 16px -4px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-glow-gold-hover {
+  box-shadow: 0 0 30px rgba(212, 168, 75, 0.15), 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Subtle star field background */
+.bg-starfield {
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(212, 168, 75, 0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 10%, rgba(212, 168, 75, 0.2) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 30% 70%, rgba(212, 168, 75, 0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 60%, rgba(212, 168, 75, 0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 40%, rgba(212, 168, 75, 0.2) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 85%, rgba(212, 168, 75, 0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 90%, rgba(212, 168, 75, 0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 15%, rgba(212, 168, 75, 0.2) 0%, transparent 100%);
+}
+
+/* Atmospheric radial gradient for hero sections */
+.bg-hero-atmosphere {
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 168, 75, 0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 50%, rgba(196, 168, 143, 0.04) 0%, transparent 50%);
+}
+
+/* Mystic divider */
+.divider-mystic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.5rem 0;
+}
+.divider-mystic::before,
+.divider-mystic::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 75, 0.3), transparent);
+}
+.divider-mystic .divider-star {
+  color: #D4A84B;
+  font-size: 8px;
+  opacity: 0.5;
+  letter-spacing: 6px;
+}
+
+/* Twinkle animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
 /* Print styles for Birth Report PDF - use .print-hidden class instead of complex selectors */
 @media print {
   body {

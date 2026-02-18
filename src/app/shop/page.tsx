@@ -4,8 +4,8 @@ import { CheckoutButton } from '@/components/CheckoutButton';
 import { products } from '@/data/products';
 
 export const metadata = {
-  title: 'Astrology Readings | The Lunar Playground',
-  description: 'Personalized astrocartography and natal chart readings. Discover your best cities and understand your chart.',
+  title: 'Relocation Astrology Readings | The Lunar Playground',
+  description: 'Relocation astrology readings to find your best cities for career, love, and growth. Personalised reports from a relocation astrology specialist.',
 };
 
 export default function ShopPage() {
@@ -17,20 +17,22 @@ export default function ShopPage() {
       <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
         <div className="max-w-2xl mx-auto text-center">
           <span className="inline-block px-4 py-1.5 bg-[#D4A84B]/15 text-[#8B6914] text-xs tracking-wider uppercase rounded-full mb-4">
-            Personalized Readings
+            Relocation Astrology
           </span>
-          <h1 className="font-serif text-4xl md:text-5xl text-[#2A2A2A] mb-4">
-            Readings
+          <h1 className="font-serif text-4xl md:text-5xl mb-4">
+            <span className="text-gradient-gold">Readings</span>
           </h1>
           <p className="text-[#6B6B6B] leading-relaxed">
-            Each reading is tailored to your unique birth chart and the questions that matter most to you.
+            Relocation astrology readings tailored to your birth chart. Find the city where your career takes off, love finds you, or you finally feel at home.
           </p>
         </div>
       </section>
 
       {/* Divider */}
       <div className="container-editorial">
-        <div className="h-px bg-[#2A2A2A]/10" />
+        <div className="divider-mystic">
+          <span className="divider-star">&#10022; &#10022; &#10022;</span>
+        </div>
       </div>
 
       {/* Products Grid */}
@@ -39,7 +41,7 @@ export default function ShopPage() {
           {products.map((product) => (
             <div
               key={product.id}
-              className="bg-white rounded-2xl border border-[#2A2A2A]/5 p-8 hover:shadow-xl transition-all relative flex flex-col"
+              className="bg-white rounded-3xl border border-[#2A2A2A]/5 p-8 shadow-glow-gold hover:shadow-glow-gold-hover transition-all relative flex flex-col"
             >
               {product.badge && (
                 <span className="absolute top-4 right-4 px-3 py-1 bg-[#D4A84B]/15 text-[#8B6914] text-xs tracking-wider uppercase rounded-full">
@@ -74,7 +76,9 @@ export default function ShopPage() {
 
       {/* Divider */}
       <div className="container-editorial">
-        <div className="h-px bg-[#2A2A2A]/10" />
+        <div className="divider-mystic">
+          <span className="divider-star">&#10022; &#10022; &#10022;</span>
+        </div>
       </div>
 
       {/* FAQ Preview */}

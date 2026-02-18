@@ -153,7 +153,7 @@ export function SummaryScreen({
               <p className="text-xs text-[#6B6B6B] mb-3">Share your chart with friends</p>
               <ShareButtons
                 title="My Birth Chart"
-                text={`I'm a ${sunSign.name} Sun, ${moonSignName} Moon, ${risingSignName} Rising \u2728 Get your free birth chart at`}
+                text={`I'm a ${sunSign.name} Sun, ${moonSignName} Moon, ${risingSignName} Rising \u2728 Get your birth chart at`}
                 onGenerateImage={() => setShowShareModal(true)}
               />
             </div>
@@ -184,6 +184,20 @@ export function SummaryScreen({
           <p className="text-[#D4A84B] text-2xl font-serif mb-5">$30</p>
           <div className="max-w-xs mx-auto">
             <CheckoutButton productId="natal-chart" label="Unlock Now" />
+          </div>
+        </div>
+
+        {/* Relocation Cross-sell */}
+        <div className="bg-[#F0E6D6] rounded-2xl p-6 md:p-8 text-center mb-8 shadow-glow-gold">
+          <p className="text-[#8B6914] text-xs uppercase tracking-wider mb-2">Now you know who you are</p>
+          <h3 className="font-serif text-xl md:text-2xl text-[#2A2A2A] mb-3">
+            Find <span className="text-gradient-gold">where you belong</span>
+          </h3>
+          <p className="text-[#6B6B6B] text-sm mb-5 max-w-md mx-auto">
+            Your birth chart reveals your personality. A relocation report reveals which cities bring out the best in you.
+          </p>
+          <div className="max-w-xs mx-auto">
+            <CheckoutButton productId="combo" label="Get Relocation + Natal Deep Dive — $90" />
           </div>
         </div>
 

@@ -100,7 +100,7 @@ Your Moon sign answers questions like:
 
 ## Finding Your Moon Sign
 
-Your Moon sign depends on your exact birth time and location, since the Moon changes signs every 2.5 days. Generate your free birth chart to find yours.
+Your Moon sign depends on your exact birth time and location, since the Moon changes signs every 2.5 days. Generate your birth chart to find yours.
     `,
   },
   {
@@ -470,7 +470,7 @@ The gap between how you're perceived (Rising) and who you are (Sun and Moon) is 
 
 ## Find Your Rising Sign
 
-You need your exact birth time to calculate your Rising sign. Even a 15-minute difference can change it. Generate your free birth chart with your birth time to find yours.
+You need your exact birth time to calculate your Rising sign. Even a 15-minute difference can change it. Generate your birth chart with your birth time to find yours.
     `,
   },
 ];

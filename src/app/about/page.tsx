@@ -11,18 +11,21 @@ export default function AboutPage() {
         {/* Hero */}
         <section className="container-editorial pt-6 pb-8 md:pt-8 md:pb-10">
           <div className="max-w-2xl">
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight">
-              About
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight">
+              <span className="text-gradient-gold">Relocation Astrology</span>
+              <br /><span className="text-[#2A2A2A]">Specialist</span>
             </h1>
             <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed">
-              Hi, I&apos;m Ashleigh. I help people figure out where they belong.
+              Hi, I&apos;m Ashleigh. I&apos;m a relocation astrology specialist. I help people find the city where their career takes off, love finds them, or they finally feel at home.
             </p>
           </div>
         </section>
 
         {/* Divider */}
         <div className="container-editorial">
-          <div className="h-px bg-[#2A2A2A]/10" />
+          <div className="divider-mystic">
+            <span className="divider-star">&#10022; &#10022; &#10022;</span>
+          </div>
         </div>
 
         {/* The Story - Left text, Right image */}
@@ -62,7 +65,9 @@ export default function AboutPage() {
 
         {/* Divider */}
         <div className="container-editorial">
-          <div className="h-px bg-[#2A2A2A]/10" />
+          <div className="divider-mystic">
+            <span className="divider-star">&#10022; &#10022; &#10022;</span>
+          </div>
         </div>
 
         {/* What I Do Now - Left image, Right text */}
@@ -70,17 +75,17 @@ export default function AboutPage() {
           <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16">
             <div className="flex-1 md:text-left">
               <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">
-                What I do now
+                What I specialise in
               </h2>
               <div className="space-y-6 text-[#6B6B6B] leading-relaxed">
                 <p>
-                  I write personalized astrocartography readings for people who feel that pull.
-                  The ones wondering if they should move, travel, or just try somewhere new.
-                  The ones who sense that where they are might not be where they&apos;re meant to be.
+                  I write relocation astrology readings for people who feel the pull to move.
+                  The ones wondering if they should quit, relocate, or start fresh somewhere new.
+                  The ones who sense that the city they&apos;re in isn&apos;t where they&apos;re meant to be.
                 </p>
                 <p>
-                  Each reading maps your birth chart across the globe and tells you which cities
-                  activate which parts of you. Career, love, creativity, growth. It&apos;s specific
+                  Each relocation report maps your birth chart across the globe and reveals which cities
+                  activate different parts of you — career breakthroughs, love, creative flow, personal growth. It&apos;s specific
                   to your chart, your questions, and your life right now.
                 </p>
                 <p>
@@ -102,7 +107,9 @@ export default function AboutPage() {
 
         {/* Divider */}
         <div className="container-editorial">
-          <div className="h-px bg-[#2A2A2A]/10" />
+          <div className="divider-mystic">
+            <span className="divider-star">&#10022; &#10022; &#10022;</span>
+          </div>
         </div>
 
         {/* How I Approach This */}
@@ -171,7 +178,9 @@ export default function AboutPage() {
 
         {/* Divider */}
         <div className="container-editorial">
-          <div className="h-px bg-[#2A2A2A]/10" />
+          <div className="divider-mystic">
+            <span className="divider-star">&#10022; &#10022; &#10022;</span>
+          </div>
         </div>
 
         {/* CTA */}
@@ -179,17 +188,17 @@ export default function AboutPage() {
           <div className="rounded-2xl bg-gradient-to-r from-[#D4C4B0] to-[#E8DED4] p-8 md:p-12">
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] mb-4">
-                Want to work together?
+                Ready to find <span className="text-gradient-gold">your city</span>?
               </h2>
               <p className="text-[#6B6B6B] leading-relaxed mb-6">
-                Check out the readings, try the free tools, or just say hi.
+                Get your relocation report, try the free tools, or just say hi.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/shop"
                   className="inline-block px-6 md:px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors text-sm md:text-base"
                 >
-                  View readings
+                  Get your relocation report
                 </Link>
                 <a
                   href="mailto:thelunarplayground@gmail.com"

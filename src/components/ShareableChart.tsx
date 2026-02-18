@@ -92,7 +92,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
         await navigator.share({
           files: [file],
           title: 'My Birth Chart',
-          text: `I'm a ${sunSign} Sun, ${moonSign} Moon, ${risingSign} Rising ✨ Get your free birth chart at thelunarplayground.com`,
+          text: `I'm a ${sunSign} Sun, ${moonSign} Moon, ${risingSign} Rising ✨ Get your birth chart at thelunarplayground.com`,
         });
       } else {
         // Fallback to download
@@ -199,7 +199,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
             {/* Footer */}
             <div className="mt-8 pt-4 border-t border-[#2A2A2A]/10 text-center">
               <p className="text-xs text-[#6B6B6B]">
-                Get your free birth chart at
+                Get your birth chart at
               </p>
               <p className="text-sm font-medium" style={{ color: colors.accent }}>
                 thelunarplayground.com
