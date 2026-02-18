@@ -415,17 +415,19 @@ export default function TravelPage() {
                 ))}
               </div>
 
-              {/* Rotating message */}
-              <p
-                key={loadingStep}
-                className="font-serif text-lg text-[#2A2A2A] mb-3"
-                style={{ animation: 'fadeMessage 2.5s ease-in-out' }}
-              >
-                {loadingSteps[loadingStep]}
-              </p>
+              {/* Rotating message — fixed height so globe doesn't shift */}
+              <div className="h-16 flex items-center justify-center px-4">
+                <p
+                  key={loadingStep}
+                  className="font-serif text-base md:text-lg text-[#2A2A2A] text-center"
+                  style={{ animation: 'fadeMessage 2.5s ease-in-out' }}
+                >
+                  {loadingSteps[loadingStep]}
+                </p>
+              </div>
 
               {/* Progress bar */}
-              <div className="w-48 h-px bg-[#2A2A2A]/10 rounded-full overflow-hidden">
+              <div className="w-48 h-px bg-[#2A2A2A]/10 rounded-full overflow-hidden mt-3">
                 <div
                   className="h-full bg-[#D4A84B]/50 transition-all duration-1000 ease-out"
                   style={{ width: `${((loadingStep + 1) / loadingSteps.length) * 100}%` }}
@@ -663,7 +665,7 @@ export default function TravelPage() {
                   <ul className="max-w-sm mx-auto mb-6 space-y-3">
                     <li className="flex items-start gap-2 text-[#2A2A2A]/70 text-sm">
                       <span className="text-[#D4A84B] mt-0.5">&#183;</span>
-                      All 6 planetary lines mapped and interpreted
+                      All major planetary lines mapped and interpreted
                     </li>
                     <li className="flex items-start gap-2 text-[#2A2A2A]/70 text-sm">
                       <span className="text-[#D4A84B] mt-0.5">&#183;</span>
@@ -679,23 +681,13 @@ export default function TravelPage() {
                     </li>
                   </ul>
 
-                  <div className="text-center mb-8">
-                    <a
-                      href="/sample-report.html"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block text-sm text-[#8B6914] hover:text-[#2A2A2A] transition-colors underline underline-offset-4"
-                    >
-                      See a sample report
-                    </a>
-                  </div>
 
                   <div className="text-center">
                     <a
                       href="/shop"
                       className="inline-block px-8 py-3.5 bg-[#2A2A2A] text-[#FAF7F2] rounded-lg text-sm font-medium hover:bg-[#1a1a1a] transition-colors"
                     >
-                      Get your relocation report &mdash; $47
+                      Get your relocation report &mdash; $50
                     </a>
                     <p className="text-xs text-[#6B6B6B]/60 mt-4">Personalised report delivered within 48 hours</p>
                   </div>

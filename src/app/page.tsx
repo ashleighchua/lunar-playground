@@ -581,7 +581,7 @@ export default function Home() {
                 <ul className="max-w-sm mx-auto mb-6 space-y-3">
                   <li className="flex items-start gap-2 text-[#2A2A2A]/70 text-sm">
                     <span className="text-[#D4A84B] mt-0.5">&#183;</span>
-                    All 6 planetary lines mapped and interpreted
+                    All major planetary lines mapped and interpreted
                   </li>
                   <li className="flex items-start gap-2 text-[#2A2A2A]/70 text-sm">
                     <span className="text-[#D4A84B] mt-0.5">&#183;</span>
@@ -600,27 +600,17 @@ export default function Home() {
                 <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto">
                   <div className="bg-white rounded-2xl p-5 text-center shadow-glow-gold">
                     <p className="font-serif text-lg text-[#2A2A2A] mb-1">Relocation Report</p>
-                    <p className="text-2xl font-serif text-[#2A2A2A] mb-3">$47</p>
+                    <p className="text-2xl font-serif text-[#2A2A2A] mb-3">$50</p>
                     <CheckoutButton productId="astrocartography" label="Get Your Report" />
                   </div>
                   <div className="bg-white rounded-2xl p-5 text-center border-2 border-[#D4A84B]/30 shadow-glow-gold">
                     <span className="inline-block px-2 py-0.5 bg-[#D4A84B]/15 text-[#8B6914] text-[10px] tracking-wider uppercase rounded-full mb-2">Best Value</span>
-                    <p className="font-serif text-lg text-[#2A2A2A] mb-1">Relocation + Natal Deep Dive</p>
+                    <p className="font-serif text-lg text-[#2A2A2A] mb-1">The Complete Reading</p>
                     <p className="text-2xl font-serif text-[#2A2A2A] mb-3">$90</p>
-                    <CheckoutButton productId="combo" label="Get the Deep Dive" />
+                    <CheckoutButton productId="combo" label="Get the Full Package" />
                   </div>
                 </div>
 
-                <div className="text-center mt-6">
-                  <a
-                    href="/sample-report.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[#8B6914] hover:text-[#2A2A2A] transition-colors underline underline-offset-4"
-                  >
-                    See a sample report
-                  </a>
-                </div>
               </div>
 
               <p className="text-xs text-[#6B6B6B]/60 text-center mt-6">
@@ -688,30 +678,20 @@ export default function Home() {
               </span>
               <p className="font-serif text-lg text-[#2A2A2A] mb-1">Relocation Report</p>
               <p className="text-sm text-[#6B6B6B] mb-3">Find the city where everything clicks</p>
-              <p className="text-2xl font-serif text-[#2A2A2A] mb-4">$47</p>
+              <p className="text-2xl font-serif text-[#2A2A2A] mb-4">$50</p>
               <CheckoutButton productId="astrocartography" label="Get Your Report" />
             </div>
             <div className="bg-white rounded-2xl border-2 border-[#D4A84B]/30 p-6 text-center relative shadow-glow-gold">
               <span className="absolute top-3 right-3 px-2.5 py-0.5 bg-[#D4A84B]/15 text-[#8B6914] text-[10px] tracking-wider uppercase rounded-full">
                 Best Value
               </span>
-              <p className="font-serif text-lg text-[#2A2A2A] mb-1">Relocation + Natal Deep Dive</p>
-              <p className="text-sm text-[#6B6B6B] mb-3">Know who you are. Find where you belong.</p>
+              <p className="font-serif text-lg text-[#2A2A2A] mb-1">The Complete Reading</p>
+              <p className="text-sm text-[#6B6B6B] mb-3">Know who you are. Find where you belong. See how you shift.</p>
               <p className="text-2xl font-serif text-[#2A2A2A] mb-4">$90</p>
-              <CheckoutButton productId="combo" label="Get the Deep Dive" />
+              <CheckoutButton productId="combo" label="Get the Full Package" />
             </div>
           </div>
 
-          <div className="text-center mt-6">
-            <a
-              href="/sample-report.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-[#8B6914] hover:text-[#2A2A2A] transition-colors underline underline-offset-4"
-            >
-              See a sample report
-            </a>
-          </div>
         </div>
       </section>
 

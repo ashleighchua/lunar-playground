@@ -197,7 +197,7 @@ export function SummaryScreen({
             Your birth chart reveals your personality. A relocation report reveals which cities bring out the best in you.
           </p>
           <div className="max-w-xs mx-auto">
-            <CheckoutButton productId="combo" label="Get Relocation + Natal Deep Dive — $90" />
+            <CheckoutButton productId="combo" label="Get the Full Package — $90" />
           </div>
         </div>
 
