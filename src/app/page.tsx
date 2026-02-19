@@ -209,9 +209,9 @@ export default function Home() {
           alt=""
           fill
           priority
-          className="object-cover opacity-15"
+          className="object-cover opacity-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#FAF7F2]/80 via-[#FAF7F2]/70 to-[#FAF7F2]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FAF7F2]/40 via-[#FAF7F2]/30 to-[#FAF7F2]/85" />
         <div className="absolute inset-0 bg-hero-atmosphere pointer-events-none" />
 
         <div className="relative container-editorial pt-16 pb-12 md:pt-24 md:pb-16">
@@ -219,10 +219,10 @@ export default function Home() {
           {/* Step 1: Theme Selection */}
           {funnelStep === 'theme' && (
             <div className="max-w-2xl mx-auto text-center" style={{ animation: 'fadeInUp 0.4s ease-out' }}>
-              <h1 className="font-serif text-4xl md:text-5xl leading-[1.15] tracking-tight">
-                <span className="text-gradient-gold">Discover where your soul feels most alive</span>
+              <h1 className="font-serif text-4xl md:text-5xl leading-[1.15] tracking-tight text-[#8B6914]" style={{ textShadow: '0 2px 16px rgba(250,247,242,1), 0 0 40px rgba(250,247,242,0.8)' }}>
+                Discover where your soul feels most alive
               </h1>
-              <p className="mt-4 text-[#6B6B6B] leading-relaxed">
+              <p className="mt-4 text-[#4A453D] leading-relaxed" style={{ textShadow: '0 1px 8px rgba(250,247,242,0.8)' }}>
                 Your birth chart reveals the city where your career takes off, love finds you,
                 <br />or you finally feel at home. Choose what matters most.
               </p>
@@ -240,12 +240,12 @@ export default function Home() {
                     className="group flex flex-col items-center p-6 text-center glass-card rounded-2xl hover:border-[#D4A84B]/30 hover:shadow-glow-gold transition-all cursor-pointer"
                   >
                     <PlanetIcon planet={key} className="w-7 h-7 mb-3 text-[#2A2A2A] group-hover:text-[#D4A84B] transition-colors" />
-                    <h3 className="text-sm font-medium text-[#2A2A2A]">{info.title}</h3>
+                    <h3 className="text-sm font-semibold text-[#2A2A2A]">{info.title}</h3>
                   </button>
                 ))}
               </div>
 
-              <p className="mt-6 text-xs text-[#6B6B6B]/60">No email or signup required</p>
+              <p className="mt-6 text-xs text-[#4A453D]/60" style={{ textShadow: '0 1px 6px rgba(250,247,242,0.8)' }}>No email or signup required</p>
             </div>
           )}
 
@@ -597,17 +597,24 @@ export default function Home() {
                   </li>
                 </ul>
 
-                <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-                  <div className="bg-white rounded-2xl p-5 text-center shadow-glow-gold">
+                <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto items-stretch">
+                  <div className="bg-white rounded-2xl p-5 pt-8 text-center shadow-glow-gold flex flex-col relative">
+                    <span className="absolute top-3 right-3 px-2.5 py-0.5 bg-[#D4A84B]/15 text-[#8B6914] text-[10px] tracking-wider uppercase rounded-full">Most Popular</span>
                     <p className="font-serif text-lg text-[#2A2A2A] mb-1">Relocation Report</p>
-                    <p className="text-2xl font-serif text-[#2A2A2A] mb-3">$50</p>
-                    <CheckoutButton productId="astrocartography" label="Get Your Report" />
+                    <p className="text-sm text-[#6B6B6B] mb-3">Find the city where everything clicks</p>
+                    <p className="text-2xl font-serif text-[#2A2A2A] mb-4">$50</p>
+                    <div className="mt-auto">
+                      <CheckoutButton productId="astrocartography" label="Get Your Report" />
+                    </div>
                   </div>
-                  <div className="bg-white rounded-2xl p-5 text-center border-2 border-[#D4A84B]/30 shadow-glow-gold">
-                    <span className="inline-block px-2 py-0.5 bg-[#D4A84B]/15 text-[#8B6914] text-[10px] tracking-wider uppercase rounded-full mb-2">Best Value</span>
+                  <div className="bg-white rounded-2xl p-5 pt-8 text-center border-2 border-[#D4A84B]/30 shadow-glow-gold flex flex-col relative">
+                    <span className="absolute top-3 right-3 px-2.5 py-0.5 bg-[#D4A84B]/15 text-[#8B6914] text-[10px] tracking-wider uppercase rounded-full">Best Value</span>
                     <p className="font-serif text-lg text-[#2A2A2A] mb-1">The Complete Reading</p>
-                    <p className="text-2xl font-serif text-[#2A2A2A] mb-3">$90</p>
-                    <CheckoutButton productId="combo" label="Get the Full Package" />
+                    <p className="text-sm text-[#6B6B6B] mb-3">Know who you are. Find where you belong.</p>
+                    <p className="text-2xl font-serif text-[#2A2A2A] mb-4">$90</p>
+                    <div className="mt-auto">
+                      <CheckoutButton productId="combo" label="Get the Full Package" />
+                    </div>
                   </div>
                 </div>
 
@@ -671,24 +678,28 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-            <div className="bg-white rounded-2xl border border-[#2A2A2A]/5 p-6 text-center relative shadow-glow-gold">
+          <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto items-stretch">
+            <div className="bg-white rounded-2xl border border-[#2A2A2A]/5 p-6 text-center relative shadow-glow-gold flex flex-col">
               <span className="absolute top-3 right-3 px-2.5 py-0.5 bg-[#D4A84B]/15 text-[#8B6914] text-[10px] tracking-wider uppercase rounded-full">
                 Most Popular
               </span>
               <p className="font-serif text-lg text-[#2A2A2A] mb-1">Relocation Report</p>
               <p className="text-sm text-[#6B6B6B] mb-3">Find the city where everything clicks</p>
               <p className="text-2xl font-serif text-[#2A2A2A] mb-4">$50</p>
-              <CheckoutButton productId="astrocartography" label="Get Your Report" />
+              <div className="mt-auto">
+                <CheckoutButton productId="astrocartography" label="Get Your Report" />
+              </div>
             </div>
-            <div className="bg-white rounded-2xl border-2 border-[#D4A84B]/30 p-6 text-center relative shadow-glow-gold">
+            <div className="bg-white rounded-2xl border-2 border-[#D4A84B]/30 p-6 text-center relative shadow-glow-gold flex flex-col">
               <span className="absolute top-3 right-3 px-2.5 py-0.5 bg-[#D4A84B]/15 text-[#8B6914] text-[10px] tracking-wider uppercase rounded-full">
                 Best Value
               </span>
               <p className="font-serif text-lg text-[#2A2A2A] mb-1">The Complete Reading</p>
               <p className="text-sm text-[#6B6B6B] mb-3">Know who you are. Find where you belong. See how you shift.</p>
               <p className="text-2xl font-serif text-[#2A2A2A] mb-4">$90</p>
-              <CheckoutButton productId="combo" label="Get the Full Package" />
+              <div className="mt-auto">
+                <CheckoutButton productId="combo" label="Get the Full Package" />
+              </div>
             </div>
           </div>
 

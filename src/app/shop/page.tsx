@@ -16,9 +16,6 @@ export default function ShopPage() {
       {/* Hero */}
       <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
         <div className="max-w-2xl mx-auto text-center">
-          <span className="inline-block px-4 py-1.5 bg-[#D4A84B]/15 text-[#8B6914] text-xs tracking-wider uppercase rounded-full mb-4">
-            Relocation Astrology
-          </span>
           <h1 className="font-serif text-4xl md:text-5xl mb-4">
             <span className="text-gradient-gold">Readings</span>
           </h1>
@@ -48,10 +45,10 @@ export default function ShopPage() {
                   {product.badge}
                 </span>
               )}
-              <span className="text-3xl mb-4 block">{product.icon}</span>
-              <h3 className="font-serif text-xl text-[#2A2A2A] mb-1">{product.title}</h3>
-              <p className="text-sm text-[#6B6B6B] mb-4">{product.subtitle}</p>
-              <p className="text-[#6B6B6B] leading-relaxed mb-6">{product.description}</p>
+              <span className="text-3xl mb-4 block text-center">{product.icon}</span>
+              <h3 className="font-serif text-xl text-[#2A2A2A] mb-1 text-center">{product.title}</h3>
+              <p className="text-sm text-[#6B6B6B] mb-4 text-center">{product.subtitle}</p>
+              <p className="text-[#6B6B6B] leading-relaxed mb-6 text-center">{product.description}</p>
               <ul className="space-y-2 mb-8">
                 {product.features.map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-[#2A2A2A]/80">
@@ -60,7 +57,7 @@ export default function ShopPage() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-auto">
+              <div className="mt-auto text-center">
                 <div className="mb-4">
                   <span className="font-serif text-2xl text-[#2A2A2A]">{product.price}</span>
                   {product.priceNote && (

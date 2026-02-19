@@ -16,7 +16,7 @@ export const categoryInfo = {
   },
   jupiter: {
     name: 'Jupiter Line',
-    title: 'Career Explosion',
+    title: 'Growth & Abundance',
     symbol: '♃',
     description: 'The city where opportunity won\'t stop knocking. Where luck compounds and your career takes off.',
   },
