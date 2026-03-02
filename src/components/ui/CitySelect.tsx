@@ -144,7 +144,7 @@ export function CitySelect({
     return (
       <>
         {text.slice(0, index)}
-        <span className="font-semibold text-[#2A2A2A]">
+        <span className="font-semibold text-[#2D2640]">
           {text.slice(index, index + searchQuery.length)}
         </span>
         {text.slice(index + searchQuery.length)}
@@ -160,7 +160,7 @@ export function CitySelect({
           // Selected value display
           <div
             onClick={() => setIsOpen(true)}
-            className="w-full px-4 py-3 pr-16 border border-[#2A2A2A]/10 rounded-lg bg-white text-[#2A2A2A] cursor-pointer"
+            className="w-full px-4 py-3 pr-16 border border-[#2D2640]/10 rounded-lg bg-white text-[#2D2640] cursor-pointer"
           >
             <span className="truncate block">{value}</span>
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -170,12 +170,12 @@ export function CitySelect({
                   e.stopPropagation();
                   clearSelection();
                 }}
-                className="p-1 hover:bg-[#2A2A2A]/5 rounded"
+                className="p-1 hover:bg-[#2D2640]/5 rounded"
               >
-                <X className="w-4 h-4 text-[#6B6B6B]" />
+                <X className="w-4 h-4 text-[#7B7394]" />
               </button>
               <ChevronDown className={cn(
-                "w-4 h-4 text-[#6B6B6B] transition-transform",
+                "w-4 h-4 text-[#7B7394] transition-transform",
                 isOpen && "rotate-180"
               )} />
             </div>
@@ -183,7 +183,7 @@ export function CitySelect({
         ) : (
           // Search input
           <>
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6B6B]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394]" />
             <input
               ref={inputRef}
               type="text"
@@ -195,14 +195,14 @@ export function CitySelect({
               onFocus={() => setIsOpen(true)}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2A2A2A]/10 rounded-lg bg-white text-[#2A2A2A] placeholder:text-[#6B6B6B]/50 focus:outline-none focus:border-[#D4A84B]/50 transition-colors"
+              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2D2640]/10 rounded-lg bg-white text-[#2D2640] placeholder:text-[#7B7394]/50 focus:outline-none focus:border-[#FF8FA3]/50 transition-colors"
             />
             {isLoading ? (
-              <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6B6B] animate-spin" />
+              <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394] animate-spin" />
             ) : (
               <ChevronDown
                 className={cn(
-                  "absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6B6B] transition-transform",
+                  "absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394] transition-transform",
                   isOpen && "rotate-180"
                 )}
               />
@@ -213,11 +213,11 @@ export function CitySelect({
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute z-50 w-full mt-1 bg-[#FAF7F2] border border-[#2A2A2A]/10 rounded-lg shadow-lg max-h-72 overflow-y-auto">
+        <div className="absolute z-50 w-full mt-1 bg-[#F0EBF8] border border-[#2D2640]/10 rounded-lg shadow-lg max-h-72 overflow-y-auto">
           {value && (
-            <div className="p-2 border-b border-[#2A2A2A]/10">
+            <div className="p-2 border-b border-[#2D2640]/10">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6B6B]" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394]" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -225,29 +225,29 @@ export function CitySelect({
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Search for another city..."
-                  className="w-full px-3 py-2 pl-9 text-sm border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30"
+                  className="w-full px-3 py-2 pl-9 text-sm border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30"
                   autoFocus
                 />
                 {isLoading && (
-                  <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6B6B] animate-spin" />
+                  <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394] animate-spin" />
                 )}
               </div>
             </div>
           )}
 
           {!query && results.length > 0 && (
-            <div className="px-3 py-2 text-xs text-[#6B6B6B] bg-[#2A2A2A]/5 border-b border-[#2A2A2A]/10">
+            <div className="px-3 py-2 text-xs text-[#7B7394] bg-[#2D2640]/5 border-b border-[#2D2640]/10">
               Popular cities (type to search all)
             </div>
           )}
 
           {isLoading && results.length === 0 ? (
-            <div className="px-4 py-6 text-center text-[#6B6B6B] text-sm flex items-center justify-center gap-2">
+            <div className="px-4 py-6 text-center text-[#7B7394] text-sm flex items-center justify-center gap-2">
               <Loader2 className="w-4 h-4 animate-spin" />
               Searching cities...
             </div>
           ) : results.length === 0 ? (
-            <div className="px-4 py-6 text-center text-[#6B6B6B] text-sm">
+            <div className="px-4 py-6 text-center text-[#7B7394] text-sm">
               {query.length === 0
                 ? "Type a city name to search"
                 : "No cities found. Try a different spelling."}
@@ -262,10 +262,10 @@ export function CitySelect({
                   onClick={() => selectCity(city)}
                   onMouseEnter={() => setHighlightedIndex(index)}
                   className={cn(
-                    "px-4 py-2.5 cursor-pointer text-sm border-b border-[#2A2A2A]/5 last:border-0",
+                    "px-4 py-2.5 cursor-pointer text-sm border-b border-[#2D2640]/5 last:border-0",
                     index === highlightedIndex
-                      ? "bg-[#2A2A2A]/10 text-[#2A2A2A]"
-                      : "text-[#6B6B6B] hover:bg-[#2A2A2A]/5"
+                      ? "bg-[#2D2640]/10 text-[#2D2640]"
+                      : "text-[#7B7394] hover:bg-[#2D2640]/5"
                   )}
                 >
                   {highlightMatch(city.label, query)}
@@ -275,7 +275,7 @@ export function CitySelect({
           )}
 
           {query && results.length > 0 && (
-            <div className="px-3 py-2 text-xs text-[#6B6B6B] bg-[#2A2A2A]/5 border-t border-[#2A2A2A]/10 text-center">
+            <div className="px-3 py-2 text-xs text-[#7B7394] bg-[#2D2640]/5 border-t border-[#2D2640]/10 text-center">
               {results.length} result{results.length !== 1 ? 's' : ''} found
             </div>
           )}

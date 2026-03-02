@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { WorldMap } from '@/components/WorldMap';
 import { CitySelect } from '@/components/ui/CitySelect';
 import type { City } from '@/lib/cities';
@@ -16,6 +17,13 @@ import { estimateTimezone } from '@/lib/ephemeris';
 import { getCityCharacter } from '@/data/cityCharacters';
 
 type Category = 'sun' | 'jupiter' | 'venus' | 'moon' | 'mercury' | 'mars';
+
+const CATEGORY_BG: Record<string, string> = {
+  venus: '#F2D1DC',   // soft pink
+  jupiter: '#D4E8CB',  // soft green
+  sun: '#F0E6CE',     // warm sand
+  moon: '#C9DAF0',    // soft blue
+};
 
 // SVG Planet Icons with consistent stroke width
 function PlanetIcon({ planet, className = '' }: { planet: string; className?: string }) {
@@ -88,15 +96,8 @@ export default function TravelPage() {
   const [emailSending, setEmailSending] = useState(false);
 
   const loadingSteps = [
-    'Calculating exact planetary positions at your birth...',
-    'Projecting planetary lines across the globe...',
-    'Mapping line crossings and power zones...',
-    'Analyzing angular distances to major cities...',
-    'Evaluating line strength by proximity...',
-    'Cross-referencing aspect patterns...',
-    'Weighing planetary dignity at each location...',
-    'Scoring cities against your chart...',
-    'Ranking your top matches...',
+    'Calculating planetary positions at your birth...',
+    'Mapping planetary lines across the globe...',
     'Finding your strongest match...',
   ];
 
@@ -146,7 +147,7 @@ export default function TravelPage() {
         setStep('result');
         setLoadingStep(0);
       }
-    }, 10000);
+    }, 3000);
 
     return () => {
       clearInterval(stepInterval);
@@ -222,7 +223,7 @@ export default function TravelPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col">
+    <div className="min-h-screen bg-[#F0EBF8] flex flex-col">
       <Navigation currentPage="astrocartography" />
 
       <style jsx>{`
@@ -251,10 +252,10 @@ export default function TravelPage() {
         {step === 'category' && (
           <section className="container-editorial py-12 md:py-20">
             <div className="max-w-xl mx-auto text-center">
-              <h1 className="font-serif text-3xl md:text-4xl text-[#2A2A2A] mb-3">
+              <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-3">
                 What do you want to <span className="text-gradient-gold">transform</span>?
               </h1>
-              <p className="text-[#6B6B6B] mb-10">
+              <p className="text-[#7B7394] mb-10">
                 Choose your priority and we&apos;ll find the city where it happens.
               </p>
 
@@ -268,10 +269,11 @@ export default function TravelPage() {
                   <button
                     key={key}
                     onClick={() => handleCategorySelect(key)}
-                    className="group flex flex-col items-center p-6 text-center glass-card rounded-2xl hover:border-[#D4A84B]/30 hover:shadow-glow-gold transition-all"
+                    className="group flex flex-col items-center p-6 text-center rounded-2xl hover:scale-105 transition-all"
+                    style={{ backgroundColor: CATEGORY_BG[key] || '#F0EBF8' }}
                   >
-                    <PlanetIcon planet={key} className="w-7 h-7 mb-3 text-[#2A2A2A]" />
-                    <h3 className="text-base font-medium text-[#2A2A2A]">
+                    <PlanetIcon planet={key} className="w-7 h-7 mb-3 text-[#2D2640]" />
+                    <h3 className="text-base font-medium text-[#2D2640]">
                       {info.title}
                     </h3>
                   </button>
@@ -286,22 +288,22 @@ export default function TravelPage() {
           <section className="container-editorial pt-8 pb-16 md:pt-12 md:pb-24">
             <button
               onClick={() => setStep('category')}
-              className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
+              className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-12"
             >
               ← Back to categories
             </button>
 
             <div className="max-w-md mx-auto text-center">
               <div className="flex items-center justify-center gap-4 mb-8">
-                <PlanetIcon planet={selectedCategory} className="w-8 h-8 text-[#2A2A2A]" />
-                <h2 className="font-serif text-2xl text-[#2A2A2A]">
+                <PlanetIcon planet={selectedCategory} className="w-8 h-8 text-[#2D2640]" />
+                <h2 className="font-serif text-2xl text-[#2D2640]">
                   {categoryInfo[selectedCategory].title}
                 </h2>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6 text-left">
                 <div>
-                  <label htmlFor="birthdate" className="block text-sm text-[#6B6B6B] mb-2">
+                  <label htmlFor="birthdate" className="block text-sm text-[#7B7394] mb-2">
                     Date of birth
                   </label>
                   <input
@@ -311,25 +313,25 @@ export default function TravelPage() {
                     onChange={(e) => setBirthdate(e.target.value)}
                     max={new Date().toISOString().split('T')[0]}
                     required
-                    className={`w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-white focus:outline-none focus:border-[#D4A84B]/50 transition-colors ${birthdate ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/50'}`}
+                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthdate ? 'text-[#2D2640]' : 'text-[#7B7394]/50'}`}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="birthtime" className="block text-sm text-[#6B6B6B] mb-2">
-                    Time of birth <span className="text-[#6B6B6B]/50">(optional)</span>
+                  <label htmlFor="birthtime" className="block text-sm text-[#7B7394] mb-2">
+                    Time of birth <span className="text-[#7B7394]/50">(optional)</span>
                   </label>
                   <input
                     type="time"
                     id="birthtime"
                     value={birthtime}
                     onChange={(e) => setBirthtime(e.target.value)}
-                    className={`w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-white focus:outline-none focus:border-[#D4A84B]/50 transition-colors ${birthtime ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/50'}`}
+                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthtime ? 'text-[#2D2640]' : 'text-[#7B7394]/50'}`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-[#6B6B6B] mb-2">
+                  <label className="block text-sm text-[#7B7394] mb-2">
                     Place of birth
                   </label>
                   <CitySelect
@@ -337,14 +339,14 @@ export default function TravelPage() {
                     onChange={(city) => setBirthplace(city)}
                     placeholder="Search for a city..."
                   />
-                  <p className="mt-2 text-xs text-[#6B6B6B]">
+                  <p className="mt-2 text-xs text-[#7B7394]">
                     Your birth location helps map your planetary lines accurately.
                   </p>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors mt-4"
+                  className="w-full px-8 py-4 rounded-lg bg-[#2D2640] text-[#F0EBF8] text-sm tracking-wide hover:bg-[#1E1835] transition-colors mt-4"
                 >
                   Find my city
                 </button>
@@ -365,8 +367,8 @@ export default function TravelPage() {
                   viewBox="0 0 160 160"
                   style={{ animation: 'spinSlow 8s linear infinite' }}
                 >
-                  <circle cx="80" cy="80" r="70" fill="none" stroke="#D4A84B" strokeWidth="0.5" opacity="0.3" />
-                  <circle cx="80" cy="10" r="3" fill="#D4A84B" opacity="0.8" />
+                  <circle cx="80" cy="80" r="70" fill="none" stroke="#FF8FA3" strokeWidth="0.5" opacity="0.3" />
+                  <circle cx="80" cy="10" r="3" fill="#FF8FA3" opacity="0.8" />
                 </svg>
                 {/* Inner orbital ring (counter) */}
                 <svg
@@ -374,15 +376,15 @@ export default function TravelPage() {
                   viewBox="0 0 160 160"
                   style={{ animation: 'spinSlow 12s linear infinite reverse' }}
                 >
-                  <circle cx="80" cy="80" r="50" fill="none" stroke="#C4A88F" strokeWidth="0.5" opacity="0.2" />
-                  <circle cx="80" cy="30" r="2" fill="#C4A88F" opacity="0.6" />
+                  <circle cx="80" cy="80" r="50" fill="none" stroke="#FFB88C" strokeWidth="0.5" opacity="0.2" />
+                  <circle cx="80" cy="30" r="2" fill="#FFB88C" opacity="0.6" />
                 </svg>
                 {/* Planetary line being drawn */}
                 <svg className="absolute inset-0 w-full h-full" viewBox="0 0 160 160">
                   <path
                     d="M 20 120 Q 80 40 140 100"
                     fill="none"
-                    stroke="#D4A84B"
+                    stroke="#FF8FA3"
                     strokeWidth="1.5"
                     strokeDasharray="600"
                     opacity="0.4"
@@ -391,8 +393,8 @@ export default function TravelPage() {
                 </svg>
                 {/* Center globe */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full border border-[#2A2A2A]/10 bg-[#FAF7F2] flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#2A2A2A" strokeWidth="0.8" className="w-10 h-10 opacity-30">
+                  <div className="w-16 h-16 rounded-full border border-[#2D2640]/10 bg-[#F0EBF8] flex items-center justify-center">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#2D2640" strokeWidth="0.8" className="w-10 h-10 opacity-30">
                       <circle cx="12" cy="12" r="10" />
                       <path d="M2 12h20" />
                       <path d="M12 2a15 15 0 0 1 0 20" />
@@ -404,7 +406,7 @@ export default function TravelPage() {
                 {[0, 1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="absolute w-1.5 h-1.5 rounded-full bg-[#D4A84B]"
+                    className="absolute w-1.5 h-1.5 rounded-full bg-[#FF8FA3]"
                     style={{
                       top: `${50 + 42 * Math.sin((i * Math.PI) / 2)}%`,
                       left: `${50 + 42 * Math.cos((i * Math.PI) / 2)}%`,
@@ -419,7 +421,7 @@ export default function TravelPage() {
               <div className="h-16 flex items-center justify-center px-4">
                 <p
                   key={loadingStep}
-                  className="font-serif text-base md:text-lg text-[#2A2A2A] text-center"
+                  className="font-serif text-base md:text-lg text-[#2D2640] text-center"
                   style={{ animation: 'fadeMessage 2.5s ease-in-out' }}
                 >
                   {loadingSteps[loadingStep]}
@@ -427,9 +429,9 @@ export default function TravelPage() {
               </div>
 
               {/* Progress bar */}
-              <div className="w-48 h-px bg-[#2A2A2A]/10 rounded-full overflow-hidden mt-3">
+              <div className="w-48 h-px bg-[#2D2640]/10 rounded-full overflow-hidden mt-3">
                 <div
-                  className="h-full bg-[#D4A84B]/50 transition-all duration-1000 ease-out"
+                  className="h-full bg-[#FF8FA3]/50 transition-all duration-1000 ease-out"
                   style={{ width: `${((loadingStep + 1) / loadingSteps.length) * 100}%` }}
                 />
               </div>
@@ -444,22 +446,22 @@ export default function TravelPage() {
               {/* Left-aligned: Try another category - closer to top */}
               <button
                 onClick={handleReset}
-                className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-6"
+                className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-6"
               >
                 ← Try another category
               </button>
 
               {/* Result liner */}
               <div className="text-center mb-6">
-                <p className="text-[#6B6B6B] leading-relaxed">
-                  For <span className="text-[#2A2A2A] font-medium">{categoryInfo[selectedCategory].title}</span>, the city that resonates with your chart is
+                <p className="text-[#7B7394] leading-relaxed">
+                  For <span className="text-[#2D2640] font-medium">{categoryInfo[selectedCategory].title}</span>, the city that resonates with your chart is
                 </p>
-                <h2 className="font-serif text-3xl md:text-4xl text-[#2A2A2A] mt-2">
+                <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-2">
                   {destination.city}, {destination.country}
                 </h2>
                 <div className="flex items-center justify-center gap-2 mt-3">
-                  <PlanetIcon planet={selectedCategory} className="w-5 h-5 text-[#D4A84B]" />
-                  <p className="text-sm text-[#6B6B6B]">
+                  <PlanetIcon planet={selectedCategory} className="w-5 h-5 text-[#FF8FA3]" />
+                  <p className="text-sm text-[#7B7394]">
                     {categoryInfo[selectedCategory].name}
                   </p>
                 </div>
@@ -469,10 +471,10 @@ export default function TravelPage() {
                   <div className="mt-4">
                     <span className={`inline-block px-3 py-1 rounded-full text-xs tracking-wide ${
                       astroResult.strength === 'exact'
-                        ? 'bg-[#D4A84B]/20 text-[#8B6914]'
+                        ? 'bg-[#FF8FA3]/20 text-[#C4365A]'
                         : astroResult.strength === 'strong'
-                        ? 'bg-[#D4A84B]/15 text-[#8B6914]'
-                        : 'bg-[#2A2A2A]/5 text-[#6B6B6B]'
+                        ? 'bg-[#FF8FA3]/15 text-[#C4365A]'
+                        : 'bg-[#2D2640]/5 text-[#7B7394]'
                     }`}>
                       {astroResult.strength === 'exact'
                         ? 'Very strong alignment'
@@ -501,23 +503,23 @@ export default function TravelPage() {
               <div className="max-w-3xl mx-auto space-y-6 pb-4 md:pb-6">
                 {/* Interpretation + themes */}
                 {astroResult?.interpretationShort && (
-                  <div className="bg-white rounded-2xl border border-[#2A2A2A]/5 p-6 shadow-glow-gold">
-                    <h3 className="text-xs tracking-[0.15em] uppercase text-[#D4A84B] mb-3">
+                  <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
+                    <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
                       What this means
                     </h3>
-                    <p className="font-serif text-lg text-[#2A2A2A] leading-relaxed mb-3">
+                    <p className="font-serif text-lg text-[#2D2640] leading-relaxed mb-3">
                       {astroResult.interpretationShort}
                     </p>
                     {astroResult.themes.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-4">
                         {astroResult.themes.map((theme) => (
-                          <span key={theme} className="px-3 py-1.5 rounded-full border border-[#D4A84B]/20 text-xs text-[#8B6914] bg-[#D4A84B]/5">
+                          <span key={theme} className="px-3 py-1.5 rounded-full border border-[#FF8FA3]/20 text-xs text-[#C4365A] bg-[#FF8FA3]/5">
                             {theme}
                           </span>
                         ))}
                       </div>
                     )}
-                    <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                    <p className="text-sm text-[#7B7394] leading-relaxed">
                       {destination.description}
                     </p>
                   </div>
@@ -525,11 +527,11 @@ export default function TravelPage() {
 
                 {/* Vision narrative */}
                 {astroResult?.vision && (
-                  <div className="bg-white rounded-2xl border border-[#2A2A2A]/5 p-6 shadow-glow-gold">
-                    <h3 className="text-xs tracking-[0.15em] uppercase text-[#D4A84B] mb-3">
+                  <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
+                    <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
                       What life here could look like
                     </h3>
-                    <p className="font-serif text-lg text-[#2A2A2A] leading-relaxed">
+                    <p className="font-serif text-lg text-[#2D2640] leading-relaxed">
                       {astroResult.vision}
                     </p>
                   </div>
@@ -537,8 +539,8 @@ export default function TravelPage() {
 
                 {/* Life area snapshot */}
                 {astroResult?.lifeAreas && astroResult.lifeAreas.length > 0 && (
-                  <div className="bg-white rounded-2xl border border-[#2A2A2A]/5 p-6 shadow-glow-gold">
-                    <h3 className="text-xs tracking-[0.15em] uppercase text-[#D4A84B] mb-4">
+                  <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
+                    <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-4">
                       Your alignment in {destination.city}
                     </h3>
                     <div className="space-y-3">
@@ -546,7 +548,7 @@ export default function TravelPage() {
                         <div key={area.category} className="relative">
                           {area.active ? (
                             <div className="flex items-center justify-between py-2">
-                              <span className="text-sm text-[#2A2A2A] font-medium">{area.label}</span>
+                              <span className="text-sm text-[#2D2640] font-medium">{area.label}</span>
                               <div className="flex items-center gap-2">
                                 <div className="flex gap-1">
                                   {[0, 1, 2].map((i) => (
@@ -556,27 +558,27 @@ export default function TravelPage() {
                                         (area.strength === 'strong' && i <= 2) ||
                                         (area.strength === 'active' && i <= 1) ||
                                         (area.strength === 'present' && i === 0)
-                                          ? 'bg-[#D4A84B]'
-                                          : 'bg-[#2A2A2A]/10'
+                                          ? 'bg-[#FF8FA3]'
+                                          : 'bg-[#2D2640]/10'
                                       }`}
                                     />
                                   ))}
                                 </div>
-                                <span className="text-xs text-[#6B6B6B] w-16 text-right capitalize">
+                                <span className="text-xs text-[#7B7394] w-16 text-right capitalize">
                                   {area.strength}
                                 </span>
                               </div>
                             </div>
                           ) : (
                             <div className="flex items-center justify-between py-2 opacity-40">
-                              <span className="text-sm text-[#2A2A2A]">{area.label}</span>
+                              <span className="text-sm text-[#2D2640]">{area.label}</span>
                               <div className="flex items-center gap-2">
                                 <div className="flex gap-1">
                                   {[0, 1, 2].map((i) => (
-                                    <div key={i} className="w-2.5 h-2.5 rounded-full bg-[#2A2A2A]/10" />
+                                    <div key={i} className="w-2.5 h-2.5 rounded-full bg-[#2D2640]/10" />
                                   ))}
                                 </div>
-                                <span className="text-xs text-[#6B6B6B] w-16 text-right">
+                                <span className="text-xs text-[#7B7394] w-16 text-right">
                                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 inline">
                                     <rect x="3" y="7" width="10" height="7" rx="1.5" />
                                     <path d="M5 7V5a3 3 0 0 1 6 0v2" />
@@ -588,7 +590,7 @@ export default function TravelPage() {
                         </div>
                       ))}
                     </div>
-                    <p className="text-xs text-[#6B6B6B]/60 mt-4 text-center">
+                    <p className="text-xs text-[#7B7394]/60 mt-4 text-center">
                       Full report reveals all life areas for your top cities
                     </p>
                   </div>
@@ -599,11 +601,11 @@ export default function TravelPage() {
                   const character = getCityCharacter(destination.city);
                   if (!character) return null;
                   return (
-                    <div className="bg-white rounded-2xl border border-[#2A2A2A]/5 p-6 shadow-glow-gold">
-                      <h3 className="text-xs tracking-[0.15em] uppercase text-[#D4A84B] mb-3">
+                    <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
+                      <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
                         About {destination.city}
                       </h3>
-                      <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                      <p className="text-sm text-[#7B7394] leading-relaxed">
                         {character}
                       </p>
                     </div>
@@ -611,11 +613,11 @@ export default function TravelPage() {
                 })()}
 
                 {/* Try your other lines */}
-                <div className="bg-white rounded-2xl border border-[#2A2A2A]/5 p-6 shadow-glow-gold">
-                  <h3 className="text-xs tracking-[0.15em] uppercase text-[#D4A84B] mb-3">
+                <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
+                  <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
                     Try your other lines
                   </h3>
-                  <p className="text-sm text-[#6B6B6B] mb-4">
+                  <p className="text-sm text-[#7B7394] mb-4">
                     Each planetary line points to a different city. See where else your chart takes you.
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -633,7 +635,7 @@ export default function TravelPage() {
                           setAstroResult(null);
                           setStep('loading');
                         }}
-                        className="flex items-center gap-2 px-4 py-2 border border-[#2A2A2A]/10 rounded-full text-sm text-[#2A2A2A] hover:border-[#D4A84B]/40 hover:bg-[#D4A84B]/5 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 border border-[#2D2640]/10 rounded-full text-sm text-[#2D2640] hover:border-[#FF8FA3]/40 hover:bg-[#FF8FA3]/5 transition-colors"
                       >
                         <PlanetIcon planet={key} className="w-4 h-4" />
                         {info.title}
@@ -642,7 +644,7 @@ export default function TravelPage() {
                   </div>
                 </div>
 
-                <p className="text-xs text-[#6B6B6B]/60 text-center">
+                <p className="text-xs text-[#7B7394]/60 text-center">
                   This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
                 </p>
               </div>
@@ -653,30 +655,30 @@ export default function TravelPage() {
               <div className="max-w-3xl mx-auto">
                 <div className="bg-[#F0E6D6] rounded-2xl p-8 md:p-12">
                   <div className="text-center mb-8">
-                    <span className="text-xs tracking-[0.15em] uppercase text-[#8B6914]">Go deeper</span>
-                    <h2 className="font-serif text-3xl md:text-4xl text-[#2A2A2A] mt-4 mb-4">
+                    <span className="text-xs tracking-[0.15em] uppercase text-[#C4365A]">Go deeper</span>
+                    <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
                       Get your full relocation report
                     </h2>
-                    <p className="text-lg text-[#6B6B6B] leading-relaxed max-w-lg mx-auto">
+                    <p className="text-lg text-[#7B7394] leading-relaxed max-w-lg mx-auto">
                       This free tool shows one city. Your full relocation report maps all your planetary lines and reveals the cities where your career, love life, and personal growth transform.
                     </p>
                   </div>
 
                   <ul className="max-w-sm mx-auto mb-6 space-y-3">
-                    <li className="flex items-start gap-2 text-[#2A2A2A]/70 text-sm">
-                      <span className="text-[#D4A84B] mt-0.5">&#183;</span>
+                    <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                      <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
                       All major planetary lines mapped and interpreted
                     </li>
-                    <li className="flex items-start gap-2 text-[#2A2A2A]/70 text-sm">
-                      <span className="text-[#D4A84B] mt-0.5">&#183;</span>
+                    <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                      <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
                       Top 3 cities personalised to your chart
                     </li>
-                    <li className="flex items-start gap-2 text-[#2A2A2A]/70 text-sm">
-                      <span className="text-[#D4A84B] mt-0.5">&#183;</span>
+                    <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                      <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
                       Line crossings and power zones identified
                     </li>
-                    <li className="flex items-start gap-2 text-[#2A2A2A]/70 text-sm">
-                      <span className="text-[#D4A84B] mt-0.5">&#183;</span>
+                    <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                      <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
                       Delivered as a detailed PDF report
                     </li>
                   </ul>
@@ -685,11 +687,11 @@ export default function TravelPage() {
                   <div className="text-center">
                     <a
                       href="/shop"
-                      className="inline-block px-8 py-3.5 bg-[#2A2A2A] text-[#FAF7F2] rounded-lg text-sm font-medium hover:bg-[#1a1a1a] transition-colors"
+                      className="inline-block px-8 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-lg text-sm font-medium hover:bg-[#1E1835] transition-colors"
                     >
-                      Get your relocation report &mdash; $50
+                      Get your relocation report &mdash; $35
                     </a>
-                    <p className="text-xs text-[#6B6B6B]/60 mt-4">Personalised report delivered within 48 hours</p>
+                    <p className="text-xs text-[#7B7394]/60 mt-4">Personalised report delivered within 48 hours</p>
                   </div>
                 </div>
               </div>
@@ -697,7 +699,7 @@ export default function TravelPage() {
 
             {/* Full-width divider */}
             <div className="container-editorial">
-              <div className="h-px bg-[#2A2A2A]/10" />
+              <div className="h-px bg-[#2D2640]/10" />
             </div>
 
             {/* Email Results - Centered */}
@@ -705,10 +707,10 @@ export default function TravelPage() {
               <div className="max-w-xl mx-auto text-center">
                 {!emailSent ? (
                   <>
-                    <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
+                    <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
                       Save your destination
                     </h2>
-                    <p className="text-[#6B6B6B] mb-8">
+                    <p className="text-[#7B7394] mb-8">
                       Get your {categoryInfo[selectedCategory].title} reading for {destination.city} sent to your inbox.
                     </p>
                     <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
@@ -718,13 +720,13 @@ export default function TravelPage() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="flex-1 px-5 py-4 rounded-lg border border-[#2A2A2A]/10 bg-white text-[#2A2A2A] placeholder-[#6B6B6B]/50 focus:outline-none focus:ring-2 focus:ring-[#B8A090]/30 focus:border-[#B8A090]/50 transition-colors"
+                          className="flex-1 px-5 py-4 rounded-lg border border-[#2D2640]/10 bg-white text-[#2D2640] placeholder-[#7B7394]/50 focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50 transition-colors"
                           required
                         />
                         <button
                           type="submit"
                           disabled={emailSending}
-                          className="px-8 py-4 rounded-lg bg-[#B8A090] text-white hover:bg-[#A89080] transition-colors disabled:opacity-50 whitespace-nowrap"
+                          className="px-8 py-4 rounded-lg bg-[#8A8099] text-white hover:bg-[#A89080] transition-colors disabled:opacity-50 whitespace-nowrap"
                         >
                           {emailSending ? 'Sending...' : 'Send to me'}
                         </button>
@@ -734,9 +736,9 @@ export default function TravelPage() {
                           type="checkbox"
                           checked={subscribeToNewsletter}
                           onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
-                          className="w-4 h-4 rounded border-[#2A2A2A]/20 accent-[#B8A090]"
+                          className="w-4 h-4 rounded border-[#2D2640]/20 accent-[#8A8099]"
                         />
-                        <span className="text-sm text-[#6B6B6B]">
+                        <span className="text-sm text-[#7B7394]">
                           Also receive occasional notes from Lunar Playground
                         </span>
                       </label>
@@ -744,10 +746,10 @@ export default function TravelPage() {
                   </>
                 ) : (
                   <>
-                    <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
+                    <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
                       On its way
                     </h2>
-                    <p className="text-[#6B6B6B]">
+                    <p className="text-[#7B7394]">
                       Check your inbox for your {destination.city} travel reading.
                     </p>
                   </>
@@ -759,19 +761,7 @@ export default function TravelPage() {
 
       </main>
 
-      {/* Footer */}
-      <footer className="py-8">
-        <div className="container-editorial">
-          <div className="flex justify-end">
-            <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
-              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

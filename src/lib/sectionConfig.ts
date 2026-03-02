@@ -57,7 +57,7 @@ export const sectionConfigs: SectionConfig[] = [
     title: 'Emotional Pattern',
     subtitle: 'Moon-led',
     description: 'How you process feelings, and what happens under pressure.',
-    accentColor: '#C4A88F',
+    accentColor: '#FFB88C',
     accentBg: '#F5EBE4',
     loadingMessages: [
       'Reading your emotional rhythm...',
@@ -99,7 +99,7 @@ export const sectionConfigs: SectionConfig[] = [
     title: 'Work & Impact',
     subtitle: 'Sun + Saturn',
     description: 'What motivates you, how burnout develops, and your best environment.',
-    accentColor: '#D4A84B',
+    accentColor: '#FF8FA3',
     accentBg: '#FDF3E3',
     loadingMessages: [
       'Understanding your work motivation...',

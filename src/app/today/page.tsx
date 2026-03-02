@@ -1,7 +1,18 @@
 import Link from 'next/link';
 import { EmailCapture } from '@/components/ui/EmailCapture';
 import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { getCurrentMoonPhase } from '@/lib/moon';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Today\'s Moon | The Lunar Playground',
+  description: 'Check today\'s moon phase, daily reflection, and cosmic guidance. See what the current lunar energy means for you.',
+  openGraph: {
+    title: 'Today\'s Moon | The Lunar Playground',
+    description: 'Check today\'s moon phase, daily reflection, and cosmic guidance.',
+  },
+};
 
 // Daily reflections for each moon phase
 const reflections: Record<string, string[]> = {
@@ -48,13 +59,13 @@ export default function TodayPage() {
   const reflection = phaseReflections[dayOfYear % phaseReflections.length];
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
+    <div className="min-h-screen bg-[#F0EBF8]">
       <Navigation currentPage="today" />
 
       {/* Hero */}
       <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
         <div className="max-w-2xl">
-          <p className="text-sm text-[#6B6B6B] tracking-wide">
+          <p className="text-sm text-[#7B7394] tracking-wide">
             {new Date().toLocaleDateString('en-US', {
               weekday: 'long',
               year: 'numeric',
@@ -62,7 +73,7 @@ export default function TodayPage() {
               day: 'numeric'
             })}
           </p>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight mt-4">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2D2640] leading-[1.1] tracking-tight mt-4">
             Today&apos;s Moon
           </h1>
         </div>
@@ -70,7 +81,7 @@ export default function TodayPage() {
 
       {/* Divider */}
       <div className="container-editorial">
-        <div className="h-px bg-[#2A2A2A]/10" />
+        <div className="h-px bg-[#2D2640]/10" />
       </div>
 
       {/* Moon Phase Display */}
@@ -87,21 +98,21 @@ export default function TodayPage() {
             >
               {moonPhase.emoji}
             </div>
-            <p className="font-serif text-2xl text-[#2A2A2A] mt-6">
+            <p className="font-serif text-2xl text-[#2D2640] mt-6">
               {moonPhase.name}
             </p>
-            <p className="text-sm text-[#6B6B6B] mt-2">
+            <p className="text-sm text-[#7B7394] mt-2">
               {moonPhase.illumination}% illuminated
             </p>
           </div>
 
           {/* Reflection */}
           <div className="max-w-md">
-            <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6">
+            <h2 className="font-serif text-2xl text-[#2D2640] mb-6">
               A note for today
             </h2>
             <div className="prose prose-neutral">
-              <p className="text-[#6B6B6B] leading-relaxed">
+              <p className="text-[#7B7394] leading-relaxed">
                 {reflection}
               </p>
             </div>
@@ -111,16 +122,16 @@ export default function TodayPage() {
 
       {/* Divider */}
       <div className="container-editorial">
-        <div className="h-px bg-[#2A2A2A]/10" />
+        <div className="h-px bg-[#2D2640]/10" />
       </div>
 
       {/* Email Capture */}
       <section className="container-editorial py-12 md:py-16">
         <div className="max-w-xl mx-auto text-center">
-          <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
+          <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
             Receive the lunar note
           </h2>
-          <p className="text-[#6B6B6B] mb-8">
+          <p className="text-[#7B7394] mb-8">
             A short reflection sent with each new moon phase.
           </p>
           <EmailCapture
@@ -136,43 +147,31 @@ export default function TodayPage() {
 
       {/* Divider */}
       <div className="container-editorial">
-        <div className="h-px bg-[#2A2A2A]/10" />
+        <div className="h-px bg-[#2D2640]/10" />
       </div>
 
       {/* Next Step */}
       <section className="container-editorial py-8 md:py-12">
-        <p className="text-sm text-[#6B6B6B] mb-4">
+        <p className="text-sm text-[#7B7394] mb-4">
           Want to explore more?
         </p>
         <div className="flex flex-wrap gap-4">
           <Link
             href="/your-chart"
-            className="px-6 py-3 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
+            className="px-6 py-3 rounded-lg bg-[#2D2640] text-[#F0EBF8] text-sm hover:bg-[#1E1835] transition-colors"
           >
             See your birth moon
           </Link>
           <Link
             href="/compatibility"
-            className="px-6 py-3 rounded-lg border border-[#2A2A2A]/20 text-[#2A2A2A] text-sm hover:border-[#2A2A2A]/40 transition-colors"
+            className="px-6 py-3 rounded-lg border border-[#2D2640]/20 text-[#2D2640] text-sm hover:border-[#2D2640]/40 transition-colors"
           >
             Check compatibility
           </Link>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8">
-        <div className="container-editorial">
-          <div className="flex justify-end">
-            <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
-              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

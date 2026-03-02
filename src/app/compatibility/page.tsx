@@ -1,1909 +1,91 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { renderZodiacIcon } from '@/components/icons/ZodiacIcons';
+import {
+  ZodiacSign,
+  zodiacSigns,
+  signDates,
+  signElements,
+  signDescriptions,
+  getCompatibility,
+} from '@/lib/data/compatibility-data';
 
-type ZodiacSign = 'Aries' | 'Taurus' | 'Gemini' | 'Cancer' | 'Leo' | 'Virgo' |
-                  'Libra' | 'Scorpio' | 'Sagittarius' | 'Capricorn' | 'Aquarius' | 'Pisces';
-
-const zodiacSigns: ZodiacSign[] = [
-  'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
-  'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
-];
-
-const signDates: Record<ZodiacSign, string> = {
-  Aries: 'Mar 21 - Apr 19',
-  Taurus: 'Apr 20 - May 20',
-  Gemini: 'May 21 - Jun 20',
-  Cancer: 'Jun 21 - Jul 22',
-  Leo: 'Jul 23 - Aug 22',
-  Virgo: 'Aug 23 - Sep 22',
-  Libra: 'Sep 23 - Oct 22',
-  Scorpio: 'Oct 23 - Nov 21',
-  Sagittarius: 'Nov 22 - Dec 21',
-  Capricorn: 'Dec 22 - Jan 19',
-  Aquarius: 'Jan 20 - Feb 18',
-  Pisces: 'Feb 19 - Mar 20',
+const ELEMENT_BG: Record<string, string> = {
+  Fire: '#F0D0D4',    // rose
+  Earth: '#E8DABA',   // warm sand
+  Air: '#D6CCE6',     // lavender
+  Water: '#B8CCDF',   // blue
 };
 
-const signElements: Record<ZodiacSign, { element: string; symbol: string }> = {
-  Aries: { element: 'Fire', symbol: '🔥' },
-  Taurus: { element: 'Earth', symbol: '🌍' },
-  Gemini: { element: 'Air', symbol: '💨' },
-  Cancer: { element: 'Water', symbol: '💧' },
-  Leo: { element: 'Fire', symbol: '🔥' },
-  Virgo: { element: 'Earth', symbol: '🌍' },
-  Libra: { element: 'Air', symbol: '💨' },
-  Scorpio: { element: 'Water', symbol: '💧' },
-  Sagittarius: { element: 'Fire', symbol: '🔥' },
-  Capricorn: { element: 'Earth', symbol: '🌍' },
-  Aquarius: { element: 'Air', symbol: '💨' },
-  Pisces: { element: 'Water', symbol: '💧' },
+const ELEMENT_BORDER: Record<string, string> = {
+  Fire: '#C4737B',
+  Earth: '#C4A862',
+  Air: '#A89BC4',
+  Water: '#6B85A3',
 };
-
-// Sign descriptions
-const signDescriptions: Record<ZodiacSign, string> = {
-  Aries: 'Bold, ambitious, and fiercely independent. Aries charges into life headfirst, driven by passion and a need to lead. They\'re direct communicators who value honesty over diplomacy, and they bring infectious enthusiasm to everything they do.',
-  Taurus: 'Grounded, sensual, and steadfast. Taurus moves through life at their own pace, savoring pleasures and building security. They\'re loyal to their core, sometimes to the point of stubbornness, and they show love through consistent actions rather than grand gestures.',
-  Gemini: 'Curious, adaptable, and endlessly communicative. Gemini\'s mind moves quickly, making connections others miss. They need variety and mental stimulation, and they bring levity and wit to their relationships. Beneath the social butterfly is someone seeking genuine understanding.',
-  Cancer: 'Intuitive, nurturing, and deeply emotional. Cancer feels everything intensely and creates safe harbors for those they love. Their tough outer shell protects a remarkably sensitive interior. They remember everything, especially how you made them feel.',
-  Leo: 'Warm, generous, and magnificently confident. Leo brings light and drama wherever they go, naturally drawing others into their orbit. They love deeply and need to be appreciated in return. Behind the bold exterior is someone who genuinely wants to make others feel special.',
-  Virgo: 'Analytical, devoted, and quietly perfectionist. Virgo shows love through acts of service and attention to detail. They notice everything and work tirelessly to improve what they care about. Their criticism comes from a place of wanting the best for everyone.',
-  Libra: 'Harmonious, charming, and deeply fair-minded. Libra seeks balance in all things and has a natural gift for seeing multiple perspectives. They thrive in partnership and put real effort into creating beauty and peace in their relationships.',
-  Scorpio: 'Intense, perceptive, and profoundly loyal. Scorpio experiences life at full depth and expects the same from those close to them. They\'re transformative partners who will go to the ends of the earth for those they trust, but that trust must be earned.',
-  Sagittarius: 'Adventurous, optimistic, and refreshingly honest. Sagittarius needs freedom to explore: ideas, places, possibilities. They bring enthusiasm and big-picture thinking to relationships, always looking toward the horizon while staying genuinely present with those they love.',
-  Capricorn: 'Ambitious, disciplined, and quietly devoted. Capricorn plays the long game in love as in everything else. They may seem reserved at first, but they build relationships with the same care they bring to their goals: solid foundations meant to last.',
-  Aquarius: 'Independent, innovative, and genuinely humanitarian. Aquarius thinks differently and values authenticity above all. They need space to be themselves and offer the same freedom to their partners. Their love may be unconventional, but it\'s deeply principled.',
-  Pisces: 'Empathetic, imaginative, and spiritually attuned. Pisces feels the world deeply and often absorbs others\' emotions as their own. They bring creativity and compassion to relationships, seeing the best in people even when others can\'t.',
-};
-
-// Compatibility data with detailed sections
-const compatibilityData: Record<string, {
-  level: 'High' | 'Moderate' | 'Challenging';
-  percentage: number;
-  overview: string;
-  strengths: string[];
-  challenges: string[];
-  tips: string[];
-}> = {
-  'Aries-Aries': {
-    level: 'High',
-    percentage: 85,
-    overview: 'Two Aries together is a bonfire: brilliant, consuming, and impossible to ignore. You match each other\'s pace, understand the need for independence, and never bore each other. This is a relationship of equals who respect each other\'s strength.',
-    strengths: [
-      'Mutual understanding of each other\'s need for independence and adventure',
-      'Shared enthusiasm and energy that keeps the relationship exciting',
-      'Direct communication style means less confusion and mind games',
-      'Both partners push each other to grow and achieve more',
-    ],
-    challenges: [
-      'Competition can turn from playful to destructive if unchecked',
-      'Both want to lead, which can create power struggles',
-      'Arguments flare quickly and intensely, though they also resolve fast',
-      'Neither naturally compromises, requiring conscious effort',
-    ],
-    tips: [
-      'Take turns leading different aspects of the relationship',
-      'Channel competitive energy into shared goals rather than against each other',
-      'Create space for individual pursuits alongside couple activities',
-      'Practice pausing before reacting in heated moments',
-    ],
-  },
-  'Aries-Taurus': {
-    level: 'Challenging',
-    percentage: 55,
-    overview: 'Aries charges forward while Taurus digs in. You operate at completely different speeds. Aries wants action now, Taurus needs time to consider. Yet there\'s something grounding here that can work if both respect what the other brings.',
-    strengths: [
-      'Taurus provides stability that helps ground Aries\' scattered energy',
-      'Aries brings excitement and spontaneity to Taurus\' routine',
-      'Both are determined and won\'t give up easily on what matters',
-      'Physical chemistry is often strong between these signs',
-    ],
-    challenges: [
-      'Fundamentally different paces can lead to frustration',
-      'Aries finds Taurus stubborn; Taurus finds Aries reckless',
-      'Financial approaches often clash (saver vs. spender)',
-      'Taurus needs security that Aries may not naturally provide',
-    ],
-    tips: [
-      'Appreciate patience isn\'t weakness and impulsivity isn\'t irresponsibility',
-      'Find activities that satisfy both, like adventure with comfortable accommodations',
-      'Communicate clearly about expectations around change and stability',
-      'Let Taurus set the pace for major decisions; let Aries plan adventures',
-    ],
-  },
-  'Aries-Gemini': {
-    level: 'High',
-    percentage: 88,
-    overview: 'This pairing crackles with energy. Aries brings boldness and direction; Gemini brings ideas and adaptability. You keep each other entertained, challenged, and moving. Neither of you does well with routine, so life together is an adventure.',
-    strengths: [
-      'Constant stimulation, so neither ever gets bored with the other',
-      'Both value independence and won\'t smother each other',
-      'Excellent communication and mental connection',
-      'Shared love of novelty and new experiences',
-    ],
-    challenges: [
-      'Both can avoid going deep when things get emotionally complex',
-      'Follow-through is weak when neither partner is naturally grounding',
-      'Gemini\'s indecision can frustrate action-oriented Aries',
-      'May lack the stability needed for long-term building',
-    ],
-    tips: [
-      'Make intentional time for deeper conversations beyond the banter',
-      'Create some routines to anchor all that spontaneous energy',
-      'Let Aries make quick decisions; let Gemini research bigger ones',
-      'Check in regularly about where the relationship is heading',
-    ],
-  },
-  'Aries-Cancer': {
-    level: 'Challenging',
-    percentage: 50,
-    overview: 'Aries and Cancer speak different emotional languages. Aries is direct, even blunt; Cancer communicates through mood and implication. This pairing requires real work but can teach both partners valuable lessons about balance.',
-    strengths: [
-      'Cancer provides the emotional depth Aries often lacks',
-      'Aries helps Cancer be more direct and assertive',
-      'Strong protective instincts on both sides',
-      'Cancer\'s nurturing can be grounding for Aries',
-    ],
-    challenges: [
-      'Aries may feel like they\'re walking on eggshells',
-      'Cancer may feel steamrolled or unseen',
-      'Different needs around home vs. adventure',
-      'Aries\' bluntness can wound sensitive Cancer deeply',
-    ],
-    tips: [
-      'Aries: slow down and ask how Cancer is feeling, then listen',
-      'Cancer: practice asking directly for what you need',
-      'Create a home base that satisfies Cancer while allowing Aries freedom',
-      'Learn each other\'s love languages, because they\'re probably very different',
-    ],
-  },
-  'Aries-Leo': {
-    level: 'High',
-    percentage: 92,
-    overview: 'Fire meets fire in the most dramatic way possible. You\'re both proud, passionate, and hungry for life. Together you\'re a power couple: confident, generous, and magnetic. This is a relationship that others notice.',
-    strengths: [
-      'Mutual admiration and genuine appreciation for each other',
-      'Shared optimism and enthusiasm for life',
-      'Both are loyal and protective once committed',
-      'Passion and romance come naturally to this pairing',
-    ],
-    challenges: [
-      'Ego clashes when both need to be the center of attention',
-      'Neither backs down easily in arguments',
-      'Competition for the spotlight can breed resentment',
-      'Both may overlook practical matters in favor of drama',
-    ],
-    tips: [
-      'Create a stage big enough for both of you to shine',
-      'Genuinely celebrate each other\'s successes without jealousy',
-      'Take turns being the star in different contexts',
-      'Ground the relationship with some practical planning',
-    ],
-  },
-  'Aries-Virgo': {
-    level: 'Challenging',
-    percentage: 48,
-    overview: 'Aries leaps; Virgo analyzes. Aries trusts instinct; Virgo trusts data. This can feel like speaking different languages. Yet there\'s potential here: Virgo can help Aries refine their impulses, while Aries can help Virgo loosen their grip.',
-    strengths: [
-      'Virgo brings organization to Aries\' chaos',
-      'Aries helps Virgo take more risks and live more fully',
-      'Both are hard workers when motivated',
-      'Complementary skills can make a powerful team',
-    ],
-    challenges: [
-      'Aries finds Virgo\'s caution frustrating',
-      'Virgo sees Aries as chaotic and irresponsible',
-      'Different standards for how things should be done',
-      'Virgo\'s criticism can feel relentless to Aries',
-    ],
-    tips: [
-      'Respect that planning and spontaneity are both valid approaches',
-      'Let Virgo handle details; let Aries set the vision',
-      'Virgo: offer suggestions, not criticisms',
-      'Aries: follow through on commitments to build Virgo\'s trust',
-    ],
-  },
-  'Aries-Libra': {
-    level: 'Moderate',
-    percentage: 70,
-    overview: 'Opposites on the zodiac wheel, you\'re naturally drawn to each other. Aries is self-focused and direct; Libra is partner-focused and diplomatic. You balance each other beautifully, or drive each other crazy. Often both.',
-    strengths: [
-      'Natural attraction of opposites creates magnetic chemistry',
-      'Libra softens Aries\' rough edges',
-      'Aries helps Libra be more decisive',
-      'Both appreciate romance and making an effort',
-    ],
-    challenges: [
-      'Aries can feel like Libra never takes a stand',
-      'Libra can feel like Aries never considers their impact',
-      'Different approaches to conflict (direct vs. avoidant)',
-      'Aries\' independence vs. Libra\'s need for partnership',
-    ],
-    tips: [
-      'Aries: consider how your actions affect your partner before acting',
-      'Libra: practice having and expressing strong opinions',
-      'Find ways to make decisions together that honor both styles',
-      'Appreciate what you\'ve learned from your opposite',
-    ],
-  },
-  'Aries-Scorpio': {
-    level: 'Challenging',
-    percentage: 58,
-    overview: 'Both ruled by Mars, you share intensity but express it differently. Aries is obvious; Scorpio runs deep. There\'s magnetic attraction here, and you recognize something powerful in each other. But control becomes the issue.',
-    strengths: [
-      'Intense physical and emotional chemistry',
-      'Both are fiercely loyal once committed',
-      'Shared determination and refusal to give up',
-      'Neither is afraid of intensity or conflict',
-    ],
-    challenges: [
-      'Power struggles are almost inevitable',
-      'Scorpio\'s need for emotional depth vs. Aries\' need for simplicity',
-      'Neither backs down, making conflicts prolonged',
-      'Scorpio\'s secrets frustrate transparent Aries',
-    ],
-    tips: [
-      'Establish clear boundaries and respect them',
-      'Aries: make space for Scorpio\'s emotional complexity',
-      'Scorpio: trust that Aries\' directness isn\'t superficiality',
-      'Channel shared intensity into passion rather than conflict',
-    ],
-  },
-  'Aries-Sagittarius': {
-    level: 'High',
-    percentage: 95,
-    overview: 'Adventure calls and you both answer. This is one of the most naturally compatible pairings: two fire signs who love freedom, honesty, and forward motion. You encourage each other\'s boldest dreams and never try to cage each other.',
-    strengths: [
-      'Shared love of adventure, travel, and new experiences',
-      'Both value honesty and direct communication',
-      'Natural optimism and enthusiasm multiply together',
-      'Neither tries to change or restrict the other',
-    ],
-    challenges: [
-      'Nobody wants to handle the practical stuff',
-      'Both can be restless and struggle with routine',
-      'May avoid difficult emotional conversations',
-      'Impulsive decisions without considering consequences',
-    ],
-    tips: [
-      'Designate who handles practical responsibilities',
-      'Create adventures together but also build some stability',
-      'Make time for deeper conversations amid all the fun',
-      'Remember that commitment isn\'t the same as confinement',
-    ],
-  },
-  'Aries-Capricorn': {
-    level: 'Challenging',
-    percentage: 52,
-    overview: 'Cardinal signs who both want to lead but have completely different styles. Aries acts on impulse; Capricorn builds methodically. You share ambition and drive, but your timelines and methods clash significantly.',
-    strengths: [
-      'Both are ambitious and goal-oriented',
-      'Shared respect for strength and determination',
-      'Can be formidable partners when aligned',
-      'Both value achievement and success',
-    ],
-    challenges: [
-      'Aries finds Capricorn too serious and slow',
-      'Capricorn finds Aries reckless and immature',
-      'Different definitions of success and how to achieve it',
-      'Work-life balance issues on both sides',
-    ],
-    tips: [
-      'Align on shared goals where your methods can complement',
-      'Capricorn: make room for spontaneity and fun',
-      'Aries: respect Capricorn\'s methodical approach',
-      'Celebrate each other\'s different kinds of success',
-    ],
-  },
-  'Aries-Aquarius': {
-    level: 'High',
-    percentage: 85,
-    overview: 'Two independent spirits who refuse to be conventional. You give each other space, respect each other\'s autonomy, and never try to change each other. Intellectually you click, and both of you love ideas and innovation.',
-    strengths: [
-      'Strong respect for each other\'s independence',
-      'Shared love of ideas and innovation',
-      'Neither is clingy or possessive',
-      'Both value authenticity over convention',
-    ],
-    challenges: [
-      'Neither naturally goes deep on feelings',
-      'Can feel more like friends than romantic partners',
-      'Both may neglect the emotional maintenance relationships need',
-      'Independence can become emotional distance',
-    ],
-    tips: [
-      'Make intentional time for emotional intimacy',
-      'Balance mental connection with physical and emotional bonding',
-      'Check in about the relationship itself, not just ideas',
-      'Create meaningful rituals that deepen your connection',
-    ],
-  },
-  'Aries-Pisces': {
-    level: 'Challenging',
-    percentage: 45,
-    overview: 'Aries is armor and action; Pisces is permeable and receptive. You experience the world so differently that understanding requires real effort. But Aries can learn gentleness here, and Pisces can learn to hold their own.',
-    strengths: [
-      'Pisces brings emotional depth and intuition',
-      'Aries provides protection and direction',
-      'Creative potential when combined',
-      'Both can learn what they lack from the other',
-    ],
-    challenges: [
-      'Aries may constantly hurt Pisces without meaning to',
-      'Pisces may feel Aries doesn\'t see their inner world',
-      'Different needs for alone time and togetherness',
-      'Communication styles are fundamentally different',
-    ],
-    tips: [
-      'Aries: develop gentleness and learn to read subtle cues',
-      'Pisces: speak up clearly about needs and boundaries',
-      'Find creative activities to share',
-      'Protect Pisces\' sensitivity while encouraging their strength',
-    ],
-  },
-  // Taurus pairings
-  'Taurus-Taurus': {
-    level: 'High',
-    percentage: 88,
-    overview: 'Two Tauruses create a sanctuary of comfort and stability. You share values, understand each other\'s need for security, and appreciate life\'s sensual pleasures together. This is a relationship built to last.',
-    strengths: [
-      'Deep mutual understanding of need for security',
-      'Shared appreciation for comfort, beauty, and pleasure',
-      'Both are loyal and committed once in',
-      'Natural domestic harmony and shared values',
-    ],
-    challenges: [
-      'Arguments are rare but legendary: two bulls locking horns',
-      'Risk of stagnation and getting too comfortable',
-      'Both can be stubborn to the point of deadlock',
-      'May avoid necessary changes and growth',
-    ],
-    tips: [
-      'Build a beautiful life but remember to occasionally shake things up',
-      'When stuck, agree to revisit disagreements after cooling down',
-      'Plan regular new experiences to prevent routine from becoming rut',
-      'Celebrate your stability while making room for growth',
-    ],
-  },
-  'Taurus-Gemini': {
-    level: 'Challenging',
-    percentage: 45,
-    overview: 'Taurus seeks depth and consistency; Gemini seeks variety and stimulation. Taurus may feel like Gemini is never fully present; Gemini may feel like Taurus wants to clip their wings. It works when you appreciate rather than resent your differences.',
-    strengths: [
-      'Gemini can help Taurus think more flexibly',
-      'Taurus can help Gemini follow through on ideas',
-      'Both appreciate good conversation and wit',
-      'Complementary in social situations',
-    ],
-    challenges: [
-      'Fundamentally different needs for stability vs. variety',
-      'Taurus wants depth; Gemini wants breadth',
-      'Different communication styles and paces',
-      'Gemini may feel trapped; Taurus may feel insecure',
-    ],
-    tips: [
-      'Appreciate that depth and breadth are both valid',
-      'Create a stable home base with room for Gemini to roam',
-      'Taurus: don\'t try to pin Gemini down too much',
-      'Gemini: follow through to build Taurus\'s trust',
-    ],
-  },
-  'Taurus-Cancer': {
-    level: 'High',
-    percentage: 92,
-    overview: 'This is home finding home. Both of you prioritize security, comfort, and building something lasting. Cancer brings emotional depth; Taurus brings material stability. You nurture each other instinctively.',
-    strengths: [
-      'Natural understanding of each other\'s need for security',
-      'Both are nurturing and loyal',
-      'Excellent at building a comfortable, loving home',
-      'Shared values around family and long-term commitment',
-    ],
-    challenges: [
-      'Risk of becoming too insular as a couple',
-      'Both can be moody and get stuck in negative patterns',
-      'May enable each other\'s avoidance of change',
-      'Cancer\'s emotional swings can unsettle Taurus',
-    ],
-    tips: [
-      'Create your nest but remember to invite others in',
-      'Maintain individual friendships and interests',
-      'When both are in low moods, someone needs to break the pattern',
-      'Balance emotional nurturing with practical action',
-    ],
-  },
-  'Taurus-Leo': {
-    level: 'Challenging',
-    percentage: 55,
-    overview: 'Fixed signs who both dig in and refuse to budge. Taurus is quiet and steady; Leo is dramatic and needs recognition. You share loyalty and determination, but you\'ll need to work at understanding each other\'s very different needs.',
-    strengths: [
-      'Both are incredibly loyal once committed',
-      'Shared appreciation for luxury and the finer things',
-      'Neither gives up easily on what matters',
-      'Can build an impressive life together',
-    ],
-    challenges: [
-      'Leo may find Taurus boring; Taurus may find Leo exhausting',
-      'Different needs for attention and recognition',
-      'Both are stubborn and struggle to compromise',
-      'Clashes over money (display vs. security)',
-    ],
-    tips: [
-      'Leo: appreciate Taurus\'s quiet devotion as a form of love',
-      'Taurus: give Leo the admiration they need',
-      'Find luxury experiences you both enjoy',
-      'Take turns compromising rather than both digging in',
-    ],
-  },
-  'Taurus-Virgo': {
-    level: 'High',
-    percentage: 90,
-    overview: 'Earth recognizes earth. You share practicality, attention to detail, and a desire to build something real. Conversations flow easily; values align naturally. Both of you show love through acts of service and creating order.',
-    strengths: [
-      'Natural understanding and shared values',
-      'Both are reliable and follow through',
-      'Excellent at building stable, comfortable lives together',
-      'Show love in similar ways, through practical care',
-    ],
-    challenges: [
-      'May become too focused on practical matters',
-      'Risk of getting stuck in routine',
-      'Both can be critical, Virgo more vocally',
-      'May neglect romance and spontaneity',
-    ],
-    tips: [
-      'Schedule pleasure as deliberately as you schedule everything else',
-      'Balance practical life-building with romantic gestures',
-      'Virgo: lead with appreciation before offering improvements',
-      'Create space for spontaneity in your ordered life',
-    ],
-  },
-  'Taurus-Libra': {
-    level: 'Moderate',
-    percentage: 68,
-    overview: 'Both Venus-ruled, you share an appreciation for beauty, harmony, and the finer things. Taurus grounds Libra\'s airy indecision; Libra softens Taurus\'s stubbornness. The challenge is pace, because you move very differently.',
-    strengths: [
-      'Shared love of beauty, art, and aesthetics',
-      'Both value harmony and avoid unnecessary conflict',
-      'Natural appreciation for romance and partnership',
-      'Can create a beautiful environment together',
-    ],
-    challenges: [
-      'Taurus moves slowly and surely; Libra weighs endlessly',
-      'Neither does conflict well, leading to unaddressed issues',
-      'Taurus wants security; Libra wants social connection',
-      'Different approaches to decision-making',
-    ],
-    tips: [
-      'Use shared aesthetic sense to bond over creating beauty',
-      'Address conflicts before they fester beneath the pleasant surface',
-      'Balance Taurus\'s home focus with Libra\'s social needs',
-      'Appreciate both stability and flexibility',
-    ],
-  },
-  'Taurus-Scorpio': {
-    level: 'Challenging',
-    percentage: 65,
-    overview: 'Opposite signs with an almost magnetic pull. Both of you are fixed, stubborn, and possessive, but Taurus possesses things while Scorpio possesses souls. There\'s incredible depth here, but also potential for intense conflict.',
-    strengths: [
-      'Powerful physical and emotional attraction',
-      'Both are deeply loyal and committed',
-      'Shared intensity and determination',
-      'Neither takes commitment lightly',
-    ],
-    challenges: [
-      'Power struggles between two stubborn fixed signs',
-      'Both can be possessive and jealous',
-      'Neither backs down, making conflicts prolonged',
-      'Scorpio\'s intensity can overwhelm Taurus\'s need for peace',
-    ],
-    tips: [
-      'Channel the intensity into passion rather than conflict',
-      'Establish clear boundaries and respect them',
-      'When stuck, agree to step back before re-engaging',
-      'Trust is everything, so build it carefully and protect it',
-    ],
-  },
-  'Taurus-Sagittarius': {
-    level: 'Challenging',
-    percentage: 42,
-    overview: 'Taurus builds roots; Sagittarius grows wings. You want fundamentally different things. Taurus craves security and routine, Sagittarius craves adventure and freedom. Yet you can teach each other valuable lessons about balance.',
-    strengths: [
-      'Sagittarius brings excitement to Taurus\'s routine',
-      'Taurus provides grounding for Sagittarius\'s scattered energy',
-      'Both are honest and value authenticity',
-      'Can expand each other\'s comfort zones',
-    ],
-    challenges: [
-      'Fundamentally different needs for stability vs. freedom',
-      'Taurus may feel abandoned; Sagittarius may feel trapped',
-      'Different relationships with money and security',
-      'Sagittarius\'s bluntness can hurt Taurus',
-    ],
-    tips: [
-      'Create adventures within a stable framework',
-      'Sagittarius: provide reassurance about commitment',
-      'Taurus: allow space for freedom without taking it personally',
-      'Find travel and experiences that satisfy both',
-    ],
-  },
-  'Taurus-Capricorn': {
-    level: 'High',
-    percentage: 93,
-    overview: 'Two earth signs who understand that good things take time. You share ambition, practicality, and a desire to build something that lasts. Neither of you is in a rush; both of you are in it for the long haul.',
-    strengths: [
-      'Natural understanding and shared values',
-      'Both are reliable, patient, and committed',
-      'Excellent at building wealth and stability together',
-      'Mutual respect for hard work and achievement',
-    ],
-    challenges: [
-      'Risk of all work and no play',
-      'Both can be too serious and forget fun',
-      'May prioritize security over emotional intimacy',
-      'Stubbornness on both sides',
-    ],
-    tips: [
-      'Schedule fun as deliberately as you schedule everything else',
-      'Make time for romance amid all the building',
-      'Remember why you\'re building: to enjoy life together',
-      'Let Taurus handle comfort; let Capricorn handle strategy',
-    ],
-  },
-  'Taurus-Aquarius': {
-    level: 'Challenging',
-    percentage: 40,
-    overview: 'Fixed signs with almost nothing in common. Taurus values tradition and tangible comfort; Aquarius values innovation and abstract ideals. You\'ll both need to stretch considerably to understand each other.',
-    strengths: [
-      'Both are determined and don\'t give up easily',
-      'Can learn a great deal from each other\'s perspective',
-      'Aquarius brings new ideas; Taurus brings grounding',
-      'When committed, both are loyal',
-    ],
-    challenges: [
-      'Fundamentally different values and priorities',
-      'Taurus finds Aquarius cold and unpredictable',
-      'Aquarius finds Taurus stifling and conventional',
-      'Different needs for routine vs. novelty',
-    ],
-    tips: [
-      'Focus on shared stubborn determination as common ground',
-      'Aquarius: provide more emotional consistency than feels natural',
-      'Taurus: allow more experimentation than feels comfortable',
-      'Respect that you\'ll never fully understand each other, and that\'s okay',
-    ],
-  },
-  'Taurus-Pisces': {
-    level: 'High',
-    percentage: 88,
-    overview: 'A gentle, nurturing connection. Taurus provides the stability Pisces craves; Pisces brings imagination and emotional depth to Taurus\'s practical world. You soften each other\'s rough edges beautifully.',
-    strengths: [
-      'Natural complementarity: grounding meets dreams',
-      'Both are romantic and appreciate beauty',
-      'Taurus provides security; Pisces provides imagination',
-      'Gentle, supportive dynamic',
-    ],
-    challenges: [
-      'Pisces can drift; Taurus can get rigid',
-      'Different relationships with reality',
-      'Taurus may find Pisces impractical',
-      'Pisces may find Taurus unimaginative',
-    ],
-    tips: [
-      'Meet in the middle between dreams and reality',
-      'Taurus: make space for Pisces\'s imagination',
-      'Pisces: appreciate Taurus\'s grounding as supportive, not limiting',
-      'Create beauty together. It\'s your shared language',
-    ],
-  },
-  // Continue with Gemini pairings
-  'Gemini-Gemini': {
-    level: 'High',
-    percentage: 82,
-    overview: 'Two Geminis together is a constant conversation: ideas ping-ponging, plans shifting, curiosity never resting. You understand each other\'s need for variety and mental stimulation. Boredom is impossible.',
-    strengths: [
-      'Endless conversation and mental stimulation',
-      'Neither tries to pin the other down',
-      'Shared love of variety and new experiences',
-      'Natural understanding of each other\'s restlessness',
-    ],
-    challenges: [
-      'With four personalities between you, decisions are hard',
-      'Neither provides grounding energy',
-      'May avoid emotional depth for intellectual banter',
-      'Follow-through can be weak on both sides',
-    ],
-    tips: [
-      'Build some structure to contain all that brilliance',
-      'Make decisions together and stick to them',
-      'Create space for emotional conversations, not just ideas',
-      'Occasionally slow down and be present together',
-    ],
-  },
-  'Gemini-Cancer': {
-    level: 'Challenging',
-    percentage: 48,
-    overview: 'Gemini lives in the mind; Cancer lives in feelings. Gemini may seem emotionally unavailable to Cancer; Cancer may seem clingy to Gemini. Yet Gemini brings lightness to Cancer\'s moods, and Cancer brings depth to Gemini\'s interactions.',
-    strengths: [
-      'Gemini can lighten Cancer\'s heavy moods',
-      'Cancer provides emotional depth Gemini often lacks',
-      'Both are adaptable and can adjust to each other',
-      'Cancer creates home; Gemini keeps it interesting',
-    ],
-    challenges: [
-      'Different emotional needs and expressions',
-      'Gemini needs space; Cancer needs closeness',
-      'Cancer may feel Gemini is emotionally unavailable',
-      'Gemini may feel Cancer is too demanding',
-    ],
-    tips: [
-      'Gemini: learn to sit still emotionally sometimes',
-      'Cancer: don\'t take Gemini\'s need for space personally',
-      'Find activities that satisfy both, like travel with cozy accommodations',
-      'Balance intellectual conversation with emotional check-ins',
-    ],
-  },
-  'Gemini-Leo': {
-    level: 'High',
-    percentage: 88,
-    overview: 'Playful, dynamic, and never dull. Leo brings warmth and drama; Gemini brings wit and adaptability. You make each other laugh and keep each other interested. Both of you love social situations.',
-    strengths: [
-      'Natural entertainment and fun together',
-      'Both love social situations and people',
-      'Gemini appreciates Leo\'s warmth; Leo appreciates Gemini\'s wit',
-      'Creative and inspiring partnership',
-    ],
-    challenges: [
-      'Both can perform rather than reveal true selves',
-      'Leo needs more consistent attention than Gemini naturally gives',
-      'May prioritize fun over depth',
-      'Gemini\'s flirtatiousness can trigger Leo\'s jealousy',
-    ],
-    tips: [
-      'Make space for vulnerability beneath the sparkle',
-      'Leo: give Gemini freedom to be social without jealousy',
-      'Gemini: give Leo the consistent admiration they need',
-      'Balance social life with intimate time together',
-    ],
-  },
-  'Gemini-Virgo': {
-    level: 'Challenging',
-    percentage: 52,
-    overview: 'Both Mercury-ruled, you share intellectual curiosity but express it differently. Gemini scatters; Virgo focuses. You can learn from each other. Gemini can learn to follow through, and Virgo can learn to lighten up.',
-    strengths: [
-      'Shared intellectual curiosity and love of learning',
-      'Excellent communication when aligned',
-      'Both value mental connection',
-      'Can help balance each other\'s extremes',
-    ],
-    challenges: [
-      'Gemini finds Virgo critical and nitpicky',
-      'Virgo finds Gemini unreliable and scattered',
-      'Different standards for organization and follow-through',
-      'Virgo\'s perfectionism clashes with Gemini\'s "good enough"',
-    ],
-    tips: [
-      'Focus on shared love of ideas and learning',
-      'Virgo: ease up on criticism; lead with curiosity instead',
-      'Gemini: make an effort to follow through on commitments',
-      'Use your communication skills to navigate differences',
-    ],
-  },
-  'Gemini-Libra': {
-    level: 'High',
-    percentage: 90,
-    overview: 'Air meets air in a meeting of minds. Conversation flows effortlessly; social harmony comes naturally. You\'re both curious, charming, and allergic to conflict. The danger is that nothing ever gets heavy.',
-    strengths: [
-      'Effortless communication and mental connection',
-      'Both love socializing and culture',
-      'Natural harmony and understanding',
-      'Neither tries to limit the other',
-    ],
-    challenges: [
-      'May avoid necessary conflicts indefinitely',
-      'Neither grounds the relationship in reality',
-      'Can dance around issues without resolving them',
-      'May lack emotional depth',
-    ],
-    tips: [
-      'Someone needs to occasionally ground this relationship in reality',
-      'Address conflicts before they calcify into resentment',
-      'Balance social life with intimate depth',
-      'Make decisions together rather than endlessly discussing',
-    ],
-  },
-  'Gemini-Scorpio': {
-    level: 'Challenging',
-    percentage: 38,
-    overview: 'Gemini skims surfaces; Scorpio plunges depths. There\'s a fundamental mismatch in how you operate. Yet Scorpio can teach Gemini emotional courage, and Gemini can teach Scorpio to lighten up.',
-    strengths: [
-      'Both are curious and perceptive in different ways',
-      'Scorpio provides depth; Gemini provides breadth',
-      'Can learn tremendously from each other',
-      'Intellectual attraction is possible',
-    ],
-    challenges: [
-      'Scorpio finds Gemini superficial and evasive',
-      'Gemini finds Scorpio intense and controlling',
-      'Trust is a major tension point: Scorpio needs it deeply, while Gemini is casual about it',
-      'Different communication styles create friction',
-    ],
-    tips: [
-      'Gemini: be more consistent and less evasive than natural',
-      'Scorpio: lighten up and allow space for levity',
-      'Meet in the middle between depth and lightness',
-      'Build trust slowly through consistent actions',
-    ],
-  },
-  'Gemini-Sagittarius': {
-    level: 'High',
-    percentage: 92,
-    overview: 'Opposites who actually complement beautifully. Both of you love ideas, adventure, and freedom. Gemini brings curiosity about everything; Sagittarius brings a search for meaning. You\'re natural travel companions.',
-    strengths: [
-      'Shared love of freedom and exploration',
-      'Excellent intellectual connection',
-      'Neither tries to restrict the other',
-      'Adventure and fun come naturally',
-    ],
-    challenges: [
-      'Neither wants to be pinned down',
-      'May avoid commitment and serious conversations',
-      'Both can be restless and unreliable',
-      'Practical matters may fall through the cracks',
-    ],
-    tips: [
-      'Build flexibility into your commitments',
-      'Create home base even if you\'re rarely there',
-      'Make time for meaningful conversations amid all the fun',
-      'Assign practical responsibilities clearly',
-    ],
-  },
-  'Gemini-Capricorn': {
-    level: 'Challenging',
-    percentage: 42,
-    overview: 'Gemini plays; Capricorn works. You operate on different wavelengths. Gemini can help Capricorn relax, and Capricorn can help Gemini achieve. It works when you respect what each brings.',
-    strengths: [
-      'Complementary strengths when aligned',
-      'Gemini lightens Capricorn\'s seriousness',
-      'Capricorn helps Gemini focus and achieve',
-      'Both are intelligent and capable',
-    ],
-    challenges: [
-      'Capricorn finds Gemini frivolous and unreliable',
-      'Gemini finds Capricorn too serious and rigid',
-      'Different priorities and values',
-      'Capricorn works; Gemini wants to play',
-    ],
-    tips: [
-      'Respect what each other brings without trying to change it',
-      'Capricorn: make time for fun; it\'s not wasted time',
-      'Gemini: show Capricorn you can be reliable when it matters',
-      'Find projects that use both your strengths',
-    ],
-  },
-  'Gemini-Aquarius': {
-    level: 'High',
-    percentage: 88,
-    overview: 'Two air signs who meet in the realm of ideas. You understand each other\'s need for mental freedom and never try to limit each other\'s curiosity. Conversations go everywhere and never get boring.',
-    strengths: [
-      'Excellent mental and intellectual connection',
-      'Both value freedom and independence',
-      'Natural understanding without explanation',
-      'Shared love of ideas and innovation',
-    ],
-    challenges: [
-      'Both can intellectualize feelings away',
-      'May neglect emotional intimacy',
-      'Neither naturally grounds the relationship',
-      'Can be more like friends than romantic partners',
-    ],
-    tips: [
-      'Make sure the connection includes the heart, not just the mind',
-      'Create rituals that build emotional intimacy',
-      'Don\'t let intellectual connection replace emotional bonding',
-      'Check in about feelings, not just ideas',
-    ],
-  },
-  'Gemini-Pisces': {
-    level: 'Challenging',
-    percentage: 48,
-    overview: 'Both mutable, both changeable, both hard to pin down. Gemini changes through ideas; Pisces through feelings. You\'re both adaptable and can learn each other\'s languages with patience.',
-    strengths: [
-      'Both are flexible and adaptable',
-      'Creative and imaginative together',
-      'Neither tries to control the other',
-      'Can flow together when aligned',
-    ],
-    challenges: [
-      'Gemini may feel Pisces is too emotional',
-      'Pisces may feel Gemini is too detached',
-      'Neither provides stability or grounding',
-      'Different processing styles (head vs. heart)',
-    ],
-    tips: [
-      'Appreciate your different ways of processing the world',
-      'Gemini: don\'t dismiss Pisces\'s emotional insights',
-      'Pisces: don\'t be overwhelmed by Gemini\'s mental energy',
-      'Find creative outlets that combine both your strengths',
-    ],
-  },
-  // Cancer pairings
-  'Cancer-Cancer': {
-    level: 'High',
-    percentage: 85,
-    overview: 'Two Cancers create an emotional cocoon, a relationship where feelings are understood without words and nurturing flows both ways. You know instinctively what the other needs.',
-    strengths: [
-      'Deep emotional understanding and empathy',
-      'Natural nurturing and caregiving',
-      'Shared values around home and family',
-      'Intuitive connection without words',
-    ],
-    challenges: [
-      'Mood spirals can be a problem: when both retreat, who draws the other out?',
-      'Can become too insular and isolated',
-      'Both can be passive-aggressive rather than direct',
-      'May avoid conflict until it explodes',
-    ],
-    tips: [
-      'Create rituals for reconnection when things get heavy',
-      'Take turns being the strong one',
-      'Practice direct communication about needs',
-      'Maintain friendships and interests outside the relationship',
-    ],
-  },
-  'Cancer-Leo': {
-    level: 'Moderate',
-    percentage: 65,
-    overview: 'Cancer nurtures; Leo performs. There\'s potential for a beautiful dynamic, with Cancer as the supportive force behind Leo\'s throne. But it requires Leo to truly see Cancer and Cancer to let Leo shine.',
-    strengths: [
-      'Cancer provides emotional support Leo craves',
-      'Leo brings fun and excitement to Cancer\'s life',
-      'Both are loyal and protective',
-      'Can create a warm, loving home together',
-    ],
-    challenges: [
-      'Cancer may feel overlooked while Leo takes spotlight',
-      'Leo may feel smothered by Cancer\'s emotional intensity',
-      'Different needs for attention and recognition',
-      'Cancer\'s moods can dim Leo\'s shine',
-    ],
-    tips: [
-      'Leo: make sure Cancer feels seen and appreciated',
-      'Cancer: let Leo shine without resenting the spotlight',
-      'Balance Cancer\'s home life with Leo\'s social needs',
-      'Celebrate both emotional depth and joyful expression',
-    ],
-  },
-  'Cancer-Virgo': {
-    level: 'High',
-    percentage: 88,
-    overview: 'Both of you express love through care and service. Cancer nurtures emotionally; Virgo nurtures practically. You create a home that runs smoothly and feels safe.',
-    strengths: [
-      'Shared language of care and service',
-      'Both are devoted and attentive partners',
-      'Create an organized, comfortable home together',
-      'Natural compatibility in daily life',
-    ],
-    challenges: [
-      'Both can be sensitive, and criticism wounds deeply',
-      'Virgo\'s analytical nature can hurt Cancer\'s feelings',
-      'Both may worry and create anxiety together',
-      'May struggle to express needs directly',
-    ],
-    tips: [
-      'Lead with appreciation before offering improvements',
-      'Virgo: soften criticism with care',
-      'Cancer: don\'t take Virgo\'s suggestions as personal attacks',
-      'Balance emotional nurturing with practical care',
-    ],
-  },
-  'Cancer-Libra': {
-    level: 'Challenging',
-    percentage: 50,
-    overview: 'Cancer craves emotional security; Libra craves social harmony. Cancer may find Libra superficial; Libra may find Cancer moody. Yet you both want partnership to work.',
-    strengths: [
-      'Both value relationships and partnership',
-      'Shared appreciation for creating a beautiful home',
-      'Cancer provides depth; Libra provides social grace',
-      'Both work to maintain harmony',
-    ],
-    challenges: [
-      'Cancer wants emotional depth; Libra wants social harmony',
-      'Libra may find Cancer\'s moods draining',
-      'Cancer may find Libra\'s diplomacy superficial',
-      'Different conflict styles (emotional vs. avoidant)',
-    ],
-    tips: [
-      'Cancer: teach Libra about emotional depth gently',
-      'Libra: teach Cancer that not everything is personal',
-      'Balance home time with social engagements',
-      'Address issues before they become emotional crises',
-    ],
-  },
-  'Cancer-Scorpio': {
-    level: 'High',
-    percentage: 95,
-    overview: 'Water recognizes water. Both of you feel deeply, protect fiercely, and understand the unspoken. This is an intensely loyal, profoundly emotional bond. You don\'t need to explain yourselves to each other.',
-    strengths: [
-      'Deep emotional understanding without words',
-      'Fierce loyalty and protectiveness',
-      'Shared values around commitment and trust',
-      'Intuitive connection that feels fated',
-    ],
-    challenges: [
-      'Risk of drowning in shared emotional intensity',
-      'Both can be moody and create negative spirals',
-      'May become too insular and isolated',
-      'When trust is broken, recovery is very difficult',
-    ],
-    tips: [
-      'Build in ways to surface for air, with lightness and fun',
-      'Maintain outside friendships and interests',
-      'When stuck in darkness together, someone must reach for light',
-      'Trust is everything, so protect it carefully',
-    ],
-  },
-  'Cancer-Sagittarius': {
-    level: 'Challenging',
-    percentage: 42,
-    overview: 'Cancer needs roots; Sagittarius needs wings. These are genuinely different needs. Yet Sagittarius can teach Cancer that adventure doesn\'t mean abandonment, and Cancer can teach Sagittarius that home is worth having.',
-    strengths: [
-      'Sagittarius brings adventure to Cancer\'s life',
-      'Cancer provides a home base for Sagittarius',
-      'Both are capable of deep philosophical connection',
-      'Can expand each other\'s comfort zones',
-    ],
-    challenges: [
-      'Cancer may feel abandoned by Sagittarius\'s wandering',
-      'Sagittarius may feel trapped by Cancer\'s need for closeness',
-      'Different needs for security and freedom',
-      'Sagittarius\'s bluntness hurts sensitive Cancer',
-    ],
-    tips: [
-      'Sagittarius: provide consistent reassurance about commitment',
-      'Cancer: give Sagittarius space without making it personal',
-      'Create adventures together as well as cozy home time',
-      'Communicate clearly about needs, because neither should have to guess',
-    ],
-  },
-  'Cancer-Capricorn': {
-    level: 'Moderate',
-    percentage: 75,
-    overview: 'Opposite signs who can balance beautifully. Cancer provides the emotional foundation; Capricorn provides the material one. Together you can build something lasting: a real life, a real family.',
-    strengths: [
-      'Complementary strengths: emotional and material security',
-      'Both value building something lasting',
-      'Shared commitment to family and future',
-      'Each provides what the other lacks',
-    ],
-    challenges: [
-      'Capricorn may seem cold to emotional Cancer',
-      'Cancer may seem needy to practical Capricorn',
-      'Different ways of showing and expressing love',
-      'Work-life balance issues',
-    ],
-    tips: [
-      'Learn each other\'s love languages, because they\'re different',
-      'Capricorn: make time for emotional connection',
-      'Cancer: appreciate Capricorn\'s provision as a form of love',
-      'Build the life you both want with both emotional and material security',
-    ],
-  },
-  'Cancer-Aquarius': {
-    level: 'Challenging',
-    percentage: 40,
-    overview: 'Cancer leads with feeling; Aquarius leads with ideas. You process the world so differently that understanding requires real effort. Yet you can expand each other. Cancer learns detachment, Aquarius learns emotional engagement.',
-    strengths: [
-      'Can learn tremendously from each other',
-      'Aquarius helps Cancer think more objectively',
-      'Cancer helps Aquarius connect emotionally',
-      'Both are loyal in their own ways',
-    ],
-    challenges: [
-      'Cancer finds Aquarius emotionally unavailable',
-      'Aquarius finds Cancer too needy and clingy',
-      'Different needs for closeness and space',
-      'Communication styles are vastly different',
-    ],
-    tips: [
-      'Meet in the middle between head and heart',
-      'Aquarius: provide more emotional presence than natural',
-      'Cancer: give Aquarius space without taking it personally',
-      'Appreciate that you\'ll always be different, and find value in that',
-    ],
-  },
-  'Cancer-Pisces': {
-    level: 'High',
-    percentage: 95,
-    overview: 'Two water signs in an ocean of feeling. You understand each other\'s emotional nature without explanation. Empathy flows both ways; intuition guides the connection.',
-    strengths: [
-      'Deep emotional and intuitive connection',
-      'Natural understanding without words',
-      'Both are nurturing and compassionate',
-      'Creative and imaginative together',
-    ],
-    challenges: [
-      'Risk of losing yourselves in shared emotional tides',
-      'Neither provides grounding energy',
-      'Both can enable each other\'s avoidance',
-      'May struggle with practical matters',
-    ],
-    tips: [
-      'Build some structure to contain all that feeling',
-      'Make sure someone handles practical reality',
-      'Maintain individual identities within the merge',
-      'Create boundaries even when it feels unnatural',
-    ],
-  },
-  // Leo pairings
-  'Leo-Leo': {
-    level: 'High',
-    percentage: 82,
-    overview: 'Two Leos together is pure theatre: grand gestures, passionate declarations, and enough drama for a dynasty. You understand each other\'s need for recognition because you share it.',
-    strengths: [
-      'Mutual understanding of need for recognition',
-      'Shared generosity and warmth',
-      'Passionate and exciting relationship',
-      'Both are loyal and protective',
-    ],
-    challenges: [
-      'Power struggles over who gets the spotlight',
-      'Both need to be the center of attention',
-      'Arguments can be dramatic and explosive',
-      'Neither easily admits they\'re wrong',
-    ],
-    tips: [
-      'Create space for both to shine on different stages',
-      'Genuinely admire each other rather than competing',
-      'Take turns being the star',
-      'Practice humility and compromise',
-    ],
-  },
-  'Leo-Virgo': {
-    level: 'Challenging',
-    percentage: 50,
-    overview: 'Leo wants praise; Virgo offers critique. The fundamental languages differ. Leo speaks in grand gestures, Virgo in precise details. Yet Virgo\'s service is a form of love, and Leo\'s warmth can help Virgo lighten up.',
-    strengths: [
-      'Virgo provides practical support for Leo\'s dreams',
-      'Leo brings warmth and fun to Virgo\'s life',
-      'Complementary strengths when aligned',
-      'Both are dedicated and hardworking',
-    ],
-    challenges: [
-      'Leo feels Virgo is never satisfied',
-      'Virgo feels Leo is self-absorbed',
-      'Different love languages (praise vs. service)',
-      'Virgo\'s criticism wounds Leo\'s pride',
-    ],
-    tips: [
-      'Virgo: lead with appreciation, always',
-      'Leo: recognize service as a form of love',
-      'Learn each other\'s love languages',
-      'Balance Leo\'s need for praise with Virgo\'s need for improvement',
-    ],
-  },
-  'Leo-Libra': {
-    level: 'High',
-    percentage: 88,
-    overview: 'A glamorous pairing. Both of you appreciate beauty, romance, and being seen. Leo brings warmth and generosity; Libra brings grace and harmony. You look good together and enjoy the social world.',
-    strengths: [
-      'Natural charm and social grace together',
-      'Both appreciate beauty and romance',
-      'Leo provides warmth; Libra provides diplomacy',
-      'Enjoyable, stylish partnership',
-    ],
-    challenges: [
-      'Both can prioritize appearance over substance',
-      'May avoid necessary difficult conversations',
-      'Leo needs more attention than Libra naturally gives',
-      'Can be superficial if not intentional about depth',
-    ],
-    tips: [
-      'Make sure the connection is real beneath the shine',
-      'Balance social life with intimate depth',
-      'Leo: share the spotlight gracefully',
-      'Libra: give Leo consistent admiration',
-    ],
-  },
-  'Leo-Scorpio': {
-    level: 'Challenging',
-    percentage: 55,
-    overview: 'Fixed signs locked in a power struggle. Leo rules through visibility; Scorpio rules through secrets. There\'s undeniable attraction, and you recognize each other\'s strength. This works only with mutual respect.',
-    strengths: [
-      'Powerful attraction and magnetic chemistry',
-      'Both are intensely loyal',
-      'Shared determination and strength',
-      'Neither is afraid of intensity',
-    ],
-    challenges: [
-      'Power struggles are almost inevitable',
-      'Leo needs visibility; Scorpio needs privacy',
-      'Both are stubborn and proud',
-      'Jealousy and control issues',
-    ],
-    tips: [
-      'Establish clear boundaries and respect them',
-      'Leo: don\'t try to expose all of Scorpio\'s secrets',
-      'Scorpio: let Leo have the public attention they need',
-      'Channel intensity into passion, not conflict',
-    ],
-  },
-  'Leo-Sagittarius': {
-    level: 'High',
-    percentage: 92,
-    overview: 'Fire signs who bring out each other\'s best. Leo adds warmth and heart; Sagittarius adds adventure and meaning. You\'re both optimistic, generous, and enthusiastic about life.',
-    strengths: [
-      'Shared optimism and enthusiasm',
-      'Both are generous and warm-hearted',
-      'Natural adventure partners',
-      'Inspire each other to grow and dream',
-    ],
-    challenges: [
-      'Neither handles practical details well',
-      'Both can overcommit and under-deliver',
-      'Sagittarius\'s bluntness can hurt Leo\'s pride',
-      'May lack grounding energy',
-    ],
-    tips: [
-      'Assign someone to handle practical responsibilities',
-      'Sagittarius: be more diplomatic with Leo\'s ego',
-      'Leo: don\'t take Sagittarius\'s honesty as personal attacks',
-      'Dream big together but build some structure',
-    ],
-  },
-  'Leo-Capricorn': {
-    level: 'Challenging',
-    percentage: 48,
-    overview: 'Leo wants recognition now; Capricorn plays the long game. You have different definitions of success and different timelines. Yet you\'re both ambitious and determined.',
-    strengths: [
-      'Both are ambitious and driven',
-      'Complementary skills: showmanship meets strategy',
-      'When aligned, a powerful team',
-      'Both value achievement and success',
-    ],
-    challenges: [
-      'Leo finds Capricorn cold and withholding',
-      'Capricorn finds Leo needy and dramatic',
-      'Different timelines and priorities',
-      'Capricorn works; Leo wants to play',
-    ],
-    tips: [
-      'Align on shared goals that satisfy both',
-      'Capricorn: offer praise and warmth more freely',
-      'Leo: appreciate Capricorn\'s quiet dedication',
-      'Balance work with celebration',
-    ],
-  },
-  'Leo-Aquarius': {
-    level: 'Moderate',
-    percentage: 70,
-    overview: 'Opposite signs with a complex dynamic. Leo is personal and warm; Aquarius is detached and universal. The attraction of opposites is real; so is the work required.',
-    strengths: [
-      'Natural attraction between opposites',
-      'Both are creative and visionary',
-      'Leo brings warmth; Aquarius brings innovation',
-      'Can balance personal and universal',
-    ],
-    challenges: [
-      'Leo may feel Aquarius doesn\'t see them',
-      'Aquarius may feel Leo is too self-focused',
-      'Different needs for attention and space',
-      'Fixed sign stubbornness on both sides',
-    ],
-    tips: [
-      'Leo: respect Aquarius\'s need for independence',
-      'Aquarius: give Leo the personal attention they need',
-      'Find creative projects that satisfy both',
-      'Appreciate what you learn from your opposite',
-    ],
-  },
-  'Leo-Pisces': {
-    level: 'Moderate',
-    percentage: 62,
-    overview: 'Leo shines; Pisces reflects. There\'s creative potential here. Pisces\' imagination can inspire Leo, and Leo\'s confidence can help Pisces manifest dreams. Meet in the realm of art and heart.',
-    strengths: [
-      'Strong creative and artistic potential',
-      'Pisces supports Leo\'s dreams',
-      'Leo protects sensitive Pisces',
-      'Both are romantic and idealistic',
-    ],
-    challenges: [
-      'Leo may feel Pisces doesn\'t appreciate them enough',
-      'Pisces may feel Leo doesn\'t see their inner world',
-      'Different needs for attention and solitude',
-      'Leo\'s directness can hurt Pisces',
-    ],
-    tips: [
-      'Find creative outlets that inspire both',
-      'Leo: look beneath Pisces\' surface',
-      'Pisces: offer Leo the appreciation they need',
-      'Balance Leo\'s need to shine with Pisces\' need to dream',
-    ],
-  },
-  // Virgo pairings
-  'Virgo-Virgo': {
-    level: 'High',
-    percentage: 85,
-    overview: 'Two Virgos together create a well-oiled machine: efficient, organized, and constantly improving. You understand each other\'s need for order and attention to detail.',
-    strengths: [
-      'Natural understanding and shared standards',
-      'Both are reliable and dedicated',
-      'Excellent at creating an organized life',
-      'Shared language of service and care',
-    ],
-    challenges: [
-      'Two perfectionists can analyze a relationship to death',
-      'Critical spiraling, with both picking at each other',
-      'May forget that imperfection is human',
-      'Can become too focused on flaws',
-    ],
-    tips: [
-      'Remember that good enough is sometimes good enough',
-      'Lead with appreciation before suggesting improvements',
-      'Make time for fun and spontaneity',
-      'Accept imperfection in yourself and each other',
-    ],
-  },
-  'Virgo-Libra': {
-    level: 'Moderate',
-    percentage: 62,
-    overview: 'Virgo improves; Libra harmonizes. Both of you dislike conflict and want things to work smoothly. The connection works when you focus on creating rather than critiquing.',
-    strengths: [
-      'Both appreciate refinement and beauty',
-      'Shared dislike of unnecessary conflict',
-      'Can create an elegant, harmonious life',
-      'Complementary attention to aesthetics',
-    ],
-    challenges: [
-      'Virgo may find Libra indecisive',
-      'Libra may find Virgo critical',
-      'Both avoid conflict, leading to unaddressed issues',
-      'Different approaches (analysis vs. harmony)',
-    ],
-    tips: [
-      'Focus on creating beauty together',
-      'Address issues before they fester',
-      'Virgo: soften criticism with appreciation',
-      'Libra: make decisions; Virgo needs resolution',
-    ],
-  },
-  'Virgo-Scorpio': {
-    level: 'High',
-    percentage: 88,
-    overview: 'A surprisingly powerful combination. Both of you are analytical and perceptive, and you see what others miss. Scorpio brings emotional depth; Virgo brings practical grounding. You trust each other because neither does anything carelessly.',
-    strengths: [
-      'Shared depth and analytical nature',
-      'Both value trust and loyalty',
-      'Excellent problem-solving together',
-      'Natural respect for each other\'s intelligence',
-    ],
-    challenges: [
-      'Two investigators can make everything heavy',
-      'Both can be critical and unforgiving',
-      'May lack lightness and spontaneity',
-      'Can spiral into negative analysis together',
-    ],
-    tips: [
-      'Build in lightness and fun deliberately',
-      'Use your analytical skills to understand, not criticize',
-      'Trust each other, because you\'ve both earned it',
-      'Balance depth with moments of simple joy',
-    ],
-  },
-  'Virgo-Sagittarius': {
-    level: 'Challenging',
-    percentage: 45,
-    overview: 'Virgo sees the trees; Sagittarius sees the forest. You approach life very differently. Yet Sagittarius can help Virgo see the bigger picture, and Virgo can help Sagittarius with follow-through.',
-    strengths: [
-      'Complementary perspectives: detail and vision',
-      'Both are intelligent and curious',
-      'Can learn a great deal from each other',
-      'Mutable signs, so both can adapt',
-    ],
-    challenges: [
-      'Virgo finds Sagittarius reckless and careless',
-      'Sagittarius finds Virgo anxious and limiting',
-      'Different standards for order and freedom',
-      'Sagittarius\' bluntness hurts Virgo',
-    ],
-    tips: [
-      'Appreciate both big picture and details as valuable',
-      'Virgo: loosen up and take more risks',
-      'Sagittarius: follow through more carefully',
-      'Meet in the middle between caution and adventure',
-    ],
-  },
-  'Virgo-Capricorn': {
-    level: 'High',
-    percentage: 92,
-    overview: 'Earth signs who speak the same language. You share practicality, work ethic, and long-term thinking. Neither of you makes promises you can\'t keep. The foundation is solid.',
-    strengths: [
-      'Natural understanding and shared values',
-      'Both are reliable and hardworking',
-      'Excellent at building stable lives together',
-      'Trust builds naturally through consistent actions',
-    ],
-    challenges: [
-      'Risk of all work and no play',
-      'Both can be too serious',
-      'May prioritize achievement over connection',
-      'Can become rigid and routine-bound',
-    ],
-    tips: [
-      'Schedule joy and spontaneity deliberately',
-      'Make time for romance amid all the building',
-      'Remember to enjoy what you\'re creating together',
-      'Allow room for imperfection and play',
-    ],
-  },
-  'Virgo-Aquarius': {
-    level: 'Challenging',
-    percentage: 42,
-    overview: 'Virgo is practical; Aquarius is theoretical. Both of you want to make things better but approach it completely differently. Align your visions and you might actually change something.',
-    strengths: [
-      'Both want to improve things',
-      'Complementary approaches (practical and theoretical)',
-      'Both are intelligent and analytical',
-      'Can accomplish much when aligned',
-    ],
-    challenges: [
-      'Virgo finds Aquarius impractical and stubborn',
-      'Aquarius finds Virgo small-minded and rigid',
-      'Different relationships with rules and convention',
-      'Communication styles clash',
-    ],
-    tips: [
-      'Focus on shared goal of making things better',
-      'Virgo: be more open to unconventional approaches',
-      'Aquarius: ground ideas in practical reality',
-      'Appreciate that you both want improvement',
-    ],
-  },
-  'Virgo-Pisces': {
-    level: 'Moderate',
-    percentage: 70,
-    overview: 'Opposite signs who can complete or confound each other. Virgo organizes the material world; Pisces navigates the imaginal one. You need each other: Virgo grounds Pisces\' dreams; Pisces softens Virgo\'s edges.',
-    strengths: [
-      'Complementary as opposites',
-      'Virgo provides grounding; Pisces provides vision',
-      'Both are service-oriented in different ways',
-      'Can balance each other beautifully',
-    ],
-    challenges: [
-      'Virgo finds Pisces impractical',
-      'Pisces finds Virgo unimaginative',
-      'Different relationships with reality',
-      'Virgo\'s criticism hurts sensitive Pisces',
-    ],
-    tips: [
-      'Meet in the middle between dreams and reality',
-      'Virgo: soften criticism; appreciate Pisces\' gifts',
-      'Pisces: ground your dreams in action',
-      'Create something together neither could alone',
-    ],
-  },
-  // Libra pairings
-  'Libra-Libra': {
-    level: 'High',
-    percentage: 82,
-    overview: 'Two Libras together is an elegant dance: harmonious, beautiful, and carefully balanced. You understand each other\'s need for partnership and aversion to conflict.',
-    strengths: [
-      'Natural harmony and understanding',
-      'Shared appreciation for beauty and balance',
-      'Both work hard at partnership',
-      'Pleasant, refined dynamic',
-    ],
-    challenges: [
-      'Neither wants to make decisions',
-      'Both avoid conflict, leading to unaddressed issues',
-      'Surface can become more important than substance',
-      'Two people-pleasers may never say what they really think',
-    ],
-    tips: [
-      'Practice loving honesty even when uncomfortable',
-      'Take turns making decisions',
-      'Address conflicts before they solidify into resentment',
-      'Go deeper than pleasantries',
-    ],
-  },
-  'Libra-Scorpio': {
-    level: 'Challenging',
-    percentage: 52,
-    overview: 'Libra seeks harmony; Scorpio seeks truth. Libra may find Scorpio\'s intensity exhausting; Scorpio may find Libra\'s pleasantries shallow. You operate at different depths.',
-    strengths: [
-      'Scorpio can help Libra go deeper',
-      'Libra can help Scorpio lighten up',
-      'Both are capable of loyalty and commitment',
-      'Attraction between light and dark',
-    ],
-    challenges: [
-      'Scorpio finds Libra superficial and avoidant',
-      'Libra finds Scorpio intense and controlling',
-      'Different approaches to conflict and truth',
-      'Scorpio\'s intensity overwhelms Libra',
-    ],
-    tips: [
-      'Scorpio: teach Libra that conflict isn\'t catastrophic',
-      'Libra: teach Scorpio that not everything needs to be heavy',
-      'Find middle ground between depth and lightness',
-      'Respect your fundamentally different approaches',
-    ],
-  },
-  'Libra-Sagittarius': {
-    level: 'High',
-    percentage: 85,
-    overview: 'Both of you are optimistic, social, and interested in the world beyond yourselves. Libra brings refinement; Sagittarius brings adventure. Together you enjoy culture, travel, and ideas.',
-    strengths: [
-      'Shared optimism and social nature',
-      'Both love culture, travel, and experiences',
-      'Excellent conversation and intellectual connection',
-      'Neither tries to limit the other',
-    ],
-    challenges: [
-      'Libra wants partnership; Sagittarius wants freedom',
-      'Neither is great with practical details',
-      'May avoid difficult emotional conversations',
-      'Commitment timing may differ',
-    ],
-    tips: [
-      'Find a balance between partnership and freedom',
-      'Enjoy adventures together while building stability',
-      'Sagittarius: reassure Libra about commitment',
-      'Libra: give Sagittarius space without anxiety',
-    ],
-  },
-  'Libra-Capricorn': {
-    level: 'Challenging',
-    percentage: 50,
-    overview: 'Cardinal signs with different priorities. Libra values relationships and harmony; Capricorn values achievement and structure. Respect what drives each other.',
-    strengths: [
-      'Both are ambitious in different ways',
-      'Can build an impressive life together',
-      'Complementary strengths (social and professional)',
-      'Both value commitment and follow-through',
-    ],
-    challenges: [
-      'Capricorn is too focused on work for Libra',
-      'Libra is too focused on appearances for Capricorn',
-      'Different priorities and values',
-      'Capricorn\'s coldness hurts relationship-focused Libra',
-    ],
-    tips: [
-      'Respect what drives each other',
-      'Capricorn: make time for relationship and fun',
-      'Libra: appreciate Capricorn\'s provision as a form of care',
-      'Build a life that honors both social and professional needs',
-    ],
-  },
-  'Libra-Aquarius': {
-    level: 'High',
-    percentage: 88,
-    overview: 'Air signs who connect through ideas and ideals. Both of you care about fairness, beauty, and making the world better. Conversation flows easily; friendship underlies romance.',
-    strengths: [
-      'Excellent intellectual connection',
-      'Shared values around fairness and ideals',
-      'Both value independence and respect',
-      'Natural harmony and understanding',
-    ],
-    challenges: [
-      'Both can be emotionally distant',
-      'May intellectualize feelings away',
-      'Neither grounds the relationship in emotional depth',
-      'Can be more like friends than passionate partners',
-    ],
-    tips: [
-      'Make space for messier emotions',
-      'Balance intellectual connection with emotional intimacy',
-      'Don\'t let ideas replace feelings',
-      'Create warmth deliberately',
-    ],
-  },
-  'Libra-Pisces': {
-    level: 'Moderate',
-    percentage: 65,
-    overview: 'Both of you are romantics who want to merge with another person. Libra seeks an intellectual equal; Pisces seeks a soul mate. You share idealism and a desire for beauty.',
-    strengths: [
-      'Both are romantic and idealistic',
-      'Shared appreciation for beauty and art',
-      'Both want partnership deeply',
-      'Creative and imaginative together',
-    ],
-    challenges: [
-      'Libra finds Pisces too emotional',
-      'Pisces finds Libra too rational',
-      'Both can be passive and avoidant',
-      'Neither makes firm decisions easily',
-    ],
-    tips: [
-      'Create something artistic together',
-      'Balance head and heart in your connection',
-      'Someone needs to make decisions',
-      'Appreciate your shared romanticism',
-    ],
-  },
-  // Scorpio pairings
-  'Scorpio-Scorpio': {
-    level: 'High',
-    percentage: 85,
-    overview: 'Two Scorpios together is the deep end of the deep end: intensity squared, understanding that doesn\'t require words, loyalty unto death. You know each other\'s darkness because you share it.',
-    strengths: [
-      'Profound understanding and connection',
-      'Absolute loyalty and commitment',
-      'No need to explain the depths to each other',
-      'Powerful, transformative bond',
-    ],
-    challenges: [
-      'Power struggles and jealousy',
-      'Potential for mutual destruction when things go wrong',
-      'Both hold grudges and struggle to forgive',
-      'Intensity can become overwhelming',
-    ],
-    tips: [
-      'Establish extraordinary trust and clear boundaries',
-      'When you fight, remember you\'re on the same side',
-      'Build in lightness to balance the intensity',
-      'Practice forgiveness, because you\'ll both need it',
-    ],
-  },
-  'Scorpio-Sagittarius': {
-    level: 'Challenging',
-    percentage: 45,
-    overview: 'Scorpio delves deep; Sagittarius ranges wide. You want different things from life. Yet Sagittarius can teach Scorpio to lighten up, and Scorpio can teach Sagittarius to go deeper.',
-    strengths: [
-      'Can learn tremendously from each other',
-      'Both are passionate in different ways',
-      'Scorpio provides depth; Sagittarius provides breadth',
-      'Philosophical connection is possible',
-    ],
-    challenges: [
-      'Scorpio finds Sagittarius superficial and commitment-phobic',
-      'Sagittarius finds Scorpio possessive and heavy',
-      'Different needs for depth and freedom',
-      'Sagittarius\'s bluntness hurts Scorpio deeply',
-    ],
-    tips: [
-      'Scorpio: lighten up and allow more freedom',
-      'Sagittarius: go deeper and be more committed',
-      'Meet in the middle between intensity and adventure',
-      'Respect your fundamentally different natures',
-    ],
-  },
-  'Scorpio-Capricorn': {
-    level: 'High',
-    percentage: 90,
-    overview: 'Both of you are serious, ambitious, and play the long game. You share a quiet power and a refusal to be underestimated. Trust builds slowly but solidly.',
-    strengths: [
-      'Mutual respect for strength and determination',
-      'Both play the long game',
-      'Shared seriousness and depth',
-      'Trust builds solidly over time',
-    ],
-    challenges: [
-      'Risk of emotional coldness',
-      'Both are guarded and struggle with vulnerability',
-      'May prioritize achievement over intimacy',
-      'Someone needs to go first with vulnerability',
-    ],
-    tips: [
-      'Someone needs to risk vulnerability first',
-      'Balance ambition with emotional connection',
-      'Create warmth deliberately, because it won\'t happen naturally',
-      'Trust each other\'s loyalty and commitment',
-    ],
-  },
-  'Scorpio-Aquarius': {
-    level: 'Challenging',
-    percentage: 38,
-    overview: 'Fixed signs who won\'t budge. Scorpio operates from emotion and intuition; Aquarius from logic and ideals. Respect is possible; ease is not.',
-    strengths: [
-      'Both are determined and deep in their own ways',
-      'Shared commitment once engaged',
-      'Can learn from each other\'s very different perspectives',
-      'Both are loyal when committed',
-    ],
-    challenges: [
-      'Scorpio finds Aquarius cold and unavailable',
-      'Aquarius finds Scorpio consuming and irrational',
-      'Neither backs down in conflict',
-      'Fundamentally different operating systems',
-    ],
-    tips: [
-      'Respect is possible even without understanding',
-      'Scorpio: don\'t try to penetrate all of Aquarius\'s detachment',
-      'Aquarius: offer more emotional presence than comfortable',
-      'This requires extraordinary effort from both sides',
-    ],
-  },
-  'Scorpio-Pisces': {
-    level: 'High',
-    percentage: 95,
-    overview: 'Water signs who speak the language of the soul. Scorpio\'s intensity meets Pisces\' depth in a connection that feels fated. You understand each other\'s shadows and don\'t run from the dark.',
-    strengths: [
-      'Profound emotional and spiritual connection',
-      'Natural understanding without words',
-      'Both embrace depth and complexity',
-      'Transformative, healing potential',
-    ],
-    challenges: [
-      'Risk of getting lost together in shared darkness',
-      'Both are sensitive and can spiral negatively',
-      'May become too isolated from outside world',
-      'Neither provides grounding energy',
-    ],
-    tips: [
-      'Maintain connections outside each other',
-      'Build in ways to surface for light and air',
-      'Ground your connection in some practical reality',
-      'When one is drowning, the other must pull them up',
-    ],
-  },
-  // Sagittarius pairings
-  'Sagittarius-Sagittarius': {
-    level: 'High',
-    percentage: 90,
-    overview: 'Two Sagittarians together is a perpetual adventure: travel, philosophy, big dreams, and bigger laughs. You understand each other\'s need for freedom because you share it.',
-    strengths: [
-      'Shared love of adventure and exploration',
-      'Natural optimism and enthusiasm multiply',
-      'Neither tries to cage the other',
-      'Constant learning and growth together',
-    ],
-    challenges: [
-      'No one anchors, since both are always looking at the horizon',
-      'May miss what\'s right in front of you',
-      'Practical matters fall through the cracks',
-      'Commitment may be difficult for both',
-    ],
-    tips: [
-      'Build some home base even if you\'re rarely there',
-      'Assign practical responsibilities',
-      'Make time for presence, not just adventure',
-      'Commit to each other even amid all the freedom',
-    ],
-  },
-  'Sagittarius-Capricorn': {
-    level: 'Challenging',
-    percentage: 45,
-    overview: 'Sagittarius leaps; Capricorn climbs. You approach life very differently. Yet Sagittarius can teach Capricorn to take risks, and Capricorn can teach Sagittarius that structure enables freedom.',
-    strengths: [
-      'Complementary approaches to achievement',
-      'Both are honest and value integrity',
-      'Can balance each other\'s extremes',
-      'Both are intelligent and capable',
-    ],
-    challenges: [
-      'Sagittarius finds Capricorn pessimistic and limiting',
-      'Capricorn finds Sagittarius unrealistic and irresponsible',
-      'Different relationships with risk and security',
-      'Capricorn works; Sagittarius plays',
-    ],
-    tips: [
-      'Appreciate that both caution and risk have value',
-      'Capricorn: take more risks; not everything needs planning',
-      'Sagittarius: appreciate structure as enabling, not limiting',
-      'Find adventures that also build something lasting',
-    ],
-  },
-  'Sagittarius-Aquarius': {
-    level: 'High',
-    percentage: 92,
-    overview: 'Both of you value freedom, ideas, and the unconventional. Neither tries to own the other; both are interested in the big questions. You give each other space and stimulation in equal measure.',
-    strengths: [
-      'Shared love of freedom and independence',
-      'Excellent intellectual connection',
-      'Neither is possessive or clingy',
-      'Adventure and ideas flow freely',
-    ],
-    challenges: [
-      'Neither naturally provides emotional depth',
-      'May be more like friends than romantic partners',
-      'Both future-focused; may miss the present',
-      'Emotional intimacy requires deliberate effort',
-    ],
-    tips: [
-      'Create emotional intimacy deliberately',
-      'Be present with each other, not just planning the future',
-      'Balance intellectual connection with emotional bonding',
-      'Build something together to anchor all that freedom',
-    ],
-  },
-  'Sagittarius-Pisces': {
-    level: 'Challenging',
-    percentage: 52,
-    overview: 'Both mutable, both seeking something beyond the ordinary. Sagittarius seeks it through adventure; Pisces through imagination. You share a spiritual inclination and can explore meaning together.',
-    strengths: [
-      'Shared spiritual and philosophical interests',
-      'Both are seekers in different ways',
-      'Creative and imaginative together',
-      'Neither is rigid or controlling',
-    ],
-    challenges: [
-      'Sagittarius finds Pisces too passive',
-      'Pisces finds Sagittarius too blunt',
-      'Different approaches (action vs. contemplation)',
-      'Sagittarius\'s honesty can hurt sensitive Pisces',
-    ],
-    tips: [
-      'Find shared ground in spirituality and meaning',
-      'Sagittarius: be gentler with sensitive Pisces',
-      'Pisces: be more direct about needs and boundaries',
-      'Balance adventure with contemplation',
-    ],
-  },
-  // Capricorn pairings
-  'Capricorn-Capricorn': {
-    level: 'High',
-    percentage: 88,
-    overview: 'Two Capricorns together is a power partnership: ambitious, disciplined, and playing the longest game. You understand each other\'s drive because you share it.',
-    strengths: [
-      'Shared ambition and work ethic',
-      'Natural understanding of each other\'s priorities',
-      'Excellent at building lasting success',
-      'Both are reliable and committed',
-    ],
-    challenges: [
-      'Risk of all work and no play',
-      'Both can be too serious',
-      'May prioritize achievement over connection',
-      'Neither provides lightness naturally',
-    ],
-    tips: [
-      'Build pleasure into the plan deliberately',
-      'Schedule fun and romance like you schedule work',
-      'Remember to enjoy what you\'re building',
-      'Allow vulnerability; you both need it',
-    ],
-  },
-  'Capricorn-Aquarius': {
-    level: 'Challenging',
-    percentage: 48,
-    overview: 'Capricorn respects tradition; Aquarius questions everything. Yet you\'re both Saturn-ruled: determined, principled, and playing long games. Find shared goals and you can accomplish anything.',
-    strengths: [
-      'Both are determined and principled',
-      'Shared Saturn influence brings discipline and commitment',
-      'Can accomplish significant things when aligned',
-      'Both think long-term',
-    ],
-    challenges: [
-      'Capricorn finds Aquarius rebellious and impractical',
-      'Aquarius finds Capricorn rigid and conventional',
-      'Different relationships with rules and tradition',
-      'Neither is naturally warm or emotionally expressive',
-    ],
-    tips: [
-      'Find shared goals that honor both tradition and innovation',
-      'Capricorn: be more open to new approaches',
-      'Aquarius: work within some structure',
-      'Create warmth deliberately, because it won\'t come naturally',
-    ],
-  },
-  'Capricorn-Pisces': {
-    level: 'Moderate',
-    percentage: 72,
-    overview: 'Capricorn builds in the material world; Pisces dreams in the imaginal one. You can complete each other: Capricorn gives Pisces structure to make dreams real, Pisces gives Capricorn soul and meaning.',
-    strengths: [
-      'Complementary strengths: structure and imagination',
-      'Capricorn grounds Pisces; Pisces inspires Capricorn',
-      'Both are capable of deep commitment',
-      'Can create something meaningful together',
-    ],
-    challenges: [
-      'Capricorn finds Pisces impractical',
-      'Pisces finds Capricorn unfeeling',
-      'Different relationships with reality',
-      'Capricorn\'s coldness hurts sensitive Pisces',
-    ],
-    tips: [
-      'Meet in the middle between achievement and transcendence',
-      'Capricorn: offer more emotional warmth',
-      'Pisces: appreciate Capricorn\'s stability as love',
-      'Build dreams together with Capricorn\'s structure',
-    ],
-  },
-  // Aquarius pairings
-  'Aquarius-Aquarius': {
-    level: 'High',
-    percentage: 85,
-    overview: 'Two Aquarians together is a meeting of minds: unconventional, future-focused, and utterly unique. You understand each other\'s need for independence because you share it.',
-    strengths: [
-      'Natural understanding without explanation',
-      'Both value independence and authenticity',
-      'Excellent intellectual connection',
-      'Neither tries to change the other',
-    ],
-    challenges: [
-      'Risk of emotional distance, since you\'re two detached people',
-      'May bond over ideas but forget to feel',
-      'Neither provides emotional warmth naturally',
-      'Can be more like friends than romantic partners',
-    ],
-    tips: [
-      'Make space for vulnerability beneath the brilliance',
-      'Create emotional intimacy deliberately',
-      'Don\'t let intellectual connection replace emotional bonding',
-      'Build warmth and closeness intentionally',
-    ],
-  },
-  'Aquarius-Pisces': {
-    level: 'Moderate',
-    percentage: 60,
-    overview: 'Both idealistic, both interested in something larger than themselves. Aquarius approaches it intellectually; Pisces intuitively. You share a vision of a better world and can work toward it together.',
-    strengths: [
-      'Shared idealism and vision',
-      'Both are creative and unconventional',
-      'Can inspire each other\'s humanitarian instincts',
-      'Neither is rigid or controlling',
-    ],
-    challenges: [
-      'Aquarius finds Pisces irrational',
-      'Pisces finds Aquarius cold',
-      'Different processing styles (head vs. heart)',
-      'Communication styles clash',
-    ],
-    tips: [
-      'Bridge the gap between head and heart',
-      'Aquarius: offer more emotional presence',
-      'Pisces: appreciate Aquarius\'s logic as a form of care',
-      'Work together on causes you both believe in',
-    ],
-  },
-  // Pisces pairings
-  'Pisces-Pisces': {
-    level: 'High',
-    percentage: 88,
-    overview: 'Two Pisces together is a shared dream: boundless, beautiful, and potentially overwhelming. You understand each other\'s sensitivity and spiritual nature without explanation.',
-    strengths: [
-      'Profound emotional and spiritual connection',
-      'Natural understanding and empathy',
-      'Shared creativity and imagination',
-      'Deep acceptance of each other',
-    ],
-    challenges: [
-      'Risk of losing all structure',
-      'Both may dissolve into each other',
-      'Neither provides grounding energy',
-      'Can enable each other\'s avoidance of reality',
-    ],
-    tips: [
-      'Build in grounding practices and structure',
-      'Maintain some connection to practical reality',
-      'Keep some individual identity within the merge',
-      'Make sure someone handles practical matters',
-    ],
-  },
-};
-
-// Helper function to get compatibility (handles both directions)
-function getCompatibility(sign1: ZodiacSign, sign2: ZodiacSign) {
-  const key1 = `${sign1}-${sign2}`;
-  const key2 = `${sign2}-${sign1}`;
-  return compatibilityData[key1] || compatibilityData[key2];
-}
 
 export default function Compatibility2Page() {
   const [sign1, setSign1] = useState<ZodiacSign | null>(null);
   const [sign2, setSign2] = useState<ZodiacSign | null>(null);
-  const [showResults, setShowResults] = useState(false);
+  const [pageState, setPageState] = useState<'selection' | 'loading' | 'results'>('selection');
+  const [loadingStep, setLoadingStep] = useState(0);
+  const [loadingPhase, setLoadingPhase] = useState(0);
   const [email, setEmail] = useState('');
   const [subscribeToNewsletter, setSubscribeToNewsletter] = useState(true);
   const [emailSent, setEmailSent] = useState(false);
   const [emailSending, setEmailSending] = useState(false);
+
+  const moonPhases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
+  const loadingSteps = [
+    'Comparing elemental energies...',
+    'Reading relationship dynamics...',
+    'Mapping your compatibility...',
+  ];
+
+  // Loading animation
+  useEffect(() => {
+    if (pageState !== 'loading') return;
+
+    const phaseInterval = setInterval(() => {
+      setLoadingPhase(prev => (prev + 1) % moonPhases.length);
+    }, 200);
+
+    const stepInterval = setInterval(() => {
+      setLoadingStep(prev => Math.min(prev + 1, loadingSteps.length - 1));
+    }, 1000);
+
+    const timer = setTimeout(() => {
+      setPageState('results');
+    }, 3500);
+
+    return () => {
+      clearInterval(phaseInterval);
+      clearInterval(stepInterval);
+      clearTimeout(timer);
+    };
+  }, [pageState]);
 
   const handleSignClick = (sign: ZodiacSign) => {
     if (!sign1) {
       setSign1(sign);
     } else if (!sign2) {
       setSign2(sign);
-      setShowResults(true);
+      setLoadingStep(0);
+      setLoadingPhase(0);
+      setPageState('loading');
     }
   };
 
   const handleReset = () => {
     setSign1(null);
     setSign2(null);
-    setShowResults(false);
+    setPageState('selection');
+    setLoadingStep(0);
+    setLoadingPhase(0);
     setEmail('');
     setEmailSent(false);
     setSubscribeToNewsletter(true);
@@ -1922,6 +104,7 @@ export default function Compatibility2Page() {
         body: JSON.stringify({
           to: email,
           type: 'compatibility',
+          subscribe: subscribeToNewsletter,
           data: {
             person1: {
               name: sign1,
@@ -1953,17 +136,17 @@ export default function Compatibility2Page() {
   const compatibility = sign1 && sign2 ? getCompatibility(sign1, sign2) : null;
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col">
+    <div className="min-h-screen bg-[#F0EBF8] flex flex-col">
       <Navigation currentPage="compatibility" />
 
       <main className="flex-1">
         {/* Hero */}
         <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
           <div className="max-w-2xl">
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2D2640] leading-[1.1] tracking-tight">
               Compatibility
             </h1>
-            <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed">
+            <p className="mt-6 text-lg text-[#7B7394] leading-relaxed">
               {!sign1
                 ? 'Select your zodiac sign to begin.'
                 : !sign2
@@ -1975,16 +158,16 @@ export default function Compatibility2Page() {
 
         {/* Divider */}
         <div className="container-editorial">
-          <div className="h-px bg-[#2A2A2A]/10" />
+          <div className="h-px bg-[#2D2640]/10" />
         </div>
 
         {/* Sign Selection */}
-        {!showResults && (
+        {pageState === 'selection' && (
           <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16 min-h-[60vh]">
             {sign1 && (
               <button
                 onClick={handleReset}
-                className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
+                className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-12"
               >
                 ← Start over
               </button>
@@ -1995,50 +178,58 @@ export default function Compatibility2Page() {
               {sign1 && (
                 <div className="flex items-center justify-center gap-8 mb-12">
                   <div className="flex flex-col items-center">
-                    <div className="w-24 h-24 rounded-full bg-[#B8A090] flex items-center justify-center text-[#FAF7F2]">
+                    <div className="w-24 h-24 rounded-full flex items-center justify-center text-[#F0EBF8]" style={{ backgroundColor: ELEMENT_BORDER[signElements[sign1].element] || '#8A8099' }}>
                       {renderZodiacIcon(sign1, 48)}
                     </div>
-                    <p className="mt-3 font-serif text-xl text-[#2A2A2A]">{sign1}</p>
-                    <p className="text-sm text-[#6B6B6B]">{signElements[sign1].element}</p>
+                    <p className="mt-3 font-serif text-xl text-[#2D2640]">{sign1}</p>
+                    <p className="text-sm text-[#7B7394]">{signElements[sign1].element}</p>
                   </div>
                   <div className="text-center">
-                    <span className="text-4xl text-[#6B6B6B]">&</span>
+                    <span className="text-4xl text-[#7B7394]">&</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="w-24 h-24 rounded-full border-2 border-dashed border-[#B8A090]/40 flex items-center justify-center text-[#6B6B6B] text-2xl">
+                    <div className="w-24 h-24 rounded-full border-2 border-dashed border-[#8A8099]/40 flex items-center justify-center text-[#7B7394] text-2xl">
                       ?
                     </div>
-                    <p className="mt-3 font-serif text-xl text-[#6B6B6B]">Their sign</p>
+                    <p className="mt-3 font-serif text-xl text-[#7B7394]">Their sign</p>
                     <p className="text-sm text-transparent">.</p>
                   </div>
                 </div>
               )}
 
-              <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8 text-center">
+              <h2 className="font-serif text-2xl text-[#2D2640] mb-8 text-center">
                 {!sign1 ? 'Choose your sign' : 'Choose their sign'}
               </h2>
 
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 justify-items-center">
                 {zodiacSigns.map((sign) => {
                   const isSelected = sign === sign1;
+                  const element = signElements[sign].element;
+                  const bg = ELEMENT_BG[element] || '#F0EBF8';
+                  const border = ELEMENT_BORDER[element] || '#8A8099';
 
                   return (
                     <button
                       key={sign}
                       onClick={() => handleSignClick(sign)}
-                      className={`group flex flex-col items-center p-4 border rounded-lg transition-all ${
+                      className={`group flex flex-col items-center p-4 rounded-lg transition-all w-full ${
                         isSelected
-                          ? 'border-[#B8A090] bg-[#B8A090] text-[#FAF7F2]'
-                          : 'border-[#2A2A2A]/10 hover:border-[#B8A090] hover:bg-[#B8A090]/20'
+                          ? 'ring-2 ring-offset-2 ring-offset-[#F0EBF8]'
+                          : 'hover:scale-105'
                       }`}
+                      style={{
+                        backgroundColor: bg,
+                        borderColor: isSelected ? border : 'transparent',
+                        ...(isSelected ? { ringColor: border } as React.CSSProperties : {}),
+                      }}
                     >
-                      <div className={`mb-2 ${isSelected ? 'text-[#FAF7F2]' : 'text-[#2A2A2A]'}`}>
+                      <div className="mb-2 text-[#2D2640]">
                         {renderZodiacIcon(sign, 32)}
                       </div>
-                      <p className={`text-sm font-medium ${isSelected ? 'text-[#FAF7F2]' : 'text-[#2A2A2A]'}`}>
+                      <p className="text-sm font-medium text-[#2D2640]">
                         {sign}
                       </p>
-                      <p className={`text-xs mt-1 ${isSelected ? 'text-[#FAF7F2]/70' : 'text-[#6B6B6B]'}`}>
+                      <p className="text-xs mt-1 text-[#7B7394]">
                         {signDates[sign]}
                       </p>
                     </button>
@@ -2049,12 +240,45 @@ export default function Compatibility2Page() {
           </section>
         )}
 
+        {/* Loading */}
+        {pageState === 'loading' && (
+          <div className="min-h-[80vh] flex flex-col items-center justify-center">
+            <div className="text-center max-w-md mx-auto">
+              <div className="flex items-center justify-center gap-2 mb-8" style={{ filter: 'saturate(0.3) brightness(1.1)' }}>
+                {moonPhases.map((phase, index) => (
+                  <span
+                    key={index}
+                    className={`text-4xl transition-all duration-200 ${
+                      index === loadingPhase ? 'opacity-100 scale-125' : index <= loadingPhase ? 'opacity-60' : 'opacity-20'
+                    }`}
+                  >
+                    {phase}
+                  </span>
+                ))}
+              </div>
+              <p className="font-serif text-2xl text-[#2D2640] mb-6">Mapping your cosmos</p>
+              <p
+                key={loadingStep}
+                className="text-sm text-[#2D2640] mb-4 animate-pulse"
+              >
+                {loadingSteps[loadingStep]}
+              </p>
+              <div className="w-48 h-px bg-[#2D2640]/10 rounded-full overflow-hidden mx-auto">
+                <div
+                  className="h-full bg-[#FF8FA3]/50 transition-all duration-1000 ease-out"
+                  style={{ width: `${((loadingStep + 1) / loadingSteps.length) * 100}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Results */}
-        {showResults && sign1 && sign2 && compatibility && (
+        {pageState === 'results' && sign1 && sign2 && compatibility && (
           <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
             <button
               onClick={handleReset}
-              className="text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors mb-12"
+              className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-12"
             >
               ← Try another pairing
             </button>
@@ -2063,28 +287,28 @@ export default function Compatibility2Page() {
               {/* Signs header */}
               <div className="flex items-center justify-center gap-8 mb-12">
                 <div className="flex flex-col items-center">
-                  <div className="w-24 h-24 rounded-full bg-[#B8A090] flex items-center justify-center text-[#FAF7F2]">
+                  <div className="w-24 h-24 rounded-full flex items-center justify-center text-[#F0EBF8]" style={{ backgroundColor: ELEMENT_BORDER[signElements[sign1].element] || '#8A8099' }}>
                     {renderZodiacIcon(sign1, 48)}
                   </div>
-                  <p className="mt-3 font-serif text-xl text-[#2A2A2A]">{sign1}</p>
-                  <p className="text-sm text-[#6B6B6B]">{signElements[sign1].element}</p>
+                  <p className="mt-3 font-serif text-xl text-[#2D2640]">{sign1}</p>
+                  <p className="text-sm text-[#7B7394]">{signElements[sign1].element}</p>
                 </div>
                 <div className="text-center">
-                  <span className="text-4xl text-[#6B6B6B]">&</span>
+                  <span className="text-4xl text-[#7B7394]">&</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="w-24 h-24 rounded-full bg-[#B8A090] flex items-center justify-center text-[#FAF7F2]">
+                  <div className="w-24 h-24 rounded-full flex items-center justify-center text-[#F0EBF8]" style={{ backgroundColor: ELEMENT_BORDER[signElements[sign2].element] || '#8A8099' }}>
                     {renderZodiacIcon(sign2, 48)}
                   </div>
-                  <p className="mt-3 font-serif text-xl text-[#2A2A2A]">{sign2}</p>
-                  <p className="text-sm text-[#6B6B6B]">{signElements[sign2].element}</p>
+                  <p className="mt-3 font-serif text-xl text-[#2D2640]">{sign2}</p>
+                  <p className="text-sm text-[#7B7394]">{signElements[sign2].element}</p>
                 </div>
               </div>
 
               {/* Compatibility description */}
               <div className="text-center mb-16">
-                <div className="inline-block px-6 py-3 border border-[#2A2A2A]/10">
-                  <p className="font-serif text-lg text-[#2A2A2A]">
+                <div className="inline-block px-6 py-3 border border-[#2D2640]/10">
+                  <p className="font-serif text-lg text-[#2D2640]">
                     {compatibility.level === 'High' ? 'Natural Harmony' :
                      compatibility.level === 'Moderate' ? 'Balanced Energy' :
                      'Takes Effort'}
@@ -2094,68 +318,76 @@ export default function Compatibility2Page() {
 
               {/* Overview */}
               <div className="mb-10">
-                <h2 className="font-serif text-xl text-[#2A2A2A] mb-4">Overview</h2>
-                <p className="text-[#6B6B6B] leading-relaxed text-lg">
+                <h2 className="font-serif text-xl text-[#2D2640] mb-4">Overview</h2>
+                <p className="text-[#7B7394] leading-relaxed text-lg">
                   {compatibility.overview}
                 </p>
               </div>
 
               {/* Sign descriptions */}
               <div className="grid md:grid-cols-2 gap-6 mb-10">
-                <div className="p-5 border border-[#2A2A2A]/10 rounded-lg">
+                <div className="p-6 rounded-xl border" style={{ backgroundColor: ELEMENT_BG[signElements[sign1].element], borderColor: ELEMENT_BORDER[signElements[sign1].element] + '30' }}>
                   <div className="flex items-center gap-3 mb-3">
-                    {renderZodiacIcon(sign1, 20)}
-                    <h3 className="font-serif text-base text-[#2A2A2A]">{sign1}</h3>
+                    <span style={{ color: ELEMENT_BORDER[signElements[sign1].element] }}>{renderZodiacIcon(sign1, 22)}</span>
+                    <h3 className="font-serif text-base text-[#2D2640]">{sign1}</h3>
+                    <span className="text-xs text-[#7B7394] ml-auto">{signElements[sign1].element}</span>
                   </div>
-                  <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                  <p className="text-sm text-[#2D2640]/70 leading-relaxed">
                     {signDescriptions[sign1]}
                   </p>
                 </div>
-                <div className="p-5 border border-[#2A2A2A]/10 rounded-lg">
+                <div className="p-6 rounded-xl border" style={{ backgroundColor: ELEMENT_BG[signElements[sign2].element], borderColor: ELEMENT_BORDER[signElements[sign2].element] + '30' }}>
                   <div className="flex items-center gap-3 mb-3">
-                    {renderZodiacIcon(sign2, 20)}
-                    <h3 className="font-serif text-base text-[#2A2A2A]">{sign2}</h3>
+                    <span style={{ color: ELEMENT_BORDER[signElements[sign2].element] }}>{renderZodiacIcon(sign2, 22)}</span>
+                    <h3 className="font-serif text-base text-[#2D2640]">{sign2}</h3>
+                    <span className="text-xs text-[#7B7394] ml-auto">{signElements[sign2].element}</span>
                   </div>
-                  <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                  <p className="text-sm text-[#2D2640]/70 leading-relaxed">
                     {signDescriptions[sign2]}
                   </p>
                 </div>
               </div>
 
               {/* Strengths */}
-              <div className="mb-10">
-                <h2 className="font-serif text-xl text-[#2A2A2A] mb-4">Strengths of This Pairing</h2>
+              <div className="mb-10 p-6 rounded-xl bg-[#F0F5EE] border border-[#5C7A60]/15">
+                <h2 className="font-serif text-xl text-[#2D2640] mb-4 flex items-center gap-2">
+                  <span className="text-[#5C7A60]">&#10038;</span> Strengths of This Pairing
+                </h2>
                 <ul className="space-y-2">
                   {compatibility.strengths.map((strength, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-sm text-[#6B6B6B] mt-0.5">·</span>
-                      <span className="text-sm text-[#6B6B6B] leading-relaxed">{strength}</span>
+                      <span className="text-sm text-[#5C7A60] mt-0.5">&#10003;</span>
+                      <span className="text-sm text-[#2D2640]/70 leading-relaxed">{strength}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Areas for Growth */}
-              <div className="mb-10">
-                <h2 className="font-serif text-xl text-[#2A2A2A] mb-4">Areas for Growth</h2>
+              <div className="mb-10 p-6 rounded-xl bg-[#F5F0EE] border border-[#A85560]/15">
+                <h2 className="font-serif text-xl text-[#2D2640] mb-4 flex items-center gap-2">
+                  <span className="text-[#A85560]">&#9672;</span> Areas for Growth
+                </h2>
                 <ul className="space-y-2">
                   {compatibility.challenges.map((challenge, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-sm text-[#6B6B6B] mt-0.5">○</span>
-                      <span className="text-sm text-[#6B6B6B] leading-relaxed">{challenge}</span>
+                      <span className="text-sm text-[#A85560] mt-0.5">&#9675;</span>
+                      <span className="text-sm text-[#2D2640]/70 leading-relaxed">{challenge}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Tips */}
-              <div className="mb-10">
-                <h2 className="font-serif text-xl text-[#2A2A2A] mb-4">Making It Work</h2>
+              <div className="mb-10 p-6 rounded-xl bg-[#EEF0F5] border border-[#4E6A85]/15">
+                <h2 className="font-serif text-xl text-[#2D2640] mb-4 flex items-center gap-2">
+                  <span className="text-[#4E6A85]">&#10147;</span> Making It Work
+                </h2>
                 <ul className="space-y-2">
                   {compatibility.tips.map((tip, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-sm text-[#2A2A2A] mt-0.5">→</span>
-                      <span className="text-sm text-[#6B6B6B] leading-relaxed">{tip}</span>
+                      <span className="text-sm text-[#4E6A85] mt-0.5">&#8594;</span>
+                      <span className="text-sm text-[#2D2640]/70 leading-relaxed">{tip}</span>
                     </li>
                   ))}
                 </ul>
@@ -2163,26 +395,71 @@ export default function Compatibility2Page() {
 
             </div>
 
-              <p className="text-xs text-[#6B6B6B]/60 mt-8 text-center">
+              <p className="text-xs text-[#7B7394]/60 mt-8 text-center">
                 This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
               </p>
           </section>
         )}
 
-        {/* Email Results Section */}
-        {showResults && sign1 && sign2 && compatibility && (
-          <>
-            <div className="container-editorial">
-              <div className="h-px bg-[#2A2A2A]/10" />
+        {/* CTA */}
+        {pageState === 'results' && sign1 && sign2 && compatibility && (
+          <section className="container-editorial py-12 md:py-16">
+            <div className="max-w-3xl mx-auto">
+              <div className="bg-[#F0E6D6] rounded-2xl p-8 md:p-12">
+                <div className="text-center mb-8">
+                  <span className="text-xs tracking-[0.15em] uppercase text-[#C4365A]">Go deeper</span>
+                  <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
+                    Get your full relationship blueprint
+                  </h2>
+                  <p className="text-lg text-[#7B7394] leading-relaxed max-w-lg mx-auto">
+                    This free tool shows sun sign compatibility. Your full report analyses both birth charts for a complete picture.
+                  </p>
+                </div>
+
+                <ul className="max-w-sm mx-auto mb-6 space-y-3">
+                  <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                    <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
+                    Full birth chart compatibility, not just sun signs
+                  </li>
+                  <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                    <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
+                    Venus, Mars, and Moon sign dynamics explored
+                  </li>
+                  <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                    <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
+                    Communication styles and emotional needs mapped
+                  </li>
+                  <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                    <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
+                    Delivered as a detailed PDF report
+                  </li>
+                </ul>
+
+                <div className="text-center">
+                  <Link
+                    href="/shop"
+                    className="inline-block px-8 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-lg text-sm font-medium hover:bg-[#1E1835] transition-colors"
+                  >
+                    Get The Full Blueprint &mdash; $139
+                  </Link>
+                  <p className="text-xs text-[#7B7394]/60 mt-4">Personalised report delivered within 48 hours</p>
+                </div>
+              </div>
             </div>
-            <section className="container-editorial py-12 md:py-16">
-              <div className="max-w-xl mx-auto text-center">
-                {!emailSent ? (
-                  <>
-                    <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
+          </section>
+        )}
+
+        {/* Email Results Section */}
+        {pageState === 'results' && sign1 && sign2 && compatibility && (
+          <section className="container-editorial py-12 md:py-16">
+            <div className="max-w-xl mx-auto text-center">
+              {!emailSent ? (
+                <>
+                  <div className="bg-[#F5F3F0] rounded-2xl p-8 md:p-10">
+                    <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
                       Save your reading
                     </h2>
-                    <p className="text-[#6B6B6B] mb-8">
+                    <p className="text-[#7B7394] mb-8">
                       Get your {sign1} & {sign2} compatibility sent to your inbox.
                     </p>
                     <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
@@ -2192,13 +469,13 @@ export default function Compatibility2Page() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="flex-1 px-5 py-4 rounded-lg border border-[#2A2A2A]/10 bg-white text-[#2A2A2A] placeholder-[#6B6B6B]/50 focus:outline-none focus:ring-2 focus:ring-[#B8A090]/30 focus:border-[#B8A090]/50 transition-colors"
+                          className="flex-1 px-5 py-4 rounded-lg border border-[#2D2640]/10 bg-white text-[#2D2640] placeholder-[#7B7394]/50 focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50 transition-colors"
                           required
                         />
                         <button
                           type="submit"
                           disabled={emailSending}
-                          className="px-8 py-4 rounded-lg bg-[#B8A090] text-white hover:bg-[#A89080] transition-colors disabled:opacity-50 whitespace-nowrap"
+                          className="px-8 py-4 rounded-lg bg-[#8A8099] text-white hover:bg-[#A89080] transition-colors disabled:opacity-50 whitespace-nowrap"
                         >
                           {emailSending ? 'Sending...' : 'Send to me'}
                         </button>
@@ -2208,71 +485,45 @@ export default function Compatibility2Page() {
                           type="checkbox"
                           checked={subscribeToNewsletter}
                           onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
-                          className="w-4 h-4 rounded border-[#2A2A2A]/20 accent-[#B8A090]"
+                          className="w-4 h-4 rounded border-[#2D2640]/20 accent-[#8A8099]"
                         />
-                        <span className="text-sm text-[#6B6B6B]">
+                        <span className="text-sm text-[#7B7394]">
                           Also receive occasional notes from Lunar Playground
                         </span>
                       </label>
                     </form>
-                  </>
-                ) : (
-                  <>
-                    <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">
-                      On its way
-                    </h2>
-                    <p className="text-[#6B6B6B]">
-                      Check your inbox for your {sign1} & {sign2} compatibility reading.
-                    </p>
-                  </>
-                )}
-              </div>
-            </section>
-          </>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
+                    On its way
+                  </h2>
+                  <p className="text-[#7B7394]">
+                    Check your inbox for your {sign1} & {sign2} compatibility reading.
+                  </p>
+                </>
+              )}
+            </div>
+          </section>
         )}
 
-        {/* Explore More CTA */}
-        {showResults && sign1 && sign2 && compatibility && (
-          <>
-            <div className="container-editorial">
-              <div className="h-px bg-[#2A2A2A]/10" />
+        {/* Try another pairing */}
+        {pageState === 'results' && (
+          <section className="container-editorial pb-12">
+            <div className="text-center">
+              <button
+                onClick={handleReset}
+                className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors"
+              >
+                ← Try another pairing
+              </button>
             </div>
-            <section className="container-editorial py-8 md:py-12">
-              <p className="text-sm text-[#6B6B6B] mb-4">
-                Want to explore more?
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <button
-                  onClick={handleReset}
-                  className="px-6 py-3 rounded-lg border border-[#2A2A2A]/20 text-sm text-[#2A2A2A] hover:border-[#2A2A2A]/40 transition-colors"
-                >
-                  Try another pairing
-                </button>
-                <Link
-                  href="/your-chart"
-                  className="px-6 py-3 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors"
-                >
-                  See your full chart
-                </Link>
-              </div>
-            </section>
-          </>
+          </section>
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="py-8">
-        <div className="container-editorial">
-          <div className="flex justify-end">
-            <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
-              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

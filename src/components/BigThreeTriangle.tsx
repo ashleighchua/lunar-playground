@@ -137,7 +137,7 @@ export function BigThreeTriangle({
             cy="100"
             r="22"
             fill="var(--sun-fill, #FDF3E3)"
-            stroke="var(--sun-stroke, #D4A84B)"
+            stroke="var(--sun-stroke, #FF8FA3)"
             strokeWidth={hoveredNode === 'sun' ? '3' : '2'}
             style={{ transition: 'stroke-width 0.2s ease' }}
           />
@@ -165,7 +165,7 @@ export function BigThreeTriangle({
             cy="340"
             r="22"
             fill="var(--moon-fill, #F5EBE4)"
-            stroke="var(--moon-stroke, #C4A88F)"
+            stroke="var(--moon-stroke, #FFB88C)"
             strokeWidth={hoveredNode === 'moon' ? '3' : '2'}
             style={{ transition: 'stroke-width 0.2s ease' }}
           />
@@ -215,7 +215,7 @@ export function BigThreeTriangle({
         x="300"
         y="106"
         textAnchor="middle"
-        fill="var(--sun-glyph, #8B6914)"
+        fill="var(--sun-glyph, #C4365A)"
         style={{ font: '600 18px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif', pointerEvents: 'none' }}
       >
         ☉
@@ -246,7 +246,7 @@ export function BigThreeTriangle({
           x="300"
           y="36"
           textAnchor="middle"
-          fill="var(--ink-primary, #2A2A2A)"
+          fill="var(--ink-primary, #2D2640)"
           style={{ font: '600 14px ui-serif, Georgia, "Times New Roman", serif', letterSpacing: '0.02em' }}
         >
           Sun
@@ -255,7 +255,7 @@ export function BigThreeTriangle({
           x="300"
           y="56"
           textAnchor="middle"
-          fill="var(--sun-glyph, #8B6914)"
+          fill="var(--sun-glyph, #C4365A)"
           style={{ font: '500 13px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif' }}
         >
           {sunSign || '-'}
@@ -266,7 +266,7 @@ export function BigThreeTriangle({
           x="70"
           y="378"
           textAnchor="start"
-          fill="var(--ink-primary, #2A2A2A)"
+          fill="var(--ink-primary, #2D2640)"
           style={{ font: '600 14px ui-serif, Georgia, "Times New Roman", serif', letterSpacing: '0.02em' }}
         >
           Moon
@@ -286,7 +286,7 @@ export function BigThreeTriangle({
           x="530"
           y="378"
           textAnchor="end"
-          fill="var(--ink-primary, #2A2A2A)"
+          fill="var(--ink-primary, #2D2640)"
           style={{ font: '600 14px ui-serif, Georgia, "Times New Roman", serif', letterSpacing: '0.02em' }}
         >
           Rising

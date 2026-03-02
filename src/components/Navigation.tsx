@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 interface NavigationProps {
-  currentPage?: 'home' | 'your-chart' | 'today' | 'transit' | 'compatibility' | 'astrocartography' | 'blog' | 'about' | 'shop' | 'reviews' | 'faq';
+  currentPage?: 'home' | 'your-chart' | 'today' | 'transit' | 'compatibility' | 'astrocartography' | 'blog' | 'about' | 'shop' | 'reviews' | 'faq' | 'explore' | 'bazi' | 'numerology' | 'human-design' | 'chinese-zodiac';
 }
 
 export function Navigation({ currentPage }: NavigationProps) {
@@ -13,16 +13,16 @@ export function Navigation({ currentPage }: NavigationProps) {
 
   // Key links visible on desktop
   const desktopLinks = [
-    { href: '/astrocartography', label: 'Relocation Reading', key: 'astrocartography' },
-    { href: '/shop', label: 'Shop', key: 'shop' },
+    { href: '/', label: 'Explore', key: 'explore' },
+    { href: '/shop', label: 'Readings', key: 'shop' },
+    { href: '/blog', label: 'Blog', key: 'blog' },
+    { href: '/about', label: 'About', key: 'about' },
   ];
 
   // All links in hamburger menu
   const allLinks = [
-    { href: '/astrocartography', label: 'Relocation Reading', key: 'astrocartography' },
-    { href: '/shop', label: 'Shop', key: 'shop' },
-    { href: '/birth-report', label: 'Birth Chart', key: 'your-chart' },
-    { href: '/transit', label: 'Sky Guide', key: 'transit' },
+    { href: '/', label: 'Explore', key: 'explore' },
+    { href: '/shop', label: 'Readings', key: 'shop' },
     { href: '/blog', label: 'Blog', key: 'blog' },
     { href: '/reviews', label: 'Reviews', key: 'reviews' },
     { href: '/faq', label: 'FAQ', key: 'faq' },
@@ -30,7 +30,7 @@ export function Navigation({ currentPage }: NavigationProps) {
   ];
 
   return (
-    <nav className="bg-[#2A2A2A]">
+    <nav className="bg-[#2D2640]">
       <div className="container-editorial py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
@@ -38,10 +38,10 @@ export function Navigation({ currentPage }: NavigationProps) {
               src="/Images/logo.png"
               alt="The Lunar Playground"
               width={52}
-              height={52}
-              className="rounded-full"
+              height={39}
+              className="rounded-full object-cover w-[52px] h-[52px]"
             />
-            <span className="font-serif text-xl text-[#FAF7F2]">The Lunar Playground</span>
+            <span className="font-serif text-xl text-[#F0EBF8]">The Lunar Playground</span>
           </Link>
 
           {/* Desktop: Key links + hamburger */}
@@ -50,8 +50,8 @@ export function Navigation({ currentPage }: NavigationProps) {
               <Link
                 key={link.key}
                 href={link.href}
-                className={`text-sm transition-colors hover:text-[#FAF7F2]/70 ${
-                  currentPage === link.key ? 'text-[#FAF7F2]' : 'text-[#FAF7F2]/90'
+                className={`text-sm transition-colors hover:text-[#F0EBF8]/70 ${
+                  currentPage === link.key ? 'text-[#F0EBF8]' : 'text-[#F0EBF8]/90'
                 }`}
               >
                 {link.label}
@@ -59,7 +59,7 @@ export function Navigation({ currentPage }: NavigationProps) {
             ))}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-[#FAF7F2] hover:text-[#FAF7F2]/70 transition-colors"
+              className="p-2 text-[#F0EBF8] hover:text-[#F0EBF8]/70 transition-colors"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
@@ -77,7 +77,7 @@ export function Navigation({ currentPage }: NavigationProps) {
           {/* Mobile: Hamburger only */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-[#FAF7F2]"
+            className="md:hidden p-2 text-[#F0EBF8]"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
@@ -94,15 +94,15 @@ export function Navigation({ currentPage }: NavigationProps) {
 
         {/* Slide-down menu (both mobile and desktop hamburger) */}
         {isMenuOpen && (
-          <div className="mt-4 pb-2 border-t border-[#FAF7F2]/10 pt-4">
+          <div className="mt-4 pb-2 border-t border-[#F0EBF8]/10 pt-4">
             <div className="flex flex-col gap-4">
               {allLinks.map((link) => (
                 <Link
                   key={link.key}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`text-lg transition-colors hover:text-[#FAF7F2]/70 ${
-                    currentPage === link.key ? 'text-[#FAF7F2]' : 'text-[#FAF7F2]/80'
+                  className={`text-lg transition-colors hover:text-[#F0EBF8]/70 ${
+                    currentPage === link.key ? 'text-[#F0EBF8]' : 'text-[#F0EBF8]/80'
                   }`}
                 >
                   {link.label}

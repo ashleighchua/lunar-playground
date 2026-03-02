@@ -26,7 +26,7 @@ export function CheckoutButton({ productId, label }: { productId: string; label:
     <button
       onClick={handleCheckout}
       disabled={loading}
-      className="block w-full text-center px-6 py-3.5 bg-[#2A2A2A] text-[#FAF7F2] rounded-lg hover:bg-[#1a1a1a] transition-colors font-medium disabled:opacity-60"
+      className="block w-full text-center px-6 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-lg hover:bg-[#1E1835] transition-colors font-medium disabled:opacity-60"
     >
       {loading ? 'Redirecting...' : label}
     </button>

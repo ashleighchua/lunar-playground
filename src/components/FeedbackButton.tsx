@@ -41,7 +41,7 @@ export default function FeedbackButton() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 left-4 z-50 w-12 h-12 rounded-full bg-[#2A2A2A] text-[#FAF7F2] shadow-lg hover:bg-[#1a1a1a] transition-all flex items-center justify-center text-lg"
+        className="fixed bottom-4 left-4 z-50 w-12 h-12 rounded-full bg-[#2D2640] text-[#F0EBF8] shadow-lg hover:bg-[#1E1835] transition-all flex items-center justify-center text-lg"
         aria-label="Send feedback"
       >
         <span>?</span>
@@ -54,10 +54,10 @@ export default function FeedbackButton() {
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
           />
-          <div className="relative bg-[#FAF7F2] rounded-2xl p-6 max-w-sm w-full shadow-2xl mb-16 sm:mb-0">
+          <div className="relative bg-[#F0EBF8] rounded-2xl p-6 max-w-sm w-full shadow-2xl mb-16 sm:mb-0">
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors"
+              className="absolute top-4 right-4 text-[#7B7394] hover:text-[#2D2640] transition-colors"
               aria-label="Close"
             >
               ✕
@@ -66,32 +66,32 @@ export default function FeedbackButton() {
             {sent ? (
               <div className="text-center py-4">
                 <div className="text-3xl mb-3">&#10003;</div>
-                <p className="text-[#2A2A2A] font-medium">Thanks for your feedback!</p>
+                <p className="text-[#2D2640] font-medium">Thanks for your feedback!</p>
               </div>
             ) : (
               <>
-                <h3 className="font-serif text-xl text-[#2A2A2A] mb-1">Got feedback?</h3>
-                <p className="text-sm text-[#6B6B6B] mb-4">Questions, ideas, or just want to say hi.</p>
+                <h3 className="font-serif text-xl text-[#2D2640] mb-1">Got feedback?</h3>
+                <p className="text-sm text-[#7B7394] mb-4">Questions, ideas, or just want to say hi.</p>
 
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="What's on your mind?"
                   rows={3}
-                  className="w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-white focus:outline-none focus:border-[#2A2A2A]/30 transition-colors text-[#2A2A2A] placeholder:text-[#6B6B6B]/40 resize-none text-sm"
+                  className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#7B7394]/40 resize-none text-sm"
                 />
 
                 <button
                   onClick={handleSubmit}
                   disabled={!message.trim() || sending}
-                  className="w-full mt-3 px-6 py-3 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors disabled:opacity-50"
+                  className="w-full mt-3 px-6 py-3 rounded-lg bg-[#2D2640] text-[#F0EBF8] text-sm hover:bg-[#1E1835] transition-colors disabled:opacity-50"
                 >
                   {sending ? 'Sending...' : 'Send feedback'}
                 </button>
 
                 <a
                   href="mailto:thelunarplayground@gmail.com"
-                  className="block text-center mt-3 text-xs text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors"
+                  className="block text-center mt-3 text-xs text-[#7B7394] hover:text-[#2D2640] transition-colors"
                 >
                   Or email us directly
                 </a>

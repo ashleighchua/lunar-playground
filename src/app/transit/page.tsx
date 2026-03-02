@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { ShareButtons } from '@/components/ShareButtons';
 import { getCurrentMoonPhase } from '@/lib/moon';
 import {
@@ -546,7 +547,7 @@ export default function TransitPage() {
   const tomorrowTransitData = moonSignTransits[tomorrowMoonSign];
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col">
+    <div className="min-h-screen bg-[#F0EBF8] flex flex-col">
       <Navigation currentPage="transit" />
 
       <main className="flex-1 flex flex-col">
@@ -557,8 +558,8 @@ export default function TransitPage() {
               onClick={() => setActiveTab('today')}
               className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                 activeTab === 'today'
-                  ? 'bg-[#2A2A2A] text-white'
-                  : 'bg-transparent border border-[#2A2A2A]/20 text-[#2A2A2A] hover:border-[#2A2A2A]/40'
+                  ? 'bg-[#2D2640] text-white'
+                  : 'bg-transparent border border-[#2D2640]/20 text-[#2D2640] hover:border-[#2D2640]/40'
               }`}
             >
               Today
@@ -567,8 +568,8 @@ export default function TransitPage() {
               onClick={() => setActiveTab('week')}
               className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                 activeTab === 'week'
-                  ? 'bg-[#2A2A2A] text-white'
-                  : 'bg-transparent border border-[#2A2A2A]/20 text-[#2A2A2A] hover:border-[#2A2A2A]/40'
+                  ? 'bg-[#2D2640] text-white'
+                  : 'bg-transparent border border-[#2D2640]/20 text-[#2D2640] hover:border-[#2D2640]/40'
               }`}
             >
               This Week
@@ -578,7 +579,7 @@ export default function TransitPage() {
 
         {/* Divider */}
         <div className="container-editorial">
-          <div className="h-px bg-[#2A2A2A]/10" />
+          <div className="h-px bg-[#2D2640]/10" />
         </div>
 
         {activeTab === 'today' && (
@@ -586,7 +587,7 @@ export default function TransitPage() {
             {/* Hero - Moon Phase Centered */}
             <section className="container-editorial pt-6 pb-6 md:pt-8 md:pb-8">
               <div className="text-center">
-                <p className="text-sm text-[#6B6B6B] tracking-wide mb-4">
+                <p className="text-sm text-[#7B7394] tracking-wide mb-4">
                   {today.toLocaleDateString('en-GB', {
                     weekday: 'long',
                     day: 'numeric',
@@ -599,10 +600,10 @@ export default function TransitPage() {
                     {moonPhase.emoji}
                   </span>
                 </div>
-                <h1 className="font-serif text-3xl md:text-4xl text-[#2A2A2A] mb-2">
+                <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-2">
                   {getMoonPhaseFelt(moonPhase.name).name}
                 </h1>
-                <p className="text-[#6B6B6B] leading-relaxed max-w-lg mx-auto">
+                <p className="text-[#7B7394] leading-relaxed max-w-lg mx-auto">
                   {getMoonPhaseFelt(moonPhase.name).feeling}
                 </p>
               </div>
@@ -610,46 +611,46 @@ export default function TransitPage() {
 
             {/* Divider */}
             <div className="container-editorial">
-              <div className="h-px bg-[#2A2A2A]/10" />
+              <div className="h-px bg-[#2D2640]/10" />
             </div>
 
             {/* How Today Feels */}
             <section className="container-editorial py-6">
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl text-[#6B6B6B]">{moonSignSymbols[currentMoonSign]}</span>
-                <h2 className="font-serif text-xl text-[#2A2A2A]">Moon in {currentMoonSign}</h2>
+                <span className="text-2xl text-[#7B7394]">{moonSignSymbols[currentMoonSign]}</span>
+                <h2 className="font-serif text-xl text-[#2D2640]">Moon in {currentMoonSign}</h2>
               </div>
-              <p className="text-[#2A2A2A] leading-relaxed whitespace-pre-line">
+              <p className="text-[#2D2640] leading-relaxed whitespace-pre-line">
                 {feltExperience[currentMoonSign]}
               </p>
             </section>
 
             {/* Divider */}
             <div className="container-editorial">
-              <div className="h-px bg-[#2A2A2A]/10" />
+              <div className="h-px bg-[#2D2640]/10" />
             </div>
 
             {/* More Likely / Watch For - Equal height boxes */}
             <section className="container-editorial py-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-xl p-5 border border-[#2A2A2A]/5 flex flex-col">
-                  <h3 className="font-serif text-lg text-[#2A2A2A] mb-4">More likely today</h3>
+                <div className="bg-white rounded-xl p-5 border border-[#2D2640]/5 flex flex-col">
+                  <h3 className="font-serif text-lg text-[#2D2640] mb-4">More likely today</h3>
                   <ul className="space-y-2.5 flex-1">
                     {morelikelyToday[currentMoonSign].map((item, i) => (
                       <li key={i} className="flex items-start gap-2.5">
                         <span className="text-[#9CB896] mt-0.5">+</span>
-                        <span className="text-[#6B6B6B] text-sm leading-relaxed">{item}</span>
+                        <span className="text-[#7B7394] text-sm leading-relaxed">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="bg-white rounded-xl p-5 border border-[#2A2A2A]/5 flex flex-col">
-                  <h3 className="font-serif text-lg text-[#2A2A2A] mb-4">Watch for</h3>
+                <div className="bg-white rounded-xl p-5 border border-[#2D2640]/5 flex flex-col">
+                  <h3 className="font-serif text-lg text-[#2D2640] mb-4">Watch for</h3>
                   <ul className="space-y-2.5 flex-1">
                     {watchForToday[currentMoonSign].map((item, i) => (
                       <li key={i} className="flex items-start gap-2.5">
-                        <span className="text-[#B8A090] mt-0.5">·</span>
-                        <span className="text-[#6B6B6B] text-sm leading-relaxed">{item}</span>
+                        <span className="text-[#8A8099] mt-0.5">·</span>
+                        <span className="text-[#7B7394] text-sm leading-relaxed">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -659,43 +660,43 @@ export default function TransitPage() {
 
             {/* Divider */}
             <div className="container-editorial">
-              <div className="h-px bg-[#2A2A2A]/10" />
+              <div className="h-px bg-[#2D2640]/10" />
             </div>
 
             {/* Single Anchor */}
             <section className="container-editorial py-6 md:py-8">
-              <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6">One thing today</h2>
-              <p className="text-[#2A2A2A] leading-relaxed whitespace-pre-line">
+              <h2 className="font-serif text-2xl text-[#2D2640] mb-6">One thing today</h2>
+              <p className="text-[#2D2640] leading-relaxed whitespace-pre-line">
                 {todayAnchor[currentMoonSign]}
               </p>
-              <p className="text-[#6B6B6B] text-sm mt-6 italic">
+              <p className="text-[#7B7394] text-sm mt-6 italic">
                 {notYourFault[currentMoonSign]}
               </p>
             </section>
 
             {/* Divider */}
             <div className="container-editorial">
-              <div className="h-px bg-[#2A2A2A]/10" />
+              <div className="h-px bg-[#2D2640]/10" />
             </div>
 
             {/* Question + Tomorrow - Equal boxes side by side */}
             <section className="container-editorial py-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-xl p-6 border border-[#2A2A2A]/5 flex flex-col">
-                  <h3 className="font-serif text-lg text-[#2A2A2A] mb-4">Question for today</h3>
-                  <p className="text-[#2A2A2A] leading-relaxed italic flex-1">
+                <div className="bg-white rounded-xl p-6 border border-[#2D2640]/5 flex flex-col">
+                  <h3 className="font-serif text-lg text-[#2D2640] mb-4">Question for today</h3>
+                  <p className="text-[#2D2640] leading-relaxed italic flex-1">
                     &ldquo;{todayQuestion[currentMoonSign]}&rdquo;
                   </p>
                 </div>
                 <div className="bg-[#F5F0EB] rounded-xl p-6 flex flex-col">
-                  <h3 className="font-serif text-lg text-[#2A2A2A] mb-4">Tomorrow</h3>
+                  <h3 className="font-serif text-lg text-[#2D2640] mb-4">Tomorrow</h3>
                   {tomorrowMoonSign !== currentMoonSign && (
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xl text-[#6B6B6B]">{moonSignSymbols[tomorrowMoonSign]}</span>
-                      <span className="text-sm text-[#2A2A2A]">Moon in {tomorrowMoonSign}</span>
+                      <span className="text-xl text-[#7B7394]">{moonSignSymbols[tomorrowMoonSign]}</span>
+                      <span className="text-sm text-[#2D2640]">Moon in {tomorrowMoonSign}</span>
                     </div>
                   )}
-                  <p className="text-[#6B6B6B] leading-relaxed flex-1">
+                  <p className="text-[#7B7394] leading-relaxed flex-1">
                     {getTomorrowContrast(currentMoonSign, tomorrowMoonSign)}
                   </p>
                 </div>
@@ -708,10 +709,10 @@ export default function TransitPage() {
           <>
             {/* Weekly Orientation */}
             <section className="container-editorial py-6 md:py-8">
-              <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">This week&apos;s moon journey</h2>
+              <h2 className="font-serif text-2xl text-[#2D2640] mb-4">This week&apos;s moon journey</h2>
               <div className="bg-[#F5F0EB] rounded-xl p-6 mb-8">
-                <h3 className="font-serif text-lg text-[#2A2A2A] mb-3">This week at a glance</h3>
-                <p className="text-[#6B6B6B] leading-relaxed">
+                <h3 className="font-serif text-lg text-[#2D2640] mb-3">This week at a glance</h3>
+                <p className="text-[#7B7394] leading-relaxed">
                   {generateWeeklyOrientation(weekTransits.map(t => t.sign))}
                 </p>
               </div>
@@ -728,41 +729,41 @@ export default function TransitPage() {
                       key={i}
                       className={`rounded-xl p-6 border ${
                         isToday
-                          ? 'bg-white border-[#B8A090]'
-                          : 'bg-white border-[#2A2A2A]/5'
+                          ? 'bg-white border-[#8A8099]'
+                          : 'bg-white border-[#2D2640]/5'
                       }`}
                     >
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center gap-3">
-                          <span className="text-2xl text-[#6B6B6B]">{moonSignSymbols[transit.sign]}</span>
+                          <span className="text-2xl text-[#7B7394]">{moonSignSymbols[transit.sign]}</span>
                           <div>
-                            <h3 className="font-serif text-lg text-[#2A2A2A]">
+                            <h3 className="font-serif text-lg text-[#2D2640]">
                               Moon in {transit.sign}
-                              {isToday && <span className="text-[#B8A090] text-sm ml-2">(Today)</span>}
+                              {isToday && <span className="text-[#8A8099] text-sm ml-2">(Today)</span>}
                             </h3>
-                            <p className="text-sm text-[#6B6B6B]">
+                            <p className="text-sm text-[#7B7394]">
                               {transit.dayName}, {transit.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                             </p>
                           </div>
                         </div>
-                        <span className="text-xs text-[#6B6B6B] bg-[#F5F0EB] px-3 py-1 rounded-full">
+                        <span className="text-xs text-[#7B7394] bg-[#F5F0EB] px-3 py-1 rounded-full">
                           {signData.element}
                         </span>
                       </div>
 
                       {/* Purpose */}
-                      <p className="text-[#2A2A2A] text-sm leading-relaxed mb-3">
+                      <p className="text-[#2D2640] text-sm leading-relaxed mb-3">
                         {roleData?.purpose || signData.energy.split('.')[0] + '.'}
                       </p>
 
                       {/* Misfire warning */}
-                      <p className="text-[#6B6B6B] text-sm leading-relaxed mb-3">
+                      <p className="text-[#7B7394] text-sm leading-relaxed mb-3">
                         {roleData?.misfire || ''}
                       </p>
 
                       {/* Takeaway */}
                       {roleData?.takeaway && (
-                        <p className="text-[#2A2A2A] text-sm font-medium mb-4 italic">
+                        <p className="text-[#2D2640] text-sm font-medium mb-4 italic">
                           {roleData.takeaway}
                         </p>
                       )}
@@ -772,7 +773,7 @@ export default function TransitPage() {
                         {(activities || signData.activities.slice(0, 3)).map((activity, j) => (
                           <span
                             key={j}
-                            className="px-3 py-1 bg-[#F5F0EB] text-[#6B6B6B] text-xs rounded-full"
+                            className="px-3 py-1 bg-[#F5F0EB] text-[#7B7394] text-xs rounded-full"
                           >
                             {activity}
                           </span>
@@ -786,20 +787,20 @@ export default function TransitPage() {
 
             {/* Weekly Themes as Guidance */}
             <div className="container-editorial">
-              <div className="h-px bg-[#2A2A2A]/10" />
+              <div className="h-px bg-[#2D2640]/10" />
             </div>
             <section className="container-editorial py-6 md:py-8">
-              <h2 className="font-serif text-2xl text-[#2A2A2A] mb-6">Weekly themes</h2>
+              <h2 className="font-serif text-2xl text-[#2D2640] mb-6">Weekly themes</h2>
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-xl p-6 border border-[#2A2A2A]/5">
-                  <h3 className="font-serif text-lg text-[#2A2A2A] mb-3">Elements in focus</h3>
-                  <p className="text-[#6B6B6B] text-sm leading-relaxed">
+                <div className="bg-white rounded-xl p-6 border border-[#2D2640]/5">
+                  <h3 className="font-serif text-lg text-[#2D2640] mb-3">Elements in focus</h3>
+                  <p className="text-[#7B7394] text-sm leading-relaxed">
                     {generateElementFocus(weekTransits.map(t => t.sign))}
                   </p>
                 </div>
-                <div className="bg-white rounded-xl p-6 border border-[#2A2A2A]/5">
-                  <h3 className="font-serif text-lg text-[#2A2A2A] mb-3">Moon phase arc</h3>
-                  <p className="text-[#6B6B6B] text-sm leading-relaxed">
+                <div className="bg-white rounded-xl p-6 border border-[#2D2640]/5">
+                  <h3 className="font-serif text-lg text-[#2D2640] mb-3">Moon phase arc</h3>
+                  <p className="text-[#7B7394] text-sm leading-relaxed">
                     {getPhaseArcGuidance(moonPhase.name)}
                   </p>
                 </div>
@@ -808,12 +809,12 @@ export default function TransitPage() {
 
             {/* Weekly Anchor Question */}
             <div className="container-editorial">
-              <div className="h-px bg-[#2A2A2A]/10" />
+              <div className="h-px bg-[#2D2640]/10" />
             </div>
             <section className="container-editorial py-6 md:py-8">
-              <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">A question to carry this week</h2>
-              <div className="bg-white rounded-xl p-8 border border-[#2A2A2A]/5">
-                <p className="text-[#2A2A2A] text-lg leading-relaxed italic">
+              <h2 className="font-serif text-2xl text-[#2D2640] mb-4">A question to carry this week</h2>
+              <div className="bg-white rounded-xl p-8 border border-[#2D2640]/5">
+                <p className="text-[#2D2640] text-lg leading-relaxed italic">
                   &ldquo;{getWeeklyQuestion(weekTransits.map(t => t.sign))}&rdquo;
                 </p>
               </div>
@@ -826,8 +827,8 @@ export default function TransitPage() {
 
         {/* Share Section */}
         <section className="container-editorial py-6">
-          <div className="bg-white rounded-2xl p-5 border border-[#2A2A2A]/5 text-center">
-            <p className="text-sm text-[#6B6B6B] mb-4">Share today&apos;s moon energy</p>
+          <div className="bg-white rounded-2xl p-5 border border-[#2D2640]/5 text-center">
+            <p className="text-sm text-[#7B7394] mb-4">Share today&apos;s moon energy</p>
             <ShareButtons
               title={`Moon in ${currentMoonSign} - ${moonPhase.name}`}
               text={`Today the Moon is in ${currentMoonSign} ${moonSignSymbols[currentMoonSign]} during the ${moonPhase.name} ${moonPhase.emoji}. Get your daily moon guidance at`}
@@ -837,25 +838,13 @@ export default function TransitPage() {
 
         {/* Disclaimer */}
         <section className="container-editorial py-6">
-          <p className="text-xs text-[#6B6B6B]/60 text-center">
+          <p className="text-xs text-[#7B7394]/60 text-center">
             This is for reflection, not prediction. Take what resonates and leave what doesn&apos;t.
           </p>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="py-8">
-        <div className="container-editorial">
-          <div className="flex justify-end">
-            <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
-              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

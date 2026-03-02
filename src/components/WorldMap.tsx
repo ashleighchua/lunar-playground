@@ -14,7 +14,7 @@ export function WorldMap({ destination, className = '' }: WorldMapProps) {
   return (
     <div className={`relative ${className}`}>
       {/* Map container */}
-      <div className="relative w-full overflow-hidden rounded-lg border border-[#2A2A2A]/10" style={{ paddingBottom: '50%' }}>
+      <div className="relative w-full overflow-hidden rounded-lg border border-[#2D2640]/10" style={{ paddingBottom: '50%' }}>
         {/* OpenStreetMap iframe */}
         <iframe
           src={mapUrl}
@@ -28,7 +28,7 @@ export function WorldMap({ destination, className = '' }: WorldMapProps) {
         />
 
         {/* Coordinates overlay */}
-        <div className="absolute bottom-3 left-3 px-2 py-1 bg-white/80 rounded text-xs text-[#6B6B6B] font-mono">
+        <div className="absolute bottom-3 left-3 px-2 py-1 bg-white/80 rounded text-xs text-[#7B7394] font-mono">
           {destination.lat.toFixed(2)}°{destination.lat >= 0 ? 'N' : 'S'}, {destination.lng.toFixed(2)}°{destination.lng >= 0 ? 'E' : 'W'}
         </div>
       </div>

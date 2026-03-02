@@ -95,7 +95,7 @@ export function MoonPhaseDisplay({ phase, size = 180, className = '' }: MoonPhas
             <stop offset="100%" stopColor="#D4D0CA" stopOpacity="1" />
           </radialGradient>
           <filter id={`moonShadow-${phase.replace(/\s/g, '')}`} x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#2A2A2A" floodOpacity="0.1"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#2D2640" floodOpacity="0.1"/>
           </filter>
         </defs>
 
@@ -120,10 +120,10 @@ export function MoonPhaseDisplay({ phase, size = 180, className = '' }: MoonPhas
         {/* Subtle crater details for texture */}
         {illuminated > 0 && (
           <g opacity="0.1">
-            <circle cx={center - radius * 0.3} cy={center - radius * 0.2} r={radius * 0.15} fill="#2A2A2A" />
-            <circle cx={center + radius * 0.2} cy={center + radius * 0.3} r={radius * 0.1} fill="#2A2A2A" />
-            <circle cx={center - radius * 0.1} cy={center + radius * 0.5} r={radius * 0.08} fill="#2A2A2A" />
-            <circle cx={center + radius * 0.4} cy={center - radius * 0.1} r={radius * 0.12} fill="#2A2A2A" />
+            <circle cx={center - radius * 0.3} cy={center - radius * 0.2} r={radius * 0.15} fill="#2D2640" />
+            <circle cx={center + radius * 0.2} cy={center + radius * 0.3} r={radius * 0.1} fill="#2D2640" />
+            <circle cx={center - radius * 0.1} cy={center + radius * 0.5} r={radius * 0.08} fill="#2D2640" />
+            <circle cx={center + radius * 0.4} cy={center - radius * 0.1} r={radius * 0.12} fill="#2D2640" />
           </g>
         )}
       </svg>

@@ -121,3 +121,38 @@ export function truncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength).trim() + '...';
 }
+
+/**
+ * Validate a date string (YYYY-MM-DD) is a real calendar date
+ */
+export function isValidDate(dateString: string): boolean {
+  if (!dateString) return false;
+  const [year, month, day] = dateString.split('-').map(Number);
+  if (year < 1900 || year > new Date().getFullYear()) return false;
+  if (month < 1 || month > 12) return false;
+  if (day < 1 || day > 31) return false;
+  const date = new Date(year, month - 1, day);
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+}
+
+export const MONTH_ABBREVIATIONS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as const;
+
+/**
+ * Parse a date string (YYYY-MM-DD) into its parts
+ */
+export function getDateParts(dateStr: string): { year: number; month: number; day: number } {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return { year, month, day };
+}
+
+/**
+ * Reduce a number to a single digit (1-9), preserving master numbers 11, 22, 33
+ */
+export function reduceToSingleDigit(num: number): number {
+  if (num === 11 || num === 22 || num === 33) return num;
+  while (num > 9) {
+    num = num.toString().split('').reduce((sum, d) => sum + parseInt(d), 0);
+    if (num === 11 || num === 22 || num === 33) return num;
+  }
+  return num;
+}

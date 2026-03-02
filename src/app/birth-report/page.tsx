@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { CitySelect } from '@/components/ui/CitySelect';
 import { SendResultsEmail } from '@/components/ui/SendResultsEmail';
 import {
@@ -24,18 +25,9 @@ import { getSectionConfig } from '@/lib/sectionConfig';
 import { SummaryScreen } from '@/components/birth-report/SummaryScreen';
 import { SectionLoadingScreen } from '@/components/birth-report/SectionLoadingScreen';
 import { SectionView } from '@/components/birth-report/SectionView';
+import { isValidDate } from '@/lib/utils';
 
 const moonPhases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
-
-function isValidDate(dateString: string): boolean {
-  if (!dateString) return false;
-  const [year, month, day] = dateString.split('-').map(Number);
-  if (year < 1900 || year > new Date().getFullYear()) return false;
-  if (month < 1 || month > 12) return false;
-  if (day < 1 || day > 31) return false;
-  const date = new Date(year, month - 1, day);
-  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
-}
 
 type PageView = 'form' | 'initialLoading' | 'summaryPicker' | 'sectionLoading' | 'sectionView';
 
@@ -59,15 +51,9 @@ function BirthReportContent() {
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
 
   const reportLoadingSteps = [
-    'Calculating exact planetary positions at your birth...',
-    'Identifying your Sun, Moon, and Rising signs...',
-    'Analyzing house placements and rulerships...',
+    'Calculating planetary positions at your birth...',
     'Mapping aspect patterns between planets...',
     'Interpreting core drives and motivations...',
-    'Reading communication and thinking style...',
-    'Analyzing emotional landscape and comfort needs...',
-    'Mapping relationship blueprint...',
-    'Synthesizing key themes across your chart...',
     'Compiling your personalized report...',
   ];
   const [viewedSections, setViewedSections] = useState<Set<string>>(new Set());
@@ -150,7 +136,7 @@ function BirthReportContent() {
     }, 200);
 
     const stepInterval = setInterval(() => {
-      setLoadingStep(prev => Math.min(prev + 1, 9));
+      setLoadingStep(prev => Math.min(prev + 1, reportLoadingSteps.length - 1));
     }, 1000);
 
     const birthDate = parseBirthDateTime(birthdate, birthtime || undefined);
@@ -309,7 +295,7 @@ function BirthReportContent() {
   const saturnSignName = ephemerisChart?.saturn?.sign || null;
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col">
+    <div className="min-h-screen bg-[#F0EBF8] flex flex-col">
       <Navigation currentPage="your-chart" />
 
       <style jsx>{`
@@ -338,21 +324,21 @@ function BirthReportContent() {
                   </span>
                 ))}
               </div>
-              <p className="font-serif text-2xl text-[#2A2A2A] mb-6">Mapping your cosmos</p>
+              <p className="font-serif text-2xl text-[#2D2640] mb-6">Mapping your cosmos</p>
 
               {/* Single rotating message */}
               <p
                 key={loadingStep}
-                className="text-sm text-[#2A2A2A] mb-4"
+                className="text-sm text-[#2D2640] mb-4"
                 style={{ animation: 'fadeMessage 2.5s ease-in-out' }}
               >
                 {reportLoadingSteps[loadingStep]}
               </p>
 
               {/* Progress bar */}
-              <div className="w-48 h-px bg-[#2A2A2A]/10 rounded-full overflow-hidden mx-auto">
+              <div className="w-48 h-px bg-[#2D2640]/10 rounded-full overflow-hidden mx-auto">
                 <div
-                  className="h-full bg-[#D4A84B]/50 transition-all duration-1000 ease-out"
+                  className="h-full bg-[#FF8FA3]/50 transition-all duration-1000 ease-out"
                   style={{ width: `${((loadingStep + 1) / reportLoadingSteps.length) * 100}%` }}
                 />
               </div>
@@ -366,25 +352,25 @@ function BirthReportContent() {
             {/* Hero */}
             <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
               <div className="max-w-2xl">
-                <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A2A2A] leading-[1.1] tracking-tight">
+                <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2D2640] leading-[1.1] tracking-tight">
                   Your Birth Chart
                 </h1>
-                <p className="mt-6 text-lg text-[#6B6B6B] leading-relaxed">
+                <p className="mt-6 text-lg text-[#7B7394] leading-relaxed">
                   A comprehensive exploration of your personality, patterns, and potential.
                 </p>
               </div>
             </section>
 
-            <div className="container-editorial"><div className="h-px bg-[#2A2A2A]/10" /></div>
+            <div className="container-editorial"><div className="h-px bg-[#2D2640]/10" /></div>
 
             {/* Form */}
             <section className="container-editorial py-12 md:py-16 min-h-[60vh] flex items-center justify-center">
               <div className="max-w-md w-full text-center">
-                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">Enter your birth details</h2>
+                <h2 className="font-serif text-2xl text-[#2D2640] mb-8">Enter your birth details</h2>
                 <form onSubmit={handleSubmit} className="space-y-6 text-left">
                   <div className="grid grid-cols-2 gap-4 items-end">
                     <div>
-                      <label htmlFor="birthdate" className="block text-sm text-[#6B6B6B] mb-2">Date of birth</label>
+                      <label htmlFor="birthdate" className="block text-sm text-[#7B7394] mb-2">Date of birth</label>
                       <input
                         type="date"
                         id="birthdate"
@@ -392,15 +378,15 @@ function BirthReportContent() {
                         value={formData.birthdate}
                         onChange={(e) => { setFormData({ ...formData, birthdate: e.target.value }); setDateError(null); }}
                         className={`w-full px-4 py-3 border rounded-lg bg-white focus:outline-none transition-colors ${
-                          formData.birthdate ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/60'
-                        } ${dateError ? 'border-red-400' : 'border-[#2A2A2A]/10 focus:border-[#2A2A2A]/30'}`}
+                          formData.birthdate ? 'text-[#2D2640]' : 'text-[#7B7394]/60'
+                        } ${dateError ? 'border-red-400' : 'border-[#2D2640]/10 focus:border-[#2D2640]/30'}`}
                       />
                       {dateError && <p className="mt-2 text-sm text-red-500">{dateError}</p>}
                     </div>
 
                     <div>
-                      <label htmlFor="birthtime" className="block text-sm text-[#6B6B6B] mb-2">
-                        Time of birth <span className="text-[#6B6B6B]/60">(optional)</span>
+                      <label htmlFor="birthtime" className="block text-sm text-[#7B7394] mb-2">
+                        Time of birth <span className="text-[#7B7394]/60">(optional)</span>
                       </label>
                       <div className="relative">
                         <input
@@ -408,15 +394,15 @@ function BirthReportContent() {
                           id="birthtime"
                           value={formData.birthtime}
                           onChange={(e) => setFormData({ ...formData, birthtime: e.target.value })}
-                          className={`w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-white focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${
-                            formData.birthtime ? 'text-[#2A2A2A] pr-10' : 'text-[#6B6B6B]/60'
+                          className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors ${
+                            formData.birthtime ? 'text-[#2D2640] pr-10' : 'text-[#7B7394]/60'
                           }`}
                         />
                         {formData.birthtime && (
                           <button
                             type="button"
                             onClick={() => setFormData({ ...formData, birthtime: '' })}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6B6B]/60 hover:text-[#2A2A2A] transition-colors"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7B7394]/60 hover:text-[#2D2640] transition-colors"
                             aria-label="Clear time"
                           >
                             {'\u2715'}
@@ -425,10 +411,10 @@ function BirthReportContent() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs text-[#6B6B6B] -mt-4">Time of birth gives more accurate results. If unknown, some sections will be limited.</p>
+                  <p className="text-xs text-[#7B7394] -mt-4">Time of birth gives more accurate results. If unknown, some sections will be limited.</p>
 
                   <div>
-                    <label className="block text-sm text-[#6B6B6B] mb-2">Place of birth</label>
+                    <label className="block text-sm text-[#7B7394] mb-2">Place of birth</label>
                     <CitySelect
                       value={selectedCity?.label || ''}
                       onChange={(city) => setSelectedCity(city)}
@@ -437,8 +423,8 @@ function BirthReportContent() {
                   </div>
 
                   <div className="pt-2">
-                    <label htmlFor="email" className="block text-sm text-[#6B6B6B] mb-2">
-                      Email <span className="text-[#6B6B6B]/60">(optional)</span>
+                    <label htmlFor="email" className="block text-sm text-[#7B7394] mb-2">
+                      Email <span className="text-[#7B7394]/60">(optional)</span>
                     </label>
                     <input
                       type="email"
@@ -446,15 +432,15 @@ function BirthReportContent() {
                       value={userEmail}
                       onChange={(e) => setUserEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-white focus:outline-none focus:border-[#2A2A2A]/30 transition-colors text-[#2A2A2A] placeholder:text-[#6B6B6B]/40"
+                      className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#7B7394]/40"
                     />
-                    <p className="mt-2 text-xs text-[#6B6B6B]">We&apos;ll email you a copy of your report</p>
+                    <p className="mt-2 text-xs text-[#7B7394]">We&apos;ll email you a copy of your report</p>
                   </div>
 
                   <button
                     type="submit"
                     disabled={isCalculating}
-                    className="w-full px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors mt-8 disabled:opacity-50"
+                    className="w-full px-8 py-4 rounded-lg bg-[#2D2640] text-[#F0EBF8] text-sm tracking-wide hover:bg-[#1E1835] transition-colors mt-8 disabled:opacity-50"
                   >
                     {isCalculating ? 'Calculating...' : 'Generate my report'}
                   </button>
@@ -515,10 +501,10 @@ function BirthReportContent() {
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setShowEmailModal(false)}
           />
-          <div className="relative bg-[#FAF7F2] rounded-2xl p-8 max-w-md w-full shadow-2xl">
+          <div className="relative bg-[#F0EBF8] rounded-2xl p-8 max-w-md w-full shadow-2xl">
             <button
               onClick={() => setShowEmailModal(false)}
-              className="absolute top-4 right-4 text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors"
+              className="absolute top-4 right-4 text-[#7B7394] hover:text-[#2D2640] transition-colors"
               aria-label="Close"
             >
               {'\u2715'}
@@ -527,13 +513,13 @@ function BirthReportContent() {
             {modalEmailSent ? (
               <div className="text-center py-4">
                 <div className="text-4xl mb-4">{'\u2713'}</div>
-                <h3 className="font-serif text-xl text-[#2A2A2A] mb-2">Sent!</h3>
-                <p className="text-[#6B6B6B]">Check your inbox for your birth chart summary.</p>
+                <h3 className="font-serif text-xl text-[#2D2640] mb-2">Sent!</h3>
+                <p className="text-[#7B7394]">Check your inbox for your birth chart summary.</p>
               </div>
             ) : (
               <>
-                <h3 className="font-serif text-2xl text-[#2A2A2A] mb-2 text-center">Save your report</h3>
-                <p className="text-[#6B6B6B] text-center mb-6">Get a summary of your birth chart sent to your inbox.</p>
+                <h3 className="font-serif text-2xl text-[#2D2640] mb-2 text-center">Save your report</h3>
+                <p className="text-[#7B7394] text-center mb-6">Get a summary of your birth chart sent to your inbox.</p>
 
                 <div className="space-y-4">
                   <input
@@ -541,13 +527,13 @@ function BirthReportContent() {
                     value={modalEmail}
                     onChange={(e) => setModalEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-white focus:outline-none focus:border-[#2A2A2A]/30 transition-colors text-[#2A2A2A] placeholder:text-[#6B6B6B]/40"
+                    className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#7B7394]/40"
                     onKeyDown={(e) => e.key === 'Enter' && handleModalEmailSubmit()}
                   />
                   <button
                     onClick={handleModalEmailSubmit}
                     disabled={!modalEmail || modalEmailSending}
-                    className="w-full px-6 py-3 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm hover:bg-[#1a1a1a] transition-colors disabled:opacity-50"
+                    className="w-full px-6 py-3 rounded-lg bg-[#2D2640] text-[#F0EBF8] text-sm hover:bg-[#1E1835] transition-colors disabled:opacity-50"
                   >
                     {modalEmailSending ? 'Sending...' : 'Send to my email'}
                   </button>
@@ -555,7 +541,7 @@ function BirthReportContent() {
 
                 <button
                   onClick={() => setShowEmailModal(false)}
-                  className="w-full mt-4 text-sm text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors"
+                  className="w-full mt-4 text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors"
                 >
                   Maybe later
                 </button>
@@ -565,18 +551,7 @@ function BirthReportContent() {
         </div>
       )}
 
-      <footer className="py-8">
-        <div className="container-editorial">
-          <div className="flex justify-end">
-            <div className="flex gap-8 text-sm text-[#6B6B6B]">
-              <Link href="/reviews" className="hover:text-[#2A2A2A] transition-colors">Reviews</Link>
-              <Link href="/faq" className="hover:text-[#2A2A2A] transition-colors">FAQ</Link>
-              <Link href="/privacy" className="hover:text-[#2A2A2A] transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#2A2A2A] transition-colors">Terms</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
@@ -584,8 +559,8 @@ function BirthReportContent() {
 export default function BirthReportPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
-        <p className="text-[#6B6B6B]">Loading...</p>
+      <div className="min-h-screen bg-[#F0EBF8] flex items-center justify-center">
+        <p className="text-[#7B7394]">Loading...</p>
       </div>
     }>
       <BirthReportContent />

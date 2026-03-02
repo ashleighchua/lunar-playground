@@ -19,13 +19,13 @@ export function DecisionMakingSection({ decisionSign }: DecisionMakingSectionPro
   const reframeText = decisionReframe[decisionSign] || '';
 
   return (
-    <div className="bg-white rounded-2xl border border-[#2A2A2A]/5 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl border border-[#2D2640]/5 shadow-sm overflow-hidden">
       {/* Header with accent rail */}
       <div className="flex">
         <div className="w-1 bg-[#6B8DAB]" />
         <div className="flex-1 p-6 md:p-8 bg-gradient-to-r from-[#EEF3F7]/50 to-transparent">
-          <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">How You Make Decisions</h2>
-          <p className="text-sm text-[#6B6B6B] leading-relaxed">
+          <h2 className="font-serif text-2xl text-[#2D2640] mb-4">How You Make Decisions</h2>
+          <p className="text-sm text-[#7B7394] leading-relaxed">
             Your natural decision-making style based on Mercury in {decisionSign}
           </p>
         </div>
@@ -39,11 +39,11 @@ export function DecisionMakingSection({ decisionSign }: DecisionMakingSectionPro
               <span className="text-[#6B8DAB]">&#9881;</span>
               <p className="text-xs font-medium tracking-wide uppercase text-[#5B7B9A]">Your decision style</p>
             </div>
-            <p className="text-[#2A2A2A] text-sm leading-relaxed mb-3">
+            <p className="text-[#2D2640] text-sm leading-relaxed mb-3">
               {styleParagraphs[0]}
             </p>
             {styleParagraphs[1] && (
-              <p className="text-[#2A2A2A]/80 text-sm leading-relaxed italic">
+              <p className="text-[#2D2640]/80 text-sm leading-relaxed italic">
                 {styleParagraphs[1]}
               </p>
             )}
@@ -59,7 +59,7 @@ export function DecisionMakingSection({ decisionSign }: DecisionMakingSectionPro
             </div>
             <ul className="space-y-3">
               {triggers.map((trigger, i) => (
-                <li key={i} className="flex items-start gap-2 text-[#2A2A2A]/80 text-sm">
+                <li key={i} className="flex items-start gap-2 text-[#2D2640]/80 text-sm">
                   <span className="text-[#9CB896] mt-0.5">&middot;</span>
                   <span>{trigger}</span>
                 </li>
@@ -73,22 +73,22 @@ export function DecisionMakingSection({ decisionSign }: DecisionMakingSectionPro
           {blindSpotText && (
             <div className="bg-[#FEF3E8] rounded-xl p-5">
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-[#D4A84B]">&#9888;</span>
-                <p className="text-xs font-medium tracking-wide uppercase text-[#8B6914]">Watch out for</p>
+                <span className="text-[#FF8FA3]">&#9888;</span>
+                <p className="text-xs font-medium tracking-wide uppercase text-[#C4365A]">Watch out for</p>
               </div>
-              <p className="text-[#2A2A2A] text-sm leading-relaxed">
+              <p className="text-[#2D2640] text-sm leading-relaxed">
                 {blindSpotText}
               </p>
             </div>
           )}
 
           {reframeText && (
-            <div className="bg-[#FAF7F2] rounded-xl p-5">
+            <div className="bg-[#F0EBF8] rounded-xl p-5">
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-[#C4A88F]">&#128161;</span>
+                <span className="text-[#FFB88C]">&#128161;</span>
                 <p className="text-xs font-medium tracking-wide uppercase text-[#7A746C]">A helpful reframe</p>
               </div>
-              <p className="text-[#2A2A2A] text-sm leading-relaxed">
+              <p className="text-[#2D2640] text-sm leading-relaxed">
                 {reframeText}
               </p>
             </div>

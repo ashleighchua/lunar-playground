@@ -5,16 +5,7 @@ import { useRouter } from 'next/navigation';
 import { CitySelect } from '@/components/ui/CitySelect';
 import { loadBirthData, saveBirthData } from '@/lib/birthData';
 import { type City } from '@/lib/cities';
-
-function isValidDate(dateString: string): boolean {
-  if (!dateString) return false;
-  const [year, month, day] = dateString.split('-').map(Number);
-  if (year < 1900 || year > new Date().getFullYear()) return false;
-  if (month < 1 || month > 12) return false;
-  if (day < 1 || day > 31) return false;
-  const date = new Date(year, month - 1, day);
-  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
-}
+import { isValidDate } from '@/lib/utils';
 
 interface BirthDataFormProps {
   className?: string;
@@ -82,7 +73,7 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
     <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
       <div className={compact ? 'grid grid-cols-2 gap-4' : ''}>
         <div>
-          <label htmlFor="birthdate" className="block text-sm text-[#6B6B6B] mb-2">Date of birth</label>
+          <label htmlFor="birthdate" className="block text-sm text-[#7B7394] mb-2">Date of birth</label>
           <input
             type="date"
             id="birthdate"
@@ -90,31 +81,31 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
             value={formData.birthdate}
             onChange={(e) => { setFormData({ ...formData, birthdate: e.target.value }); setDateError(null); }}
             className={`w-full px-4 py-3 border rounded-lg bg-transparent focus:outline-none transition-colors ${
-              formData.birthdate ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/60'
-            } ${dateError ? 'border-red-400' : 'border-[#2A2A2A]/10 focus:border-[#2A2A2A]/30'}`}
+              formData.birthdate ? 'text-[#2D2640]' : 'text-[#7B7394]/60'
+            } ${dateError ? 'border-red-400' : 'border-[#2D2640]/10 focus:border-[#2D2640]/30'}`}
           />
           {dateError && <p className="mt-2 text-sm text-red-500">{dateError}</p>}
         </div>
 
         <div>
-          <label htmlFor="birthtime" className="block text-sm text-[#6B6B6B] mb-2">
-            Time of birth {compact && <span className="text-[#6B6B6B]/60">(optional)</span>}
+          <label htmlFor="birthtime" className="block text-sm text-[#7B7394] mb-2">
+            Time of birth {compact && <span className="text-[#7B7394]/60">(optional)</span>}
           </label>
           <input
             type="time"
             id="birthtime"
             value={formData.birthtime}
             onChange={(e) => setFormData({ ...formData, birthtime: e.target.value })}
-            className={`w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors ${
-              formData.birthtime ? 'text-[#2A2A2A]' : 'text-[#6B6B6B]/60'
+            className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors ${
+              formData.birthtime ? 'text-[#2D2640]' : 'text-[#7B7394]/60'
             }`}
           />
-          {!compact && <p className="mt-2 text-xs text-[#6B6B6B]">For most accurate results. If unknown, some sections will be limited.</p>}
+          {!compact && <p className="mt-2 text-xs text-[#7B7394]">For most accurate results. If unknown, some sections will be limited.</p>}
         </div>
       </div>
 
       <div>
-        <label className="block text-sm text-[#6B6B6B] mb-2">Place of birth</label>
+        <label className="block text-sm text-[#7B7394] mb-2">Place of birth</label>
         <CitySelect
           value={selectedCity?.label || ''}
           onChange={(city) => setSelectedCity(city)}
@@ -123,8 +114,8 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
       </div>
 
       <div className={compact ? '' : 'pt-2'}>
-        <label htmlFor="email" className="block text-sm text-[#6B6B6B] mb-2">
-          Email <span className="text-[#6B6B6B]/60">(optional)</span>
+        <label htmlFor="email" className="block text-sm text-[#7B7394] mb-2">
+          Email <span className="text-[#7B7394]/60">(optional)</span>
         </label>
         <input
           type="email"
@@ -132,15 +123,15 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
           placeholder="you@example.com"
-          className="w-full px-4 py-3 border border-[#2A2A2A]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2A2A2A]/30 transition-colors text-[#2A2A2A] placeholder:text-[#6B6B6B]/40"
+          className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#7B7394]/40"
         />
-        {!compact && <p className="mt-2 text-xs text-[#6B6B6B]">We&apos;ll email you a copy of your report</p>}
+        {!compact && <p className="mt-2 text-xs text-[#7B7394]">We&apos;ll email you a copy of your report</p>}
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] text-sm tracking-wide hover:bg-[#1a1a1a] transition-colors mt-4 disabled:opacity-50"
+        className="w-full px-8 py-4 rounded-lg bg-[#2D2640] text-[#F0EBF8] text-sm tracking-wide hover:bg-[#1E1835] transition-colors mt-4 disabled:opacity-50"
       >
         {isSubmitting ? 'Loading...' : 'Generate my report'}
       </button>

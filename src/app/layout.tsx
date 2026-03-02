@@ -65,12 +65,67 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'The Lunar Playground',
+              url: 'https://thelunarplayground.com',
+              description: 'Relocation astrology specialist. Birth chart readings, astrocartography, and personalised relocation reports.',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: 'https://thelunarplayground.com/blog?q={search_term_string}',
+                'query-input': 'required name=search_term_string',
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ProfessionalService',
+              name: 'The Lunar Playground',
+              url: 'https://thelunarplayground.com',
+              description: 'Relocation astrology specialist blending Western astrology, Chinese zodiac, BaZi, numerology, and human design.',
+              serviceType: 'Astrology Reading',
+              areaServed: 'Worldwide',
+              hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: 'Astrology Services',
+                itemListElement: [
+                  {
+                    '@type': 'Offer',
+                    itemOffered: {
+                      '@type': 'Service',
+                      name: 'Birth Chart Report',
+                      description: 'Personalised birth chart analysis with sun, moon, and rising sign interpretations.',
+                    },
+                  },
+                  {
+                    '@type': 'Offer',
+                    itemOffered: {
+                      '@type': 'Service',
+                      name: 'Astrocartography Report',
+                      description: 'Relocation astrology mapping showing your best cities for career, love, and personal growth.',
+                    },
+                  },
+                ],
+              },
+            }),
+          }}
+        />
+
         {/* Google Analytics */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -80,7 +135,7 @@ export default function RootLayout({
         </Script>
 
         {/* Microsoft Clarity */}
-        <Script id="microsoft-clarity" strategy="afterInteractive">
+        <Script id="microsoft-clarity" strategy="lazyOnload">
           {`
             (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

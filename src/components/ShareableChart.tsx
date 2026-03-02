@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { toPng } from 'html-to-image';
 
 interface ShareableChartProps {
   sunSign: string;
@@ -27,7 +26,7 @@ const zodiacSymbols: Record<string, string> = {
 };
 
 const elementColors: Record<string, { bg: string; accent: string }> = {
-  Fire: { bg: '#FEF3E8', accent: '#D4A84B' },    // Aries, Leo, Sagittarius
+  Fire: { bg: '#FEF3E8', accent: '#FF8FA3' },    // Aries, Leo, Sagittarius
   Earth: { bg: '#F0EBE3', accent: '#7A746C' },   // Taurus, Virgo, Capricorn
   Air: { bg: '#F5F8FA', accent: '#6B8DAB' },     // Gemini, Libra, Aquarius
   Water: { bg: '#EEF3F7', accent: '#5B7B9A' },   // Cancer, Scorpio, Pisces
@@ -55,6 +54,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
 
     setDownloading(true);
     try {
+      const { toPng } = await import('html-to-image');
       const dataUrl = await toPng(chartRef.current, {
         quality: 1,
         pixelRatio: 2,
@@ -77,6 +77,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
 
     setDownloading(true);
     try {
+      const { toPng } = await import('html-to-image');
       const dataUrl = await toPng(chartRef.current, {
         quality: 1,
         pixelRatio: 2,
@@ -116,14 +117,14 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
       <div className="relative bg-white rounded-2xl p-6 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-[#6B6B6B] hover:text-[#2A2A2A] transition-colors z-10"
+          className="absolute top-4 right-4 text-[#7B7394] hover:text-[#2D2640] transition-colors z-10"
           aria-label="Close"
         >
           ✕
         </button>
 
-        <h3 className="font-serif text-xl text-[#2A2A2A] mb-4 text-center">Share your chart</h3>
-        <p className="text-sm text-[#6B6B6B] text-center mb-6">Download or share your birth chart summary</p>
+        <h3 className="font-serif text-xl text-[#2D2640] mb-4 text-center">Share your chart</h3>
+        <p className="text-sm text-[#7B7394] text-center mb-6">Download or share your birth chart summary</p>
 
         {/* The shareable card */}
         <div
@@ -137,7 +138,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
               <p className="text-xs tracking-[0.2em] uppercase mb-2" style={{ color: colors.accent }}>
                 My Birth Chart
               </p>
-              <h2 className="font-serif text-2xl text-[#2A2A2A]">
+              <h2 className="font-serif text-2xl text-[#2D2640]">
                 The Big Three
               </h2>
             </div>
@@ -153,8 +154,8 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
                   {zodiacSymbols[sunSign]}
                 </div>
                 <div>
-                  <p className="text-xs tracking-wider uppercase text-[#6B6B6B]">Sun</p>
-                  <p className="font-serif text-lg text-[#2A2A2A]">{sunSign}</p>
+                  <p className="text-xs tracking-wider uppercase text-[#7B7394]">Sun</p>
+                  <p className="font-serif text-lg text-[#2D2640]">{sunSign}</p>
                 </div>
                 <div className="ml-auto">
                   <span className="text-2xl">☀️</span>
@@ -170,8 +171,8 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
                   {zodiacSymbols[moonSign]}
                 </div>
                 <div>
-                  <p className="text-xs tracking-wider uppercase text-[#6B6B6B]">Moon</p>
-                  <p className="font-serif text-lg text-[#2A2A2A]">{moonSign}</p>
+                  <p className="text-xs tracking-wider uppercase text-[#7B7394]">Moon</p>
+                  <p className="font-serif text-lg text-[#2D2640]">{moonSign}</p>
                 </div>
                 <div className="ml-auto">
                   <span className="text-2xl">🌙</span>
@@ -187,8 +188,8 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
                   {zodiacSymbols[risingSign]}
                 </div>
                 <div>
-                  <p className="text-xs tracking-wider uppercase text-[#6B6B6B]">Rising</p>
-                  <p className="font-serif text-lg text-[#2A2A2A]">{risingSign}</p>
+                  <p className="text-xs tracking-wider uppercase text-[#7B7394]">Rising</p>
+                  <p className="font-serif text-lg text-[#2D2640]">{risingSign}</p>
                 </div>
                 <div className="ml-auto">
                   <span className="text-2xl">⬆️</span>
@@ -197,8 +198,8 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
             </div>
 
             {/* Footer */}
-            <div className="mt-8 pt-4 border-t border-[#2A2A2A]/10 text-center">
-              <p className="text-xs text-[#6B6B6B]">
+            <div className="mt-8 pt-4 border-t border-[#2D2640]/10 text-center">
+              <p className="text-xs text-[#7B7394]">
                 Get your birth chart at
               </p>
               <p className="text-sm font-medium" style={{ color: colors.accent }}>
@@ -213,7 +214,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
           <button
             onClick={downloadImage}
             disabled={downloading}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors text-sm disabled:opacity-50"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#2D2640] text-[#F0EBF8] hover:bg-[#1E1835] transition-colors text-sm disabled:opacity-50"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -224,7 +225,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
             <button
               onClick={shareImage}
               disabled={downloading}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#D4A84B]/10 text-[#8B6914] hover:bg-[#D4A84B]/20 transition-colors text-sm disabled:opacity-50"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#FF8FA3]/10 text-[#C4365A] hover:bg-[#FF8FA3]/20 transition-colors text-sm disabled:opacity-50"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />

@@ -163,7 +163,7 @@ export function ShareButtons({ title, text, url, onGenerateImage }: ShareButtons
         className={`flex items-center gap-2 px-4 py-2.5 rounded-full transition-colors text-sm ${
           copied
             ? 'bg-[#9CB896]/20 text-[#4A6B44]'
-            : 'bg-[#2A2A2A]/5 text-[#6B6B6B] hover:bg-[#2A2A2A]/10'
+            : 'bg-[#2D2640]/5 text-[#7B7394] hover:bg-[#2D2640]/10'
         }`}
         aria-label="Copy link"
       >
@@ -188,7 +188,7 @@ export function ShareButtons({ title, text, url, onGenerateImage }: ShareButtons
       {onGenerateImage && (
         <button
           onClick={onGenerateImage}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#D4A84B]/10 text-[#8B6914] hover:bg-[#D4A84B]/20 transition-colors text-sm"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#FF8FA3]/10 text-[#C4365A] hover:bg-[#FF8FA3]/20 transition-colors text-sm"
           aria-label="Download image"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,7 +202,7 @@ export function ShareButtons({ title, text, url, onGenerateImage }: ShareButtons
       {hasNativeShare && (
         <button
           onClick={nativeShare}
-          className="sm:hidden flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors text-sm"
+          className="sm:hidden flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2D2640] text-[#F0EBF8] hover:bg-[#1E1835] transition-colors text-sm"
           aria-label="Share"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

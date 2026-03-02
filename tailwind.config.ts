@@ -15,41 +15,41 @@ const config: Config = {
         // Editorial, spacious, quietly confident
         // ======================
 
-        // Background - Nearly white with warmth
+        // Background - Soft lavender mist
         canvas: {
-          DEFAULT: '#FAFAF9', // Primary background
-          soft: '#F5F5F4',    // Secondary surfaces
-          warm: '#FAF9F7',    // Slight warmth
+          DEFAULT: '#F0EBF8', // Primary background
+          soft: '#E8E2F0',    // Secondary surfaces
+          warm: '#F5F0FC',    // Slight warmth
         },
 
-        // Ink - Deep, confident text
+        // Ink - Deep plum text
         ink: {
-          DEFAULT: '#1C1917', // Primary text - nearly black
-          soft: '#44403C',    // Secondary text
-          muted: '#78716C',   // Tertiary/metadata
-          faint: '#A8A29E',   // Disabled/hints
+          DEFAULT: '#2D2640', // Primary text
+          soft: '#5A5472',    // Secondary text
+          muted: '#7B7394',   // Tertiary/metadata
+          faint: '#8A8099',   // Disabled/hints (WCAG AA compliant)
         },
 
-        // Lunar - Soft silver/blue accent
+        // Lunar - Pastel accents
         lunar: {
-          DEFAULT: '#94A3B8', // Primary accent
-          light: '#CBD5E1',   // Hover/subtle
-          dark: '#64748B',    // Active states
-          glow: '#E2E8F0',    // Backgrounds
+          DEFAULT: '#A6B4FF', // Periwinkle accent
+          light: '#C8D0FF',   // Hover/subtle
+          dark: '#7B8AE0',    // Active states
+          glow: '#E8ECFF',    // Backgrounds
         },
 
-        // Night - Deep contrast for special moments
+        // Night - Deep plum contrast
         night: {
-          DEFAULT: '#1E293B', // Dark backgrounds
-          soft: '#334155',    // Softer dark
-          deep: '#0F172A',    // Deepest
+          DEFAULT: '#2D2640', // Dark backgrounds
+          soft: '#3D3656',    // Softer dark
+          deep: '#1A1628',    // Deepest
         },
 
-        // Warmth - Subtle warm accent
+        // Warmth - Coral/peach accent
         warmth: {
-          DEFAULT: '#D6D3D1', // Neutral warm
-          soft: '#E7E5E4',    // Light warm
-          rich: '#A8A29E',    // Deeper warm
+          DEFAULT: '#FFB8C6', // Coral warm
+          soft: '#FFE0E6',    // Light warm
+          rich: '#E0758B',    // Deeper warm (WCAG AA compliant as text)
         },
 
         // Status colors (minimal)
@@ -140,8 +140,8 @@ const config: Config = {
         'soft': '0 2px 8px -2px rgba(0, 0, 0, 0.05)',
         'medium': '0 4px 16px -4px rgba(0, 0, 0, 0.08)',
         'elevated': '0 8px 32px -8px rgba(0, 0, 0, 0.12)',
-        'glow': '0 0 20px rgba(212, 168, 75, 0.08), 0 4px 16px -4px rgba(0, 0, 0, 0.06)',
-        'glow-lg': '0 0 40px rgba(212, 168, 75, 0.12), 0 8px 32px -8px rgba(0, 0, 0, 0.1)',
+        'glow': '0 0 20px rgba(255, 143, 163, 0.12), 0 4px 16px -4px rgba(45, 38, 64, 0.06)',
+        'glow-lg': '0 0 40px rgba(255, 143, 163, 0.18), 0 8px 32px -8px rgba(45, 38, 64, 0.1)',
       },
 
       transitionDuration: {

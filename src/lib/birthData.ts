@@ -9,6 +9,7 @@ export interface StoredBirthData {
     lat: number;
     lng: number;
   } | null;
+  gender?: string;
   savedAt: number;
 }
 

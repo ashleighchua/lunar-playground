@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 export function HomeEmailCapture() {
   const [email, setEmail] = useState('');
@@ -54,53 +53,48 @@ export function HomeEmailCapture() {
 
   if (isSubscribed || status === 'success') {
     return (
-      <div className="rounded-2xl bg-gradient-to-r from-[#D4C4B0] to-[#E8DED4] p-8 md:p-12">
+      <div className="rounded-2xl bg-gradient-to-r from-[#E8DCFF] to-[#F0E8FF] p-8 md:p-12">
         <div className="text-center">
-          <p className="font-serif text-2xl text-[#2A2A2A]">You&apos;re on the list</p>
-          <p className="text-[#6B6B6B] mt-2">We&apos;ll send you a note with each new moon phase.</p>
+          <p className="font-serif text-2xl text-[#2D2640]">You&apos;re on the list</p>
+          <p className="text-[#7B7394] mt-2">We&apos;ll send you a note with each new moon phase.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl bg-gradient-to-r from-[#D4C4B0] to-[#E8DED4] p-8 md:p-12">
+    <div className="rounded-2xl bg-gradient-to-r from-[#E8DCFF] to-[#F0E8FF] p-8 md:p-12">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         <div className="md:max-w-sm">
-          <h2 className="font-serif text-2xl md:text-3xl text-[#2A2A2A] leading-snug">
+          <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] leading-snug">
             Get your lunar note with each new moon phase
           </h2>
         </div>
         <div className="flex-1 md:max-w-md">
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <label htmlFor="home-email" className="sr-only">Email address</label>
             <input
+              id="home-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               disabled={status === 'loading'}
-              className="flex-1 px-6 py-4 rounded-lg border border-white/50 bg-white/80 text-[#2A2A2A] placeholder-[#6B6B6B] focus:outline-none focus:ring-2 focus:ring-[#B8A090]/50 focus:bg-white transition-colors disabled:opacity-50"
+              className="flex-1 px-6 py-4 rounded-lg border border-white/50 bg-white/80 text-[#2D2640] placeholder-[#7B7394] focus:outline-none focus:ring-2 focus:ring-[#8A8099]/50 focus:bg-white transition-colors disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="px-8 py-4 rounded-lg bg-[#2A2A2A] text-[#FAF7F2] hover:bg-[#1a1a1a] transition-colors whitespace-nowrap disabled:opacity-50"
+              className="px-8 py-4 rounded-lg bg-[#2D2640] text-[#F0EBF8] hover:bg-[#1E1835] transition-colors whitespace-nowrap disabled:opacity-50"
             >
               {status === 'loading' ? 'Sending...' : 'Send to me'}
             </button>
           </form>
-          <AnimatePresence>
-            {status === 'error' && errorMessage && (
-              <motion.p
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="text-sm text-red-700 mt-3 text-center"
-              >
-                {errorMessage}
-              </motion.p>
-            )}
-          </AnimatePresence>
+          {status === 'error' && errorMessage && (
+            <p className="text-sm text-red-700 mt-3 text-center animate-fade-in">
+              {errorMessage}
+            </p>
+          )}
         </div>
       </div>
     </div>
