@@ -27,7 +27,7 @@ export function RestRechargeSection({ restSign }: RestRechargeSectionProps) {
         <div className="w-1 bg-[#9CB896]" />
         <div className="flex-1 p-6 md:p-8 bg-gradient-to-r from-[#EDF4ED]/50 to-transparent">
           <h2 className="font-serif text-2xl text-[#2D2640] mb-4">How You Rest & Recharge</h2>
-          <p className="text-sm text-[#7B7394] leading-relaxed">
+          <p className="text-sm text-[#655E78] leading-relaxed">
             What actually restores you based on Moon in {restSign}
           </p>
         </div>

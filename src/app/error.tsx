@@ -63,11 +63,11 @@ export default function Error({
           </svg>
         </div>
 
-        <p className="text-xs uppercase tracking-widest text-[#7B7394] mb-4">Something went wrong</p>
+        <p className="text-xs uppercase tracking-widest text-[#655E78] mb-4">Something went wrong</p>
         <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-4">
           The stars misaligned
         </h1>
-        <p className="text-[#7B7394] mb-10 leading-relaxed">
+        <p className="text-[#655E78] mb-10 leading-relaxed">
           A cosmic glitch disrupted your reading. Try refreshing, or head back to the homepage.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">

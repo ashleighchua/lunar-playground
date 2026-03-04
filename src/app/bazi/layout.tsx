@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'BaZi Four Pillars Calculator | The Lunar Playground',
     description: 'Calculate your BaZi Four Pillars of Destiny chart and discover your Day Master.',
+    images: [{ url: '/Images/og-image.png', width: 1200, height: 630, alt: 'The Lunar Playground' }],
   },
 };
 

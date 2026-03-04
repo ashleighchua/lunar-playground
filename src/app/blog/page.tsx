@@ -33,16 +33,16 @@ function PostCard({ post }: { post: BlogPost }) {
           <span className={`text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full ${style.pill}`}>
             {post.category}
           </span>
-          <span className="text-xs text-[#7B7394]">
+          <span className="text-xs text-[#655E78]">
             {post.readingTime}
           </span>
         </div>
 
-        <h3 className="font-serif text-lg text-[#2D2640] mb-2 group-hover:text-[#C4365A] transition-colors">
+        <h2 className="font-serif text-lg text-[#2D2640] mb-2 group-hover:text-[#C4365A] transition-colors">
           {post.title}
-        </h3>
+        </h2>
 
-        <p className="text-sm text-[#7B7394] leading-relaxed line-clamp-3 flex-1">
+        <p className="text-sm text-[#655E78] leading-relaxed line-clamp-3 flex-1">
           {post.description}
         </p>
 
@@ -67,14 +67,14 @@ export default function BlogPage() {
       {/* Header */}
       <div className="container-editorial pt-16 md:pt-24 pb-12">
         <div className="max-w-2xl mx-auto text-center mb-12">
-          <span className="text-xs tracking-[0.15em] uppercase text-[#7B7394]">
+          <span className="text-xs tracking-[0.15em] uppercase text-[#655E78]">
             The Lunar Playground
           </span>
           <h1 className="font-serif text-4xl md:text-5xl text-[#2D2640] mt-4 mb-6">
             Blog
           </h1>
-          <p className="text-[#7B7394] leading-relaxed">
-            Practical guides to understanding your chart, navigating transits, and using astrology as a tool for self-awareness.
+          <p className="text-[#655E78] leading-relaxed">
+            Honest breakdowns of how this stuff actually works. Charts, transits, timing, and the things nobody tells you.
           </p>
         </div>
 
@@ -83,14 +83,14 @@ export default function BlogPage() {
           <div className="flex items-center bg-[#2D2640]/5 rounded-lg p-1">
             <button
               onClick={() => setBlogView('carousel')}
-              className={`p-1.5 rounded-md transition-colors ${blogView === 'carousel' ? 'bg-white shadow-sm text-[#2D2640]' : 'text-[#7B7394] hover:text-[#2D2640]'}`}
+              className={`p-1.5 rounded-md transition-colors ${blogView === 'carousel' ? 'bg-white shadow-sm text-[#2D2640]' : 'text-[#655E78] hover:text-[#2D2640]'}`}
               aria-label="Carousel view"
             >
               <Play className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setBlogView('grid')}
-              className={`p-1.5 rounded-md transition-colors ${blogView === 'grid' ? 'bg-white shadow-sm text-[#2D2640]' : 'text-[#7B7394] hover:text-[#2D2640]'}`}
+              className={`p-1.5 rounded-md transition-colors ${blogView === 'grid' ? 'bg-white shadow-sm text-[#2D2640]' : 'text-[#655E78] hover:text-[#2D2640]'}`}
               aria-label="Grid view"
             >
               <LayoutGrid className="w-3.5 h-3.5" />
@@ -143,7 +143,7 @@ export default function BlogPage() {
             <h2 className="font-serif text-2xl text-[#2D2640] mb-3">
               Ready to explore your chart?
             </h2>
-            <p className="text-sm text-[#7B7394] mb-6">
+            <p className="text-sm text-[#655E78] mb-6">
               Generate your free personalised birth report and discover your Big Three, core drives, and more.
             </p>
             <Link

@@ -45,7 +45,7 @@ export function WorkImpactSection({ sunSignName }: WorkImpactSectionProps) {
         <div className="w-1 bg-[#7A746C]" />
         <div className="flex-1 p-6 md:p-8 bg-gradient-to-r from-[#F5F3F0]/50 to-transparent">
           <h2 className="font-serif text-2xl text-[#2D2640] mb-4">Work and Impact Style</h2>
-          <p className="text-sm text-[#7B7394] leading-relaxed">
+          <p className="text-sm text-[#655E78] leading-relaxed">
             How you engage with contribution, authority, and effort
           </p>
         </div>
@@ -146,9 +146,9 @@ export function WorkImpactSection({ sunSignName }: WorkImpactSectionProps) {
             <div className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#FF8FA3] mt-2 animate-pulse" />
               <div>
-                <p className="text-xs tracking-wider uppercase text-[#7B7394] mb-3">A useful check-in</p>
+                <p className="text-xs tracking-wider uppercase text-[#655E78] mb-3">A useful check-in</p>
                 <p className="font-serif text-lg text-[#2D2640] leading-relaxed mb-2">{checkInParagraphs[0]}</p>
-                {checkInParagraphs[1] && <p className="text-[#7B7394] text-sm">{checkInParagraphs[1]}</p>}
+                {checkInParagraphs[1] && <p className="text-[#655E78] text-sm">{checkInParagraphs[1]}</p>}
               </div>
             </div>
           </div>
@@ -162,10 +162,10 @@ export function WorkImpactSection({ sunSignName }: WorkImpactSectionProps) {
               className="w-full flex items-center justify-between p-4 bg-[#FAFAF8] hover:bg-[#F5F3F0] rounded-xl transition-colors group"
             >
               <div className="flex items-center gap-3">
-                <span className="text-[#7B7394] group-hover:text-[#2D2640]">&#128221;</span>
-                <span className="text-sm text-[#7B7394] group-hover:text-[#2D2640]">Reflect on this</span>
+                <span className="text-[#655E78] group-hover:text-[#2D2640]">&#128221;</span>
+                <span className="text-sm text-[#655E78] group-hover:text-[#2D2640]">Reflect on this</span>
               </div>
-              <span className={`text-[#7B7394] transition-transform ${showReflections ? 'rotate-180' : ''}`}>
+              <span className={`text-[#655E78] transition-transform ${showReflections ? 'rotate-180' : ''}`}>
                 &#9660;
               </span>
             </button>
@@ -177,7 +177,7 @@ export function WorkImpactSection({ sunSignName }: WorkImpactSectionProps) {
                     <p className="text-[#2D2640]/80 text-sm leading-relaxed italic">{question}</p>
                   </div>
                 ))}
-                <p className="text-xs text-[#7B7394] pt-2 border-t border-[#2D2640]/5">
+                <p className="text-xs text-[#655E78] pt-2 border-t border-[#2D2640]/5">
                   Take a moment to journal or simply sit with these questions.
                 </p>
               </div>

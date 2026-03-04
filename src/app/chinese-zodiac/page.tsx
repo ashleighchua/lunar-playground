@@ -111,14 +111,14 @@ export default function ChineseZodiacPage() {
           {/* Hero */}
           <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
             <div className="max-w-2xl">
-              <p className="text-sm text-[#7B7394] tracking-wide uppercase mb-4">
+              <p className="text-sm text-[#655E78] tracking-wide uppercase mb-4">
                 Free Tool
               </p>
               <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2D2640] leading-[1.1] tracking-tight">
                 Your Chinese Zodiac
               </h1>
-              <p className="mt-5 text-[#7B7394] leading-relaxed max-w-lg">
-                Discover the ancient wisdom encoded in your birth year. Your Chinese Zodiac animal reveals your core personality, hidden strengths, and the elemental force that shapes your path.
+              <p className="mt-5 text-[#655E78] leading-relaxed max-w-lg">
+                Your birth year picks your animal. Your animal shows your personality, your strengths, and the element behind how you move through the world.
               </p>
             </div>
           </section>
@@ -133,7 +133,7 @@ export default function ChineseZodiacPage() {
             <div className="max-w-md">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="birthdate" className="block text-sm text-[#7B7394] mb-2">
+                  <label htmlFor="birthdate" className="block text-sm text-[#655E78] mb-2">
                     Your birth date
                   </label>
                   <input
@@ -182,7 +182,7 @@ export default function ChineseZodiacPage() {
                 ].map((item) => (
                   <div key={item.label} className="border border-[#2D2640]/10 rounded-lg p-6">
                     <p className="font-serif text-[#2D2640] mb-2">{item.label}</p>
-                    <p className="text-sm text-[#7B7394] leading-relaxed">{item.desc}</p>
+                    <p className="text-sm text-[#655E78] leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -201,7 +201,7 @@ export default function ChineseZodiacPage() {
             <p className="font-serif text-2xl text-[#2D2640] mb-2">
               Reading the stars&hellip;
             </p>
-            <p className="text-sm text-[#7B7394]">
+            <p className="text-sm text-[#655E78]">
               Consulting the ancient calendar
             </p>
           </div>
@@ -221,7 +221,7 @@ export default function ChineseZodiacPage() {
             <div className="container-editorial pt-8 pb-4">
               <button
                 onClick={handleReset}
-                className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors flex items-center gap-2"
+                className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors flex items-center gap-2"
               >
                 <span>&#8592;</span>
                 <span>Try a different date</span>
@@ -245,17 +245,17 @@ export default function ChineseZodiacPage() {
                     <span>{profile.elementEmoji}</span>
                     <span>{profile.element}</span>
                   </span>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm text-[#7B7394] bg-[#2D2640]/5">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm text-[#655E78] bg-[#2D2640]/5">
                     {profile.yinYang}
                   </span>
                 </div>
 
                 {/* Personality tagline */}
-                <p className="font-serif text-xl text-[#7B7394] italic mb-3">
+                <p className="font-serif text-xl text-[#655E78] italic mb-3">
                   &ldquo;{profile.personality}&rdquo;
                 </p>
 
-                <p className="text-sm text-[#7B7394]">
+                <p className="text-sm text-[#655E78]">
                   Born in {profile.year} &middot; {profile.element} {profile.animal}
                 </p>
               </div>
@@ -277,7 +277,7 @@ export default function ChineseZodiacPage() {
                   </h2>
                   <div className="space-y-3">
                     {content.overview.split('\n\n').map((para, i) => (
-                      <p key={i} className="text-[#7B7394] leading-relaxed">
+                      <p key={i} className="text-[#655E78] leading-relaxed">
                         {para}
                       </p>
                     ))}
@@ -291,7 +291,7 @@ export default function ChineseZodiacPage() {
                   </h2>
                   <ul className="space-y-3">
                     {content.strengths.map((point, i) => (
-                      <li key={i} className="flex gap-3 text-[#7B7394] leading-relaxed">
+                      <li key={i} className="flex gap-3 text-[#655E78] leading-relaxed">
                         <span className="shrink-0 text-[#4A6B44]">&#10024;</span>
                         <span>{point}</span>
                       </li>
@@ -306,7 +306,7 @@ export default function ChineseZodiacPage() {
                   </h2>
                   <ul className="space-y-3">
                     {content.weaknesses.map((point, i) => (
-                      <li key={i} className="flex gap-3 text-[#7B7394] leading-relaxed">
+                      <li key={i} className="flex gap-3 text-[#655E78] leading-relaxed">
                         <span className="shrink-0 text-[#A07840]">&#127793;</span>
                         <span>{point}</span>
                       </li>
@@ -321,7 +321,7 @@ export default function ChineseZodiacPage() {
                   </h2>
                   <ul className="space-y-3">
                     {content.career.map((point, i) => (
-                      <li key={i} className="flex gap-3 text-[#7B7394] leading-relaxed">
+                      <li key={i} className="flex gap-3 text-[#655E78] leading-relaxed">
                         <span className="shrink-0 text-[#4A7FA5]">&#9678;</span>
                         <span>{point}</span>
                       </li>
@@ -336,7 +336,7 @@ export default function ChineseZodiacPage() {
                   </h2>
                   <ul className="space-y-3">
                     {content.love.map((point, i) => (
-                      <li key={i} className="flex gap-3 text-[#7B7394] leading-relaxed">
+                      <li key={i} className="flex gap-3 text-[#655E78] leading-relaxed">
                         <span className="shrink-0 text-[#C4542A]">&#9825;</span>
                         <span>{point}</span>
                       </li>
@@ -352,7 +352,7 @@ export default function ChineseZodiacPage() {
                   <div className="grid sm:grid-cols-2 gap-8">
                     {/* Compatible */}
                     <div>
-                      <p className="text-sm text-[#7B7394] uppercase tracking-wide mb-4">
+                      <p className="text-sm text-[#655E78] uppercase tracking-wide mb-4">
                         Harmonious matches
                       </p>
                       <div className="flex flex-wrap gap-3">
@@ -370,7 +370,7 @@ export default function ChineseZodiacPage() {
 
                     {/* Challenging */}
                     <div>
-                      <p className="text-sm text-[#7B7394] uppercase tracking-wide mb-4">
+                      <p className="text-sm text-[#655E78] uppercase tracking-wide mb-4">
                         Growth through friction
                       </p>
                       <div className="flex flex-wrap gap-3">
@@ -396,7 +396,7 @@ export default function ChineseZodiacPage() {
                   <div className="grid sm:grid-cols-2 gap-8">
                     {/* Numbers */}
                     <div>
-                      <p className="text-sm text-[#7B7394] uppercase tracking-wide mb-4">
+                      <p className="text-sm text-[#655E78] uppercase tracking-wide mb-4">
                         Lucky numbers
                       </p>
                       <div className="flex gap-3">
@@ -413,7 +413,7 @@ export default function ChineseZodiacPage() {
 
                     {/* Colours */}
                     <div>
-                      <p className="text-sm text-[#7B7394] uppercase tracking-wide mb-4">
+                      <p className="text-sm text-[#655E78] uppercase tracking-wide mb-4">
                         Lucky colours
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -447,8 +447,8 @@ export default function ChineseZodiacPage() {
                     <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
                       Want the full picture?
                     </h2>
-                    <p className="text-lg text-[#7B7394] leading-relaxed max-w-lg mx-auto">
-                      Your Chinese Zodiac is one layer. The Full Blueprint weaves together your natal chart, BaZi, Human Design, and relocation report into a complete portrait of who you are.
+                    <p className="text-lg text-[#655E78] leading-relaxed max-w-lg mx-auto">
+                      Your Chinese Zodiac is one layer. Your BaZi goes deeper into the elements, and your natal chart adds the psychological picture. The Complete Architecture connects them all.
                     </p>
                   </div>
 
@@ -476,9 +476,9 @@ export default function ChineseZodiacPage() {
                       href="/shop"
                       className="inline-block px-8 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-lg text-sm font-medium hover:bg-[#1E1835] transition-colors"
                     >
-                      Get The Full Blueprint &mdash; $139
+                      See every layer of your chart &mdash; $139
                     </Link>
-                    <p className="text-xs text-[#7B7394]/60 mt-4">Personalised report delivered within 48 hours</p>
+                    <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
                   </div>
                 </div>
               </div>
@@ -489,10 +489,22 @@ export default function ChineseZodiacPage() {
               <div className="max-w-xl mx-auto">
                 <div className="bg-[#F5F3F0] rounded-2xl p-8 md:p-10 text-center">
                   <h2 className="font-serif text-2xl text-[#2D2640] mb-4">Save your results</h2>
-                  <p className="text-[#7B7394] mb-8">Get your Chinese Zodiac profile sent to your inbox.</p>
+                  <p className="text-[#655E78] mb-8">Get your Chinese Zodiac profile sent to your inbox.</p>
                   <SendResultsEmail type="chinese-zodiac" data={profile} />
                 </div>
               </div>
+            </section>
+
+            {/* Also Explore */}
+            <section className="container-editorial pb-12">
+              <p className="text-center text-sm text-[#655E78]">
+                Also explore:{' '}
+                <a href="/bazi" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">BaZi</a>
+                {' · '}
+                <a href="/numerology" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Numerology</a>
+                {' · '}
+                <a href="/your-chart" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Birth Chart</a>
+              </p>
             </section>
           </>
         );

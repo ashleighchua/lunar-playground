@@ -111,12 +111,12 @@ export async function POST(request: NextRequest) {
 
               <!-- Footer -->
               <div style="text-align: center;">
-                <p style="color: #7B7394; font-size: 13px; font-style: italic; margin: 0 0 12px;">
+                <p style="color: #655E78; font-size: 13px; font-style: italic; margin: 0 0 12px;">
                   "A playground, not a prophecy."
                 </p>
                 <p style="color: #2D2640; font-size: 14px; margin: 0 0 4px;">The Lunar Playground</p>
-                <p style="color: #7B7394; font-size: 12px; margin: 0 0 12px;">Multiple systems. One full picture.</p>
-                <a href="https://www.thelunarplayground.com" style="color: #7B7394; font-size: 12px; text-decoration: none;">
+                <p style="color: #655E78; font-size: 12px; margin: 0 0 12px;">Multiple systems. One full picture.</p>
+                <a href="https://www.thelunarplayground.com" style="color: #655E78; font-size: 12px; text-decoration: none;">
                   www.thelunarplayground.com
                 </a>
               </div>

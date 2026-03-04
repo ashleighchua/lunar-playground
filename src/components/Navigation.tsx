@@ -40,6 +40,7 @@ export function Navigation({ currentPage }: NavigationProps) {
               width={52}
               height={39}
               className="rounded-full object-cover w-[52px] h-[52px]"
+              priority
             />
             <span className="font-serif text-xl text-[#F0EBF8]">The Lunar Playground</span>
           </Link>

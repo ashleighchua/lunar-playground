@@ -21,10 +21,10 @@ export default function OrderSuccessPage() {
           <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-4">
             Thank you for your order
           </h1>
-          <p className="text-[#7B7394] leading-relaxed mb-3">
+          <p className="text-[#655E78] leading-relaxed mb-3">
             Your reading is now in the queue. I'll get started on it and send you updates as I work on your report.
           </p>
-          <p className="text-[#7B7394] leading-relaxed mb-8">
+          <p className="text-[#655E78] leading-relaxed mb-8">
             Most readings are delivered within 1-3 business days. Check your email for a confirmation from Stripe.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -62,7 +62,7 @@ export function SendResultsEmail({ type, data, className, defaultEmail = '' }: S
           </svg>
         </div>
         <p className="text-[#2D2640] font-medium mb-1">Sent!</p>
-        <p className="text-[#7B7394] text-sm">Check your inbox for your results.</p>
+        <p className="text-[#655E78] text-sm">Check your inbox for your results.</p>
       </div>
     );
   }
@@ -79,7 +79,7 @@ export function SendResultsEmail({ type, data, className, defaultEmail = '' }: S
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
             className={cn(
-              'flex-1 px-5 py-4 rounded-lg border bg-white text-[#2D2640] placeholder:text-[#7B7394]/50',
+              'flex-1 px-5 py-4 rounded-lg border bg-white text-[#2D2640] placeholder:text-[#655E78]/50',
               'focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50',
               'transition-colors duration-200',
               status === 'error' ? 'border-red-300' : 'border-[#2D2640]/10'
@@ -102,7 +102,7 @@ export function SendResultsEmail({ type, data, className, defaultEmail = '' }: S
             onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
             className="w-4 h-4 rounded border-[#2D2640]/20 accent-[#8A8099]"
           />
-          <span className="text-sm text-[#7B7394]">
+          <span className="text-sm text-[#655E78]">
             Also receive occasional notes from Lunar Playground
           </span>
         </label>

@@ -51,7 +51,7 @@ export function ShadowGrowthSection({ sunSignName }: ShadowGrowthSectionProps) {
         <div className="w-1 bg-[#7A746C]" />
         <div className="flex-1 p-6 md:p-8 bg-gradient-to-r from-[#F5F3F0]/50 to-transparent">
           <h2 className="font-serif text-2xl text-[#2D2640] mb-4">Shadow and Growth Edge</h2>
-          <p className="text-sm text-[#7B7394] leading-relaxed">
+          <p className="text-sm text-[#655E78] leading-relaxed">
             The pattern that shows up under pressure, and the path through it
           </p>
         </div>
@@ -75,7 +75,7 @@ export function ShadowGrowthSection({ sunSignName }: ShadowGrowthSectionProps) {
         {/* Recurring Friction */}
         {frictionText && (
           <div className="bg-[#F0EBF8] rounded-xl p-5">
-            <p className="text-xs tracking-wider uppercase text-[#7B7394] mb-3">The recurring friction</p>
+            <p className="text-xs tracking-wider uppercase text-[#655E78] mb-3">The recurring friction</p>
             <p className="font-serif text-lg text-[#2D2640] text-sm leading-relaxed mb-3">{frictionParagraphs[0]}</p>
             {frictionParagraphs[1] && (
               <div className="space-y-1 text-[#2D2640]/80">
@@ -83,7 +83,7 @@ export function ShadowGrowthSection({ sunSignName }: ShadowGrowthSectionProps) {
               </div>
             )}
             {frictionParagraphs[2] && (
-              <p className="text-[#7B7394] leading-relaxed mt-3 text-sm italic">{frictionParagraphs[2]}</p>
+              <p className="text-[#655E78] leading-relaxed mt-3 text-sm italic">{frictionParagraphs[2]}</p>
             )}
           </div>
         )}
@@ -132,7 +132,7 @@ export function ShadowGrowthSection({ sunSignName }: ShadowGrowthSectionProps) {
             </div>
             {selfProtectionType && (
               <div className="mt-4 pt-4 border-t border-[#D7D0C6]">
-                <p className="text-[#7B7394] text-sm italic">
+                <p className="text-[#655E78] text-sm italic">
                   This is self-protection through <span className="text-[#2D2640] font-medium">{selfProtectionType}</span>.
                 </p>
               </div>
@@ -149,7 +149,7 @@ export function ShadowGrowthSection({ sunSignName }: ShadowGrowthSectionProps) {
             ))}
             {contradictionParagraphs[2] && (
               <div className="mt-3 pt-3 border-t border-[#D7D0C6]/50">
-                <p className="text-[#7B7394] text-sm">{contradictionParagraphs[2]}</p>
+                <p className="text-[#655E78] text-sm">{contradictionParagraphs[2]}</p>
                 {contradictionParagraphs[3] && (
                   <p className="text-[#2D2640]/80 text-sm mt-2 italic">{contradictionParagraphs[3]}</p>
                 )}
@@ -168,7 +168,7 @@ export function ShadowGrowthSection({ sunSignName }: ShadowGrowthSectionProps) {
                   <p className="text-xs tracking-wider uppercase text-[#8B6B60] mb-3">The blind spot to watch</p>
                   <p className="text-[#2D2640] font-medium text-sm leading-relaxed mb-3">{blindSpotParagraphs[0]}</p>
                   {blindSpotParagraphs[1] && (
-                    <div className="space-y-1 text-[#7B7394] text-sm">
+                    <div className="space-y-1 text-[#655E78] text-sm">
                       {blindSpotParagraphs[1].split('\n').filter(Boolean).map((line, i) => <p key={i}>{line}</p>)}
                     </div>
                   )}
@@ -214,9 +214,9 @@ export function ShadowGrowthSection({ sunSignName }: ShadowGrowthSectionProps) {
             <div className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#7A746C] mt-2 animate-pulse" />
               <div>
-                <p className="text-xs tracking-wider uppercase text-[#7B7394] mb-3">When this card matters most</p>
+                <p className="text-xs tracking-wider uppercase text-[#655E78] mb-3">When this card matters most</p>
                 <p className="font-serif text-lg text-[#2D2640] leading-relaxed mb-2">{relevanceParagraphs[0]}</p>
-                {relevanceParagraphs[1] && <p className="text-[#7B7394] text-sm">{relevanceParagraphs[1]}</p>}
+                {relevanceParagraphs[1] && <p className="text-[#655E78] text-sm">{relevanceParagraphs[1]}</p>}
               </div>
             </div>
           </div>
@@ -230,10 +230,10 @@ export function ShadowGrowthSection({ sunSignName }: ShadowGrowthSectionProps) {
               className="w-full flex items-center justify-between p-4 bg-[#FAFAF8] hover:bg-[#F5F3F0] rounded-xl transition-colors group"
             >
               <div className="flex items-center gap-3">
-                <span className="text-[#7B7394] group-hover:text-[#2D2640]">&#128221;</span>
-                <span className="text-sm text-[#7B7394] group-hover:text-[#2D2640]">Reflect on this</span>
+                <span className="text-[#655E78] group-hover:text-[#2D2640]">&#128221;</span>
+                <span className="text-sm text-[#655E78] group-hover:text-[#2D2640]">Reflect on this</span>
               </div>
-              <span className={`text-[#7B7394] transition-transform ${showReflections ? 'rotate-180' : ''}`}>
+              <span className={`text-[#655E78] transition-transform ${showReflections ? 'rotate-180' : ''}`}>
                 &#9660;
               </span>
             </button>
@@ -245,7 +245,7 @@ export function ShadowGrowthSection({ sunSignName }: ShadowGrowthSectionProps) {
                     <p className="text-[#2D2640]/80 text-sm leading-relaxed italic">{question}</p>
                   </div>
                 ))}
-                <p className="text-xs text-[#7B7394] pt-2 border-t border-[#2D2640]/5">
+                <p className="text-xs text-[#655E78] pt-2 border-t border-[#2D2640]/5">
                   These questions may bring up discomfort. That&apos;s often where growth happens.
                 </p>
               </div>

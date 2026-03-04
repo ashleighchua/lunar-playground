@@ -53,7 +53,7 @@ export function ImagineCards() {
         <h2 className="font-serif text-3xl md:text-4xl" style={{ color: '#2D2640' }}>
           Imagine knowing...
         </h2>
-        <p className="mt-3 text-sm" style={{ color: '#7B7394' }}>Tap a card to reveal</p>
+        <p className="mt-3 text-sm" style={{ color: '#655E78' }}>Tap a card to reveal</p>
       </div>
 
       <div className="flex flex-wrap justify-center gap-4 md:gap-5 max-w-4xl mx-auto">

@@ -104,7 +104,7 @@ export default function FAQPage() {
           <h1 className="font-serif text-4xl md:text-5xl text-[#2D2640] mb-4">
             Frequently Asked Questions
           </h1>
-          <p className="text-[#7B7394] leading-relaxed">
+          <p className="text-[#655E78] leading-relaxed">
             The stuff people usually ask before diving in. If your question isn&apos;t covered, just email me.
           </p>
         </div>
@@ -120,7 +120,7 @@ export default function FAQPage() {
         <div className="max-w-2xl mx-auto space-y-12">
           {faqCategories.map((category) => (
             <div key={category.label}>
-              <span className="text-xs tracking-[0.15em] uppercase text-[#7B7394] mb-6 block">
+              <span className="text-xs tracking-[0.15em] uppercase text-[#655E78] mb-6 block">
                 {category.label}
               </span>
               <Accordion type="single" collapsible className="w-full">
@@ -133,7 +133,7 @@ export default function FAQPage() {
                     <AccordionTrigger className="font-serif text-lg text-[#2D2640] hover:text-[#2D2640] text-left">
                       {item.q}
                     </AccordionTrigger>
-                    <AccordionContent className="text-[#7B7394] leading-relaxed">
+                    <AccordionContent className="text-[#655E78] leading-relaxed">
                       {item.a}
                     </AccordionContent>
                   </AccordionItem>
@@ -155,7 +155,7 @@ export default function FAQPage() {
           <h2 className="font-serif text-2xl text-[#2D2640] mb-3">
             Still curious?
           </h2>
-          <p className="text-[#7B7394] mb-6">
+          <p className="text-[#655E78] mb-6">
             Ask me anything. I don&apos;t bite and I reply within 24 hours.
           </p>
           <a

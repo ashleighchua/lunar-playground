@@ -10,6 +10,7 @@ export interface BlogPost {
   readingTime: string;
   category: 'birth chart' | 'astrocartography' | 'practical' | 'bazi' | 'numerology' | 'human-design' | 'chinese-zodiac' | 'compatibility' | 'cross-system';
   body: string;
+  publishedDate: string;
   metaTitle?: string;
   metaDescription?: string;
   faq?: { question: string; answer: string }[];
@@ -22,6 +23,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Discover the true meaning of your birth chart. Learn what it reveals about your personality, life themes, and timing cycles in astrology.',
     readingTime: '8 min',
     category: 'birth chart',
+    publishedDate: '2026-03-02',
     metaTitle: 'Birth Chart Meaning: What It Reveals About You',
     metaDescription: 'Discover the true meaning of your birth chart. Learn what it reveals about your personality, life themes, and timing cycles in astrology.',
     faq: [
@@ -151,6 +153,7 @@ And self-understanding changes decisions.
     description: 'Learn what your Sun, Moon, and Rising signs mean in astrology. Discover how the Big Three shape your personality and emotional world.',
     readingTime: '7 min',
     category: 'birth chart',
+    publishedDate: '2026-03-02',
     metaTitle: 'Sun, Moon, Rising Meaning: The Big Three Explained',
     metaDescription: 'Learn what your Sun, Moon, and Rising signs mean in astrology. Discover how the Big Three shape your personality and emotional world.',
     faq: [
@@ -256,7 +259,7 @@ You need your date of birth, your exact birth time, and your birth location.
 
 With that information, you can generate your full birth chart and see your Big Three instantly.
 
-If you want deeper interpretation of how your Big Three interact, a Natal Chart Reading ($35) breaks down the dynamics. For those who want the full picture across multiple systems, the Know Yourself package ($99) layers your natal chart with BaZi and Human Design for cross-system clarity.
+If you want deeper interpretation of how your Big Three interact, a Natal Chart Reading ($35) breaks down the dynamics. For those who want the full picture across multiple systems, The Integrated Profile ($99) layers your natal chart with BaZi and Human Design for cross-system clarity.
 
 Because you are not one sign.
 
@@ -271,6 +274,7 @@ And your system makes sense.
     description: 'Discover what Saturn return means, what age it happens, and how this powerful astrology cycle reshapes your identity, career, and relationships.',
     readingTime: '8 min',
     category: 'practical',
+    publishedDate: '2026-03-02',
     metaTitle: 'Saturn Return Meaning: What Happens at 27 to 30',
     metaDescription: 'Discover what Saturn return means, what age it happens, and how this powerful astrology cycle reshapes your identity, career, and relationships.',
     faq: [
@@ -411,6 +415,7 @@ And that changes everything.
     description: 'Discover the true meaning of Mercury retrograde, how often it happens, and how to navigate communication, travel, and contracts with clarity.',
     readingTime: '7 min',
     category: 'practical',
+    publishedDate: '2026-03-02',
     metaTitle: 'Mercury Retrograde Meaning: What Really Happens',
     metaDescription: 'Discover the true meaning of Mercury retrograde, how often it happens, and how to navigate communication, travel, and contracts with clarity.',
     faq: [
@@ -523,6 +528,7 @@ It is not a cosmic punishment. It is a scheduled recalibration.
     description: 'Discover how astrocartography maps your birth chart onto the world and reveals where love, career, and growth are most activated.',
     readingTime: '8 min',
     category: 'astrocartography',
+    publishedDate: '2026-03-02',
     metaTitle: 'Astrocartography Meaning: Where You Thrive in the World',
     metaDescription: 'Discover how astrocartography maps your birth chart onto the world and reveals where love, career, and growth are most activated.',
     faq: [
@@ -653,6 +659,7 @@ And sometimes moving is the most strategic decision you can make.
     description: 'BaZi explained in clear terms. Discover how Chinese astrology and the Four Pillars of Destiny reveal wealth cycles, career alignment, relationships, and 10-year luck timing.',
     readingTime: '10 min',
     category: 'bazi',
+    publishedDate: '2026-03-02',
     metaTitle: 'BaZi Explained: Chinese Astrology & The Four Pillars of Destiny',
     metaDescription: 'BaZi explained in clear terms. Discover how Chinese astrology and the Four Pillars of Destiny reveal wealth cycles, career alignment, relationships, and 10-year luck timing.',
     faq: [
@@ -758,7 +765,7 @@ That is not fatalism. That is strategy.
 
 Generate your free BaZi chart to see your Day Master, Five Elements balance, and elemental patterns.
 
-For a full interpretation with timing insights and practical guidance, a BaZi Reading ($50) breaks down your Four Pillars, Luck Cycles, and strategic direction. Or if you want the complete picture across systems, The Full Blueprint ($139) integrates your natal chart, BaZi, Human Design, and relocation report into one unified reading.
+For a full interpretation with timing insights and practical guidance, a BaZi Reading ($50) breaks down your Four Pillars, Luck Cycles, and strategic direction. Or if you want the complete picture across systems, The Complete Architecture ($139) integrates your natal chart, BaZi, Human Design, and relocation report into one unified reading.
 
 Because understanding your structure is not limiting.
 
@@ -771,6 +778,7 @@ It is liberating.
     description: 'Learn how 10-Year Luck Cycles in BaZi influence career, wealth, relationships, and major life shifts. Understand the timing behind each decade of your life.',
     readingTime: '8 min',
     category: 'bazi',
+    publishedDate: '2026-03-02',
     metaTitle: '10-Year Luck Cycles in BaZi: How Each Decade Shapes Your Destiny',
     metaDescription: 'Learn how 10-Year Luck Cycles in BaZi influence career, wealth, relationships, and major life shifts. Understand the timing behind each decade of your life.',
     faq: [
@@ -868,7 +876,7 @@ Intensity is not punishment. It is recalibration.
 
 Generate your free BaZi chart to see your Day Master and elemental balance.
 
-A BaZi Reading ($50) reveals your full Luck Cycle timeline and shows which decades support expansion and which demand consolidation. For the complete cross-system view, The Full Blueprint ($139) layers your Luck Cycles with natal astrology, Human Design, and relocation data.
+A BaZi Reading ($50) reveals your full Luck Cycle timeline and shows which decades support expansion and which demand consolidation. For the complete cross-system view, The Complete Architecture ($139) layers your Luck Cycles with natal astrology, Human Design, and relocation data.
 
 Because life is cyclical.
 
@@ -883,6 +891,7 @@ You start working with it.
     description: 'Discover why combining Western astrology, BaZi, and Human Design creates deeper clarity. Learn how cross-system readings reveal identity, timing, and life direction.',
     readingTime: '7 min',
     category: 'cross-system',
+    publishedDate: '2026-03-02',
     metaTitle: 'Western Astrology vs BaZi vs Human Design: Why I Combine All Three',
     metaDescription: 'Discover why combining Western astrology, BaZi, and Human Design creates deeper clarity. Learn how cross-system readings reveal identity, timing, and life direction.',
     faq: [
@@ -984,7 +993,7 @@ Instead of fragmented insight, you get alignment.
 
 And alignment feels calm.
 
-## Why I Created The Full Blueprint
+## Why I Created The Complete Architecture
 
 After years of studying these systems individually, I realized something simple.
 
@@ -994,9 +1003,9 @@ They need integration.
 
 That is why I created two core synthesis readings.
 
-Know Yourself ($99) blends natal astrology, BaZi, and Human Design into cross-system personality clarity.
+The Integrated Profile ($99) blends natal astrology, BaZi, and Human Design into cross-system personality clarity.
 
-The Full Blueprint ($139) adds relocation astrology and deeper timing analysis for those navigating major life decisions.
+The Complete Architecture ($139) adds relocation astrology and deeper timing analysis for those navigating major life decisions.
 
 For those who want to start with a single system, individual readings are available: Natal Chart Reading ($35), BaZi Reading ($50), or Human Design Reading ($35).
 
@@ -1011,6 +1020,7 @@ And you deserve to see the whole picture.
     description: 'Explore what karmic relationships mean in astrology. Learn the chart indicators of fated connections and how to navigate intense bonds with awareness.',
     readingTime: '8 min',
     category: 'compatibility',
+    publishedDate: '2026-03-02',
     metaTitle: 'Karmic Relationships in Astrology: Why Some Connections Feel Fated',
     metaDescription: 'Explore what karmic relationships mean in astrology. Learn the chart indicators of fated connections and how to navigate intense bonds with awareness.',
     faq: [
@@ -1123,6 +1133,7 @@ And that pattern lives in your chart.
     description: 'Discover the five Human Design types and learn your Strategy, Authority, and how to make decisions with less resistance and more alignment.',
     readingTime: '9 min',
     category: 'human-design',
+    publishedDate: '2026-03-02',
     metaTitle: 'Human Design Types Explained: Strategy, Authority & Your Type',
     metaDescription: 'Discover the five Human Design types and learn your Strategy, Authority, and how to make decisions with less resistance and more alignment.',
     faq: [
@@ -1244,7 +1255,7 @@ Human Design gives you permission to stop doing it wrong.
 
 Generate your free Human Design chart to discover your Type, Strategy, Authority, and Profile.
 
-For a full interpretation with practical guidance, a Human Design Reading ($35) explains your centers, channels, and how to actually apply your design in daily life. Or explore how your design integrates with your natal chart and BaZi through the Know Yourself package ($99).
+For a full interpretation with practical guidance, a Human Design Reading ($35) explains your centers, channels, and how to actually apply your design in daily life. Or explore how your design integrates with your natal chart and BaZi through The Integrated Profile ($99).
 
 Because you were not designed to force.
 
@@ -1259,6 +1270,7 @@ And flow has a very specific structure.
     description: 'Discover what numerology reveals about your life purpose, talents, and growth areas. Learn how Life Path numbers and missing numbers shape your experience.',
     readingTime: '8 min',
     category: 'numerology',
+    publishedDate: '2026-03-02',
     metaTitle: 'Numerology Life Path Numbers: What Your Numbers Reveal',
     metaDescription: 'Discover what numerology reveals about your life purpose, talents, and growth areas. Learn how Life Path numbers and missing numbers shape your experience.',
     faq: [
@@ -1364,7 +1376,7 @@ And core patterns deserve attention.
 
 Generate your free numerology profile to see your Life Path, Birthday number, Talent number, missing numbers, and full energy grid.
 
-For a deeper interpretation of how your numbers connect with your full chart, the Know Yourself package ($99) integrates numerology themes alongside your natal chart, BaZi, and Human Design.
+For a deeper interpretation of how your numbers connect with your full chart, The Integrated Profile ($99) integrates numerology themes alongside your natal chart, BaZi, and Human Design.
 
 Because numbers are not just math.
 
@@ -1379,6 +1391,7 @@ And yours have been waiting for you to read them.
     description: 'Discover what your Chinese zodiac animal sign and element reveal about your personality, strengths, compatibility, and career tendencies.',
     readingTime: '8 min',
     category: 'chinese-zodiac',
+    publishedDate: '2026-03-02',
     metaTitle: 'Chinese Zodiac Explained: Your Animal Sign & Element',
     metaDescription: 'Discover what your Chinese zodiac animal sign and element reveal about your personality, strengths, compatibility, and career tendencies.',
     faq: [
@@ -1503,6 +1516,7 @@ Understanding your full elemental blueprint is where the real insight begins.
     description: 'Learn why true astrological compatibility goes beyond Sun signs. Discover how Moon signs, Venus, Mars, and synastry reveal relationship dynamics.',
     readingTime: '7 min',
     category: 'compatibility',
+    publishedDate: '2026-03-02',
     metaTitle: 'Astrology Compatibility: Beyond Sun Sign Matching',
     metaDescription: 'Learn why true astrological compatibility goes beyond Sun signs. Discover how Moon signs, Venus, Mars, and synastry reveal relationship dynamics.',
     faq: [

@@ -26,23 +26,23 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'The Lunar Playground',
-  description: 'Relocation astrology specialist. Find the city where your career takes off, love finds you, or you finally feel at home. Birth chart + personalised relocation reports.',
+  title: 'The Lunar Playground | Astrology, BaZi, Human Design & Relocation Readings',
+  description: 'Six ancient systems, one birth date. Free tools and personalised readings that cross-reference astrology, BaZi, Human Design, and relocation analysis for deeper clarity.',
   icons: {
     icon: '/Images/logo.png',
     apple: '/Images/logo.png',
   },
   openGraph: {
-    title: 'The Lunar Playground',
-    description: 'Relocation astrology specialist. Find the city where your career takes off, love finds you, or you finally feel at home. Birth chart + personalised relocation reports.',
+    title: 'The Lunar Playground | Astrology, BaZi, Human Design & Relocation Readings',
+    description: 'Six ancient systems, one birth date. Free tools and personalised readings that cross-reference astrology, BaZi, Human Design, and relocation analysis for deeper clarity.',
     url: 'https://thelunarplayground.com',
     siteName: 'The Lunar Playground',
     images: [
       {
-        url: '/Images/logo.png',
+        url: '/Images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'The Lunar Playground - Free Birth Chart Generator',
+        alt: 'The Lunar Playground',
       },
     ],
     locale: 'en_US',
@@ -51,8 +51,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'The Lunar Playground',
-    description: 'Relocation astrology specialist. Find the city where your career takes off, love finds you, or you finally feel at home. Birth chart + personalised relocation reports.',
-    images: ['/Images/logo.png'],
+    description: 'Six ancient systems, one birth date. Free tools and personalised readings that cross-reference astrology, BaZi, Human Design, and relocation analysis for deeper clarity.',
+    images: ['/Images/og-image.png'],
   },
   metadataBase: new URL('https://thelunarplayground.com'),
 };

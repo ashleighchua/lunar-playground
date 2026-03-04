@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { SendResultsEmail } from '@/components/ui/SendResultsEmail';
 import { Navigation } from '@/components/Navigation';
@@ -53,6 +53,13 @@ export default function YourChartPage() {
   const [lifePath, setLifePath] = useState<LifePathNumber | null>(null);
   const [ephemerisChart, setEphemerisChart] = useState<ChartData | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
+  const intervalsRef = useRef<NodeJS.Timeout[]>([]);
+
+  useEffect(() => {
+    return () => {
+      intervalsRef.current.forEach(clearInterval);
+    };
+  }, []);
 
   const runCalculation = useCallback(async (date: string, time: string, city: City | null) => {
     setIsCalculating(true);
@@ -67,6 +74,8 @@ export default function YourChartPage() {
     const stepInterval = setInterval(() => {
       setLoadingStep(prev => Math.min(prev + 1, 2));
     }, 1000);
+
+    intervalsRef.current = [loadingInterval, stepInterval];
 
     const birthDate = parseBirthDateTime(date, time || undefined);
     setBirthMoon(getMoonPhase(birthDate));
@@ -209,7 +218,7 @@ export default function YourChartPage() {
                 <p
                   key={i}
                   className={`text-sm transition-all duration-500 ${
-                    i <= loadingStep ? 'text-[#2D2640] opacity-100' : 'text-[#7B7394] opacity-0'
+                    i <= loadingStep ? 'text-[#2D2640] opacity-100' : 'text-[#655E78] opacity-0'
                   }`}
                 >
                   {i < loadingStep ? '✓' : i === loadingStep ? '·' : ''} {message}
@@ -226,9 +235,8 @@ export default function YourChartPage() {
               <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2D2640] leading-[1.1] tracking-tight">
                 Your Chart
               </h1>
-              <p className="mt-6 text-lg text-[#7B7394] leading-relaxed">
-                The sky at the moment you arrived. Your sun, moon, rising, and the
-                lunar phase that colored your first breath.
+              <p className="mt-6 text-lg text-[#655E78] leading-relaxed">
+                Your sun, moon, rising, and the lunar phase at the exact moment you showed up. This is the full picture.
               </p>
             </div>
           </section>
@@ -247,7 +255,7 @@ export default function YourChartPage() {
 
               <form onSubmit={handleSubmit} className="space-y-6 text-left">
                 <div>
-                  <label htmlFor="birthdate" className="block text-sm text-[#7B7394] mb-2">
+                  <label htmlFor="birthdate" className="block text-sm text-[#655E78] mb-2">
                     Date of birth
                   </label>
                   <input
@@ -262,7 +270,7 @@ export default function YourChartPage() {
                     className={`w-full px-4 py-3 border rounded-lg bg-transparent focus:outline-none transition-colors ${
                       formData.birthdate
                         ? 'text-[#2D2640] [&::-webkit-datetime-edit]:text-[#2D2640] [&::-webkit-datetime-edit-fields-wrapper]:text-[#2D2640]'
-                        : 'text-[#7B7394]/50 [&::-webkit-datetime-edit]:text-[#7B7394]/50 [&::-webkit-datetime-edit-fields-wrapper]:text-[#7B7394]/50'
+                        : 'text-[#655E78]/50 [&::-webkit-datetime-edit]:text-[#655E78]/50 [&::-webkit-datetime-edit-fields-wrapper]:text-[#655E78]/50'
                     } ${
                       dateError
                         ? 'border-red-400 focus:border-red-500'
@@ -275,7 +283,7 @@ export default function YourChartPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="birthtime" className="block text-sm text-[#7B7394] mb-2">
+                  <label htmlFor="birthtime" className="block text-sm text-[#655E78] mb-2">
                     Time of birth
                   </label>
                   <input
@@ -286,16 +294,16 @@ export default function YourChartPage() {
                     className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors ${
                       formData.birthtime
                         ? 'text-[#2D2640] [&::-webkit-datetime-edit]:text-[#2D2640] [&::-webkit-datetime-edit-fields-wrapper]:text-[#2D2640]'
-                        : 'text-[#7B7394]/50 [&::-webkit-datetime-edit]:text-[#7B7394]/50 [&::-webkit-datetime-edit-fields-wrapper]:text-[#7B7394]/50'
+                        : 'text-[#655E78]/50 [&::-webkit-datetime-edit]:text-[#655E78]/50 [&::-webkit-datetime-edit-fields-wrapper]:text-[#655E78]/50'
                     }`}
                   />
-                  <p className="mt-2 text-xs text-[#7B7394]">
+                  <p className="mt-2 text-xs text-[#655E78]">
                     If you don&apos;t know your exact time, noon is a reasonable estimate.
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-sm text-[#7B7394] mb-2">
+                  <label className="block text-sm text-[#655E78] mb-2">
                     Place of birth
                   </label>
                   <CitySelect
@@ -322,14 +330,14 @@ export default function YourChartPage() {
           <section className="container-editorial pt-8 pb-8 md:pt-12 md:pb-12">
             <button
               onClick={handleBack}
-              className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-4 flex items-center gap-2"
+              className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-4 flex items-center gap-2"
             >
               <span>←</span> Enter different details
             </button>
 
             {birthMoon && (
               <div className="mt-4 flex flex-col items-center text-center">
-                <p className="text-sm text-[#7B7394] tracking-wide uppercase mb-4">
+                <p className="text-sm text-[#655E78] tracking-wide uppercase mb-4">
                   The night you were born
                 </p>
                 <div
@@ -341,13 +349,13 @@ export default function YourChartPage() {
                 >
                   {birthMoon.emoji}
                 </div>
-                <p className="text-sm text-[#7B7394] mt-2">
+                <p className="text-sm text-[#655E78] mt-2">
                   {birthMoon.illumination}% illuminated
                 </p>
                 <h1 className="font-serif text-2xl md:text-3xl text-[#2D2640] leading-[1.1] mt-6">
                   {birthMoon.name}
                 </h1>
-                <p className="mt-4 text-base text-[#7B7394] leading-relaxed max-w-lg">
+                <p className="mt-4 text-base text-[#655E78] leading-relaxed max-w-lg">
                   {birthMoon.description}
                 </p>
               </div>
@@ -370,7 +378,7 @@ export default function YourChartPage() {
               <div className="p-6 md:p-8 border border-[#2D2640]/10 rounded-lg">
                 <div className="flex items-center gap-3 mb-4">
                   <SunIcon size={24} className="text-[#2D2640]" />
-                  <span className="text-xs tracking-wide uppercase text-[#7B7394]">Sun</span>
+                  <span className="text-xs tracking-wide uppercase text-[#655E78]">Sun</span>
                 </div>
                 {sunSign && (
                   <>
@@ -379,8 +387,8 @@ export default function YourChartPage() {
                       return <ZodiacIcon size={64} className="text-[#2D2640] mb-4" />;
                     })()}
                     <p className="font-serif text-2xl text-[#2D2640] mb-1">{sunSign.name}</p>
-                    <p className="text-xs text-[#7B7394] mb-4">{sunSign.element} · {sunSign.quality}</p>
-                    <p className="text-sm text-[#7B7394] leading-relaxed">
+                    <p className="text-xs text-[#655E78] mb-4">{sunSign.element} · {sunSign.quality}</p>
+                    <p className="text-sm text-[#655E78] leading-relaxed">
                       {sunSign.description}
                     </p>
                   </>
@@ -391,7 +399,7 @@ export default function YourChartPage() {
               <div className="p-6 md:p-8 border border-[#2D2640]/10 rounded-lg">
                 <div className="flex items-center gap-3 mb-4">
                   <MoonIcon size={24} className="text-[#2D2640]" />
-                  <span className="text-xs tracking-wide uppercase text-[#7B7394]">Moon</span>
+                  <span className="text-xs tracking-wide uppercase text-[#655E78]">Moon</span>
                 </div>
                 {ephemerisChart?.moon ? (
                   <>
@@ -400,13 +408,13 @@ export default function YourChartPage() {
                       return <ZodiacIcon size={64} className="text-[#2D2640] mb-4" />;
                     })()}
                     <p className="font-serif text-2xl text-[#2D2640] mb-1">{ephemerisChart.moon.sign}</p>
-                    <p className="text-xs text-[#7B7394] mb-4">{ephemerisChart.moon.element} · {ephemerisChart.moon.quality}</p>
-                    <p className="text-sm text-[#7B7394] leading-relaxed">
+                    <p className="text-xs text-[#655E78] mb-4">{ephemerisChart.moon.element} · {ephemerisChart.moon.quality}</p>
+                    <p className="text-sm text-[#655E78] leading-relaxed">
                       {ephemerisChart.moon.description}
                     </p>
                   </>
                 ) : (
-                  <div className="text-sm text-[#7B7394]">
+                  <div className="text-sm text-[#655E78]">
                     <p className="mb-2">Requires birth time and place</p>
                     <p className="text-xs">The moon moves quickly through the zodiac, so exact timing matters.</p>
                   </div>
@@ -417,7 +425,7 @@ export default function YourChartPage() {
               <div className="p-6 md:p-8 border border-[#2D2640]/10 rounded-lg">
                 <div className="flex items-center gap-3 mb-4">
                   <RisingIcon size={24} className="text-[#2D2640]" />
-                  <span className="text-xs tracking-wide uppercase text-[#7B7394]">Rising</span>
+                  <span className="text-xs tracking-wide uppercase text-[#655E78]">Rising</span>
                 </div>
                 {ephemerisChart?.rising ? (
                   <>
@@ -426,13 +434,13 @@ export default function YourChartPage() {
                       return <ZodiacIcon size={64} className="text-[#2D2640] mb-4" />;
                     })()}
                     <p className="font-serif text-2xl text-[#2D2640] mb-1">{ephemerisChart.rising.sign}</p>
-                    <p className="text-xs text-[#7B7394] mb-4">{ephemerisChart.rising.element} · {ephemerisChart.rising.quality}</p>
-                    <p className="text-sm text-[#7B7394] leading-relaxed">
+                    <p className="text-xs text-[#655E78] mb-4">{ephemerisChart.rising.element} · {ephemerisChart.rising.quality}</p>
+                    <p className="text-sm text-[#655E78] leading-relaxed">
                       {ephemerisChart.rising.description}
                     </p>
                   </>
                 ) : (
-                  <div className="text-sm text-[#7B7394]">
+                  <div className="text-sm text-[#655E78]">
                     <p className="mb-2">Requires birth time and place</p>
                     <p className="text-xs">The rising sign changes every two hours.</p>
                   </div>
@@ -451,7 +459,7 @@ export default function YourChartPage() {
               {/* Chinese Zodiac Card */}
               {chineseZodiac && (
                 <div className="p-6 md:p-8 border border-[#2D2640]/10 rounded-lg">
-                  <p className="text-xs tracking-wide uppercase text-[#7B7394] mb-4">Chinese Zodiac</p>
+                  <p className="text-xs tracking-wide uppercase text-[#655E78] mb-4">Chinese Zodiac</p>
                   {(() => {
                     const AnimalIcon = getChineseZodiacIcon(chineseZodiac.animal);
                     return <AnimalIcon size={48} className="text-[#2D2640] mb-4" />;
@@ -460,9 +468,9 @@ export default function YourChartPage() {
                     <p className="font-serif text-2xl text-[#2D2640]">
                       {chineseZodiac.element} {chineseZodiac.animal}
                     </p>
-                    <span className="text-xs text-[#7B7394]">{chineseZodiac.yinYang}</span>
+                    <span className="text-xs text-[#655E78]">{chineseZodiac.yinYang}</span>
                   </div>
-                  <p className="text-sm text-[#7B7394] leading-relaxed">
+                  <p className="text-sm text-[#655E78] leading-relaxed">
                     {chineseZodiac.animalDescription.split('.').slice(0, 2).join('.')}.
                   </p>
                 </div>
@@ -471,7 +479,7 @@ export default function YourChartPage() {
               {/* Life Path Card */}
               {lifePath && (
                 <div className="p-6 md:p-8 border border-[#2D2640]/10 rounded-lg">
-                  <p className="text-xs tracking-wide uppercase text-[#7B7394] mb-4">Life Path Number</p>
+                  <p className="text-xs tracking-wide uppercase text-[#655E78] mb-4">Life Path Number</p>
                   <div className="flex items-baseline gap-3 mb-4">
                     <p className="font-serif text-4xl text-[#2D2640]">{lifePath.number}</p>
                     {lifePath.isMasterNumber && (
@@ -480,7 +488,7 @@ export default function YourChartPage() {
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-[#7B7394] leading-relaxed">
+                  <p className="text-sm text-[#655E78] leading-relaxed">
                     {lifePath.description}
                   </p>
                 </div>
@@ -502,8 +510,8 @@ export default function YourChartPage() {
                   <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
                     Get your full birth chart reading
                   </h2>
-                  <p className="text-lg text-[#7B7394] leading-relaxed max-w-lg mx-auto">
-                    This free snapshot shows the highlights. Your full reading goes deeper into every placement, aspect, and pattern in your chart.
+                  <p className="text-lg text-[#655E78] leading-relaxed max-w-lg mx-auto">
+                    This free snapshot shows the highlights. Your full reading layers in BaZi timing and Human Design strategy to reveal the patterns no single system catches alone.
                   </p>
                 </div>
 
@@ -533,7 +541,7 @@ export default function YourChartPage() {
                   >
                     Get your natal chart reading &mdash; $35
                   </Link>
-                  <p className="text-xs text-[#7B7394]/60 mt-4">Personalised report delivered within 48 hours</p>
+                  <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
                 </div>
               </div>
             </div>
@@ -549,7 +557,7 @@ export default function YourChartPage() {
               <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
                 Save your chart
               </h2>
-              <p className="text-[#7B7394] mb-8">
+              <p className="text-[#655E78] mb-8">
                 We&apos;ll send your full chart to your inbox so you can revisit it anytime.
               </p>
               <SendResultsEmail
@@ -584,6 +592,18 @@ export default function YourChartPage() {
                 }}
               />
             </div>
+          </section>
+
+          {/* Also Explore */}
+          <section className="container-editorial pb-12">
+            <p className="text-center text-sm text-[#655E78]">
+              Also explore:{' '}
+              <a href="/bazi" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">BaZi</a>
+              {' · '}
+              <a href="/human-design" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Human Design</a>
+              {' · '}
+              <a href="/numerology" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Numerology</a>
+            </p>
           </section>
         </>
       )}

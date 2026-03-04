@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Birth Chart Report | The Lunar Playground',
     description: 'Get your personalised birth chart report with deep insights into your cosmic blueprint.',
+    images: [{ url: '/Images/og-image.png', width: 1200, height: 630, alt: 'The Lunar Playground' }],
   },
 };
 

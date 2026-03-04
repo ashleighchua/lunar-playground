@@ -64,12 +64,12 @@ export function SectionView({
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={onBack}
-            className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors flex items-center gap-2"
+            className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors flex items-center gap-2"
           >
             <span>&larr;</span> Back to your chart
           </button>
           {birthdate && (
-            <p className="text-xs text-[#7B7394]/60">
+            <p className="text-xs text-[#655E78]/60">
               {formatBirthInfo(birthdate, birthtime, birthplace)}
             </p>
           )}
@@ -148,7 +148,7 @@ export function SectionView({
             Get your decision-making style, emotional patterns, relationship blueprint, and more in a comprehensive personalized reading.
           </p>
           <div className="max-w-xs mx-auto">
-            <CheckoutButton productId="natal-chart" label="Get your full reading — $35" />
+            <CheckoutButton productId="natal-chart" label="Get your full reading - $35" />
           </div>
         </div>
 
@@ -156,7 +156,7 @@ export function SectionView({
         <div className="text-center">
           <button
             onClick={onBack}
-            className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors"
+            className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors"
           >
             Explore another section &rarr;
           </button>

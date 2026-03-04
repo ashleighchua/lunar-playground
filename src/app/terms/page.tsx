@@ -15,15 +15,15 @@ export default function TermsPage() {
         <div className="max-w-2xl mx-auto">
           <Link
             href="/"
-            className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-8 inline-block"
+            className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-8 inline-block"
           >
             &larr; Back to home
           </Link>
 
           <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-8">Terms of Service</h1>
 
-          <div className="prose prose-neutral max-w-none space-y-6 text-[#7B7394]">
-            <p className="text-sm">Last updated: January 2025</p>
+          <div className="prose prose-neutral max-w-none space-y-6 text-[#655E78]">
+            <p className="text-sm">Last updated: March 2026</p>
 
             <section className="space-y-4">
               <h2 className="font-serif text-xl text-[#2D2640]">What this is</h2>
@@ -78,6 +78,21 @@ export default function TermsPage() {
                 All content on this website, including text, graphics, and code, is owned by
                 The Lunar Playground unless otherwise stated. You may not reproduce or distribute
                 this content without written permission.
+              </p>
+            </section>
+
+            <section className="space-y-4">
+              <h2 className="font-serif text-xl text-[#2D2640]">Paid readings and refunds</h2>
+              <p>
+                Paid readings are personalised, written-to-order products. Because each reading is created
+                specifically for you, refunds are generally not available once work has begun.
+              </p>
+              <p>
+                If there is a genuine issue with your order (wrong birth data used, reading not delivered, etc.),
+                please email us and we will make it right.
+              </p>
+              <p>
+                Delivery is typically 1-3 business days. You will receive updates as your reading is prepared.
               </p>
             </section>
 

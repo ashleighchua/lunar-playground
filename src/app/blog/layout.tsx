@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Blog | The Lunar Playground',
-  description: 'Astrology insights, moon phase guidance, and cosmic wisdom. Read the latest from The Lunar Playground.',
+  description: 'Honest breakdowns of astrology, BaZi, Human Design, numerology, and how they actually work together. Written by a real human.',
   openGraph: {
     title: 'Blog | The Lunar Playground',
-    description: 'Astrology insights, moon phase guidance, and cosmic wisdom.',
+    description: 'Honest breakdowns of astrology, BaZi, Human Design, numerology, and how they actually work together.',
+    images: [{ url: '/Images/og-image.png', width: 1200, height: 630, alt: 'The Lunar Playground' }],
   },
 };
 

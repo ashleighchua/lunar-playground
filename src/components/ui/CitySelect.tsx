@@ -172,10 +172,10 @@ export function CitySelect({
                 }}
                 className="p-1 hover:bg-[#2D2640]/5 rounded"
               >
-                <X className="w-4 h-4 text-[#7B7394]" />
+                <X className="w-4 h-4 text-[#655E78]" />
               </button>
               <ChevronDown className={cn(
-                "w-4 h-4 text-[#7B7394] transition-transform",
+                "w-4 h-4 text-[#655E78] transition-transform",
                 isOpen && "rotate-180"
               )} />
             </div>
@@ -183,7 +183,7 @@ export function CitySelect({
         ) : (
           // Search input
           <>
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#655E78]" />
             <input
               ref={inputRef}
               type="text"
@@ -195,14 +195,14 @@ export function CitySelect({
               onFocus={() => setIsOpen(true)}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2D2640]/10 rounded-lg bg-white text-[#2D2640] placeholder:text-[#7B7394]/50 focus:outline-none focus:border-[#FF8FA3]/50 transition-colors"
+              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2D2640]/10 rounded-lg bg-white text-[#2D2640] placeholder:text-[#655E78]/50 focus:outline-none focus:border-[#FF8FA3]/50 transition-colors"
             />
             {isLoading ? (
-              <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394] animate-spin" />
+              <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#655E78] animate-spin" />
             ) : (
               <ChevronDown
                 className={cn(
-                  "absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394] transition-transform",
+                  "absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#655E78] transition-transform",
                   isOpen && "rotate-180"
                 )}
               />
@@ -217,7 +217,7 @@ export function CitySelect({
           {value && (
             <div className="p-2 border-b border-[#2D2640]/10">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394]" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#655E78]" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -229,25 +229,25 @@ export function CitySelect({
                   autoFocus
                 />
                 {isLoading && (
-                  <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B7394] animate-spin" />
+                  <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#655E78] animate-spin" />
                 )}
               </div>
             </div>
           )}
 
           {!query && results.length > 0 && (
-            <div className="px-3 py-2 text-xs text-[#7B7394] bg-[#2D2640]/5 border-b border-[#2D2640]/10">
+            <div className="px-3 py-2 text-xs text-[#655E78] bg-[#2D2640]/5 border-b border-[#2D2640]/10">
               Popular cities (type to search all)
             </div>
           )}
 
           {isLoading && results.length === 0 ? (
-            <div className="px-4 py-6 text-center text-[#7B7394] text-sm flex items-center justify-center gap-2">
+            <div className="px-4 py-6 text-center text-[#655E78] text-sm flex items-center justify-center gap-2">
               <Loader2 className="w-4 h-4 animate-spin" />
               Searching cities...
             </div>
           ) : results.length === 0 ? (
-            <div className="px-4 py-6 text-center text-[#7B7394] text-sm">
+            <div className="px-4 py-6 text-center text-[#655E78] text-sm">
               {query.length === 0
                 ? "Type a city name to search"
                 : "No cities found. Try a different spelling."}
@@ -265,7 +265,7 @@ export function CitySelect({
                     "px-4 py-2.5 cursor-pointer text-sm border-b border-[#2D2640]/5 last:border-0",
                     index === highlightedIndex
                       ? "bg-[#2D2640]/10 text-[#2D2640]"
-                      : "text-[#7B7394] hover:bg-[#2D2640]/5"
+                      : "text-[#655E78] hover:bg-[#2D2640]/5"
                   )}
                 >
                   {highlightMatch(city.label, query)}
@@ -275,7 +275,7 @@ export function CitySelect({
           )}
 
           {query && results.length > 0 && (
-            <div className="px-3 py-2 text-xs text-[#7B7394] bg-[#2D2640]/5 border-t border-[#2D2640]/10 text-center">
+            <div className="px-3 py-2 text-xs text-[#655E78] bg-[#2D2640]/5 border-t border-[#2D2640]/10 text-center">
               {results.length} result{results.length !== 1 ? 's' : ''} found
             </div>
           )}

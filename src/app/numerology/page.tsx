@@ -183,7 +183,7 @@ function LoadingScreen() {
         ))}
       </div>
       <p className="font-serif text-xl text-[#2D2640] mb-2">Calculating your numbers...</p>
-      <p className="text-sm text-[#7B7394]">Mapping the vibrations of your birth date</p>
+      <p className="text-sm text-[#655E78]">Mapping the vibrations of your birth date</p>
     </div>
   );
 }
@@ -286,7 +286,7 @@ function ResultsView({
         {/* Back button */}
         <button
           onClick={onBack}
-          className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-10 flex items-center gap-2"
+          className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-10 flex items-center gap-2"
         >
           <span>←</span>
           <span>Try a different date</span>
@@ -294,11 +294,11 @@ function ResultsView({
 
         {/* Hero section */}
         <div className="mb-14">
-          <p className="text-xs uppercase tracking-widest text-[#7B7394] mb-6">Your Numerology Profile</p>
+          <p className="text-xs uppercase tracking-widest text-[#655E78] mb-6">Your Numerology Profile</p>
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-12">
             <NumberBadge number={profile.lifePathNumber} size="lg" color="#A89BC4" />
             <div className="flex-1">
-              <p className="text-sm text-[#7B7394] mb-1">Life Path Number</p>
+              <p className="text-sm text-[#655E78] mb-1">Life Path Number</p>
               <h1 className="font-serif text-4xl md:text-5xl text-[#2D2640] mb-4">
                 {lifeMeaning?.title ?? `Number ${profile.lifePathNumber}`}
               </h1>
@@ -387,7 +387,7 @@ function ResultsView({
             <ColorCard label="Missing Numbers" theme="missing">
               {profile.missingNumbers.length === 0 ? (
                 <p className="text-sm text-[#2D2640]/70 leading-relaxed">
-                  Your birth date contains all nine digits -- a rare completeness suggesting broad versatility.
+                  Your birth date contains all nine digits. A rare completeness suggesting broad versatility.
                 </p>
               ) : (
                 <>
@@ -395,7 +395,7 @@ function ResultsView({
                     {profile.missingNumbers.map((n) => (
                       <div
                         key={n}
-                        className="w-10 h-10 rounded-full border border-dashed border-[#2D2640]/20 flex items-center justify-center font-serif text-[#7B7394] text-base"
+                        className="w-10 h-10 rounded-full border border-dashed border-[#2D2640]/20 flex items-center justify-center font-serif text-[#655E78] text-base"
                       >
                         {n}
                       </div>
@@ -466,8 +466,8 @@ function ResultsView({
             <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
               Want the full picture?
             </h2>
-            <p className="text-lg text-[#7B7394] leading-relaxed max-w-lg mx-auto">
-              Your numbers are one layer. The Full Blueprint weaves together your natal chart, BaZi, Human Design, and relocation report into a complete portrait of who you are.
+            <p className="text-lg text-[#655E78] leading-relaxed max-w-lg mx-auto">
+              Your numbers are one layer. When the same pattern shows up in your numerology, your natal chart, and your BaZi, that&apos;s when you know it&apos;s real. The Complete Architecture connects them all.
             </p>
           </div>
 
@@ -495,17 +495,29 @@ function ResultsView({
               href="/shop"
               className="inline-block px-8 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-lg text-sm font-medium hover:bg-[#1E1835] transition-colors"
             >
-              Get The Full Blueprint &mdash; $139
+              See every layer of your chart &mdash; $139
             </Link>
-            <p className="text-xs text-[#7B7394]/60 mt-4">Personalised report delivered within 48 hours</p>
+            <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
           </div>
         </div>
 
         {/* Save Results */}
         <div className="bg-[#F5F3F0] rounded-2xl p-8 md:p-10 text-center">
           <h2 className="font-serif text-2xl text-[#2D2640] mb-4">Save your results</h2>
-          <p className="text-[#7B7394] mb-8">Get your numerology profile sent to your inbox.</p>
+          <p className="text-[#655E78] mb-8">Get your numerology profile sent to your inbox.</p>
           <SendResultsEmail type="numerology" data={profile} />
+        </div>
+
+        {/* Also Explore */}
+        <div className="py-12 text-center">
+          <p className="text-sm text-[#655E78]">
+            Also explore:{' '}
+            <a href="/your-chart" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Birth Chart</a>
+            {' · '}
+            <a href="/bazi" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">BaZi</a>
+            {' · '}
+            <a href="/chinese-zodiac" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Chinese Zodiac</a>
+          </p>
         </div>
       </main>
 
@@ -552,12 +564,12 @@ function FormView({ onSubmit }: { onSubmit: (date: string) => void }) {
         <div className="max-w-xl mx-auto">
           {/* Header */}
           <div className="mb-10 text-center">
-            <p className="text-xs uppercase tracking-widest text-[#7B7394] mb-4">Free Tool</p>
+            <p className="text-xs uppercase tracking-widest text-[#655E78] mb-4">Free Tool</p>
             <h1 className="font-serif text-4xl md:text-5xl text-[#2D2640] mb-4">
               Numerology Profile
             </h1>
-            <p className="text-[#7B7394] leading-relaxed text-base max-w-md mx-auto">
-              Every birth date carries a unique numerical signature. Enter yours to reveal your Life Path, Birthday Number, Energy Grid, and more.
+            <p className="text-[#655E78] leading-relaxed text-base max-w-md mx-auto">
+              Your birthday is doing more than you think. Numerology breaks it down into your Life Path, Birthday Number, Energy Grid, and the patterns hiding in plain sight.
             </p>
           </div>
 
@@ -565,7 +577,7 @@ function FormView({ onSubmit }: { onSubmit: (date: string) => void }) {
           <div className="border border-[#2D2640]/10 rounded-2xl p-6 md:p-8 bg-white/50">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm text-[#7B7394] mb-2" htmlFor="birthDate">
+                <label className="block text-sm text-[#655E78] mb-2" htmlFor="birthDate">
                   Date of birth
                 </label>
                 <input
@@ -592,7 +604,7 @@ function FormView({ onSubmit }: { onSubmit: (date: string) => void }) {
               <div key={item.label} className="bg-white border border-[#2D2640]/5 rounded-2xl p-4 shadow-sm">
                 <span className="text-xl block mb-2">{item.icon}</span>
                 <p className="font-serif text-sm text-[#2D2640] mb-1">{item.label}</p>
-                <p className="text-xs text-[#7B7394]">{item.desc}</p>
+                <p className="text-xs text-[#655E78]">{item.desc}</p>
               </div>
             ))}
           </div>

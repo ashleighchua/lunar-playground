@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Astrocartography Map | The Lunar Playground',
     description: 'Discover your best places to live, work, and travel with your personalised astrocartography map.',
+    images: [{ url: '/Images/og-image.png', width: 1200, height: 630, alt: 'The Lunar Playground' }],
   },
 };
 

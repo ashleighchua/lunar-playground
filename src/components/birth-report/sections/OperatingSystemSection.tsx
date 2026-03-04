@@ -31,7 +31,7 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
         <div className="w-1 bg-[#7A746C]" />
         <div className="flex-1 p-6 md:p-8 bg-gradient-to-r from-[#F5F3F0]/50 to-transparent">
           <h2 className="font-serif text-2xl text-[#2D2640] mb-4">Your Operating System</h2>
-          <p className="text-sm text-[#7B7394] leading-relaxed">
+          <p className="text-sm text-[#655E78] leading-relaxed">
             The three lenses that shape how you experience life
           </p>
         </div>
@@ -69,7 +69,7 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
                 <span className="text-[--sun-glyph]/40">&middot;</span>
                 <span className="font-serif text-[--sun-glyph]">{sunSign.name}</span>
               </div>
-              <p className="text-sm text-[#7B7394] mb-2">Your core identity</p>
+              <p className="text-sm text-[#655E78] mb-2">Your core identity</p>
               {sunOrientation[sunSign.name] && (
                 <p className="text-[#2D2640]/80 text-sm leading-relaxed">{sunOrientation[sunSign.name]}</p>
               )}
@@ -93,7 +93,7 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
                 <span className="text-[--moon-glyph]/40">&middot;</span>
                 <span className="font-serif text-[--moon-glyph]">{moonSignName}</span>
               </div>
-              <p className="text-sm text-[#7B7394] mb-2">Your inner world</p>
+              <p className="text-sm text-[#655E78] mb-2">Your inner world</p>
               {moonProcessing[moonSignName] && (
                 <p className="text-[#2D2640]/80 text-sm leading-relaxed">{moonProcessing[moonSignName]}</p>
               )}
@@ -104,7 +104,7 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
                 <MoonIcon size={18} className="text-[--moon-glyph]/40" />
                 <span className="text-xs tracking-wide uppercase text-[--moon-glyph]/40">Moon</span>
               </div>
-              <p className="text-sm text-[#7B7394]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
             </div>
           )}
 
@@ -125,7 +125,7 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
                 <span className="text-[--rising-glyph]/40">&middot;</span>
                 <span className="font-serif text-[--rising-glyph]">{risingSignName}</span>
               </div>
-              <p className="text-sm text-[#7B7394] mb-2">How others see you</p>
+              <p className="text-sm text-[#655E78] mb-2">How others see you</p>
               {risingPresentation[risingSignName] && (
                 <p className="text-[#2D2640]/80 text-sm leading-relaxed">{risingPresentation[risingSignName]}</p>
               )}
@@ -136,7 +136,7 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
                 <RisingIcon size={18} className="text-[--rising-glyph]/40" />
                 <span className="text-xs tracking-wide uppercase text-[--rising-glyph]/40">Rising</span>
               </div>
-              <p className="text-sm text-[#7B7394]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
             </div>
           )}
         </div>
@@ -190,10 +190,10 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
               className="w-full flex items-center justify-between p-4 bg-[#FAFAF8] hover:bg-[#F5F3F0] rounded-xl transition-colors group"
             >
               <div className="flex items-center gap-3">
-                <span className="text-[#7B7394] group-hover:text-[#2D2640]">&#128221;</span>
-                <span className="text-sm text-[#7B7394] group-hover:text-[#2D2640]">Reflect on this</span>
+                <span className="text-[#655E78] group-hover:text-[#2D2640]">&#128221;</span>
+                <span className="text-sm text-[#655E78] group-hover:text-[#2D2640]">Reflect on this</span>
               </div>
-              <span className={`text-[#7B7394] transition-transform ${showReflections ? 'rotate-180' : ''}`}>
+              <span className={`text-[#655E78] transition-transform ${showReflections ? 'rotate-180' : ''}`}>
                 &#9660;
               </span>
             </button>
@@ -205,7 +205,7 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
                     <p className="text-[#2D2640]/80 text-sm leading-relaxed italic">{question}</p>
                   </div>
                 ))}
-                <p className="text-xs text-[#7B7394] pt-2 border-t border-[#2D2640]/5">
+                <p className="text-xs text-[#655E78] pt-2 border-t border-[#2D2640]/5">
                   Take a moment to journal or simply sit with these questions.
                 </p>
               </div>

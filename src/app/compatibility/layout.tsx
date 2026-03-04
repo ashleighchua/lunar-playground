@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Zodiac Compatibility Calculator | The Lunar Playground',
     description: 'Check your zodiac sign compatibility with detailed relationship insights.',
+    images: [{ url: '/Images/og-image.png', width: 1200, height: 630, alt: 'The Lunar Playground' }],
   },
 };
 

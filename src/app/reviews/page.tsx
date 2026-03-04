@@ -9,9 +9,40 @@ export const metadata = {
   description: 'Read what our clients say about their astrocartography and natal chart readings.',
 };
 
+const reviewJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'The Lunar Playground',
+  url: 'https://thelunarplayground.com',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    reviewCount: String(reviews.length),
+    bestRating: '5',
+    worstRating: '1',
+  },
+  review: reviews.map((r) => ({
+    '@type': 'Review',
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: String(r.rating),
+      bestRating: '5',
+    },
+    reviewBody: r.text,
+    author: {
+      '@type': 'Person',
+      name: `Verified ${r.source} Client`,
+    },
+  })),
+};
+
 export default function ReviewsPage() {
   return (
     <div className="min-h-screen bg-[#F0EBF8]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewJsonLd) }}
+      />
       <Navigation currentPage="reviews" />
 
       {/* Hero */}
@@ -23,7 +54,7 @@ export default function ReviewsPage() {
           <h1 className="font-serif text-4xl md:text-5xl text-[#2D2640] mb-4">
             What our clients say
           </h1>
-          <p className="text-[#7B7394] leading-relaxed">
+          <p className="text-[#655E78] leading-relaxed">
             Real feedback from real readings. All reviews are from verified Fiverr clients.
           </p>
         </div>
@@ -50,7 +81,7 @@ export default function ReviewsPage() {
               <p className="text-[#2D2640] leading-relaxed mb-4">
                 &ldquo;{review.text}&rdquo;
               </p>
-              <p className="text-xs text-[#7B7394]">
+              <p className="text-xs text-[#655E78]">
                 Verified {review.source} client
               </p>
             </div>

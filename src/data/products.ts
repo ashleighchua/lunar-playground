@@ -15,7 +15,7 @@ export interface Product {
 export const products: Product[] = [
   {
     id: 'full-blueprint',
-    title: 'The Full Blueprint',
+    title: 'The Complete Architecture',
     subtitle: 'Your complete operating manual across every system',
     description: 'Western astrology, BaZi, Human Design, and relocation astrology, all woven into one unified reading. Understand who you are, how you\'re designed, what drives you, and where you\'ll thrive.',
     price: '$139',
@@ -28,13 +28,13 @@ export const products: Product[] = [
       'Relocation report with top cities and planetary lines',
       'Unified interpretation across all systems',
     ],
-    ctaText: 'Get The Full Blueprint',
+    ctaText: 'See every layer of your chart',
     badge: 'Best Value',
     icon: '✦',
   },
   {
     id: 'know-yourself',
-    title: 'Know Yourself',
+    title: 'The Integrated Profile',
     subtitle: 'Three systems, one clear picture of who you are',
     description: 'Your natal chart, BaZi, and Human Design layered together. For when you want deep self-understanding without the relocation component.',
     price: '$99',
@@ -45,7 +45,7 @@ export const products: Product[] = [
       'Human Design Type, Strategy, and Authority',
       'Cross-system personality insights',
     ],
-    ctaText: 'Get Know Yourself',
+    ctaText: 'See yourself from three angles',
     icon: '🔮',
   },
   {
@@ -61,7 +61,7 @@ export const products: Product[] = [
       'Favorable elements, colours, and directions',
       'Timing insights for career and relationships',
     ],
-    ctaText: 'Get Your BaZi Reading',
+    ctaText: 'Reveal your timing blueprint',
     icon: '🌳',
   },
   {
@@ -77,7 +77,7 @@ export const products: Product[] = [
       'Line crossings and power zones revealed',
       'Career, love, and growth potential by location',
     ],
-    ctaText: 'Get Your Relocation Report',
+    ctaText: 'Find where you thrive',
     badge: 'Most Popular',
     icon: '🌍',
   },
@@ -94,7 +94,7 @@ export const products: Product[] = [
       'Relationship blueprint and work patterns',
       'Shadow work and growth edges',
     ],
-    ctaText: 'Get Your Natal Chart',
+    ctaText: 'Uncover your core patterns',
     icon: '☉',
   },
   {
@@ -110,7 +110,7 @@ export const products: Product[] = [
       'Defined and undefined centres',
       'Practical guidance for daily life',
     ],
-    ctaText: 'Get Your Human Design Reading',
+    ctaText: 'Decode how you\'re wired',
     icon: '⚛️',
   },
   {
@@ -126,7 +126,7 @@ export const products: Product[] = [
       'Practical relocation framework',
       'Self-paced, keep forever',
     ],
-    ctaText: 'Get the Course',
+    ctaText: 'Learn to read your own chart',
     icon: '📖',
   },
 ];

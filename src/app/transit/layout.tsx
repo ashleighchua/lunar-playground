@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Transit Calendar | The Lunar Playground',
     description: 'Track your personal astrological transits and upcoming planetary aspects.',
+    images: [{ url: '/Images/og-image.png', width: 1200, height: 630, alt: 'The Lunar Playground' }],
   },
 };
 

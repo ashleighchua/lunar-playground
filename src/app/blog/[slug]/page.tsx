@@ -92,8 +92,33 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     })),
   } : null;
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.metaTitle || post.title,
+    description: post.metaDescription || post.description,
+    author: {
+      '@type': 'Person',
+      name: 'Ashleigh',
+      url: 'https://thelunarplayground.com/about',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'The Lunar Playground',
+      url: 'https://thelunarplayground.com',
+    },
+    datePublished: post.publishedDate,
+    dateModified: post.publishedDate,
+    url: `https://thelunarplayground.com/blog/${post.slug}`,
+    mainEntityOfPage: `https://thelunarplayground.com/blog/${post.slug}`,
+  };
+
   return (
     <div className="min-h-screen bg-[#F0EBF8]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {faqJsonLd && (
         <script
           type="application/ld+json"
@@ -107,7 +132,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Back link */}
           <Link
             href="/blog"
-            className="inline-flex items-center text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-8"
+            className="inline-flex items-center text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-8"
           >
             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -121,12 +146,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <span className={`text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full ${categoryColors[post.category] || ''}`}>
                 {post.category}
               </span>
-              <span className="text-sm text-[#7B7394]">{post.readingTime}</span>
+              <span className="text-sm text-[#655E78]">{post.readingTime}</span>
             </div>
             <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-4 leading-tight">
               {post.title}
             </h1>
-            <p className="text-lg text-[#7B7394] leading-relaxed">{post.description}</p>
+            <p className="text-lg text-[#655E78] leading-relaxed">{post.description}</p>
           </header>
 
           {/* Divider */}
@@ -172,7 +197,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   </li>
                 ),
                 blockquote: ({ children }) => (
-                  <blockquote className="border-l-2 border-[#FF8FA3] pl-4 italic text-[#7B7394] my-6">
+                  <blockquote className="border-l-2 border-[#FF8FA3] pl-4 italic text-[#655E78] my-6">
                     {children}
                   </blockquote>
                 ),
@@ -199,7 +224,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <details key={i} className="group bg-white rounded-xl border border-[#2D2640]/5 overflow-hidden">
                     <summary className="cursor-pointer px-5 py-4 text-[#2D2640] font-medium text-sm flex items-center justify-between list-none">
                       <span>{item.question}</span>
-                      <svg className="w-4 h-4 text-[#7B7394] flex-shrink-0 ml-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-[#655E78] flex-shrink-0 ml-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </summary>
@@ -239,7 +264,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {prevPost ? (
               <Link
                 href={`/blog/${prevPost.slug}`}
-                className="group flex items-center text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors max-w-[45%]"
+                className="group flex items-center text-sm text-[#655E78] hover:text-[#2D2640] transition-colors max-w-[45%]"
               >
                 <svg className="w-4 h-4 mr-2 flex-shrink-0 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -253,7 +278,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {nextPost ? (
               <Link
                 href={`/blog/${nextPost.slug}`}
-                className="group flex items-center text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors max-w-[45%] text-right"
+                className="group flex items-center text-sm text-[#655E78] hover:text-[#2D2640] transition-colors max-w-[45%] text-right"
               >
                 <span className="hidden sm:inline truncate">{nextPost.title}</span>
                 <span className="sm:hidden">Next</span>

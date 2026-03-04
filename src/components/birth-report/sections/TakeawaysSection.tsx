@@ -21,7 +21,7 @@ export function TakeawaysSection({ sunSignName, moonSignName }: TakeawaysSection
         <div className="w-1 bg-[#7A746C]" />
         <div className="flex-1 p-6 md:p-8 bg-gradient-to-r from-[#F5F3F0]/50 to-transparent">
           <h2 className="font-serif text-2xl text-[#2D2640] mb-4">Practical Takeaways</h2>
-          <p className="text-sm text-[#7B7394] leading-relaxed">
+          <p className="text-sm text-[#655E78] leading-relaxed">
             A grounded summary for daily use
           </p>
         </div>
@@ -46,7 +46,7 @@ export function TakeawaysSection({ sunSignName, moonSignName }: TakeawaysSection
           {leanInto[sunSignName] && (
             <div className="bg-[#F0EBF8] rounded-xl p-5">
               <p className="text-xs tracking-wider uppercase text-[#C4365A] mb-1">Lean into</p>
-              <p className="text-xs text-[#7B7394] mb-4">Strengths that grow when used deliberately</p>
+              <p className="text-xs text-[#655E78] mb-4">Strengths that grow when used deliberately</p>
               <ul className="space-y-3">
                 {leanInto[sunSignName].map((item, i) => {
                   const words = item.split(' ');
@@ -70,7 +70,7 @@ export function TakeawaysSection({ sunSignName, moonSignName }: TakeawaysSection
           {watchFor[sunSignName] && (
             <div className="bg-[#F5F3F0] rounded-xl p-5">
               <p className="text-xs tracking-wider uppercase text-[#5A5E64] mb-1">Watch for</p>
-              <p className="text-xs text-[#7B7394] mb-4">Patterns that emerge quietly under strain</p>
+              <p className="text-xs text-[#655E78] mb-4">Patterns that emerge quietly under strain</p>
               <ul className="space-y-3">
                 {watchFor[sunSignName].map((item, i) => {
                   const words = item.split(' ');
@@ -95,7 +95,7 @@ export function TakeawaysSection({ sunSignName, moonSignName }: TakeawaysSection
         {/* One practical reframe */}
         {practicalReframe[sunSignName] && (
           <div className="bg-[#F0EBE3] rounded-xl p-6 md:p-8 mb-6">
-            <p className="text-xs tracking-wider uppercase text-[#7B7394] mb-4">One practical reframe</p>
+            <p className="text-xs tracking-wider uppercase text-[#655E78] mb-4">One practical reframe</p>
             {(() => {
               const reframeText = practicalReframe[sunSignName];
               const paragraphs = reframeText.split('\n\n').filter(Boolean);
@@ -104,7 +104,7 @@ export function TakeawaysSection({ sunSignName, moonSignName }: TakeawaysSection
               return (
                 <>
                   <p className="font-serif text-lg text-[#2D2640] leading-relaxed mb-4">{mainPoint}</p>
-                  {supporting && <p className="text-[#7B7394] text-sm leading-relaxed">{supporting}</p>}
+                  {supporting && <p className="text-[#655E78] text-sm leading-relaxed">{supporting}</p>}
                 </>
               );
             })()}
@@ -132,7 +132,7 @@ export function TakeawaysSection({ sunSignName, moonSignName }: TakeawaysSection
                 </p>
               </div>
               <div className="pt-3 border-t border-[#2D2640]/5">
-                <p className="text-xs text-[#7B7394] mb-2">Micro-experiment (5 min)</p>
+                <p className="text-xs text-[#655E78] mb-2">Micro-experiment (5 min)</p>
                 <p className="text-[#2D2640] text-sm leading-relaxed font-medium">
                   {practicalAnchors[sunSignName as keyof typeof practicalAnchors].microExperiment}
                 </p>

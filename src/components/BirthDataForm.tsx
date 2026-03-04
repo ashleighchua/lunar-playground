@@ -73,7 +73,7 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
     <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
       <div className={compact ? 'grid grid-cols-2 gap-4' : ''}>
         <div>
-          <label htmlFor="birthdate" className="block text-sm text-[#7B7394] mb-2">Date of birth</label>
+          <label htmlFor="birthdate" className="block text-sm text-[#655E78] mb-2">Date of birth</label>
           <input
             type="date"
             id="birthdate"
@@ -81,15 +81,15 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
             value={formData.birthdate}
             onChange={(e) => { setFormData({ ...formData, birthdate: e.target.value }); setDateError(null); }}
             className={`w-full px-4 py-3 border rounded-lg bg-transparent focus:outline-none transition-colors ${
-              formData.birthdate ? 'text-[#2D2640]' : 'text-[#7B7394]/60'
+              formData.birthdate ? 'text-[#2D2640]' : 'text-[#655E78]/60'
             } ${dateError ? 'border-red-400' : 'border-[#2D2640]/10 focus:border-[#2D2640]/30'}`}
           />
           {dateError && <p className="mt-2 text-sm text-red-500">{dateError}</p>}
         </div>
 
         <div>
-          <label htmlFor="birthtime" className="block text-sm text-[#7B7394] mb-2">
-            Time of birth {compact && <span className="text-[#7B7394]/60">(optional)</span>}
+          <label htmlFor="birthtime" className="block text-sm text-[#655E78] mb-2">
+            Time of birth {compact && <span className="text-[#655E78]/60">(optional)</span>}
           </label>
           <input
             type="time"
@@ -97,15 +97,15 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
             value={formData.birthtime}
             onChange={(e) => setFormData({ ...formData, birthtime: e.target.value })}
             className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors ${
-              formData.birthtime ? 'text-[#2D2640]' : 'text-[#7B7394]/60'
+              formData.birthtime ? 'text-[#2D2640]' : 'text-[#655E78]/60'
             }`}
           />
-          {!compact && <p className="mt-2 text-xs text-[#7B7394]">For most accurate results. If unknown, some sections will be limited.</p>}
+          {!compact && <p className="mt-2 text-xs text-[#655E78]">For most accurate results. If unknown, some sections will be limited.</p>}
         </div>
       </div>
 
       <div>
-        <label className="block text-sm text-[#7B7394] mb-2">Place of birth</label>
+        <label className="block text-sm text-[#655E78] mb-2">Place of birth</label>
         <CitySelect
           value={selectedCity?.label || ''}
           onChange={(city) => setSelectedCity(city)}
@@ -114,8 +114,8 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
       </div>
 
       <div className={compact ? '' : 'pt-2'}>
-        <label htmlFor="email" className="block text-sm text-[#7B7394] mb-2">
-          Email <span className="text-[#7B7394]/60">(optional)</span>
+        <label htmlFor="email" className="block text-sm text-[#655E78] mb-2">
+          Email <span className="text-[#655E78]/60">(optional)</span>
         </label>
         <input
           type="email"
@@ -123,9 +123,9 @@ export function BirthDataForm({ className = '', compact = false }: BirthDataForm
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
           placeholder="you@example.com"
-          className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#7B7394]/40"
+          className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]/40"
         />
-        {!compact && <p className="mt-2 text-xs text-[#7B7394]">We&apos;ll email you a copy of your report</p>}
+        {!compact && <p className="mt-2 text-xs text-[#655E78]">We&apos;ll email you a copy of your report</p>}
       </div>
 
       <button

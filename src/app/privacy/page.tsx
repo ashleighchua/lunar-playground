@@ -15,15 +15,15 @@ export default function PrivacyPage() {
         <div className="max-w-2xl mx-auto">
           <Link
             href="/"
-            className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-8 inline-block"
+            className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-8 inline-block"
           >
             &larr; Back to home
           </Link>
 
           <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-8">Privacy Policy</h1>
 
-          <div className="prose prose-neutral max-w-none space-y-6 text-[#7B7394]">
-            <p className="text-sm">Last updated: January 2025</p>
+          <div className="prose prose-neutral max-w-none space-y-6 text-[#655E78]">
+            <p className="text-sm">Last updated: March 2026</p>
 
             <section className="space-y-4">
               <h2 className="font-serif text-xl text-[#2D2640]">What we collect</h2>

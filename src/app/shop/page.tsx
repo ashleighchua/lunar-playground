@@ -24,15 +24,12 @@ export default function ShopPage() {
       {/* Hero */}
       <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-widest text-[#7B7394] mb-4">Personalised Readings</p>
+          <p className="text-xs uppercase tracking-widest text-[#655E78] mb-4">Personalised Readings</p>
           <h1 className="font-serif text-4xl md:text-5xl mb-4">
-            <span className="text-gradient-gold">Written for your chart. By a real human.</span>
+            <span className="text-gradient-gold">The reading that finally makes it click.</span>
           </h1>
-          <p className="text-[#7B7394] leading-relaxed">
-            Not AI-generated. Not templated. Every reading is personally written by Ashleigh after studying your unique chart across multiple systems.
-          </p>
-          <p className="text-xs text-[#7B7394]/60 mt-3">
-            Have a discount code? You can enter it at checkout.
+          <p className="text-[#655E78] leading-relaxed">
+            Your full chart, your timing, and the patterns no one has connected for you yet.
           </p>
         </div>
       </section>
@@ -47,7 +44,7 @@ export default function ShopPage() {
       {/* Bundle Products (Hero Cards) */}
       <section className="container-editorial py-12 md:py-16">
         <div className="max-w-4xl mx-auto">
-          <p className="text-xs uppercase tracking-widest text-[#7B7394] text-center mb-8">Bundles</p>
+          <p className="text-xs uppercase tracking-widest text-[#655E78] text-center mb-8">Bundles</p>
           <div className="grid md:grid-cols-2 gap-6">
             {bundles.map((product) => (
               <div
@@ -61,8 +58,8 @@ export default function ShopPage() {
                 )}
                 <span className="text-3xl mb-4 block text-center">{product.icon}</span>
                 <h3 className="font-serif text-xl text-[#2D2640] mb-1 text-center">{product.title}</h3>
-                <p className="text-sm text-[#7B7394] mb-4 text-center">{product.subtitle}</p>
-                <p className="text-[#7B7394] leading-relaxed mb-6 text-center text-sm">{product.description}</p>
+                <p className="text-sm text-[#655E78] mb-4 text-center">{product.subtitle}</p>
+                <p className="text-[#655E78] leading-relaxed mb-6 text-center text-sm">{product.description}</p>
                 <ul className="space-y-2 mb-8">
                   {product.features.map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-[#2D2640]/80">
@@ -75,7 +72,7 @@ export default function ShopPage() {
                   <div className="mb-4">
                     <span className="font-serif text-2xl text-[#2D2640]">{product.price}</span>
                     {product.priceNote && (
-                      <span className="text-sm text-[#7B7394] ml-2">{product.priceNote}</span>
+                      <span className="text-sm text-[#655E78] ml-2">{product.priceNote}</span>
                     )}
                   </div>
                   <CheckoutButton productId={product.id} label={product.ctaText} />
@@ -83,6 +80,17 @@ export default function ShopPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Guidance */}
+      <section className="container-editorial py-8">
+        <div className="max-w-xl mx-auto text-center">
+          <p className="text-sm text-[#655E78] leading-relaxed">
+            Want the full picture? Go with <span className="text-[#2D2640] font-medium">The Complete Architecture</span>.
+            Want to understand yourself first? Start with <span className="text-[#2D2640] font-medium">The Integrated Profile</span>.
+            Already know which system speaks to you? Grab an individual reading below.
+          </p>
         </div>
       </section>
 
@@ -96,7 +104,7 @@ export default function ShopPage() {
       {/* Individual Readings */}
       <section className="container-editorial py-12 md:py-16">
         <div className="max-w-4xl mx-auto">
-          <p className="text-xs uppercase tracking-widest text-[#7B7394] text-center mb-8">Individual Readings</p>
+          <p className="text-xs uppercase tracking-widest text-[#655E78] text-center mb-8">Individual Readings</p>
           <div className="grid md:grid-cols-2 gap-6">
             {individuals.map((product) => (
               <div
@@ -110,8 +118,8 @@ export default function ShopPage() {
                 )}
                 <span className="text-3xl mb-4 block text-center">{product.icon}</span>
                 <h3 className="font-serif text-xl text-[#2D2640] mb-1 text-center">{product.title}</h3>
-                <p className="text-sm text-[#7B7394] mb-4 text-center">{product.subtitle}</p>
-                <p className="text-[#7B7394] leading-relaxed mb-6 text-center text-sm">{product.description}</p>
+                <p className="text-sm text-[#655E78] mb-4 text-center">{product.subtitle}</p>
+                <p className="text-[#655E78] leading-relaxed mb-6 text-center text-sm">{product.description}</p>
                 <ul className="space-y-2 mb-8">
                   {product.features.map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-[#2D2640]/80">
@@ -124,7 +132,7 @@ export default function ShopPage() {
                   <div className="mb-4">
                     <span className="font-serif text-2xl text-[#2D2640]">{product.price}</span>
                     {product.priceNote && (
-                      <span className="text-sm text-[#7B7394] ml-2">{product.priceNote}</span>
+                      <span className="text-sm text-[#655E78] ml-2">{product.priceNote}</span>
                     )}
                   </div>
                   <CheckoutButton productId={product.id} label={product.ctaText} />
@@ -149,27 +157,27 @@ export default function ShopPage() {
           <div className="space-y-6">
             <div>
               <h3 className="font-medium text-[#2D2640] mb-2">How long does delivery take?</h3>
-              <p className="text-sm text-[#7B7394] leading-relaxed">
+              <p className="text-sm text-[#655E78] leading-relaxed">
                 Most readings are delivered within 1-3 business days. I&apos;ll send you updates as I work on your report.
               </p>
             </div>
             <div className="h-px bg-[#2D2640]/5" />
             <div>
               <h3 className="font-medium text-[#2D2640] mb-2">What do I need to provide?</h3>
-              <p className="text-sm text-[#7B7394] leading-relaxed">
+              <p className="text-sm text-[#655E78] leading-relaxed">
                 Your date of birth, time of birth (as accurate as possible), and place of birth. For relocation readings, it helps to know cities you&apos;re interested in.
               </p>
             </div>
             <div className="h-px bg-[#2D2640]/5" />
             <div>
               <h3 className="font-medium text-[#2D2640] mb-2">Who writes the readings?</h3>
-              <p className="text-sm text-[#7B7394] leading-relaxed">
+              <p className="text-sm text-[#655E78] leading-relaxed">
                 Every reading is written by me (Ashleigh) after studying your individual chart across multiple systems. No AI, no templates.
               </p>
             </div>
           </div>
           <div className="text-center mt-8">
-            <Link href="/faq" className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors">
+            <Link href="/faq" className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors">
               View all FAQ &rarr;
             </Link>
           </div>

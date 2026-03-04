@@ -146,7 +146,7 @@ export default function Compatibility2Page() {
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2D2640] leading-[1.1] tracking-tight">
               Compatibility
             </h1>
-            <p className="mt-6 text-lg text-[#7B7394] leading-relaxed">
+            <p className="mt-6 text-lg text-[#655E78] leading-relaxed">
               {!sign1
                 ? 'Select your zodiac sign to begin.'
                 : !sign2
@@ -167,7 +167,7 @@ export default function Compatibility2Page() {
             {sign1 && (
               <button
                 onClick={handleReset}
-                className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-12"
+                className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-12"
               >
                 ← Start over
               </button>
@@ -182,16 +182,16 @@ export default function Compatibility2Page() {
                       {renderZodiacIcon(sign1, 48)}
                     </div>
                     <p className="mt-3 font-serif text-xl text-[#2D2640]">{sign1}</p>
-                    <p className="text-sm text-[#7B7394]">{signElements[sign1].element}</p>
+                    <p className="text-sm text-[#655E78]">{signElements[sign1].element}</p>
                   </div>
                   <div className="text-center">
-                    <span className="text-4xl text-[#7B7394]">&</span>
+                    <span className="text-4xl text-[#655E78]">&</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="w-24 h-24 rounded-full border-2 border-dashed border-[#8A8099]/40 flex items-center justify-center text-[#7B7394] text-2xl">
+                    <div className="w-24 h-24 rounded-full border-2 border-dashed border-[#8A8099]/40 flex items-center justify-center text-[#655E78] text-2xl">
                       ?
                     </div>
-                    <p className="mt-3 font-serif text-xl text-[#7B7394]">Their sign</p>
+                    <p className="mt-3 font-serif text-xl text-[#655E78]">Their sign</p>
                     <p className="text-sm text-transparent">.</p>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ export default function Compatibility2Page() {
                       <p className="text-sm font-medium text-[#2D2640]">
                         {sign}
                       </p>
-                      <p className="text-xs mt-1 text-[#7B7394]">
+                      <p className="text-xs mt-1 text-[#655E78]">
                         {signDates[sign]}
                       </p>
                     </button>
@@ -278,7 +278,7 @@ export default function Compatibility2Page() {
           <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
             <button
               onClick={handleReset}
-              className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-12"
+              className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-12"
             >
               ← Try another pairing
             </button>
@@ -291,17 +291,17 @@ export default function Compatibility2Page() {
                     {renderZodiacIcon(sign1, 48)}
                   </div>
                   <p className="mt-3 font-serif text-xl text-[#2D2640]">{sign1}</p>
-                  <p className="text-sm text-[#7B7394]">{signElements[sign1].element}</p>
+                  <p className="text-sm text-[#655E78]">{signElements[sign1].element}</p>
                 </div>
                 <div className="text-center">
-                  <span className="text-4xl text-[#7B7394]">&</span>
+                  <span className="text-4xl text-[#655E78]">&</span>
                 </div>
                 <div className="flex flex-col items-center">
                   <div className="w-24 h-24 rounded-full flex items-center justify-center text-[#F0EBF8]" style={{ backgroundColor: ELEMENT_BORDER[signElements[sign2].element] || '#8A8099' }}>
                     {renderZodiacIcon(sign2, 48)}
                   </div>
                   <p className="mt-3 font-serif text-xl text-[#2D2640]">{sign2}</p>
-                  <p className="text-sm text-[#7B7394]">{signElements[sign2].element}</p>
+                  <p className="text-sm text-[#655E78]">{signElements[sign2].element}</p>
                 </div>
               </div>
 
@@ -319,7 +319,7 @@ export default function Compatibility2Page() {
               {/* Overview */}
               <div className="mb-10">
                 <h2 className="font-serif text-xl text-[#2D2640] mb-4">Overview</h2>
-                <p className="text-[#7B7394] leading-relaxed text-lg">
+                <p className="text-[#655E78] leading-relaxed text-lg">
                   {compatibility.overview}
                 </p>
               </div>
@@ -330,7 +330,7 @@ export default function Compatibility2Page() {
                   <div className="flex items-center gap-3 mb-3">
                     <span style={{ color: ELEMENT_BORDER[signElements[sign1].element] }}>{renderZodiacIcon(sign1, 22)}</span>
                     <h3 className="font-serif text-base text-[#2D2640]">{sign1}</h3>
-                    <span className="text-xs text-[#7B7394] ml-auto">{signElements[sign1].element}</span>
+                    <span className="text-xs text-[#655E78] ml-auto">{signElements[sign1].element}</span>
                   </div>
                   <p className="text-sm text-[#2D2640]/70 leading-relaxed">
                     {signDescriptions[sign1]}
@@ -340,7 +340,7 @@ export default function Compatibility2Page() {
                   <div className="flex items-center gap-3 mb-3">
                     <span style={{ color: ELEMENT_BORDER[signElements[sign2].element] }}>{renderZodiacIcon(sign2, 22)}</span>
                     <h3 className="font-serif text-base text-[#2D2640]">{sign2}</h3>
-                    <span className="text-xs text-[#7B7394] ml-auto">{signElements[sign2].element}</span>
+                    <span className="text-xs text-[#655E78] ml-auto">{signElements[sign2].element}</span>
                   </div>
                   <p className="text-sm text-[#2D2640]/70 leading-relaxed">
                     {signDescriptions[sign2]}
@@ -395,7 +395,7 @@ export default function Compatibility2Page() {
 
             </div>
 
-              <p className="text-xs text-[#7B7394]/60 mt-8 text-center">
+              <p className="text-xs text-[#655E78]/60 mt-8 text-center">
                 This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
               </p>
           </section>
@@ -411,7 +411,7 @@ export default function Compatibility2Page() {
                   <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
                     Get your full relationship blueprint
                   </h2>
-                  <p className="text-lg text-[#7B7394] leading-relaxed max-w-lg mx-auto">
+                  <p className="text-lg text-[#655E78] leading-relaxed max-w-lg mx-auto">
                     This free tool shows sun sign compatibility. Your full report analyses both birth charts for a complete picture.
                   </p>
                 </div>
@@ -440,9 +440,9 @@ export default function Compatibility2Page() {
                     href="/shop"
                     className="inline-block px-8 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-lg text-sm font-medium hover:bg-[#1E1835] transition-colors"
                   >
-                    Get The Full Blueprint &mdash; $139
+                    See every layer of your chart &mdash; $139
                   </Link>
-                  <p className="text-xs text-[#7B7394]/60 mt-4">Personalised report delivered within 48 hours</p>
+                  <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
                 </div>
               </div>
             </div>
@@ -459,7 +459,7 @@ export default function Compatibility2Page() {
                     <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
                       Save your reading
                     </h2>
-                    <p className="text-[#7B7394] mb-8">
+                    <p className="text-[#655E78] mb-8">
                       Get your {sign1} & {sign2} compatibility sent to your inbox.
                     </p>
                     <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
@@ -469,7 +469,7 @@ export default function Compatibility2Page() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="flex-1 px-5 py-4 rounded-lg border border-[#2D2640]/10 bg-white text-[#2D2640] placeholder-[#7B7394]/50 focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50 transition-colors"
+                          className="flex-1 px-5 py-4 rounded-lg border border-[#2D2640]/10 bg-white text-[#2D2640] placeholder-[#655E78]/50 focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50 transition-colors"
                           required
                         />
                         <button
@@ -487,7 +487,7 @@ export default function Compatibility2Page() {
                           onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
                           className="w-4 h-4 rounded border-[#2D2640]/20 accent-[#8A8099]"
                         />
-                        <span className="text-sm text-[#7B7394]">
+                        <span className="text-sm text-[#655E78]">
                           Also receive occasional notes from Lunar Playground
                         </span>
                       </label>
@@ -499,12 +499,26 @@ export default function Compatibility2Page() {
                   <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
                     On its way
                   </h2>
-                  <p className="text-[#7B7394]">
+                  <p className="text-[#655E78]">
                     Check your inbox for your {sign1} & {sign2} compatibility reading.
                   </p>
                 </>
               )}
             </div>
+          </section>
+        )}
+
+        {/* Also Explore */}
+        {pageState === 'results' && (
+          <section className="container-editorial pb-8">
+            <p className="text-center text-sm text-[#655E78]">
+              Also explore:{' '}
+              <a href="/your-chart" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Birth Chart</a>
+              {' · '}
+              <a href="/bazi" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">BaZi</a>
+              {' · '}
+              <a href="/human-design" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Human Design</a>
+            </p>
           </section>
         )}
 
@@ -514,7 +528,7 @@ export default function Compatibility2Page() {
             <div className="text-center">
               <button
                 onClick={handleReset}
-                className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors"
+                className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors"
               >
                 ← Try another pairing
               </button>

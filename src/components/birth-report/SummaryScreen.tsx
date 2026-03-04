@@ -68,14 +68,14 @@ export function SummaryScreen({
         {/* Back button */}
         <button
           onClick={onReenterDetails}
-          className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-4 flex items-center gap-2"
+          className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-4 flex items-center gap-2"
         >
           <span>&larr;</span> Enter different details
         </button>
 
         <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-2">Your Chart</h1>
         {birthdate && (
-          <p className="text-sm text-[#7B7394] mb-6">
+          <p className="text-sm text-[#655E78] mb-6">
             {formatBirthInfo(birthdate, birthtime, birthplace)}
           </p>
         )}
@@ -85,11 +85,11 @@ export function SummaryScreen({
           <div className="p-6 md:p-8">
             {/* Archetype Title */}
             <div className="text-center mb-6">
-              <p className="text-xs tracking-widest uppercase text-[#7B7394] mb-2">Your Archetype</p>
+              <p className="text-xs tracking-widest uppercase text-[#655E78] mb-2">Your Archetype</p>
               <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-3">
                 {getArchetype(sunSign.name, moonSignName)}
               </h2>
-              <p className="text-sm text-[#7B7394]">
+              <p className="text-sm text-[#655E78]">
                 {sunSign.name} Sun &middot; {moonSignName || 'Unknown'} Moon
               </p>
             </div>
@@ -100,21 +100,21 @@ export function SummaryScreen({
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#FF8FA3]/30 flex items-center justify-center mb-2 mx-auto">
                   <SunIcon size={24} className="text-[#FF8FA3]" />
                 </div>
-                <p className="text-xs text-[#7B7394] mb-0.5">Sun</p>
+                <p className="text-xs text-[#655E78] mb-0.5">Sun</p>
                 <p className="text-sm text-[#2D2640] font-medium">{sunSign.name}</p>
               </div>
               <div className="text-center">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#FFB88C]/30 flex items-center justify-center mb-2 mx-auto">
                   <MoonIcon size={24} className="text-[#8B7A6B]" />
                 </div>
-                <p className="text-xs text-[#7B7394] mb-0.5">Moon</p>
+                <p className="text-xs text-[#655E78] mb-0.5">Moon</p>
                 <p className="text-sm text-[#2D2640] font-medium">{moonSignName || '-'}</p>
               </div>
               <div className="text-center">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#9CB896]/30 flex items-center justify-center mb-2 mx-auto">
                   <RisingIcon size={24} className="text-[#6B8B60]" />
                 </div>
-                <p className="text-xs text-[#7B7394] mb-0.5">Rising</p>
+                <p className="text-xs text-[#655E78] mb-0.5">Rising</p>
                 <p className="text-sm text-[#2D2640] font-medium">{risingSignName || '-'}</p>
               </div>
             </div>
@@ -134,13 +134,13 @@ export function SummaryScreen({
                 <div className="flex flex-wrap justify-center gap-3">
                   {elements.dominant && (
                     <div className="px-4 py-2 rounded-full bg-white/50 text-[#2D2640]/80 text-xs">
-                      <span className="text-[#7B7394] mr-1">Element:</span>
+                      <span className="text-[#655E78] mr-1">Element:</span>
                       <span className="font-medium">{elements.dominant}</span>
                     </div>
                   )}
                   {stats.map((stat, i) => (
                     <div key={i} className="px-4 py-2 rounded-full bg-white/50 text-[#2D2640]/80 text-xs">
-                      <span className="text-[#7B7394] mr-1">{stat.label}:</span>
+                      <span className="text-[#655E78] mr-1">{stat.label}:</span>
                       <span className="font-medium">{stat.value}</span>
                     </div>
                   ))}
@@ -150,7 +150,7 @@ export function SummaryScreen({
 
             {/* Share your Big Three */}
             <div className="mt-6 pt-5 border-t border-[#2D2640]/10 text-center">
-              <p className="text-xs text-[#7B7394] mb-3">Share your chart with friends</p>
+              <p className="text-xs text-[#655E78] mb-3">Share your chart with friends</p>
               <ShareButtons
                 title="My Birth Chart"
                 text={`I'm a ${sunSign.name} Sun, ${moonSignName} Moon, ${risingSignName} Rising \u2728 Get your birth chart at`}
@@ -164,7 +164,7 @@ export function SummaryScreen({
 
           {/* Section Picker inside the box */}
           <div className="p-6 md:p-8">
-            <p className="text-xs tracking-widest uppercase text-[#7B7394] mb-4 text-center">Your Reading</p>
+            <p className="text-xs tracking-widest uppercase text-[#655E78] mb-4 text-center">Your Reading</p>
             <SectionPicker
               viewedSections={viewedSections}
               onSelect={onSelectSection}
@@ -192,8 +192,8 @@ export function SummaryScreen({
         {!userEmail && !emailSaved && (
           <div className="bg-[#F5F3F0] rounded-xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
             <div className="flex items-center gap-3">
-              <span className="text-[#7B7394]">&#9993;</span>
-              <p className="text-sm text-[#7B7394]">Want to save your reading?</p>
+              <span className="text-[#655E78]">&#9993;</span>
+              <p className="text-sm text-[#655E78]">Want to save your reading?</p>
             </div>
             <div className="flex gap-2 w-full sm:w-auto">
               <input
@@ -201,7 +201,7 @@ export function SummaryScreen({
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 placeholder="you@example.com"
-                className="flex-1 sm:w-48 px-3 py-2 border border-[#2D2640]/10 rounded-lg bg-white text-sm focus:outline-none focus:border-[#2D2640]/30 text-[#2D2640] placeholder:text-[#7B7394]/40"
+                className="flex-1 sm:w-48 px-3 py-2 border border-[#2D2640]/10 rounded-lg bg-white text-sm focus:outline-none focus:border-[#2D2640]/30 text-[#2D2640] placeholder:text-[#655E78]/40"
                 onKeyDown={(e) => e.key === 'Enter' && handleEmailSubmit()}
               />
               <button
@@ -223,7 +223,7 @@ export function SummaryScreen({
 
         {/* Disclaimer */}
         <div className="mt-12">
-          <p className="text-xs text-[#7B7394]/60 text-center max-w-xl mx-auto">
+          <p className="text-xs text-[#655E78]/60 text-center max-w-xl mx-auto">
             This report uses astrology as a reflective framework, not prediction.
             It describes tendencies and patterns, not certainties.
             Take what resonates. Leave what doesn&apos;t.

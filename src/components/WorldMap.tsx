@@ -28,7 +28,7 @@ export function WorldMap({ destination, className = '' }: WorldMapProps) {
         />
 
         {/* Coordinates overlay */}
-        <div className="absolute bottom-3 left-3 px-2 py-1 bg-white/80 rounded text-xs text-[#7B7394] font-mono">
+        <div className="absolute bottom-3 left-3 px-2 py-1 bg-white/80 rounded text-xs text-[#655E78] font-mono">
           {destination.lat.toFixed(2)}°{destination.lat >= 0 ? 'N' : 'S'}, {destination.lng.toFixed(2)}°{destination.lng >= 0 ? 'E' : 'W'}
         </div>
       </div>

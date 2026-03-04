@@ -65,7 +65,7 @@ export default function TodayPage() {
       {/* Hero */}
       <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
         <div className="max-w-2xl">
-          <p className="text-sm text-[#7B7394] tracking-wide">
+          <p className="text-sm text-[#655E78] tracking-wide">
             {new Date().toLocaleDateString('en-US', {
               weekday: 'long',
               year: 'numeric',
@@ -101,7 +101,7 @@ export default function TodayPage() {
             <p className="font-serif text-2xl text-[#2D2640] mt-6">
               {moonPhase.name}
             </p>
-            <p className="text-sm text-[#7B7394] mt-2">
+            <p className="text-sm text-[#655E78] mt-2">
               {moonPhase.illumination}% illuminated
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function TodayPage() {
               A note for today
             </h2>
             <div className="prose prose-neutral">
-              <p className="text-[#7B7394] leading-relaxed">
+              <p className="text-[#655E78] leading-relaxed">
                 {reflection}
               </p>
             </div>
@@ -131,7 +131,7 @@ export default function TodayPage() {
           <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
             Receive the lunar note
           </h2>
-          <p className="text-[#7B7394] mb-8">
+          <p className="text-[#655E78] mb-8">
             A short reflection sent with each new moon phase.
           </p>
           <EmailCapture
@@ -152,7 +152,7 @@ export default function TodayPage() {
 
       {/* Next Step */}
       <section className="container-editorial py-8 md:py-12">
-        <p className="text-sm text-[#7B7394] mb-4">
+        <p className="text-sm text-[#655E78] mb-4">
           Want to explore more?
         </p>
         <div className="flex flex-wrap gap-4">

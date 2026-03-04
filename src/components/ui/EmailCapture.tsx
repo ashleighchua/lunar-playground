@@ -88,7 +88,7 @@ export function EmailCapture({
   if (isSubscribed && status !== 'success') {
     return (
       <div className={cn('text-center py-4', className)}>
-        <p className="text-[#7B7394] text-sm">You&apos;re on the list. We&apos;ll be in touch.</p>
+        <p className="text-[#655E78] text-sm">You&apos;re on the list. We&apos;ll be in touch.</p>
       </div>
     );
   }
@@ -102,7 +102,7 @@ export function EmailCapture({
           </svg>
         </div>
         <p className="text-[#2D2640] font-medium mb-1">You&apos;re on the list</p>
-        <p className="text-[#7B7394] text-sm">We&apos;ll let you know when there&apos;s something new.</p>
+        <p className="text-[#655E78] text-sm">We&apos;ll let you know when there&apos;s something new.</p>
       </div>
     );
   }
@@ -118,7 +118,7 @@ export function EmailCapture({
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your@email.com"
           className={cn(
-            'flex-1 px-5 py-4 rounded-lg border bg-white text-[#2D2640] placeholder:text-[#7B7394]/50',
+            'flex-1 px-5 py-4 rounded-lg border bg-white text-[#2D2640] placeholder:text-[#655E78]/50',
             'focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50',
             'transition-colors duration-200',
             status === 'error' ? 'border-red-300' : 'border-[#2D2640]/10'
@@ -142,7 +142,7 @@ export function EmailCapture({
             onChange={(e) => setOptInNotes(e.target.checked)}
             className="w-4 h-4 rounded border-[#2D2640]/20 text-[#8A8099] focus:ring-[#8A8099]/30 accent-[#8A8099]"
           />
-          <span className="text-sm text-[#7B7394]">
+          <span className="text-sm text-[#655E78]">
             Also receive occasional notes from Lunar Playground
           </span>
         </label>
@@ -168,7 +168,7 @@ export function EmailCapture({
     return (
       <div className={cn('max-w-xl mx-auto', className)}>
         {headline && (
-          <p className="text-[#7B7394] mb-4 text-center">{headline}</p>
+          <p className="text-[#655E78] mb-4 text-center">{headline}</p>
         )}
         {formContent}
       </div>
@@ -184,7 +184,7 @@ export function EmailCapture({
         <h3 className="font-serif text-xl text-[#2D2640] mb-2 text-center">{headline}</h3>
       )}
       {description && (
-        <p className="text-[#7B7394] mb-6 text-center">{description}</p>
+        <p className="text-[#655E78] mb-6 text-center">{description}</p>
       )}
       {formContent}
     </div>

@@ -56,7 +56,7 @@ export function HomeEmailCapture() {
       <div className="rounded-2xl bg-gradient-to-r from-[#E8DCFF] to-[#F0E8FF] p-8 md:p-12">
         <div className="text-center">
           <p className="font-serif text-2xl text-[#2D2640]">You&apos;re on the list</p>
-          <p className="text-[#7B7394] mt-2">We&apos;ll send you a note with each new moon phase.</p>
+          <p className="text-[#655E78] mt-2">We&apos;ll send you a note with each new moon phase.</p>
         </div>
       </div>
     );
@@ -80,7 +80,7 @@ export function HomeEmailCapture() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               disabled={status === 'loading'}
-              className="flex-1 px-6 py-4 rounded-lg border border-white/50 bg-white/80 text-[#2D2640] placeholder-[#7B7394] focus:outline-none focus:ring-2 focus:ring-[#8A8099]/50 focus:bg-white transition-colors disabled:opacity-50"
+              className="flex-1 px-6 py-4 rounded-lg border border-white/50 bg-white/80 text-[#2D2640] placeholder-[#655E78] focus:outline-none focus:ring-2 focus:ring-[#8A8099]/50 focus:bg-white transition-colors disabled:opacity-50"
             />
             <button
               type="submit"

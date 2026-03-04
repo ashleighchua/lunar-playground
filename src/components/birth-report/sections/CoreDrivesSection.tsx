@@ -29,7 +29,7 @@ export function CoreDrivesSection({ mercurySignName, venusSignName, marsSignName
         <div className="w-1 bg-[#7A746C]" />
         <div className="flex-1 p-6 md:p-8 bg-gradient-to-r from-[#F5F3F0]/50 to-transparent">
           <h2 className="font-serif text-2xl text-[#2D2640] mb-4">Your Core Drives</h2>
-          <p className="text-sm text-[#7B7394] leading-relaxed">
+          <p className="text-sm text-[#655E78] leading-relaxed">
             How you think, connect, act, and grow under pressure
           </p>
         </div>
@@ -65,11 +65,11 @@ export function CoreDrivesSection({ mercurySignName, venusSignName, marsSignName
               <span className="text-[#5A6B7A]/40">&middot;</span>
               <span className="font-serif text-[#5A6B7A]">{mercurySignName || '-'}</span>
             </div>
-            <p className="text-sm text-[#7B7394] mb-2">How you think</p>
+            <p className="text-sm text-[#655E78] mb-2">How you think</p>
             {mercurySignName && mercuryThinking[mercurySignName] ? (
               <p className="text-[#2D2640]/80 text-sm leading-relaxed">{mercuryThinking[mercurySignName]}</p>
             ) : (
-              <p className="text-sm text-[#7B7394]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
             )}
           </div>
 
@@ -89,11 +89,11 @@ export function CoreDrivesSection({ mercurySignName, venusSignName, marsSignName
               <span className="text-[#8B6B60]/40">&middot;</span>
               <span className="font-serif text-[#8B6B60]">{venusSignName || '-'}</span>
             </div>
-            <p className="text-sm text-[#7B7394] mb-2">How you connect</p>
+            <p className="text-sm text-[#655E78] mb-2">How you connect</p>
             {venusSignName && venusConnecting[venusSignName] ? (
               <p className="text-[#2D2640]/80 text-sm leading-relaxed">{venusConnecting[venusSignName]}</p>
             ) : (
-              <p className="text-sm text-[#7B7394]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
             )}
           </div>
 
@@ -113,11 +113,11 @@ export function CoreDrivesSection({ mercurySignName, venusSignName, marsSignName
               <span className="text-[#8B5A3C]/40">&middot;</span>
               <span className="font-serif text-[#8B5A3C]">{marsSignName || '-'}</span>
             </div>
-            <p className="text-sm text-[#7B7394] mb-2">How you act</p>
+            <p className="text-sm text-[#655E78] mb-2">How you act</p>
             {marsSignName && marsActing[marsSignName] ? (
               <p className="text-[#2D2640]/80 text-sm leading-relaxed">{marsActing[marsSignName]}</p>
             ) : (
-              <p className="text-sm text-[#7B7394]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
             )}
           </div>
 
@@ -137,11 +137,11 @@ export function CoreDrivesSection({ mercurySignName, venusSignName, marsSignName
               <span className="text-[#5A5E64]/40">&middot;</span>
               <span className="font-serif text-[#5A5E64]">{saturnSignName || '-'}</span>
             </div>
-            <p className="text-sm text-[#7B7394] mb-2">How you grow</p>
+            <p className="text-sm text-[#655E78] mb-2">How you grow</p>
             {saturnSignName && saturnPressure[saturnSignName] ? (
               <p className="text-[#2D2640]/80 text-sm leading-relaxed">{saturnPressure[saturnSignName]}</p>
             ) : (
-              <p className="text-sm text-[#7B7394]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
             )}
           </div>
         </div>

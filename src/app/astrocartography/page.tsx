@@ -255,7 +255,7 @@ export default function TravelPage() {
               <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-3">
                 What do you want to <span className="text-gradient-gold">transform</span>?
               </h1>
-              <p className="text-[#7B7394] mb-10">
+              <p className="text-[#655E78] mb-10">
                 Choose your priority and we&apos;ll find the city where it happens.
               </p>
 
@@ -288,7 +288,7 @@ export default function TravelPage() {
           <section className="container-editorial pt-8 pb-16 md:pt-12 md:pb-24">
             <button
               onClick={() => setStep('category')}
-              className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-12"
+              className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-12"
             >
               ← Back to categories
             </button>
@@ -303,7 +303,7 @@ export default function TravelPage() {
 
               <form onSubmit={handleSubmit} className="space-y-6 text-left">
                 <div>
-                  <label htmlFor="birthdate" className="block text-sm text-[#7B7394] mb-2">
+                  <label htmlFor="birthdate" className="block text-sm text-[#655E78] mb-2">
                     Date of birth
                   </label>
                   <input
@@ -313,25 +313,25 @@ export default function TravelPage() {
                     onChange={(e) => setBirthdate(e.target.value)}
                     max={new Date().toISOString().split('T')[0]}
                     required
-                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthdate ? 'text-[#2D2640]' : 'text-[#7B7394]/50'}`}
+                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthdate ? 'text-[#2D2640]' : 'text-[#655E78]/50'}`}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="birthtime" className="block text-sm text-[#7B7394] mb-2">
-                    Time of birth <span className="text-[#7B7394]/50">(optional)</span>
+                  <label htmlFor="birthtime" className="block text-sm text-[#655E78] mb-2">
+                    Time of birth <span className="text-[#655E78]/50">(optional)</span>
                   </label>
                   <input
                     type="time"
                     id="birthtime"
                     value={birthtime}
                     onChange={(e) => setBirthtime(e.target.value)}
-                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthtime ? 'text-[#2D2640]' : 'text-[#7B7394]/50'}`}
+                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthtime ? 'text-[#2D2640]' : 'text-[#655E78]/50'}`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-[#7B7394] mb-2">
+                  <label className="block text-sm text-[#655E78] mb-2">
                     Place of birth
                   </label>
                   <CitySelect
@@ -339,7 +339,7 @@ export default function TravelPage() {
                     onChange={(city) => setBirthplace(city)}
                     placeholder="Search for a city..."
                   />
-                  <p className="mt-2 text-xs text-[#7B7394]">
+                  <p className="mt-2 text-xs text-[#655E78]">
                     Your birth location helps map your planetary lines accurately.
                   </p>
                 </div>
@@ -446,14 +446,14 @@ export default function TravelPage() {
               {/* Left-aligned: Try another category - closer to top */}
               <button
                 onClick={handleReset}
-                className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-6"
+                className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-6"
               >
                 ← Try another category
               </button>
 
               {/* Result liner */}
               <div className="text-center mb-6">
-                <p className="text-[#7B7394] leading-relaxed">
+                <p className="text-[#655E78] leading-relaxed">
                   For <span className="text-[#2D2640] font-medium">{categoryInfo[selectedCategory].title}</span>, the city that resonates with your chart is
                 </p>
                 <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-2">
@@ -461,7 +461,7 @@ export default function TravelPage() {
                 </h2>
                 <div className="flex items-center justify-center gap-2 mt-3">
                   <PlanetIcon planet={selectedCategory} className="w-5 h-5 text-[#FF8FA3]" />
-                  <p className="text-sm text-[#7B7394]">
+                  <p className="text-sm text-[#655E78]">
                     {categoryInfo[selectedCategory].name}
                   </p>
                 </div>
@@ -474,7 +474,7 @@ export default function TravelPage() {
                         ? 'bg-[#FF8FA3]/20 text-[#C4365A]'
                         : astroResult.strength === 'strong'
                         ? 'bg-[#FF8FA3]/15 text-[#C4365A]'
-                        : 'bg-[#2D2640]/5 text-[#7B7394]'
+                        : 'bg-[#2D2640]/5 text-[#655E78]'
                     }`}>
                       {astroResult.strength === 'exact'
                         ? 'Very strong alignment'
@@ -519,7 +519,7 @@ export default function TravelPage() {
                         ))}
                       </div>
                     )}
-                    <p className="text-sm text-[#7B7394] leading-relaxed">
+                    <p className="text-sm text-[#655E78] leading-relaxed">
                       {destination.description}
                     </p>
                   </div>
@@ -564,7 +564,7 @@ export default function TravelPage() {
                                     />
                                   ))}
                                 </div>
-                                <span className="text-xs text-[#7B7394] w-16 text-right capitalize">
+                                <span className="text-xs text-[#655E78] w-16 text-right capitalize">
                                   {area.strength}
                                 </span>
                               </div>
@@ -578,7 +578,7 @@ export default function TravelPage() {
                                     <div key={i} className="w-2.5 h-2.5 rounded-full bg-[#2D2640]/10" />
                                   ))}
                                 </div>
-                                <span className="text-xs text-[#7B7394] w-16 text-right">
+                                <span className="text-xs text-[#655E78] w-16 text-right">
                                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 inline">
                                     <rect x="3" y="7" width="10" height="7" rx="1.5" />
                                     <path d="M5 7V5a3 3 0 0 1 6 0v2" />
@@ -590,7 +590,7 @@ export default function TravelPage() {
                         </div>
                       ))}
                     </div>
-                    <p className="text-xs text-[#7B7394]/60 mt-4 text-center">
+                    <p className="text-xs text-[#655E78]/60 mt-4 text-center">
                       Full report reveals all life areas for your top cities
                     </p>
                   </div>
@@ -605,7 +605,7 @@ export default function TravelPage() {
                       <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
                         About {destination.city}
                       </h3>
-                      <p className="text-sm text-[#7B7394] leading-relaxed">
+                      <p className="text-sm text-[#655E78] leading-relaxed">
                         {character}
                       </p>
                     </div>
@@ -617,7 +617,7 @@ export default function TravelPage() {
                   <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
                     Try your other lines
                   </h3>
-                  <p className="text-sm text-[#7B7394] mb-4">
+                  <p className="text-sm text-[#655E78] mb-4">
                     Each planetary line points to a different city. See where else your chart takes you.
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -644,7 +644,7 @@ export default function TravelPage() {
                   </div>
                 </div>
 
-                <p className="text-xs text-[#7B7394]/60 text-center">
+                <p className="text-xs text-[#655E78]/60 text-center">
                   This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
                 </p>
               </div>
@@ -659,8 +659,8 @@ export default function TravelPage() {
                     <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
                       Get your full relocation report
                     </h2>
-                    <p className="text-lg text-[#7B7394] leading-relaxed max-w-lg mx-auto">
-                      This free tool shows one city. Your full relocation report maps all your planetary lines and reveals the cities where your career, love life, and personal growth transform.
+                    <p className="text-lg text-[#655E78] leading-relaxed max-w-lg mx-auto">
+                      This free tool shows one city. Your full relocation report maps all your planetary lines, cross-references them with your natal chart, and reveals the cities where everything clicks.
                     </p>
                   </div>
 
@@ -691,7 +691,7 @@ export default function TravelPage() {
                     >
                       Get your relocation report &mdash; $35
                     </a>
-                    <p className="text-xs text-[#7B7394]/60 mt-4">Personalised report delivered within 48 hours</p>
+                    <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
                   </div>
                 </div>
               </div>
@@ -710,7 +710,7 @@ export default function TravelPage() {
                     <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
                       Save your destination
                     </h2>
-                    <p className="text-[#7B7394] mb-8">
+                    <p className="text-[#655E78] mb-8">
                       Get your {categoryInfo[selectedCategory].title} reading for {destination.city} sent to your inbox.
                     </p>
                     <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
@@ -720,7 +720,7 @@ export default function TravelPage() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="flex-1 px-5 py-4 rounded-lg border border-[#2D2640]/10 bg-white text-[#2D2640] placeholder-[#7B7394]/50 focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50 transition-colors"
+                          className="flex-1 px-5 py-4 rounded-lg border border-[#2D2640]/10 bg-white text-[#2D2640] placeholder-[#655E78]/50 focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50 transition-colors"
                           required
                         />
                         <button
@@ -738,7 +738,7 @@ export default function TravelPage() {
                           onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
                           className="w-4 h-4 rounded border-[#2D2640]/20 accent-[#8A8099]"
                         />
-                        <span className="text-sm text-[#7B7394]">
+                        <span className="text-sm text-[#655E78]">
                           Also receive occasional notes from Lunar Playground
                         </span>
                       </label>
@@ -749,7 +749,7 @@ export default function TravelPage() {
                     <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
                       On its way
                     </h2>
-                    <p className="text-[#7B7394]">
+                    <p className="text-[#655E78]">
                       Check your inbox for your {destination.city} travel reading.
                     </p>
                   </>

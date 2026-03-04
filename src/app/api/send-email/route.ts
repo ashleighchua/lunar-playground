@@ -35,9 +35,9 @@ export async function POST(request: NextRequest) {
       .logo { font-size: 24px; color: #2D2640; margin-bottom: 8px; }
       .section { margin-bottom: 32px; }
       .section-title { font-size: 18px; color: #2D2640; margin-bottom: 12px; }
-      .content { color: #7B7394; line-height: 1.6; }
+      .content { color: #655E78; line-height: 1.6; }
       .highlight { background-color: #E8DED4; padding: 20px; border-radius: 8px; margin: 16px 0; }
-      .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #E8DED4; color: #7B7394; font-size: 14px; }
+      .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #E8DED4; color: #655E78; font-size: 14px; }
       a { color: #2D2640; }
     `;
 
@@ -129,17 +129,17 @@ function generateChartEmail(data: any, styles: string): string {
     .big-three { display: flex; justify-content: center; gap: 24px; margin: 24px 0; text-align: center; }
     .big-three-item { flex: 1; max-width: 120px; }
     .big-three-symbol { font-size: 24px; margin-bottom: 4px; }
-    .big-three-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #7B7394; }
+    .big-three-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #655E78; }
     .big-three-sign { font-size: 14px; font-weight: 500; color: #2D2640; }
     .section { margin-bottom: 28px; padding: 20px; background: white; border-radius: 12px; border: 1px solid #E8E4DE; }
     .section-icon { font-size: 18px; margin-right: 8px; }
     .section-title { font-size: 18px; color: #2D2640; margin-bottom: 12px; display: flex; align-items: center; }
-    .section-subtitle { font-size: 14px; color: #7B7394; margin-bottom: 8px; font-style: italic; }
+    .section-subtitle { font-size: 14px; color: #655E78; margin-bottom: 8px; font-style: italic; }
     .content { color: #4A4A4A; line-height: 1.7; font-size: 14px; }
     .highlight { background-color: #F5F0EB; padding: 20px; border-radius: 8px; margin: 16px 0; }
     .drives-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .drive-tag { background: #F0EBF8; padding: 6px 12px; border-radius: 16px; font-size: 12px; color: #2D2640; }
-    .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #E8DED4; color: #7B7394; font-size: 14px; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #E8DED4; color: #655E78; font-size: 14px; }
     a { color: #2D2640; }
     .cta-button { display: inline-block; background: #2D2640; color: white !important; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 16px; }
   `;
@@ -155,27 +155,27 @@ function generateChartEmail(data: any, styles: string): string {
       <div class="container">
         <div class="header">
           <div class="logo">The Lunar Playground</div>
-          <p style="color: #7B7394; margin-top: 8px;">Your Birth Chart Report</p>
+          <p style="color: #655E78; margin-top: 8px;">Your Birth Chart Report</p>
         </div>
 
         <!-- Big Three Summary -->
         <div class="highlight" style="text-align: center; padding: 24px;">
-          <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #7B7394; margin-bottom: 16px;">Your Operating System</p>
+          <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #655E78; margin-bottom: 16px;">Your Operating System</p>
           <table width="100%" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
             <tr>
               <td width="33%" style="text-align: center; padding: 8px;">
                 <div style="font-size: 20px; margin-bottom: 4px;">☉</div>
-                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #7B7394;">Sun</div>
+                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #655E78;">Sun</div>
                 <div style="font-size: 14px; font-weight: 500; color: #2D2640;">${data.sunSign?.name || '-'}</div>
               </td>
               <td width="33%" style="text-align: center; padding: 8px;">
                 <div style="font-size: 20px; margin-bottom: 4px;">☽</div>
-                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #7B7394;">Moon</div>
+                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #655E78;">Moon</div>
                 <div style="font-size: 14px; font-weight: 500; color: #2D2640;">${data.moonSign?.name || '-'}</div>
               </td>
               <td width="33%" style="text-align: center; padding: 8px;">
                 <div style="font-size: 20px; margin-bottom: 4px;">↑</div>
-                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #7B7394;">Rising</div>
+                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #655E78;">Rising</div>
                 <div style="font-size: 14px; font-weight: 500; color: #2D2640;">${data.risingSign?.name || '-'}</div>
               </td>
             </tr>
@@ -188,10 +188,10 @@ function generateChartEmail(data: any, styles: string): string {
           <div class="section-title"><span class="section-icon">☿</span> Core Drives</div>
           <p class="section-subtitle">How you think, connect, act, and persist</p>
           <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 12px;">
-            ${data.mercurySign ? `<tr><td style="padding: 6px 0; color: #7B7394; font-size: 13px;">Mercury (thinking)</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${data.mercurySign.name}</td></tr>` : ''}
-            ${data.venusSign ? `<tr><td style="padding: 6px 0; color: #7B7394; font-size: 13px;">Venus (connecting)</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${data.venusSign.name}</td></tr>` : ''}
-            ${data.marsSign ? `<tr><td style="padding: 6px 0; color: #7B7394; font-size: 13px;">Mars (acting)</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${data.marsSign.name}</td></tr>` : ''}
-            ${data.saturnSign ? `<tr><td style="padding: 6px 0; color: #7B7394; font-size: 13px;">Saturn (persisting)</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${data.saturnSign.name}</td></tr>` : ''}
+            ${data.mercurySign ? `<tr><td style="padding: 6px 0; color: #655E78; font-size: 13px;">Mercury (thinking)</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${data.mercurySign.name}</td></tr>` : ''}
+            ${data.venusSign ? `<tr><td style="padding: 6px 0; color: #655E78; font-size: 13px;">Venus (connecting)</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${data.venusSign.name}</td></tr>` : ''}
+            ${data.marsSign ? `<tr><td style="padding: 6px 0; color: #655E78; font-size: 13px;">Mars (acting)</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${data.marsSign.name}</td></tr>` : ''}
+            ${data.saturnSign ? `<tr><td style="padding: 6px 0; color: #655E78; font-size: 13px;">Saturn (persisting)</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${data.saturnSign.name}</td></tr>` : ''}
           </table>
         </div>
         ` : ''}
@@ -234,7 +234,7 @@ function generateChartEmail(data: any, styles: string): string {
 
         <!-- View Full Report CTA -->
         <div style="text-align: center; margin: 32px 0;">
-          <p style="color: #7B7394; font-size: 14px; margin-bottom: 16px;">
+          <p style="color: #655E78; font-size: 14px; margin-bottom: 16px;">
             This is a summary of your birth chart. Your full report includes detailed sections on emotional patterns, relationships, work style, shadow & growth, and practical takeaways.
           </p>
           <a href="https://www.thelunarplayground.com/birth-report" class="cta-button">View Full Report</a>
@@ -263,7 +263,7 @@ function generateCompatibilityEmail(data: any, styles: string): string {
       <div class="container">
         <div class="header">
           <div class="logo">The Lunar Playground</div>
-          <p style="color: #7B7394;">Your Compatibility Results</p>
+          <p style="color: #655E78;">Your Compatibility Results</p>
         </div>
 
         <div class="highlight" style="text-align: center;">
@@ -318,12 +318,12 @@ function generateTravelEmail(data: any, styles: string): string {
       <div class="container">
         <div class="header">
           <div class="logo">The Lunar Playground</div>
-          <p style="color: #7B7394;">Your Travel Destination</p>
+          <p style="color: #655E78;">Your Travel Destination</p>
         </div>
 
         <div class="highlight" style="text-align: center;">
           <div style="font-size: 24px; color: #2D2640; margin-bottom: 8px;">${data.destination?.name || 'Your Destination'}</div>
-          <div style="color: #7B7394;">${data.destination?.country || ''}</div>
+          <div style="color: #655E78;">${data.destination?.country || ''}</div>
         </div>
 
         ${data.category ? `
@@ -360,7 +360,7 @@ function generateTravelEmail(data: any, styles: string): string {
 function generateBaZiEmail(data: any, styles: string): string {
   const elements = data.fiveElements || {};
   const elementRows = Object.entries(elements)
-    .map(([el, pct]) => `<tr><td style="padding: 6px 0; color: #7B7394; font-size: 13px; text-transform: capitalize;">${el}</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${pct}%</td></tr>`)
+    .map(([el, pct]) => `<tr><td style="padding: 6px 0; color: #655E78; font-size: 13px; text-transform: capitalize;">${el}</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px;">${pct}%</td></tr>`)
     .join('');
 
   return `
@@ -374,13 +374,13 @@ function generateBaZiEmail(data: any, styles: string): string {
       <div class="container">
         <div class="header">
           <div class="logo">The Lunar Playground</div>
-          <p style="color: #7B7394; margin-top: 8px;">Your BaZi Four Pillars</p>
+          <p style="color: #655E78; margin-top: 8px;">Your BaZi Four Pillars</p>
         </div>
 
         <div class="highlight" style="text-align: center; padding: 24px;">
-          <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #7B7394; margin-bottom: 8px;">Day Master</p>
+          <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #655E78; margin-bottom: 8px;">Day Master</p>
           <p style="font-size: 22px; color: #2D2640; margin: 0 0 4px;">${data.dayMaster || '-'}</p>
-          <p style="font-size: 14px; color: #7B7394; margin: 0;">${data.dayMasterYinYang || ''} ${data.dayMasterElement || ''}</p>
+          <p style="font-size: 14px; color: #655E78; margin: 0;">${data.dayMasterYinYang || ''} ${data.dayMasterElement || ''}</p>
         </div>
 
         <div class="section">
@@ -388,7 +388,7 @@ function generateBaZiEmail(data: any, styles: string): string {
           <table width="100%" cellpadding="0" cellspacing="0">
             ${elementRows}
           </table>
-          <p style="margin-top: 12px; font-size: 13px; color: #7B7394;">
+          <p style="margin-top: 12px; font-size: 13px; color: #655E78;">
             Dominant: <strong style="color: #2D2640;">${data.dominantElement || '-'}</strong> &middot;
             Weakest: <strong style="color: #2D2640;">${data.weakestElement || '-'}</strong>
           </p>
@@ -425,7 +425,7 @@ function generateBaZiEmail(data: any, styles: string): string {
         ` : ''}
 
         <div style="text-align: center; margin: 32px 0;">
-          <p style="color: #7B7394; font-size: 14px; margin-bottom: 16px;">
+          <p style="color: #655E78; font-size: 14px; margin-bottom: 16px;">
             Want a personalised interpretation of your Four Pillars with timing insights?
           </p>
           <a href="https://www.thelunarplayground.com/shop" style="display: inline-block; background: #2D2640; color: white !important; padding: 12px 24px; border-radius: 8px; text-decoration: none;">View Readings</a>
@@ -454,21 +454,21 @@ function generateNumerologyEmail(data: any, styles: string): string {
       <div class="container">
         <div class="header">
           <div class="logo">The Lunar Playground</div>
-          <p style="color: #7B7394; margin-top: 8px;">Your Numerology Profile</p>
+          <p style="color: #655E78; margin-top: 8px;">Your Numerology Profile</p>
         </div>
 
         <div class="highlight" style="text-align: center; padding: 24px;">
-          <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #7B7394; margin-bottom: 8px;">Life Path Number</p>
+          <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #655E78; margin-bottom: 8px;">Life Path Number</p>
           <p style="font-size: 36px; color: #2D2640; margin: 0;">${data.lifePathNumber || '-'}</p>
         </div>
 
         <div class="section">
           <div class="section-title">Your Numbers</div>
           <table width="100%" cellpadding="0" cellspacing="0">
-            <tr><td style="padding: 6px 0; color: #7B7394; font-size: 13px;">Life Path</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px; font-weight: 500;">${data.lifePathNumber || '-'}</td></tr>
-            <tr><td style="padding: 6px 0; color: #7B7394; font-size: 13px;">Birthday Number</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px; font-weight: 500;">${data.birthdayNumber || '-'}</td></tr>
-            <tr><td style="padding: 6px 0; color: #7B7394; font-size: 13px;">Talent Number</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px; font-weight: 500;">${data.talentNumber || '-'}</td></tr>
-            <tr><td style="padding: 6px 0; color: #7B7394; font-size: 13px;">Year Number</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px; font-weight: 500;">${data.yearNumber || '-'}</td></tr>
+            <tr><td style="padding: 6px 0; color: #655E78; font-size: 13px;">Life Path</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px; font-weight: 500;">${data.lifePathNumber || '-'}</td></tr>
+            <tr><td style="padding: 6px 0; color: #655E78; font-size: 13px;">Birthday Number</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px; font-weight: 500;">${data.birthdayNumber || '-'}</td></tr>
+            <tr><td style="padding: 6px 0; color: #655E78; font-size: 13px;">Talent Number</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px; font-weight: 500;">${data.talentNumber || '-'}</td></tr>
+            <tr><td style="padding: 6px 0; color: #655E78; font-size: 13px;">Year Number</td><td style="padding: 6px 0; text-align: right; color: #2D2640; font-size: 13px; font-weight: 500;">${data.yearNumber || '-'}</td></tr>
           </table>
         </div>
 
@@ -483,12 +483,12 @@ function generateNumerologyEmail(data: any, styles: string): string {
         <div class="section">
           <div class="section-title">Missing Numbers</div>
           <p class="content">${data.missingNumbers.join(', ')}</p>
-          <p style="font-size: 13px; color: #7B7394; margin-top: 8px;">These represent areas for growth and development.</p>
+          <p style="font-size: 13px; color: #655E78; margin-top: 8px;">These represent areas for growth and development.</p>
         </div>
         ` : ''}
 
         <div style="text-align: center; margin: 32px 0;">
-          <p style="color: #7B7394; font-size: 14px; margin-bottom: 16px;">
+          <p style="color: #655E78; font-size: 14px; margin-bottom: 16px;">
             Explore how your numbers connect with your birth chart, BaZi, and Human Design.
           </p>
           <a href="https://www.thelunarplayground.com/shop" style="display: inline-block; background: #2D2640; color: white !important; padding: 12px 24px; border-radius: 8px; text-decoration: none;">View Readings</a>
@@ -517,20 +517,20 @@ function generateHumanDesignEmail(data: any, styles: string): string {
       <div class="container">
         <div class="header">
           <div class="logo">The Lunar Playground</div>
-          <p style="color: #7B7394; margin-top: 8px;">Your Human Design</p>
+          <p style="color: #655E78; margin-top: 8px;">Your Human Design</p>
         </div>
 
         <div class="highlight" style="text-align: center; padding: 24px;">
-          <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #7B7394; margin-bottom: 8px;">Your Type</p>
+          <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #655E78; margin-bottom: 8px;">Your Type</p>
           <p style="font-size: 22px; color: #2D2640; margin: 0 0 12px;">${data.type || '-'}</p>
           <table width="100%" cellpadding="0" cellspacing="0" style="margin: 0 auto; max-width: 300px;">
             <tr>
               <td style="text-align: center; padding: 4px;">
-                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #7B7394;">Strategy</div>
+                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #655E78;">Strategy</div>
                 <div style="font-size: 13px; color: #2D2640;">${data.strategy || '-'}</div>
               </td>
               <td style="text-align: center; padding: 4px;">
-                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #7B7394;">Authority</div>
+                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #655E78;">Authority</div>
                 <div style="font-size: 13px; color: #2D2640;">${data.authority || '-'}</div>
               </td>
             </tr>
@@ -571,7 +571,7 @@ function generateHumanDesignEmail(data: any, styles: string): string {
         ` : ''}
 
         <div style="text-align: center; margin: 32px 0;">
-          <p style="color: #7B7394; font-size: 14px; margin-bottom: 16px;">
+          <p style="color: #655E78; font-size: 14px; margin-bottom: 16px;">
             Want a personalised interpretation of your Human Design with practical guidance?
           </p>
           <a href="https://www.thelunarplayground.com/shop" style="display: inline-block; background: #2D2640; color: white !important; padding: 12px 24px; border-radius: 8px; text-decoration: none;">View Readings</a>
@@ -600,7 +600,7 @@ function generateFeedbackEmail(data: any, styles: string): string {
       <div class="container">
         <div class="header">
           <div class="logo">The Lunar Playground</div>
-          <p style="color: #7B7394;">New Feedback</p>
+          <p style="color: #655E78;">New Feedback</p>
         </div>
 
         <div class="highlight">

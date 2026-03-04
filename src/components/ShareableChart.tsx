@@ -117,14 +117,14 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
       <div className="relative bg-white rounded-2xl p-6 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-[#7B7394] hover:text-[#2D2640] transition-colors z-10"
+          className="absolute top-4 right-4 text-[#655E78] hover:text-[#2D2640] transition-colors z-10"
           aria-label="Close"
         >
           ✕
         </button>
 
         <h3 className="font-serif text-xl text-[#2D2640] mb-4 text-center">Share your chart</h3>
-        <p className="text-sm text-[#7B7394] text-center mb-6">Download or share your birth chart summary</p>
+        <p className="text-sm text-[#655E78] text-center mb-6">Download or share your birth chart summary</p>
 
         {/* The shareable card */}
         <div
@@ -154,7 +154,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
                   {zodiacSymbols[sunSign]}
                 </div>
                 <div>
-                  <p className="text-xs tracking-wider uppercase text-[#7B7394]">Sun</p>
+                  <p className="text-xs tracking-wider uppercase text-[#655E78]">Sun</p>
                   <p className="font-serif text-lg text-[#2D2640]">{sunSign}</p>
                 </div>
                 <div className="ml-auto">
@@ -171,7 +171,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
                   {zodiacSymbols[moonSign]}
                 </div>
                 <div>
-                  <p className="text-xs tracking-wider uppercase text-[#7B7394]">Moon</p>
+                  <p className="text-xs tracking-wider uppercase text-[#655E78]">Moon</p>
                   <p className="font-serif text-lg text-[#2D2640]">{moonSign}</p>
                 </div>
                 <div className="ml-auto">
@@ -188,7 +188,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
                   {zodiacSymbols[risingSign]}
                 </div>
                 <div>
-                  <p className="text-xs tracking-wider uppercase text-[#7B7394]">Rising</p>
+                  <p className="text-xs tracking-wider uppercase text-[#655E78]">Rising</p>
                   <p className="font-serif text-lg text-[#2D2640]">{risingSign}</p>
                 </div>
                 <div className="ml-auto">
@@ -199,7 +199,7 @@ export function ShareableChart({ sunSign, moonSign, risingSign, birthDate, onClo
 
             {/* Footer */}
             <div className="mt-8 pt-4 border-t border-[#2D2640]/10 text-center">
-              <p className="text-xs text-[#7B7394]">
+              <p className="text-xs text-[#655E78]">
                 Get your birth chart at
               </p>
               <p className="text-sm font-medium" style={{ color: colors.accent }}>

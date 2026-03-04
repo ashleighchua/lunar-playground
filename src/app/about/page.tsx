@@ -26,7 +26,7 @@ export default function AboutPage() {
               <span className="text-gradient-gold">Multiple Systems.</span>
               <br /><span className="text-[#2D2640]">One Full Picture.</span>
             </h1>
-            <p className="mt-6 text-lg text-[#7B7394] leading-relaxed">
+            <p className="mt-6 text-lg text-[#655E78] leading-relaxed">
               Hi, I&apos;m Ashleigh. I layer astrology, BaZi, human design, and numerology together because one system never gave me the full story. Turns out most people feel the same way.
             </p>
           </div>
@@ -46,7 +46,7 @@ export default function AboutPage() {
               <h2 className="font-serif text-2xl text-[#2D2640] mb-8">
                 The story
               </h2>
-              <div className="space-y-6 text-[#7B7394] leading-relaxed">
+              <div className="space-y-6 text-[#655E78] leading-relaxed">
                 <p>
                   I got into astrology the way most people do. Someone sent me a meme about my sign and I thought, &quot;okay wait, that&apos;s annoyingly accurate.&quot; Then I went down the rabbit hole. Sun, Moon, Rising. Suddenly I had language for things I&apos;d been feeling for years.
                 </p>
@@ -83,7 +83,7 @@ export default function AboutPage() {
               <h2 className="font-serif text-2xl text-[#2D2640] mb-8">
                 What I do
               </h2>
-              <div className="space-y-6 text-[#7B7394] leading-relaxed">
+              <div className="space-y-6 text-[#655E78] leading-relaxed">
                 <p>
                   Most people stick to one system. I layer a few because you&apos;re not one-dimensional, so why should your reading be?
                 </p>
@@ -130,7 +130,7 @@ export default function AboutPage() {
             </div>
             <div className="flex-1">
               <h3 className="font-serif text-xl text-[#2D2640] mb-3">Honest, not hype</h3>
-              <p className="text-[#7B7394] leading-relaxed">
+              <p className="text-[#655E78] leading-relaxed">
                 I&apos;m not going to tell you a city will magically fix your life. Or that Mercury retrograde is personally victimising you. I give you the information, the patterns, the timing. You decide what to do with it.
               </p>
             </div>
@@ -147,7 +147,7 @@ export default function AboutPage() {
             </div>
             <div className="flex-1 md:text-right">
               <h3 className="font-serif text-xl text-[#2D2640] mb-3">The whole picture, not one angle</h3>
-              <p className="text-[#7B7394] leading-relaxed">
+              <p className="text-[#655E78] leading-relaxed">
                 Astrology shows you who. BaZi shows you when. Human Design shows you how. Relocation astrology shows you where. Each system catches something the others miss. I bring them together so you get the full picture, not just one fragment.
               </p>
             </div>
@@ -164,7 +164,7 @@ export default function AboutPage() {
             </div>
             <div className="flex-1">
               <h3 className="font-serif text-xl text-[#2D2640] mb-3">Zero gatekeeping</h3>
-              <p className="text-[#7B7394] leading-relaxed">
+              <p className="text-[#655E78] leading-relaxed">
                 You don&apos;t need to know what a natal chart is to get something out of this. Plain language, no jargon dumps, and free tools you can play with right now. If you&apos;ve ever felt like astrology spaces weren&apos;t built for you, this one is.
               </p>
             </div>
@@ -185,7 +185,7 @@ export default function AboutPage() {
               <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">
                 Curious? <span className="text-gradient-gold">Start here.</span>
               </h2>
-              <p className="text-[#7B7394] leading-relaxed mb-6">
+              <p className="text-[#655E78] leading-relaxed mb-6">
                 Play with the free tools, grab a reading, or just come say hi.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -12,12 +12,12 @@
   /* Semantic */
   --background: var(--warm-white);
   --foreground: var(--deep-grey);
-  --muted: #7B7394;
+  --muted: #655E78;
 
   /* Core Neutral System */
   --ink-primary: #2D2640;
   --ink-secondary: #5A5472;
-  --ink-tertiary: #7B7394;
+  --ink-tertiary: #655E78;
 
   --paper-background: #F0EBF8;
   --paper-card: #FAFAFF;
@@ -53,7 +53,7 @@
   /* Interaction & UI Accents */
   --accent-hover: #D6CFE3;
   --accent-active: #C4BCD4;
-  --accent-focus: #7B7394;
+  --accent-focus: #655E78;
 
   /* Core Drives: Planet Colors - Pastel */
   --mercury-fill: #E8EDF8;

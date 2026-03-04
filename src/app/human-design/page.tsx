@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -37,13 +37,13 @@ function PointList({ text, icon = '·' }: { text: string; icon?: string }) {
     .filter((s) => s.length > 0);
 
   if (points.length <= 1) {
-    return <p className="text-sm text-[#7B7394] leading-relaxed">{text}</p>;
+    return <p className="text-sm text-[#655E78] leading-relaxed">{text}</p>;
   }
 
   return (
     <ul className="space-y-2.5">
       {points.map((point, i) => (
-        <li key={i} className="flex gap-2.5 text-sm text-[#7B7394] leading-relaxed">
+        <li key={i} className="flex gap-2.5 text-sm text-[#655E78] leading-relaxed">
           <span className="text-[#B8903A] mt-0.5 flex-shrink-0 text-xs">{icon}</span>
           <span>{point}</span>
         </li>
@@ -293,7 +293,7 @@ function BodyGraph({ profile }: { profile: HumanDesignProfile }) {
               textAnchor="middle"
               dominantBaseline="middle"
               fontSize="7.5"
-              fill={defined ? '#5C3D0A' : '#7B7394'}
+              fill={defined ? '#5C3D0A' : '#655E78'}
               fontWeight={defined ? '600' : '400'}
               style={{ fontFamily: 'system-ui, sans-serif' }}
             >
@@ -315,6 +315,13 @@ export default function HumanDesignPage() {
   const [birthCity, setBirthCity] = useState<City | null>(null);
   const [birthCityDisplay, setBirthCityDisplay] = useState('');
   const [dateError, setDateError] = useState<string | null>(null);
+  const intervalsRef = useRef<NodeJS.Timeout[]>([]);
+
+  useEffect(() => {
+    return () => {
+      intervalsRef.current.forEach(clearInterval);
+    };
+  }, []);
 
   useEffect(() => {
     const stored = loadBirthData();
@@ -341,6 +348,7 @@ export default function HumanDesignPage() {
         const interval = setInterval(() => {
           setLoadingIndex(prev => (prev + 1) % loadingSymbols.length);
         }, 400);
+        intervalsRef.current = [interval];
         setTimeout(() => {
           clearInterval(interval);
           const lng = stored.birthplace?.lng;
@@ -376,6 +384,7 @@ export default function HumanDesignPage() {
     const interval = setInterval(() => {
       setLoadingIndex(prev => (prev + 1) % loadingSymbols.length);
     }, 400);
+    intervalsRef.current = [interval];
 
     await new Promise(resolve => setTimeout(resolve, 3000));
     clearInterval(interval);
@@ -419,7 +428,7 @@ export default function HumanDesignPage() {
               <p className="font-serif text-2xl text-[#2D2640] mb-3">
                 Mapping your design...
               </p>
-              <p className="text-sm text-[#7B7394]">
+              <p className="text-sm text-[#655E78]">
                 Calculating your type, authority, and body graph centers
               </p>
             </div>
@@ -429,12 +438,12 @@ export default function HumanDesignPage() {
           <>
             <section className="container-editorial pt-8 pb-12 md:pt-12 md:pb-16">
               <div className="max-w-2xl">
-                <p className="text-xs uppercase tracking-widest text-[#7B7394] mb-4">Free Tool</p>
+                <p className="text-xs uppercase tracking-widest text-[#655E78] mb-4">Free Tool</p>
                 <h1 className="font-serif text-4xl md:text-5xl text-[#2D2640] leading-[1.1] tracking-tight">
                   Human Design
                 </h1>
-                <p className="mt-5 text-lg text-[#7B7394] leading-relaxed">
-                  A synthesis of astrology, the I Ching, Kabbalah, and quantum physics. Your birth moment encodes your energetic type, decision-making authority, and the nine centers that form your body graph.
+                <p className="mt-5 text-lg text-[#655E78] leading-relaxed">
+                  Your personal operating manual. Human Design shows how you&apos;re wired to make decisions, what drains you, and what lights you up. Based on your exact birth time.
                 </p>
               </div>
             </section>
@@ -451,7 +460,7 @@ export default function HumanDesignPage() {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label htmlFor="hd-birthdate" className="block text-sm text-[#7B7394] mb-2">
+                    <label htmlFor="hd-birthdate" className="block text-sm text-[#655E78] mb-2">
                       Date of birth
                     </label>
                     <input
@@ -466,7 +475,7 @@ export default function HumanDesignPage() {
                       className={`w-full px-4 py-3 border rounded-lg bg-white focus:outline-none transition-colors ${
                         formData.birthdate
                           ? 'text-[#2D2640] [&::-webkit-datetime-edit]:text-[#2D2640]'
-                          : 'text-[#7B7394]/50 [&::-webkit-datetime-edit]:text-[#7B7394]/50'
+                          : 'text-[#655E78]/50 [&::-webkit-datetime-edit]:text-[#655E78]/50'
                       } ${
                         dateError
                           ? 'border-red-400 focus:border-red-500'
@@ -479,7 +488,7 @@ export default function HumanDesignPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="hd-birthtime" className="block text-sm text-[#7B7394] mb-2">
+                    <label htmlFor="hd-birthtime" className="block text-sm text-[#655E78] mb-2">
                       Time of birth
                     </label>
                     <input
@@ -491,16 +500,16 @@ export default function HumanDesignPage() {
                       className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors ${
                         formData.birthtime
                           ? 'text-[#2D2640] [&::-webkit-datetime-edit]:text-[#2D2640]'
-                          : 'text-[#7B7394]/50 [&::-webkit-datetime-edit]:text-[#7B7394]/50'
+                          : 'text-[#655E78]/50 [&::-webkit-datetime-edit]:text-[#655E78]/50'
                       }`}
                     />
-                    <p className="mt-2 text-xs text-[#7B7394]">
+                    <p className="mt-2 text-xs text-[#655E78]">
                       Exact birth time affects your type and authority. Noon is a reasonable estimate if unknown.
                     </p>
                   </div>
 
                   <div>
-                    <label className="block text-sm text-[#7B7394] mb-2">
+                    <label className="block text-sm text-[#655E78] mb-2">
                       Place of birth
                     </label>
                     <CitySelect
@@ -512,7 +521,7 @@ export default function HumanDesignPage() {
                       placeholder="Type a city name..."
                       className="w-full"
                     />
-                    <p className="mt-2 text-xs text-[#7B7394]">
+                    <p className="mt-2 text-xs text-[#655E78]">
                       Birth location improves accuracy, especially for Moon placement.
                     </p>
                   </div>
@@ -534,14 +543,14 @@ export default function HumanDesignPage() {
             <section className="container-editorial pt-8 pb-10 md:pt-12">
               <button
                 onClick={handleBack}
-                className="text-sm text-[#7B7394] hover:text-[#2D2640] transition-colors mb-6 flex items-center gap-2"
+                className="text-sm text-[#655E78] hover:text-[#2D2640] transition-colors mb-6 flex items-center gap-2"
               >
                 <span>←</span> Enter different details
               </button>
 
               <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-[#7B7394] mb-3">Your Human Design</p>
+                  <p className="text-xs uppercase tracking-widest text-[#655E78] mb-3">Your Human Design</p>
                   <h1 className="font-serif text-4xl md:text-5xl text-[#2D2640] leading-[1.1] tracking-tight">
                     {profile.type}
                   </h1>
@@ -573,11 +582,11 @@ export default function HumanDesignPage() {
                 {/* Body Graph */}
                 <div className="flex flex-col items-center">
                   <div className="w-full rounded-2xl bg-[#E8E3F0] p-6 pt-5">
-                    <p className="text-xs uppercase tracking-widest text-[#7B7394] mb-4 text-center">Body Graph</p>
+                    <p className="text-xs uppercase tracking-widest text-[#655E78] mb-4 text-center">Body Graph</p>
                     <div className="w-full max-w-[260px] mx-auto">
                       <BodyGraph profile={profile} />
                     </div>
-                    <div className="mt-4 flex items-center justify-center gap-5 text-xs text-[#7B7394]">
+                    <div className="mt-4 flex items-center justify-center gap-5 text-xs text-[#655E78]">
                       <div className="flex items-center gap-1.5">
                         <div className="w-3 h-3 rounded-sm bg-[#FF8FA3]" />
                         <span>Defined</span>
@@ -609,7 +618,7 @@ export default function HumanDesignPage() {
               <div className="rounded-lg p-6 md:p-8 max-w-2xl bg-[#E0D8EE]">
                 <div className="flex items-baseline gap-4">
                   <span className="font-serif text-4xl text-[#2D2640]">{profile.profile}</span>
-                  <span className="text-base text-[#7B7394]">{profile.profileName}</span>
+                  <span className="text-base text-[#655E78]">{profile.profileName}</span>
                 </div>
               </div>
             </section>
@@ -623,7 +632,7 @@ export default function HumanDesignPage() {
               <h2 className="font-serif text-2xl text-[#2D2640] mb-2 flex items-center gap-3">
                 <span className="text-[#B8903A]">{SECTION_ICONS.centers}</span> Your Centers
               </h2>
-              <p className="text-sm text-[#7B7394] mb-8">
+              <p className="text-sm text-[#655E78] mb-8">
                 Defined centers are fixed sources of energy. Undefined centers are open to amplifying the energies of others.
               </p>
 
@@ -646,7 +655,7 @@ export default function HumanDesignPage() {
                           className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full flex-shrink-0 ${
                             center.defined
                               ? 'bg-[#FF8FA3]/20 text-[#C4365A]'
-                              : 'bg-[#2D2640]/8 text-[#7B7394]'
+                              : 'bg-[#2D2640]/8 text-[#655E78]'
                           }`}
                         >
                           {center.defined ? 'Defined' : 'Open'}
@@ -670,7 +679,7 @@ export default function HumanDesignPage() {
                   <h2 className="font-serif text-2xl text-[#2D2640] mb-2 flex items-center gap-3">
                     <span className="text-[#B8903A]">{SECTION_ICONS.channels}</span> Active Channels
                   </h2>
-                  <p className="text-sm text-[#7B7394] mb-8">
+                  <p className="text-sm text-[#655E78] mb-8">
                     Channels are formed when two connected gates are both active, creating a defined circuit between centers.
                   </p>
 
@@ -702,7 +711,7 @@ export default function HumanDesignPage() {
               <div className="rounded-lg p-6 md:p-8 max-w-xl bg-[#FBF0C4]">
                 <p className="font-serif text-xl text-[#2D2640] mb-4">{profile.incarnationCross}</p>
                 <PointList
-                  text="Your Incarnation Cross represents the overarching theme of your life purpose — the larger story you are here to live and embody. It is derived from the four gates active at the Sun and Earth positions at the time of your birth and the moment 88 days prior."
+                  text="Your Incarnation Cross represents the overarching theme of your life purpose. The larger story you are here to live and embody. It is derived from the four gates active at the Sun and Earth positions at the time of your birth and the moment 88 days prior."
                   icon="✦"
                 />
               </div>
@@ -722,8 +731,8 @@ export default function HumanDesignPage() {
                     <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
                       Understand what your design actually means
                     </h2>
-                    <p className="text-lg text-[#7B7394] leading-relaxed max-w-lg mx-auto">
-                      Now you know your type and chart. Your full reading explains how it all works together — your authority, your strengths, and how to use your design in real life.
+                    <p className="text-lg text-[#655E78] leading-relaxed max-w-lg mx-auto">
+                      Human Design shows how you&apos;re wired. Your natal chart shows why. The full reading connects both systems so you can actually use your design in real life.
                     </p>
                   </div>
 
@@ -757,7 +766,7 @@ export default function HumanDesignPage() {
                     >
                       Get your Human Design reading &mdash; $35
                     </Link>
-                    <p className="text-xs text-[#7B7394]/60 mt-4">Personalised report delivered within 48 hours</p>
+                    <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
                   </div>
                 </div>
               </div>
@@ -771,9 +780,21 @@ export default function HumanDesignPage() {
             <section className="container-editorial py-12 md:py-16">
               <div className="max-w-xl mx-auto text-center">
                 <h2 className="font-serif text-2xl text-[#2D2640] mb-4">Save your results</h2>
-                <p className="text-[#7B7394] mb-8">Get your Human Design profile sent to your inbox.</p>
+                <p className="text-[#655E78] mb-8">Get your Human Design profile sent to your inbox.</p>
                 <SendResultsEmail type="human-design" data={profile} />
               </div>
+            </section>
+
+            {/* Also Explore */}
+            <section className="container-editorial pb-12">
+              <p className="text-center text-sm text-[#655E78]">
+                Also explore:{' '}
+                <a href="/your-chart" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Birth Chart</a>
+                {' · '}
+                <a href="/bazi" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">BaZi</a>
+                {' · '}
+                <a href="/numerology" className="text-[#2D2640] underline underline-offset-2 hover:text-[#FF8FA3] transition-colors">Numerology</a>
+              </p>
             </section>
           </>
         ) : null}

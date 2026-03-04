@@ -57,7 +57,7 @@ export default function FeedbackButton() {
           <div className="relative bg-[#F0EBF8] rounded-2xl p-6 max-w-sm w-full shadow-2xl mb-16 sm:mb-0">
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-[#7B7394] hover:text-[#2D2640] transition-colors"
+              className="absolute top-4 right-4 text-[#655E78] hover:text-[#2D2640] transition-colors"
               aria-label="Close"
             >
               ✕
@@ -71,14 +71,14 @@ export default function FeedbackButton() {
             ) : (
               <>
                 <h3 className="font-serif text-xl text-[#2D2640] mb-1">Got feedback?</h3>
-                <p className="text-sm text-[#7B7394] mb-4">Questions, ideas, or just want to say hi.</p>
+                <p className="text-sm text-[#655E78] mb-4">Questions, ideas, or just want to say hi.</p>
 
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="What's on your mind?"
                   rows={3}
-                  className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#7B7394]/40 resize-none text-sm"
+                  className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]/40 resize-none text-sm"
                 />
 
                 <button
@@ -91,7 +91,7 @@ export default function FeedbackButton() {
 
                 <a
                   href="mailto:thelunarplayground@gmail.com"
-                  className="block text-center mt-3 text-xs text-[#7B7394] hover:text-[#2D2640] transition-colors"
+                  className="block text-center mt-3 text-xs text-[#655E78] hover:text-[#2D2640] transition-colors"
                 >
                   Or email us directly
                 </a>

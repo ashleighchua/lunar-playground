@@ -163,7 +163,7 @@ export function ShareButtons({ title, text, url, onGenerateImage }: ShareButtons
         className={`flex items-center gap-2 px-4 py-2.5 rounded-full transition-colors text-sm ${
           copied
             ? 'bg-[#9CB896]/20 text-[#4A6B44]'
-            : 'bg-[#2D2640]/5 text-[#7B7394] hover:bg-[#2D2640]/10'
+            : 'bg-[#2D2640]/5 text-[#655E78] hover:bg-[#2D2640]/10'
         }`}
         aria-label="Copy link"
       >

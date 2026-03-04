@@ -25,7 +25,7 @@ export function DecisionMakingSection({ decisionSign }: DecisionMakingSectionPro
         <div className="w-1 bg-[#6B8DAB]" />
         <div className="flex-1 p-6 md:p-8 bg-gradient-to-r from-[#EEF3F7]/50 to-transparent">
           <h2 className="font-serif text-2xl text-[#2D2640] mb-4">How You Make Decisions</h2>
-          <p className="text-sm text-[#7B7394] leading-relaxed">
+          <p className="text-sm text-[#655E78] leading-relaxed">
             Your natural decision-making style based on Mercury in {decisionSign}
           </p>
         </div>
