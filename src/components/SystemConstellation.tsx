@@ -80,13 +80,13 @@ export function SystemConstellation() {
               className="flex flex-col items-center group cursor-pointer relative z-10"
             >
               <div
-                className="w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 overflow-hidden ring-2 ring-[#D6CFE3]/50"
+                className="w-16 h-16 md:w-24 md:h-24 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 overflow-hidden ring-2 ring-[#D6CFE3]/50"
                 style={{
                   backgroundColor: system.bg,
                   boxShadow: active === i ? `0 0 24px ${system.color}40` : '0 2px 12px rgba(45,38,64,0.06)',
                 }}
               >
-                <Image src={system.image} alt={system.name} width={80} height={80} className="w-16 h-16 md:w-20 md:h-20 object-contain" />
+                <Image src={system.image} alt={system.name} width={80} height={80} className="w-10 h-10 md:w-16 md:h-16 object-contain" />
               </div>
               <p
                 className="font-serif text-base md:text-lg mt-4 transition-colors duration-300"
@@ -97,19 +97,23 @@ export function SystemConstellation() {
               <p className="text-xs text-[#655E78] mt-1 tracking-wide">
                 {system.label}
               </p>
-              <div
-                className="overflow-hidden transition-all duration-300 ease-out"
-                style={{
-                  maxHeight: active === i ? '100px' : '0',
-                  opacity: active === i ? 1 : 0,
-                }}
-              >
-                <p className="mt-2 text-xs md:text-sm text-[#655E78] leading-relaxed italic">
-                  {system.description}
-                </p>
-              </div>
             </button>
           ))}
+        </div>
+
+        {/* Description shown below grid, full width */}
+        <div
+          className="overflow-hidden transition-all duration-300 ease-out text-center"
+          style={{
+            maxHeight: active !== null ? '100px' : '0',
+            opacity: active !== null ? 1 : 0,
+          }}
+        >
+          {active !== null && (
+            <p className="mt-4 text-sm md:text-base text-[#655E78] leading-relaxed italic">
+              {systems[active].description}
+            </p>
+          )}
         </div>
       </div>
 

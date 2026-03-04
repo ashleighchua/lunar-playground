@@ -195,6 +195,7 @@ export default function TravelPage() {
         body: JSON.stringify({
           to: email,
           type: 'astrocartography',
+          subscribe: subscribeToNewsletter,
           data: {
             destination: {
               name: destination.city,
