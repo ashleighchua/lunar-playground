@@ -10,7 +10,7 @@ const systems = [
     image: '/Images/icon-astrology.png',
     color: '#FF8FA3',
     bg: '#FFF0F3',
-    description: 'Your personality, your drives, the stuff that makes you annoyingly you.',
+    description: 'Your personality, your drives, the patterns you can\u2019t unsee.',
   },
   {
     name: 'BaZi',
@@ -110,9 +110,16 @@ export function SystemConstellation() {
           }}
         >
           {active !== null && (
-            <p className="mt-4 text-sm md:text-base text-[#655E78] leading-relaxed italic">
+            <span
+              className="inline-block mt-4 px-5 py-2 rounded-full text-sm md:text-base leading-relaxed italic"
+              style={{
+                backgroundColor: systems[active].bg,
+                color: systems[active].color,
+                border: `1px solid ${systems[active].color}30`,
+              }}
+            >
               {systems[active].description}
-            </p>
+            </span>
           )}
         </div>
       </div>
