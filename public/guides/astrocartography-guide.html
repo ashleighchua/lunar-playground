@@ -1,0 +1,2021 @@
+c<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Read Your Astrocartography Chart — Lunar Playground</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 20mm 18mm;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 14pt;
+            line-height: 1.8;
+            color: #2c2c2c;
+            background: #fff;
+        }
+
+        /* ── Cover Page ── */
+        .cover-page {
+            width: 210mm;
+            height: auto;
+            max-height: 255mm;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            background: linear-gradient(160deg, #0d0d1a 0%, #1a1a2e 40%, #16213e 70%, #0d0d1a 100%);
+            page-break-after: always;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.15), transparent),
+                radial-gradient(1px 1px at 60% 50%, rgba(255,255,255,0.25), transparent),
+                radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.15), transparent),
+                radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 30% 90%, rgba(255,255,255,0.2), transparent),
+                radial-gradient(2px 2px at 70% 40%, rgba(212,175,55,0.15), transparent),
+                radial-gradient(2px 2px at 25% 55%, rgba(212,175,55,0.1), transparent);
+            pointer-events: none;
+        }
+
+        .cover-ornament {
+            font-size: 28pt;
+            color: #d4af37;
+            letter-spacing: 12px;
+            margin-bottom: 40px;
+            opacity: 0.6;
+        }
+
+        .cover-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 36pt;
+            font-weight: 400;
+            color: #fff;
+            letter-spacing: 2px;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            padding: 0 60px;
+        }
+
+        .cover-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            font-weight: 300;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 16px;
+        }
+
+        .cover-divider {
+            width: 80px;
+            height: 1px;
+            background: #d4af37;
+            margin: 30px auto;
+            opacity: 0.5;
+        }
+
+        .cover-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9pt;
+            font-weight: 400;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .cover-footer p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 7.5pt;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* ── Content Pages ── */
+        .page {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 0;
+            background: #fff;
+            page-break-after: always;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* ── Typography ── */
+        h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 28pt;
+            font-weight: 400;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 17pt;
+            color: #1a1a2e;
+            margin-top: 36px;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #d4af37;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 11.5pt;
+            color: #d4af37;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 11pt;
+            color: #1a1a2e;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 14px;
+            text-align: justify;
+            font-size: 14pt;
+            hyphens: auto;
+        }
+
+        strong { font-weight: 600; }
+
+        em { font-style: italic; }
+
+        /* ── Part Headers ── */
+        .part-header {
+            text-align: center;
+            padding: 50px 0 30px;
+            page-break-before: always;
+        }
+
+        .part-header .part-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9pt;
+            font-weight: 600;
+            color: #d4af37;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .part-header .part-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 24pt;
+            font-weight: 400;
+            color: #1a1a2e;
+            letter-spacing: 1px;
+        }
+
+        .part-header .part-divider {
+            width: 60px;
+            height: 1px;
+            background: #d4af37;
+            margin: 20px auto 0;
+        }
+
+        /* ── Decorative Dividers ── */
+        .divider {
+            text-align: center;
+            margin: 28px 0;
+            color: #d4af37;
+            font-size: 12pt;
+            letter-spacing: 8px;
+            opacity: 0.5;
+        }
+
+        /* ── Tables ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 20px;
+            font-size: 10.5pt;
+            page-break-inside: avoid;
+        }
+
+        thead th {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1a1a2e;
+            background: #f5f3ef;
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        tbody td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+            line-height: 1.55;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Compact two-column interpretation table */
+        table.interp-table {
+            margin: 6px 0 12px;
+            background: transparent;
+            border-left: none;
+        }
+
+        table.interp-table td:first-child {
+            width: 90px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #999;
+            vertical-align: top;
+        }
+
+        table.interp-table td {
+            padding: 5px 12px;
+            border-bottom: none;
+        }
+
+        /* ── Blockquotes / Callouts ── */
+        blockquote {
+            margin: 18px 0;
+            padding: 16px 22px;
+            background: #f9f7f4;
+            border-left: 3px solid #d4af37;
+            font-style: italic;
+            font-size: 11pt;
+            color: #555;
+            page-break-inside: avoid;
+        }
+
+        blockquote p {
+            margin-bottom: 0;
+            text-align: left;
+        }
+
+        blockquote p + p {
+            margin-top: 10px;
+        }
+
+        /* ── Ordered & Unordered Lists ── */
+        ul, ol {
+            margin: 10px 0 16px 24px;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+
+        /* ── Planet Interpretation Block ── */
+        .planet-block {
+            margin: 22px 0;
+            padding: 18px 0 0;
+            background: transparent;
+            border-top: 1px solid #eee;
+            page-break-inside: avoid;
+        }
+
+        .planet-block:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .planet-block .planet-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 10pt;
+            color: #1a1a2e;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .planet-block .planet-meta {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.5pt;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .planet-block p {
+            font-size: 11pt;
+            margin-bottom: 8px;
+        }
+
+        .planet-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Info Box ── */
+        .info-box {
+            background: #f9f7f4;
+            padding: 18px 22px;
+            margin: 20px 0;
+            border-left: 3px solid #d4af37;
+            page-break-inside: avoid;
+        }
+
+        .info-box h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 9pt;
+            color: #1a1a2e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            font-size: 10.5pt;
+            margin-bottom: 8px;
+        }
+
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Worksheet ── */
+        .worksheet {
+            margin: 24px 0;
+            padding: 22px 24px;
+            background: #fdfdfc;
+            border: 1px solid #e8e4dd;
+            border-radius: 2px;
+            page-break-inside: avoid;
+        }
+
+        .worksheet h4 {
+            margin-top: 0;
+            color: #d4af37;
+            font-size: 10pt;
+            letter-spacing: 1.5px;
+        }
+
+        .worksheet .blank-line {
+            border-bottom: 1px solid #ddd;
+            height: 28px;
+            margin: 8px 0;
+        }
+
+        .worksheet table {
+            margin: 10px 0;
+        }
+
+        .worksheet td {
+            min-height: 28px;
+            height: 28px;
+        }
+
+        /* ── TOC ── */
+        .toc {
+            margin: 20px 0;
+        }
+
+        .toc-part {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 9pt;
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .toc-item {
+            font-size: 11pt;
+            color: #2c2c2c;
+            padding: 4px 0;
+            display: block;
+        }
+
+        .toc-item .toc-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 9pt;
+            color: #888;
+            display: inline-block;
+            width: 26px;
+        }
+
+        /* ── At a Glance Box ── */
+        .glance-box {
+            background: #f5f3ef;
+            padding: 24px 28px;
+            margin: 24px 0;
+            border-top: 2px solid #d4af37;
+            page-break-inside: avoid;
+        }
+
+        .glance-box h3 {
+            margin-top: 0;
+            color: #1a1a2e;
+        }
+
+        .glance-box ul {
+            margin: 10px 0 0 18px;
+        }
+
+        /* ── Utility ── */
+        .text-center { text-align: center; }
+        .text-gold { color: #d4af37; }
+        .mt-0 { margin-top: 0; }
+        .mb-0 { margin-bottom: 0; }
+        .page-break { page-break-before: always; }
+        .no-break { page-break-inside: avoid; }
+
+        /* ── Links ── */
+        a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ── Footer ── */
+        .page-footer {
+            margin-top: 40px;
+            padding-top: 14px;
+            border-top: 1px solid #eee;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 7.5pt;
+            color: #bbb;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* ── TOC page numbers ── */
+        .toc-item {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .toc-item .toc-dots {
+            flex: 1;
+            border-bottom: 1px dotted #ddd;
+            margin: 0 8px;
+            min-width: 20px;
+        }
+
+        .toc-item .toc-page {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9pt;
+            color: #888;
+            flex-shrink: 0;
+        }
+
+        /* ── Print ── */
+        @media print {
+            body { background: #fff; }
+            .cover-page { margin: -20mm -18mm; width: calc(100% + 36mm); height: calc(297mm); }
+            .page { padding: 15mm 20mm; margin: 0; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- COVER PAGE                                      -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="cover-page">
+    <div class="cover-ornament">&#10022; &#10022; &#10022;</div>
+    <div class="cover-title">How to Read Your<br>Astrocartography Chart</div>
+    <div class="cover-subtitle">A Self-Paced Guide to Relocation Astrology</div>
+    <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13pt; font-style: italic; color: rgba(255,255,255,0.55); margin-top: 20px; letter-spacing: 1px;">by Astro Ashleigh</div>
+    <div class="cover-divider"></div>
+    <div class="cover-brand">Lunar Playground</div>
+    <div class="cover-footer">
+        <p>For personal use only. Do not reproduce or distribute.</p>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- AT A GLANCE + TABLE OF CONTENTS                 -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <h2 class="mt-0">At a Glance</h2>
+
+    <p>Astrocartography maps your birth chart onto the globe, showing where specific planetary energies are strongest for you geographically. This guide teaches you to read your own map and use it to make informed decisions about where to live, travel, or relocate.</p>
+
+    <div class="glance-box">
+        <h3>By the end of this guide, you will be able to:</h3>
+        <ul>
+            <li>Identify and interpret every planetary line on your chart</li>
+            <li>Understand how the four angles (MC, IC, AC, DC) shape your experience in a location</li>
+            <li>Evaluate any city using a structured framework</li>
+            <li>Read line crossings (parans) and assess power zones</li>
+            <li>Generate and interpret a relocated chart for deeper analysis</li>
+            <li>Make practical relocation decisions using astrocartography as one informed input</li>
+        </ul>
+    </div>
+
+    <h3>What You Need to Begin</h3>
+
+    <table>
+        <thead><tr><th>Requirement</th><th>Detail</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Birth date</strong></td><td>Day, month, year</td></tr>
+            <tr><td><strong>Birth time</strong></td><td>As exact as possible (within minutes)</td></tr>
+            <tr><td><strong>Birth location</strong></td><td>City-level precision</td></tr>
+            <tr><td><strong>Free chart tool</strong></td><td>Astro.com or Astro-Seek.com</td></tr>
+        </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="page">
+
+    <h2 class="mt-0">Contents</h2>
+
+    <div class="toc">
+        <div class="toc-part">Part I: Foundations</div>
+        <span class="toc-item"><span class="toc-num">1.</span> What Is Astrocartography<span class="toc-dots"></span><span class="toc-page">4</span></span>
+        <span class="toc-item"><span class="toc-num">2.</span> How to Generate Your Chart<span class="toc-dots"></span><span class="toc-page">5</span></span>
+        <span class="toc-item"><span class="toc-num">3.</span> Anatomy of the Map<span class="toc-dots"></span><span class="toc-page">6</span></span>
+
+        <div class="toc-part">Part II: The Building Blocks</div>
+        <span class="toc-item"><span class="toc-num">4.</span> The Four Angles<span class="toc-dots"></span><span class="toc-page">8</span></span>
+        <span class="toc-item"><span class="toc-num">5.</span> The Planets<span class="toc-dots"></span><span class="toc-page">11</span></span>
+        <span class="toc-item"><span class="toc-num">6.</span> Planet + Angle Interpretations (Full Library)<span class="toc-dots"></span><span class="toc-page">13</span></span>
+
+        <div class="toc-part">Part III: Advanced Reading</div>
+        <span class="toc-item"><span class="toc-num">7.</span> Orbs and Distance<span class="toc-dots"></span><span class="toc-page">23</span></span>
+        <span class="toc-item"><span class="toc-num">8.</span> Line Crossings and Power Zones<span class="toc-dots"></span><span class="toc-page">24</span></span>
+        <span class="toc-item"><span class="toc-num">9.</span> The Relocated Chart<span class="toc-dots"></span><span class="toc-page">26</span></span>
+
+        <div class="toc-part">Part IV: Application</div>
+        <span class="toc-item"><span class="toc-num">10.</span> City Evaluation Framework<span class="toc-dots"></span><span class="toc-page">28</span></span>
+        <span class="toc-item"><span class="toc-num">11.</span> The Relocation Decision Framework<span class="toc-dots"></span><span class="toc-page">29</span></span>
+        <span class="toc-item"><span class="toc-num">12.</span> Worked Example<span class="toc-dots"></span><span class="toc-page">31</span></span>
+
+        <div class="toc-part">Part V: Reference</div>
+        <span class="toc-item"><span class="toc-num">13.</span> Quick Reference Tables<span class="toc-dots"></span><span class="toc-page">33</span></span>
+        <span class="toc-item"><span class="toc-num">14.</span> Common Mistakes<span class="toc-dots"></span><span class="toc-page">34</span></span>
+        <span class="toc-item"><span class="toc-num">15.</span> Glossary<span class="toc-dots"></span><span class="toc-page">36</span></span>
+        <span class="toc-item"><span class="toc-num">16.</span> Worksheets<span class="toc-dots"></span><span class="toc-page">37</span></span>
+        <span class="toc-item"><span class="toc-num">17.</span> Sources and Further Reading<span class="toc-dots"></span><span class="toc-page">40</span></span>
+    </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- PART I: FOUNDATIONS                              -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+    <div class="part-header">
+        <div class="part-label">Part I</div>
+        <div class="part-title">Foundations</div>
+        <div class="part-divider"></div>
+    </div>
+
+    <h2>1. What Is Astrocartography</h2>
+
+    <p>Astrocartography (also called relocational astrology or astro-mapping) is a branch of astrology that maps your birth chart onto the globe. Rather than examining planets in houses and signs as in a standard natal chart, astrocartography shows where specific planetary energies are strongest <em>geographically</em>.</p>
+
+    <h3>Origin</h3>
+
+    <p>The technique was developed by astrologer <strong>Jim Lewis</strong> in the 1970s. Lewis took centuries of locational astrology theory and turned it into a visual, practical tool: a world map overlaid with personalised planetary lines. He coined the term Astro*Carto*Graphy, built the first software with programmer Michael Erlewine, and received a patent for his overlay method in 1981. His book <em>The Psychology of Astro*Carto*Graphy</em> (co-written with Kenneth Irving) remains a foundational text. He received the Regulus Award for Discovery, Innovation, and Research in 1992. This technique has been studied and practiced for decades.</p>
+
+    <h3>How It Works</h3>
+
+    <p>The planets were in specific positions when you were born. Depending on where you are on Earth, those planets align with different angular points in your chart. Some cities activate your Venus line, which governs love and connection. Some activate your Saturn line, which brings structure and harder lessons. The map shows you all of it at once.</p>
+
+    <p>Your birth chart is calculated for your birth <em>location</em>. When you move, the planets shift position relative to your new location. Astrocartography visualises that shift.</p>
+
+    <h3>Applications</h3>
+
+    <table>
+        <thead><tr><th>Use case</th><th>What astrocartography reveals</th></tr></thead>
+        <tbody>
+            <tr><td>Relocation planning</td><td>Which cities align with your career, relationship, or personal growth priorities</td></tr>
+            <tr><td>Travel</td><td>Why certain destinations resonate more strongly than others</td></tr>
+            <tr><td>Retrospective analysis</td><td>Why you thrived in one city and struggled in another</td></tr>
+            <tr><td>Decision support</td><td>An additional data point when weighing relocation options</td></tr>
+        </tbody>
+    </table>
+
+    <p>This is not about finding one "perfect" city. Every location has trade-offs. The goal is to understand what each place activates so you can choose consciously.</p>
+
+    <div class="divider">&#10022;</div>
+
+    <h2>2. How to Generate Your Chart</h2>
+
+    <h3>Requirements</h3>
+
+    <table>
+        <thead><tr><th>Input</th><th>Why it matters</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Birth date</strong></td><td>Determines planetary positions</td></tr>
+            <tr><td><strong>Birth time</strong></td><td>Angles move ~1 degree every 4 minutes. A 30-minute error shifts lines by hundreds of miles.</td></tr>
+            <tr><td><strong>Birth location</strong></td><td>Baseline for calculating your planetary line positions</td></tr>
+        </tbody>
+    </table>
+
+    <p>If you don't know your exact birth time: check your birth certificate, ask family members, or request hospital records. If unavailable, you can still use astrocartography, but treat exact line positions as approximate.</p>
+
+    <h3>Recommended Tools</h3>
+
+    <p><strong>Astro.com</strong> (gold standard):</p>
+    <ol>
+        <li>Create a free account at astro.com</li>
+        <li>Enter birth date, exact time, and location under "My Astro"</li>
+        <li>Navigate to Free Horoscopes &gt; Astro Click Travel</li>
+        <li>Your map appears with all planetary lines overlaid</li>
+        <li>Click any location to see which lines are active</li>
+    </ol>
+
+    <p><strong>Astro-Seek.com</strong> (strong alternative):</p>
+    <ol>
+        <li>Go to Astro-Seek.com</li>
+        <li>Navigate to the Astrocartography tool under Horoscopes</li>
+        <li>Enter your birth details to generate a clear visual map with built-in relocated chart tools</li>
+    </ol>
+
+    <p>Both are accurate. Astro.com offers a more polished interactive experience; Astro-Seek provides more tools in one place, including relocated chart generation.</p>
+
+    <p>Generate your chart now. The rest of this guide assumes you have it open.</p>
+
+    <div class="divider">&#10022;</div>
+
+    <h2>3. Anatomy of the Map</h2>
+
+    <p>When you open your astrocartography map, you'll see a world map with coloured lines running across it. Some are straight (vertical), some are curved. Each line represents a planet, and each line type represents an angle.</p>
+
+    <h3>What You're Seeing</h3>
+
+    <p><strong>Lines are colour-coded by planet.</strong> Each planet gets its own colour (varies by tool, always labelled). You'll see lines for all major celestial bodies: Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, and Pluto.</p>
+
+    <p><strong>Each planet has four lines</strong>, one per angle:</p>
+
+    <table>
+        <thead><tr><th>Line type</th><th>Angle</th><th>Appearance</th></tr></thead>
+        <tbody>
+            <tr><td>MC</td><td>Midheaven</td><td>Vertical (straight)</td></tr>
+            <tr><td>IC</td><td>Imum Coeli / Nadir</td><td>Vertical (straight)</td></tr>
+            <tr><td>AC</td><td>Ascendant</td><td>Curved</td></tr>
+            <tr><td>DC</td><td>Descendant</td><td>Curved</td></tr>
+        </tbody>
+    </table>
+
+    <p>10 planets x 4 lines = 40 lines on your map. You don't need to read all 40 at once.</p>
+
+    <h3>Where to Focus First</h3>
+
+    <p>Start with the planet that matches your current priority:</p>
+
+    <table>
+        <thead><tr><th>Priority</th><th>Focus on</th></tr></thead>
+        <tbody>
+            <tr><td>Love and relationships</td><td>&#9792; Venus and &#9789; Moon lines</td></tr>
+            <tr><td>Career and public life</td><td>&#9737; Sun and &#9795; Jupiter lines</td></tr>
+            <tr><td>Growth and opportunity</td><td>&#9795; Jupiter lines</td></tr>
+            <tr><td>Communication and learning</td><td>&#9791; Mercury lines</td></tr>
+            <tr><td>Drive and ambition</td><td>&#9794; Mars lines</td></tr>
+            <tr><td>Home and emotional wellbeing</td><td>&#9789; Moon lines</td></tr>
+        </tbody>
+    </table>
+
+    <p>Find those lines on your map. Note which cities and countries they pass through.</p>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- PART II: THE BUILDING BLOCKS                    -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+    <div class="part-header">
+        <div class="part-label">Part II</div>
+        <div class="part-title">The Building Blocks</div>
+        <div class="part-divider"></div>
+    </div>
+
+    <h2>4. The Four Angles</h2>
+
+    <p>The angles are the backbone of astrocartography. They determine <em>how</em> a planet's energy shows up in a location.</p>
+
+    <p>The planet is the <em>what</em>. The angle is the <em>where in your life</em>.</p>
+
+    <div class="divider">&#10022;</div>
+
+    <!-- MC -->
+    <h3>MC: Midheaven</h3>
+
+    <table class="interp-table">
+        <tbody>
+            <tr><td>Domain</td><td>Career, public life, reputation</td></tr>
+            <tr><td>Line type</td><td>Vertical</td></tr>
+            <tr><td>Visibility</td><td>Very public</td></tr>
+        </tbody>
+    </table>
+
+    <p>The Midheaven is the highest point in your chart. It represents your public face, career, reputation, and how the world sees you.</p>
+
+    <p>MC lines run straight up and down, marking the longitude where a planet was at its highest point in the sky at the moment of your birth. When a planet is on your MC in a location, that planet's energy is front and centre in your professional and public life there.</p>
+
+    <p><strong>MC energy manifests as:</strong> being seen, being known for something, career activation, public recognition, stepping into a visible role.</p>
+
+    <div class="divider">&#10022;</div>
+
+    <!-- IC -->
+    <h3>IC: Imum Coeli (Nadir)</h3>
+
+    <table class="interp-table">
+        <tbody>
+            <tr><td>Domain</td><td>Home, roots, inner life</td></tr>
+            <tr><td>Line type</td><td>Vertical</td></tr>
+            <tr><td>Visibility</td><td>Very private</td></tr>
+        </tbody>
+    </table>
+
+    <p>The IC is the deepest, most private point in your chart, opposite the MC. It represents your inner world, your sense of home, your roots, and your emotional foundation.</p>
+
+    <p>IC lines run vertically, exactly 180 degrees from the MC line. When a planet is on your IC, that energy operates in your private life. It shapes how you feel at home, your relationship with family, and your inner emotional landscape.</p>
+
+    <p><strong>IC energy manifests as:</strong> coming home, emotional depth, private transformation, inner knowing, ancestral connection.</p>
+
+    <blockquote><p>The IC is frequently overlooked. It shouldn't be. Where you feel genuinely at home affects everything else. A strong IC placement can be the foundation that makes career, relationships, and personal growth possible.</p></blockquote>
+
+    <div class="divider">&#10022;</div>
+
+    <!-- AC -->
+    <h3>AC: Ascendant</h3>
+
+    <table class="interp-table">
+        <tbody>
+            <tr><td>Domain</td><td>Self-image, identity, first impressions</td></tr>
+            <tr><td>Line type</td><td>Curved</td></tr>
+            <tr><td>Visibility</td><td>Personal, visible to others</td></tr>
+        </tbody>
+    </table>
+
+    <p>The Ascendant is your rising sign energy: how you come across to others, your outward personality, and the lens through which you experience the world.</p>
+
+    <p>AC lines are curved because they trace where a planet was rising on the eastern horizon. The curve occurs because the horizon angle changes with latitude. (Technically: AC lines are computed from the hour angle and declination of each planet at each latitude. MC/IC lines are simpler, based purely on longitude.)</p>
+
+    <p>When a planet is on your AC, it colours your entire self-expression in that location.</p>
+
+    <p><strong>AC energy manifests as:</strong> shifts in self-perception, changed personal magnetism, feeling like a different version of yourself.</p>
+
+    <div class="divider">&#10022;</div>
+
+    <!-- DC -->
+    <h3>DC: Descendant</h3>
+
+    <table class="interp-table">
+        <tbody>
+            <tr><td>Domain</td><td>Relationships, partnerships, one-on-one connections</td></tr>
+            <tr><td>Line type</td><td>Curved</td></tr>
+            <tr><td>Visibility</td><td>Experienced through others</td></tr>
+        </tbody>
+    </table>
+
+    <p>The Descendant is opposite the Ascendant. It represents other people, partnerships, and what you attract. This includes romantic partners, business partners, close friends, and anyone you form a significant one-on-one bond with.</p>
+
+    <p>DC lines are curved, opposite the AC curves. When a planet is on your DC, it shapes the kind of people you attract and the quality of your relationships in that location.</p>
+
+    <p><strong>DC energy manifests as:</strong> attracting a particular type of person, relationship shifts, significant encounters, changed partnership dynamics.</p>
+
+    <div class="divider">&#10022;</div>
+
+    <!-- Angle Hierarchy -->
+    <h3>Angle Hierarchy</h3>
+
+    <p>Among practitioners, the angles are generally ranked by intensity:</p>
+
+    <table>
+        <thead><tr><th>Rank</th><th>Angle</th><th>Why</th></tr></thead>
+        <tbody>
+            <tr><td>1</td><td><strong>MC</strong></td><td>Governs your most visible, public-facing life. Strongest angular point in traditional astrology.</td></tr>
+            <tr><td>2</td><td><strong>AC</strong></td><td>Fundamentally shifts how you present yourself and how others perceive you.</td></tr>
+            <tr><td>3</td><td><strong>DC</strong></td><td>Directly shapes relationship quality and partner attraction.</td></tr>
+            <tr><td>4</td><td><strong>IC</strong></td><td>Quietest in terms of external visibility, but arguably the most foundational.</td></tr>
+        </tbody>
+    </table>
+
+    <p>Intensity and importance are not the same thing. Your IC line might not be the loudest, but it could be the one that matters most.</p>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 5: THE PLANETS                          -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <h2>5. The Planets</h2>
+
+    <p>Each planet carries a specific type of energy. When it lands on an angle in a location, it activates that energy in that area of your life.</p>
+
+    <h3>Inner Planets (Personal, Direct, Felt Quickly)</h3>
+
+    <!-- Sun -->
+    <div class="planet-block">
+        <div class="planet-heading">&#9737; Sun &mdash; Core Identity</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Governs</td><td>Identity, recognition, leadership, vitality, purpose</td></tr>
+                <tr><td>Where it runs</td><td>You feel more <em>yourself</em>. Clarity about who you are and what you're here to do. People see and recognise something real in you.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Moon -->
+    <div class="planet-block">
+        <div class="planet-heading">&#9789; Moon &mdash; Emotional Self</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Governs</td><td>Emotions, comfort, intuition, home, nurturing, belonging</td></tr>
+                <tr><td>Where it runs</td><td>Your emotional life is amplified. You feel things more deeply. Can feel like coming home, or can feel overwhelming, depending on the angle.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Mercury -->
+    <div class="planet-block">
+        <div class="planet-heading">&#9791; Mercury &mdash; Mind and Communication</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Governs</td><td>Communication, ideas, learning, networking, mental clarity, writing</td></tr>
+                <tr><td>Where it runs</td><td>Your mind is sharper. Conversations flow. You may pick up languages faster or find yourself surrounded by intellectually stimulating people.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Venus -->
+    <div class="planet-block">
+        <div class="planet-heading">&#9792; Venus &mdash; Love and Beauty</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Governs</td><td>Love, attraction, beauty, harmony, pleasure, social grace, magnetism</td></tr>
+                <tr><td>Where it runs</td><td>Life feels more beautiful. You're more attractive to others and attracted to your surroundings. Romance and social situations flow more easily.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Mars -->
+    <div class="planet-block">
+        <div class="planet-heading">&#9794; Mars &mdash; Drive and Action</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Governs</td><td>Ambition, drive, courage, energy, competition, action, passion</td></tr>
+                <tr><td>Where it runs</td><td>You feel more motivated, assertive, and willing to take risks. The other side: conflict can also increase. Mars energy is direct.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Social Planets</h3>
+
+    <!-- Jupiter -->
+    <div class="planet-block">
+        <div class="planet-heading">&#9795; Jupiter &mdash; Expansion and Luck</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Governs</td><td>Opportunity, growth, luck, abundance, expansion, optimism, generosity</td></tr>
+                <tr><td>Where it runs</td><td>Things tend to work out. Doors open. Opportunities appear. An expansiveness to life that's hard to manufacture elsewhere.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Saturn -->
+    <div class="planet-block">
+        <div class="planet-heading">&#9796; Saturn &mdash; Structure and Hard Lessons</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Governs</td><td>Discipline, responsibility, structure, challenges, maturity, authority</td></tr>
+                <tr><td>Where it runs</td><td>Life asks more of you. Pressure to take responsibility and build something real. Demanding, but what you build here tends to last.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Outer Planets (Generational, Slower, Deeper)</h3>
+
+    <table>
+        <thead><tr><th>Planet</th><th>Symbol</th><th>Energy</th><th>Note</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Uranus</strong></td><td>&#9797;</td><td>Sudden change, innovation, freedom, disruption</td><td>Supportive for reinvention, less so for stability</td></tr>
+            <tr><td><strong>Neptune</strong></td><td>&#9798;</td><td>Dreams, spirituality, illusion, creativity</td><td>Supportive for creative/spiritual pursuits, but can blur clarity</td></tr>
+            <tr><td><strong>Pluto</strong></td><td>&#9799;</td><td>Transformation, power, intensity, deep psychological shifts</td><td>Heavy energy that should be approached with awareness</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Planetary Weight</h3>
+
+    <p>Not all lines carry equal weight. In practice, most relocational astrologers rank planetary impact roughly as follows:</p>
+
+    <table>
+        <thead><tr><th>Tier</th><th>Planets</th><th>Relative Impact</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Highest</strong></td><td>&#9737; Sun, &#9789; Moon</td><td>Most personally impactful</td></tr>
+            <tr><td><strong>High</strong></td><td>&#9792; Venus, &#9795; Jupiter</td><td>Traditional "benefics"</td></tr>
+            <tr><td><strong>Moderate</strong></td><td>&#9794; Mars, &#9796; Saturn</td><td>Significant but more challenging</td></tr>
+            <tr><td><strong>Lower</strong></td><td>&#9791; Mercury</td><td>Important for communication/intellect specifically</td></tr>
+            <tr><td><strong>Contextual</strong></td><td>&#9797; Uranus, &#9798; Neptune, &#9799; Pluto</td><td>Slower-moving, generational, subtler effects</td></tr>
+        </tbody>
+    </table>
+
+    <p>Context matters. A writer evaluating cities for a writing career should weight &#9791; Mercury MC more heavily than this general ranking suggests.</p>
+
+    <blockquote><p>This guide focuses primarily on &#9737; Sun, &#9789; Moon, &#9791; Mercury, &#9792; Venus, &#9794; Mars, &#9795; Jupiter, and &#9796; Saturn. These are the most personally relevant planets. Your map includes all of them, and you now know what each one brings.</p></blockquote>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 6: PLANET + ANGLE INTERPRETATIONS       -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <h2>6. Planet + Angle Interpretations</h2>
+
+    <p>This is the core reference section of the guide. Each planet + angle combination creates a specific experience in that location.</p>
+
+    <p><strong>This is the section you'll return to most.</strong></p>
+
+    <div class="divider">&#10022;</div>
+
+    <!-- ── SUN LINES ── -->
+    <h3>&#9737; Sun Lines</h3>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9737; Sun MC &mdash; Identity and Public Recognition</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>High visibility and recognition for who you truly are</td></tr>
+                <tr><td>Themes</td><td>Public recognition &middot; Leadership &middot; Career visibility</td></tr>
+            </tbody>
+        </table>
+        <p>The Sun on your Midheaven means this is a place where you are highly visible. Your core identity is on display, and there is potential for recognition, leadership, and being known for who you truly are. You naturally command attention here. Career-wise, this supports stepping into authority and being seen for your contributions.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9737; Sun IC &mdash; Inner Foundation and Roots</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>A place for building a strong inner foundation and sense of home</td></tr>
+                <tr><td>Themes</td><td>Inner foundation &middot; Sense of belonging &middot; Self-knowledge</td></tr>
+            </tbody>
+        </table>
+        <p>With the Sun on your IC, this location activates your deepest sense of self and belonging. You may feel drawn to put down roots here, create a home that truly reflects your identity, or reconnect with family heritage. Less about external achievement, more about knowing who you are at your core.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9737; Sun AC &mdash; Authentic Self-Expression</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Your authentic self shines through in how you present yourself</td></tr>
+                <tr><td>Themes</td><td>Authentic expression &middot; Natural confidence &middot; Personal vitality</td></tr>
+            </tbody>
+        </table>
+        <p>The Sun on your Ascendant brings vitality and authenticity to how you appear to others. You come across as confident, warm, and genuinely yourself. People are drawn to your natural radiance. This placement supports leadership, creative self-expression, and making a strong impression.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9737; Sun DC &mdash; Significant Partnerships</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Relationships take centre stage, attracting powerful partners</td></tr>
+                <tr><td>Themes</td><td>Powerful connections &middot; Significant partners &middot; Relationship growth</td></tr>
+            </tbody>
+        </table>
+        <p>With the Sun on your Descendant, relationships become a primary focus. You may attract partners who are confident, successful, or leadership-oriented. A location where significant partnerships can form and where you may define yourself through your connections with others.</p>
+    </div>
+
+    <blockquote><p>Sun lines are where you feel most like yourself. Whether through career visibility (MC), inner knowing (IC), authentic presence (AC), or meaningful partnership (DC), these locations illuminate who you are at your core.</p></blockquote>
+
+    <div class="divider">&#10022;</div>
+
+    <!-- ── MOON LINES ── -->
+    <h3>&#9789; Moon Lines</h3>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9789; Moon MC &mdash; Emotional Public Image</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Your emotional nature becomes visible in your public life</td></tr>
+                <tr><td>Themes</td><td>Emotional intelligence &middot; Nurturing career &middot; Empathic leadership</td></tr>
+            </tbody>
+        </table>
+        <p>The Moon on your Midheaven brings your emotional nature into your public and professional life. You may be drawn to nurturing careers or roles that involve caring for others. Your reputation may be tied to your emotional authenticity. Supports work in counselling, hospitality, or any field requiring emotional intelligence.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9789; Moon IC &mdash; Emotional Homeland</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>A place that feels deeply like home to your emotional self</td></tr>
+                <tr><td>Themes</td><td>Emotional homeland &middot; Deep comfort &middot; Belonging</td></tr>
+            </tbody>
+        </table>
+        <p>With the Moon on your IC, this location touches the deepest part of your emotional nature. It may feel instinctively like home, activating memories, comfort, and a sense of belonging. One of the strongest placements for creating a nurturing home environment and connecting with family or chosen family.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9789; Moon AC &mdash; Emotional Presence</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Your emotional nature is visible and magnetic to others</td></tr>
+                <tr><td>Themes</td><td>Emotional magnetism &middot; Intuitive presence &middot; Deep connections</td></tr>
+            </tbody>
+        </table>
+        <p>With the Moon near your Ascendant line, your emotional nature is visible to others. You come across as nurturing, intuitive, and emotionally attuned. People sense your feelings easily. This can create deep connections but also vulnerability. Supports emotional intimacy in relationships.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9789; Moon DC &mdash; Emotional Partnerships</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Draws emotionally nurturing and intuitive partners</td></tr>
+                <tr><td>Themes</td><td>Emotional intimacy &middot; Nurturing partners &middot; Soul connections</td></tr>
+            </tbody>
+        </table>
+        <p>The Moon on your Descendant enhances emotional connections in relationships. You may attract nurturing, sensitive, or family-oriented partners. Relationships here tend to be emotionally rich and instinctive. A place where you might find someone who truly understands your emotional needs.</p>
+    </div>
+
+    <blockquote><p>Moon lines are where you feel most emotionally alive. These locations touch something deep and instinctive. You may not be able to explain why a place feels like home, why a connection feels like recognition. That's the Moon at work.</p></blockquote>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 6 CONTINUED: MERCURY + VENUS            -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <!-- ── MERCURY LINES ── -->
+    <h3>&#9791; Mercury Lines</h3>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9791; Mercury MC &mdash; Communication and Career</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Enhanced communication skills in professional settings</td></tr>
+                <tr><td>Themes</td><td>Communication &middot; Intellectual career &middot; Mental clarity</td></tr>
+            </tbody>
+        </table>
+        <p>Mercury on the Midheaven brings intellectual clarity to your career and public life. You may be drawn to communication-heavy fields: writing, teaching, media, or commerce. Your reputation may be built on your ideas and how well you articulate them. Mental agility is your professional asset here.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9791; Mercury IC &mdash; Intellectual Roots</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>A place for deep learning and intellectual reflection</td></tr>
+                <tr><td>Themes</td><td>Deep learning &middot; Reflective thinking &middot; Inner dialogue</td></tr>
+            </tbody>
+        </table>
+        <p>Mercury on your IC activates intellectual curiosity in your private life. You may find yourself reading more, studying, or engaging in deep conversations at home. Supports writing, learning, and processing ideas in a quiet, reflective environment.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9791; Mercury AC &mdash; Quick-Witted Presence</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Projects intellectual curiosity and communicative energy</td></tr>
+                <tr><td>Themes</td><td>Quick wit &middot; Networking &middot; Curious energy</td></tr>
+            </tbody>
+        </table>
+        <p>Mercury on your Ascendant makes you come across as articulate, curious, and mentally sharp. You naturally engage others in conversation and process information quickly. Supports networking, learning, and making connections.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9791; Mercury DC &mdash; Intellectual Partnerships</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Attracts partners through mental connection and conversation</td></tr>
+                <tr><td>Themes</td><td>Mental connection &middot; Stimulating partners &middot; Shared ideas</td></tr>
+            </tbody>
+        </table>
+        <p>Mercury on your Descendant brings intellectual stimulation to relationships. You may attract communicative, witty, or intellectually curious partners. Relationships here are built on conversation and shared ideas.</p>
+    </div>
+
+    <blockquote><p>Mercury lines sharpen the mind. Whether through career recognition (MC), deep study (IC), quick-witted presence (AC), or stimulating partnerships (DC), these locations put your intellect to work in ways that feel natural and rewarding.</p></blockquote>
+
+    <div class="divider">&#10022;</div>
+
+    <!-- ── VENUS LINES ── -->
+    <h3>&#9792; Venus Lines</h3>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9792; Venus MC &mdash; Charm and Social Success</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Enhanced social magnetism and appreciation in public life</td></tr>
+                <tr><td>Themes</td><td>Social magnetism &middot; Creative recognition &middot; Grace</td></tr>
+            </tbody>
+        </table>
+        <p>Venus on the Midheaven tends to enhance how others perceive you socially. You may come across as more charming, warm, and magnetic here. This placement can heighten your social appeal and make it easier to draw positive attention. May support romantic connection through career, social circles, or public life.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9792; Venus IC &mdash; Beautiful Home Life</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Creates harmony and beauty in your private life and home</td></tr>
+                <tr><td>Themes</td><td>Harmonious home &middot; Beauty and comfort &middot; Inner peace</td></tr>
+            </tbody>
+        </table>
+        <p>With Venus on your IC, this location supports creating a beautiful, harmonious home life. You may be drawn to making your living space aesthetically pleasing and comfortable. Relationships with family may be more harmonious here. A place for cultivating pleasure and beauty in your private sphere.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9792; Venus AC &mdash; Personal Magnetism</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Enhanced attractiveness and natural charm in how you present</td></tr>
+                <tr><td>Themes</td><td>Personal magnetism &middot; Natural charm &middot; Aesthetic sense</td></tr>
+            </tbody>
+        </table>
+        <p>Venus on your Ascendant enhances your personal magnetism and attractiveness. You naturally come across as pleasant, charming, and aesthetically aware. People are drawn to you easily. Supports romance, social success, and anything requiring personal appeal.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9792; Venus DC &mdash; Romantic Magnetism</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Creates receptive conditions for romantic connection</td></tr>
+                <tr><td>Themes</td><td>Romantic magnetism &middot; Harmonious love &middot; Deep attraction</td></tr>
+            </tbody>
+        </table>
+        <p>One of the most favourable placements for love and partnership. Venus DC creates receptive conditions for romantic connection. You may find yourself more attractive to others and drawn to partners with artistic, affectionate qualities. Relationships formed here tend to be harmonious and mutually appreciative.</p>
+    </div>
+
+    <blockquote><p>Venus lines soften the edges. Whether through social magnetism (MC), a beautiful home life (IC), personal charm (AC), or romantic connection (DC), these locations invite grace, beauty, and love into your experience.</p></blockquote>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 6 CONTINUED: MARS + JUPITER + SATURN    -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <!-- ── MARS LINES ── -->
+    <h3>&#9794; Mars Lines</h3>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9794; Mars MC &mdash; Drive and Ambition</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Intense drive and ambition in career pursuits</td></tr>
+                <tr><td>Themes</td><td>Ambition &middot; Career drive &middot; Competitive edge</td></tr>
+            </tbody>
+        </table>
+        <p>Mars on the Midheaven brings intense energy to your career and public life. You will feel driven, ambitious, and motivated to achieve. Mars here can fuel professional accomplishment through sheer force of will and action. The other side: competition. Mars MC can attract rivalry or power struggles in professional settings.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9794; Mars IC &mdash; Inner Fire</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Activates deep passion and may stir family dynamics</td></tr>
+                <tr><td>Themes</td><td>Inner fire &middot; Transformation &middot; Deep motivation</td></tr>
+            </tbody>
+        </table>
+        <p>Mars on your IC activates energy in your private life and home. You may feel more restless at home, driven to improve or change your living situation. Family dynamics may be more intense. Channel this energy into home improvement or personal development and it becomes fuel.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9794; Mars AC &mdash; Dynamic Presence</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Projects courage, energy, and assertive presence</td></tr>
+                <tr><td>Themes</td><td>Dynamic presence &middot; Physical vitality &middot; Bold initiative</td></tr>
+            </tbody>
+        </table>
+        <p>Mars on your Ascendant gives you a dynamic, assertive presence. You come across as energetic, courageous, and direct. Enhances physical vitality and the ability to take initiative. You may be drawn to competitive activities or leadership roles.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9794; Mars DC &mdash; Passionate Relationships</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Attracts passionate, assertive partners with intensity</td></tr>
+                <tr><td>Themes</td><td>Passionate chemistry &middot; Intensity &middot; Electric bonds</td></tr>
+            </tbody>
+        </table>
+        <p>Mars on your Descendant brings passion and intensity to relationships. You may attract dynamic, assertive, or competitive partners. Relationships here tend to be energetic and stimulating but may also involve conflict. Can indicate passionate romance or business partnerships with driven individuals.</p>
+    </div>
+
+    <blockquote><p>Mars lines bring heat. Whether through career ambition (MC), inner drive (IC), dynamic presence (AC), or passionate partnerships (DC), these locations demand action. The energy is intense, but what you build under Mars is earned.</p></blockquote>
+
+    <div class="divider">&#10022;</div>
+
+    <!-- ── JUPITER LINES ── -->
+    <h3>&#9795; Jupiter Lines</h3>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9795; Jupiter MC &mdash; Career Expansion and Luck</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>One of the most favourable placements for professional growth</td></tr>
+                <tr><td>Themes</td><td>Career expansion &middot; Professional luck &middot; Abundance</td></tr>
+            </tbody>
+        </table>
+        <p>Jupiter on the Midheaven is one of the most favourable placements for professional growth and public recognition. This energy tends to support opportunity and expansion. Your efforts may feel more amplified and rewarded here than elsewhere. Supports growth, optimism, and a sense of abundance in your public life.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9795; Jupiter IC &mdash; Abundant Home Life</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Brings expansion and optimism to home and inner life</td></tr>
+                <tr><td>Themes</td><td>Abundant home &middot; Emotional growth &middot; Inner wisdom</td></tr>
+            </tbody>
+        </table>
+        <p>Jupiter on your IC brings expansion and optimism to your home and inner life. You may feel a sense of abundance in your private sphere, with a generous, welcoming home environment. Supports emotional growth, philosophical reflection, and a positive family life.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9795; Jupiter AC &mdash; Optimistic Presence</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Projects warmth, generosity, and opens doors easily</td></tr>
+                <tr><td>Themes</td><td>Optimistic presence &middot; Open doors &middot; Good fortune</td></tr>
+            </tbody>
+        </table>
+        <p>Jupiter on your Ascendant brings warmth, optimism, and openness to how you present yourself. Doors tend to open more easily. Others perceive you as generous and adventurous. Enhances your ability to make positive first impressions and attracts good fortune through your personality.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9795; Jupiter DC &mdash; Fortunate Partnerships</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Attracts beneficial, generous partners and opportunities through others</td></tr>
+                <tr><td>Themes</td><td>Fortunate partnerships &middot; Generous partners &middot; Lucky connections</td></tr>
+            </tbody>
+        </table>
+        <p>Jupiter on your Descendant brings good fortune through partnerships and relationships. You may attract generous, optimistic, or successful partners. Opportunities often come through other people. Excellent for beneficial business partnerships and relationships that expand your horizons.</p>
+    </div>
+
+    <blockquote><p>Jupiter lines expand everything they touch. Whether through career growth (MC), an abundant home (IC), optimistic presence (AC), or fortunate partnerships (DC), these locations feel like the universe is working with you, not against you.</p></blockquote>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 6 CONTINUED: SATURN                     -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <!-- ── SATURN LINES ── -->
+    <h3>&#9796; Saturn Lines</h3>
+
+    <p>Saturn has a difficult reputation in astrocartography. But these are locations where life asks more of you, and where what you build tends to last.</p>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9796; Saturn MC &mdash; Authority and Career Building</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Slow career building through discipline and earned authority</td></tr>
+                <tr><td>Themes</td><td>Authority &middot; Discipline &middot; Long-term career building</td></tr>
+            </tbody>
+        </table>
+        <p>You won't be handed anything here, but what you earn, you keep. Often associated with working under strict structures or eventually becoming an authority figure. Not quick wins. Real ones.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9796; Saturn IC &mdash; Emotional Foundations</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Sense of duty around home; deep foundations built over time</td></tr>
+                <tr><td>Themes</td><td>Emotional maturity &middot; Duty &middot; Solid foundations</td></tr>
+            </tbody>
+        </table>
+        <p>Emotional restriction or a sense of duty around home and family. Can feel isolating at first. But it can also indicate a place where you build deep, lasting emotional foundations. The comfort comes with time, not instantly.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9796; Saturn AC &mdash; Reserved Presence</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Projects maturity and seriousness; first impressions require more effort</td></tr>
+                <tr><td>Themes</td><td>Maturity &middot; Reserved presence &middot; Earned respect</td></tr>
+            </tbody>
+        </table>
+        <p>You may feel held back, more serious, or less "yourself" here initially. People perceive you as mature and responsible. First impressions may be harder to make, but the ones that stick are real.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">&#9796; Saturn DC &mdash; Serious Partnerships</div>
+        <table class="interp-table">
+            <tbody>
+                <tr><td>Summary</td><td>Relationships require genuine effort but develop into something solid</td></tr>
+                <tr><td>Themes</td><td>Serious partnerships &middot; Commitment &middot; Depth through effort</td></tr>
+            </tbody>
+        </table>
+        <p>Relationships here require work. You may attract older, more serious, or emotionally cautious partners. But the relationships that survive are solid and mature. Saturn demands genuine effort, and what develops tends to be meaningful.</p>
+    </div>
+
+    <blockquote><p><strong>On Saturn lines generally:</strong> These aren't locations for ease. They're where you do the work. If you're in a chapter of life where you're ready to build something serious, Saturn lines can be deeply rewarding. If you need lightness and recovery, they may not be the right fit right now. But don't dismiss them entirely.</p></blockquote>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- PART III: ADVANCED READING                      -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+    <div class="part-header">
+        <div class="part-label">Part III</div>
+        <div class="part-title">Advanced Reading</div>
+        <div class="part-divider"></div>
+    </div>
+
+    <h2>7. Orbs and Distance</h2>
+
+    <p>You don't have to be <em>exactly</em> on a line for it to affect you. The influence fades gradually with distance. This zone of influence is called the "orb."</p>
+
+    <h3>What the Experts Say</h3>
+
+    <p>There is active debate among practitioners about effective orb distance:</p>
+
+    <table>
+        <thead><tr><th>Source</th><th>Recommended Orb</th><th>Equivalent Distance</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Jim Lewis</strong> (original technique)</td><td>8-12 degrees</td><td>~550-830 miles</td></tr>
+            <tr><td><strong>Helena Woods</strong> (modern practitioner)</td><td>4-8 degrees</td><td>~350-600 miles</td></tr>
+            <tr><td><strong>Contemporary consensus</strong></td><td>4-6 degrees for strong effects</td><td>~200-350 miles</td></tr>
+            <tr><td><strong>Client/community reports</strong> (Astrocartology forums)</td><td>Tightest ranges</td><td>Intense within 25 mi, strong within 50, noticeable within 100</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Working Framework</h3>
+
+    <table>
+        <thead><tr><th>Distance from line</th><th>Strength</th><th>Description</th></tr></thead>
+        <tbody>
+            <tr><td><strong>0-50 miles</strong> (0-80 km)</td><td>Very strong</td><td>Unmistakable influence</td></tr>
+            <tr><td><strong>50-150 miles</strong> (80-240 km)</td><td>Strong</td><td>Clearly noticeable, significant</td></tr>
+            <tr><td><strong>150-350 miles</strong> (240-560 km)</td><td>Moderate</td><td>Present but softer, background influence</td></tr>
+            <tr><td><strong>350-600 miles</strong> (560-960 km)</td><td>Mild</td><td>Lewis would say active; many modern astrologers say fading</td></tr>
+            <tr><td><strong>600+ miles</strong> (960+ km)</td><td>Negligible</td><td>Most practitioners would not factor this in</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Practical Implications</h3>
+
+    <ul>
+        <li>A city 50 miles from your &#9795; Jupiter MC line is a very strong &#9795; Jupiter MC location</li>
+        <li>You don't need to be exactly on the line. Within 150 miles, you're solidly in the zone</li>
+        <li>Benefics (&#9795; Jupiter, &#9792; Venus) may have wider effective ranges than malefics (&#9794; Mars, &#9796; Saturn), though this is observational, not proven</li>
+    </ul>
+
+    <h3>Distance as Intensity</h3>
+
+    <p>Being right on a line means the energy is at full strength. For &#9795; Jupiter and &#9792; Venus, that's generally welcome. For &#9794; Mars or &#9796; Saturn, full strength can be overwhelming. Some practitioners recommend living 150-300 miles from a challenging line to benefit from the energy without being consumed by it.</p>
+
+    <p>Think of distance as a volume dial. Full volume isn't always what serves you best.</p>
+
+    <div class="divider">&#10022;</div>
+
+    <h2>8. Line Crossings and Power Zones</h2>
+
+    <p>A <strong>line crossing</strong> occurs when two planetary lines intersect at the same location. Both planetary energies activate simultaneously, combining and amplifying each other.</p>
+
+    <h3>Technical Background: Parans</h3>
+
+    <p>The technical term for these crossings is <strong>parans</strong> (short for paranatellontae). When two lines cross, they create a horizontal latitude line extending east-west from the crossing point. The combined energy runs along that entire latitude, though it is strongest at and near the actual intersection, with an orb of approximately 1 degree of latitude (~70 miles north or south).</p>
+
+    <p>Parans are considered very powerful in locational astrology. Even without major planetary lines in your area, you almost certainly have paran lines nearby.</p>
+
+    <h3>How to Identify Crossings</h3>
+
+    <p>On Astro.com's Astro Click Travel, click directly on crossing points to see which planets are involved. Astro-Seek also displays paran lines clearly.</p>
+
+    <h3>Favourable Crossings</h3>
+
+    <table>
+        <thead><tr><th>Crossing</th><th>Combined Energy</th></tr></thead>
+        <tbody>
+            <tr><td>&#9792; Venus + &#9795; Jupiter</td><td>Love + luck + beauty + abundance. One of the most favourable crossings possible.</td></tr>
+            <tr><td>&#9737; Sun + &#9795; Jupiter</td><td>Career success + expansion. Excellent for professional growth.</td></tr>
+            <tr><td>&#9789; Moon + &#9792; Venus</td><td>Emotional comfort + beauty + love. Strong for home and relationships.</td></tr>
+            <tr><td>&#9791; Mercury + &#9795; Jupiter</td><td>Ideas + opportunity. Strong for entrepreneurs, writers, communicators.</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Challenging Crossings</h3>
+
+    <table>
+        <thead><tr><th>Crossing</th><th>Combined Energy</th></tr></thead>
+        <tbody>
+            <tr><td>&#9794; Mars + &#9796; Saturn</td><td>Drive + restriction. Hard work, sometimes frustrating. What you build is solid.</td></tr>
+            <tr><td>&#9794; Mars + &#9799; Pluto</td><td>Intense power dynamics. Transformative but potentially volatile.</td></tr>
+            <tr><td>&#9796; Saturn + &#9799; Pluto</td><td>Deep transformation through difficulty. Life-changing but heavy.</td></tr>
+            <tr><td>&#9798; Neptune + any</td><td>Inspiring and disorienting. Dreamlike quality but reduced clarity.</td></tr>
+        </tbody>
+    </table>
+
+    <h3>The Power Zone</h3>
+
+    <p>The area within ~100-150 miles of a crossing is the "power zone." Both energies are active here. The city closest to the intersection feels both influences most strongly.</p>
+
+    <blockquote><p><strong>From client work:</strong> A client had &#9792; Venus DC and &#9795; Jupiter AC lines crossing through Eastern China. Romantic connection (&#9792; Venus DC) was supported by warmth and openness (&#9795; Jupiter AC). They also had &#9796; Saturn AC running through the same region, adding seriousness. The read: love here wouldn't be effortless, but what developed would be meaningful. &#9795; Jupiter made them approachable, &#9792; Venus made connection likely, &#9796; Saturn ensured it wasn't superficial.</p></blockquote>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 9: THE RELOCATED CHART                  -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <h2>9. The Relocated Chart</h2>
+
+    <p>This is the difference between a surface-level reading and understanding what a city will actually feel like day to day.</p>
+
+    <h3>What Is a Relocated Chart?</h3>
+
+    <p>Your natal chart is calculated for your birth location. A relocated chart recalculates the same chart as if you were born at the exact same moment, but in a different city. The planets stay in the same signs (your cosmic blueprint doesn't change), but the <strong>houses and angles shift</strong>.</p>
+
+    <p>As astrologer Alice Bell explains: while the astrocartography map only shows when planets meet up with the four angles, the relocation chart shows what houses all your planets shift into, even if they aren't touching angles. This is a crucial distinction.</p>
+
+    <p>Houses determine <em>where in your life</em> planets express themselves. A planet in your 12th house (hidden, private) behaves very differently from the same planet in your 1st house (visible, front and centre) or your 7th house (through partnerships).</p>
+
+    <h3>Astrocartography vs. Relocated Chart</h3>
+
+    <table>
+        <thead><tr><th></th><th>Astrocartography</th><th>Relocated Chart</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Shows</strong></td><td>Where planets meet the 4 angles</td><td>Where all planets land in houses</td></tr>
+            <tr><td><strong>Scope</strong></td><td>Global overview</td><td>City-specific detail</td></tr>
+            <tr><td><strong>Best for</strong></td><td>Identifying promising regions</td><td>Evaluating a specific city deeply</td></tr>
+            <tr><td><strong>Analogy</strong></td><td>Satellite view</td><td>Street-level view</td></tr>
+        </tbody>
+    </table>
+
+    <h3>How to Generate</h3>
+
+    <p><strong>Astro.com:</strong> Go to your natal chart and change the birth location to your target city. Keep date and time the same.</p>
+
+    <p><strong>Astro-Seek.com:</strong> Use the dedicated "Relocation Chart" tool.</p>
+
+    <h3>What to Examine</h3>
+
+    <table>
+        <thead><tr><th>Element</th><th>What it tells you</th></tr></thead>
+        <tbody>
+            <tr><td><strong>New Ascendant</strong></td><td>How you come across in this city. Your outward energy shifts.</td></tr>
+            <tr><td><strong>Moon's house</strong></td><td>Where you find emotional comfort. 4th = home/family. 7th = partnership. 11th = community.</td></tr>
+            <tr><td><strong>Sun's house</strong></td><td>Where your identity expresses most naturally. 10th = career-central. 12th = introspective.</td></tr>
+            <tr><td><strong>New MC sign</strong></td><td>What kind of career energy the city supports.</td></tr>
+            <tr><td><strong>Planets in 7th house</strong></td><td>Directly shapes relationship experience. &#9789; Moon = emotional partnerships. &#9796; Saturn = committed but slow. &#9798; Neptune = fated but clarity needed.</td></tr>
+        </tbody>
+    </table>
+
+    <h3>When to Use It</h3>
+
+    <p>For a quick check, the astrocartography map is sufficient. For a serious relocation decision, pull up the relocated chart as well. It reveals things the map alone cannot.</p>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- PART IV: APPLICATION                            -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+    <div class="part-header">
+        <div class="part-label">Part IV</div>
+        <div class="part-title">Application</div>
+        <div class="part-divider"></div>
+    </div>
+
+    <h2>10. City Evaluation Framework</h2>
+
+    <p>A structured process for evaluating any city on your chart.</p>
+
+    <table>
+        <thead><tr><th>Step</th><th>Action</th></tr></thead>
+        <tbody>
+            <tr><td><strong>1</strong></td><td><strong>Identify nearest lines.</strong> Which planets, which angles, approximate distance from each.</td></tr>
+            <tr><td><strong>2</strong></td><td><strong>Check for crossings.</strong> Are any lines crossing near this city? Note both planets.</td></tr>
+            <tr><td><strong>3</strong></td><td><strong>Read the interpretations.</strong> Refer to Section 6. Record key themes for each active line.</td></tr>
+            <tr><td><strong>4</strong></td><td><strong>Assess angle relevance.</strong> Does the angle match what you're looking for? MC = career. IC = home. AC = identity. DC = relationships.</td></tr>
+            <tr><td><strong>5</strong></td><td><strong>Factor in distance.</strong> Use the framework from Section 7 to gauge strength.</td></tr>
+            <tr><td><strong>6</strong></td><td><strong>Check for challenging lines.</strong> Does the city also activate &#9794; Mars or &#9796; Saturn lines? Note the full picture.</td></tr>
+            <tr><td><strong>7</strong></td><td><strong>Pull the relocated chart</strong> (optional). For serious consideration: new Ascendant, Moon's house, planets in 7th house, new MC sign.</td></tr>
+            <tr><td><strong>8</strong></td><td><strong>Reality check.</strong> Visa, cost of living, language, climate, job market. Both lenses matter.</td></tr>
+        </tbody>
+    </table>
+
+    <div class="divider">&#10022;</div>
+
+    <h2>11. The Relocation Decision Framework</h2>
+
+    <h3>Step 1: Define Your Priority</h3>
+
+    <p>What is your primary goal for your next chapter? You can want more than one thing, but knowing which one leads helps you weight the lines.</p>
+
+    <table>
+        <thead><tr><th>Priority</th><th>Best lines</th></tr></thead>
+        <tbody>
+            <tr><td>Career advancement</td><td>&#9737; Sun MC &middot; &#9795; Jupiter MC &middot; &#9794; Mars MC</td></tr>
+            <tr><td>Finding love</td><td>&#9792; Venus DC &middot; &#9792; Venus AC &middot; &#9789; Moon DC</td></tr>
+            <tr><td>Feeling at home</td><td>&#9789; Moon IC &middot; &#9792; Venus IC &middot; &#9795; Jupiter IC</td></tr>
+            <tr><td>Personal growth</td><td>&#9795; Jupiter AC &middot; &#9737; Sun AC</td></tr>
+            <tr><td>Creative expression</td><td>&#9792; Venus MC &middot; &#9798; Neptune AC &middot; &#9737; Sun AC</td></tr>
+            <tr><td>Building wealth</td><td>&#9795; Jupiter MC &middot; &#9737; Sun MC &middot; &#9796; Saturn MC (long game)</td></tr>
+            <tr><td>Intellectual stimulation</td><td>&#9791; Mercury MC &middot; &#9791; Mercury AC &middot; &#9795; Jupiter AC</td></tr>
+            <tr><td>Fresh start</td><td>&#9797; Uranus AC &middot; &#9799; Pluto AC &middot; &#9737; Sun AC</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Step 2: Three-City Method</h3>
+
+    <p>Identify your top three cities based on priority lines. For each:</p>
+
+    <p><strong>Map out:</strong></p>
+    <ul>
+        <li>Active lines (planet + angle)</li>
+        <li>Distance from each line</li>
+        <li>Any crossings</li>
+        <li>Overall "signature" from interpretations</li>
+    </ul>
+
+    <p><strong>Score:</strong></p>
+    <ul>
+        <li>Alignment with your #1 priority (strong / moderate / weak)</li>
+        <li>Challenging lines present (noted honestly)</li>
+        <li>Practical feasibility (visa, cost, language, climate)</li>
+    </ul>
+
+    <h3>Step 3: Practical Overlay</h3>
+
+    <p>Astrocartography is one input, not the only one. A city with ideal planetary alignment but no job market in your field, an impossible visa situation, or a climate that genuinely doesn't suit you is still not the right city.</p>
+
+    <p>Use astrocartography as a <strong>filter and a tiebreaker</strong>:</p>
+
+    <ol>
+        <li><strong>Start with your practical shortlist</strong> — cities you could actually move to</li>
+        <li><strong>Overlay your astrocartography</strong> — which of these have the best activations?</li>
+        <li><strong>Visit first if possible</strong> — spend a week or two there</li>
+        <li><strong>Trust your body</strong> — if a city with great lines doesn't feel right, that's data too</li>
+    </ol>
+
+    <h3>A Note on Timing</h3>
+
+    <p>Planetary transits interact with your astrocartography lines. A city might feel average most years but activate powerfully during a specific transit period. If you work with transit astrology, layer it on top of your astrocartography reading for additional nuance.</p>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 12: WORKED EXAMPLE                      -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <h2>12. Worked Example</h2>
+
+    <h3>Setup</h3>
+
+    <table class="interp-table">
+        <tbody>
+            <tr><td>Born</td><td>15 March 1995, 2:30 PM, London, UK</td></tr>
+            <tr><td>Priority</td><td>Career growth and romantic connection</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Step 1: Key Lines Identified</h3>
+
+    <table>
+        <thead><tr><th>City</th><th>Line</th><th>Distance</th><th>Strength</th></tr></thead>
+        <tbody>
+            <tr><td>Singapore</td><td>&#9795; Jupiter MC</td><td>~40 mi</td><td>Very strong</td></tr>
+            <tr><td>Barcelona</td><td>&#9792; Venus DC + &#9795; Jupiter AC</td><td>~60 mi</td><td>Strong (power zone)</td></tr>
+            <tr><td>New York</td><td>&#9737; Sun MC</td><td>~80 mi</td><td>Strong</td></tr>
+            <tr><td>Melbourne</td><td>&#9789; Moon IC</td><td>~45 mi</td><td>Very strong</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Step 2: Crossings</h3>
+
+    <p>Near Barcelona, &#9792; Venus DC and &#9795; Jupiter AC lines cross within 100 miles. Power zone: romantic connection (&#9792; Venus DC) meets good fortune and warmth (&#9795; Jupiter AC).</p>
+
+    <h3>Step 3: Interpretation Summary</h3>
+
+    <table>
+        <thead><tr><th>City</th><th>Reading</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Singapore</strong></td><td>&#9795; Jupiter MC: One of the most favourable placements for professional growth. Doors opening, career expansion, abundance.</td></tr>
+            <tr><td><strong>Barcelona</strong></td><td>&#9792; Venus DC: Receptive conditions for romantic connection. + &#9795; Jupiter AC: Warmth, openness, good fortune in self-presentation.</td></tr>
+            <tr><td><strong>New York</strong></td><td>&#9737; Sun MC: High visibility and recognition. Career leadership. People see the real you.</td></tr>
+            <tr><td><strong>Melbourne</strong></td><td>&#9789; Moon IC: Emotional homeland. A place that feels deeply like home.</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Step 4: Priority Matching</h3>
+
+    <table>
+        <thead><tr><th>Goal</th><th>Best fit</th></tr></thead>
+        <tbody>
+            <tr><td>Career</td><td>Singapore (&#9795; Jupiter MC) — premier career placement</td></tr>
+            <tr><td>Love</td><td>Barcelona (&#9792; Venus DC + &#9795; Jupiter AC crossing) — clear standout</td></tr>
+            <tr><td>Foundation</td><td>Melbourne (&#9789; Moon IC) — emotional home base</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Step 5: Decision</h3>
+
+    <p>Target Singapore for the career chapter. Bookmark Barcelona for when romantic connection becomes the leading priority. Melbourne stays on the radar as a long-term home base.</p>
+
+    <p>This is astrocartography applied practically. A thoughtful framework layered onto real-world planning.</p>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- PART V: REFERENCE                               -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+    <div class="part-header">
+        <div class="part-label">Part V</div>
+        <div class="part-title">Reference</div>
+        <div class="part-divider"></div>
+    </div>
+
+    <h2>13. Quick Reference Tables</h2>
+
+    <h3>Planets at a Glance</h3>
+
+    <table>
+        <thead><tr><th>Planet</th><th>Symbol</th><th>Energy</th><th>Best for</th></tr></thead>
+        <tbody>
+            <tr><td>Sun</td><td>&#9737;</td><td>Identity, confidence, vitality</td><td>Career, leadership, being seen</td></tr>
+            <tr><td>Moon</td><td>&#9789;</td><td>Emotions, comfort, intuition</td><td>Home, belonging, emotional wellbeing</td></tr>
+            <tr><td>Mercury</td><td>&#9791;</td><td>Communication, intellect</td><td>Networking, learning, writing</td></tr>
+            <tr><td>Venus</td><td>&#9792;</td><td>Love, beauty, attraction</td><td>Romance, social life, creativity</td></tr>
+            <tr><td>Mars</td><td>&#9794;</td><td>Drive, ambition, energy</td><td>Career drive, action, initiative</td></tr>
+            <tr><td>Jupiter</td><td>&#9795;</td><td>Growth, luck, abundance</td><td>Career expansion, opportunity</td></tr>
+            <tr><td>Saturn</td><td>&#9796;</td><td>Discipline, structure</td><td>Long-term building, authority, mastery</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Angles at a Glance</h3>
+
+    <table>
+        <thead><tr><th>Angle</th><th>Domain</th><th>Visibility</th><th>Line Type</th></tr></thead>
+        <tbody>
+            <tr><td><strong>MC</strong></td><td>Career, public life</td><td>Very public</td><td>Vertical</td></tr>
+            <tr><td><strong>IC</strong></td><td>Home, inner life</td><td>Very private</td><td>Vertical</td></tr>
+            <tr><td><strong>AC</strong></td><td>Identity, presence</td><td>Personal</td><td>Curved</td></tr>
+            <tr><td><strong>DC</strong></td><td>Relationships</td><td>Through others</td><td>Curved</td></tr>
+        </tbody>
+    </table>
+
+    <h3>All 28 Combinations at a Glance</h3>
+
+    <table>
+        <thead><tr><th>Planet</th><th>MC (Career)</th><th>IC (Home)</th><th>AC (Identity)</th><th>DC (Relationships)</th></tr></thead>
+        <tbody>
+            <tr><td><strong>&#9737; Sun</strong></td><td>Visibility, leadership</td><td>Inner foundation</td><td>Authentic presence</td><td>Significant partners</td></tr>
+            <tr><td><strong>&#9789; Moon</strong></td><td>Emotional public image</td><td>Emotional homeland</td><td>Emotional magnetism</td><td>Nurturing partners</td></tr>
+            <tr><td><strong>&#9791; Mercury</strong></td><td>Intellectual career</td><td>Deep learning</td><td>Quick-witted presence</td><td>Mental connection</td></tr>
+            <tr><td><strong>&#9792; Venus</strong></td><td>Social magnetism</td><td>Beautiful home</td><td>Personal charm</td><td>Romantic magnetism</td></tr>
+            <tr><td><strong>&#9794; Mars</strong></td><td>Ambitious drive</td><td>Inner fire</td><td>Dynamic presence</td><td>Passionate bonds</td></tr>
+            <tr><td><strong>&#9795; Jupiter</strong></td><td>Career expansion</td><td>Abundant home</td><td>Optimistic presence</td><td>Fortunate partners</td></tr>
+            <tr><td><strong>&#9796; Saturn</strong></td><td>Earned authority</td><td>Solid foundations</td><td>Reserved maturity</td><td>Serious commitment</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Lines to Approach With Awareness</h3>
+
+    <table>
+        <thead><tr><th>Line</th><th>Note</th></tr></thead>
+        <tbody>
+            <tr><td>&#9796; Saturn</td><td>Growth through challenge. Slow but solid.</td></tr>
+            <tr><td>&#9794; Mars</td><td>Energy and drive, plus potential conflict.</td></tr>
+            <tr><td>&#9799; Pluto</td><td>Deep transformation. Intense.</td></tr>
+            <tr><td>&#9798; Neptune</td><td>Inspiring but hazy. Verify, don't assume.</td></tr>
+        </tbody>
+    </table>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 14: COMMON MISTAKES                     -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <h2>14. Common Mistakes</h2>
+
+    <p>These come up often in client work. Worth knowing before you start making decisions.</p>
+
+    <div class="planet-block">
+        <div class="planet-heading">1. Ignoring birth time accuracy</div>
+        <p>A 30-minute error can displace your AC and DC lines significantly. MC and IC lines are affected too, to a lesser degree. Get the most accurate birth time available before making decisions.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">2. Only looking at favourable lines</div>
+        <p>Everyone gravitates toward their &#9795; Jupiter MC. That's natural. But ignoring &#9796; Saturn or &#9794; Mars lines in a city means you're only seeing half the picture. Check all lines near any city you're seriously considering.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">3. Treating one line as deterministic</div>
+        <p>A city with your &#9792; Venus DC doesn't guarantee love. It means the <em>conditions</em> are more favourable. Astrocartography shows potential, not promises.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">4. Relocating based solely on astrocartography</div>
+        <p>Don't uproot your life solely because a planetary line runs through a city. Factor in practical realities. Visit first. Astrocartography is a tool, not a directive.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">5. Forgetting about transits</div>
+        <p>Your astrocartography map is fixed (based on your birth chart). But transiting planets interact with your relocated chart over time. A city might feel different during different periods.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">6. Comparing charts with others</div>
+        <p>Your &#9795; Jupiter line doesn't run through the same places as someone else's. Their map is irrelevant to yours.</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">7. Dismissing &#9796; Saturn entirely</div>
+        <p>&#9796; Saturn lines aren't punishment. They're places where you grow through effort and discipline. Some of the most meaningful life chapters happen under &#9796; Saturn lines. The question isn't "is &#9796; Saturn there?" but "am I ready for what &#9796; Saturn asks?"</p>
+    </div>
+
+    <div class="planet-block">
+        <div class="planet-heading">8. Skipping the relocated chart</div>
+        <p>The astrocartography map is the overview. The relocated chart is the detail. For serious relocation decisions, use both.</p>
+    </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 15: GLOSSARY                            -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <div style="page-break-inside: avoid;">
+    <h2 style="margin-top: 0; margin-bottom: 10px;">15. Glossary</h2>
+
+    <table style="font-size: 10pt; line-height: 1.4;">
+        <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Angle</strong></td><td>One of four key chart points (MC, IC, AC, DC) where planetary energy shows up in specific life areas</td></tr>
+            <tr><td><strong>Ascendant (AC)</strong></td><td>Eastern horizon point. Governs self-image, identity, first impressions</td></tr>
+            <tr><td><strong>Astrocartography</strong></td><td>Branch of astrology mapping your birth chart onto the globe geographically</td></tr>
+            <tr><td><strong>Descendant (DC)</strong></td><td>Western horizon point. Governs relationships and partnerships</td></tr>
+            <tr><td><strong>IC (Imum Coeli)</strong></td><td>Lowest chart point. Governs home, roots, inner life. Also called the Nadir</td></tr>
+            <tr><td><strong>Line crossing</strong></td><td>Where two planetary lines intersect, combining both energies. Also called a paran</td></tr>
+            <tr><td><strong>MC (Midheaven)</strong></td><td>Highest chart point. Governs career, public life, reputation</td></tr>
+            <tr><td><strong>Natal chart</strong></td><td>Your birth chart, calculated for the exact time and place of birth</td></tr>
+            <tr><td><strong>Orb</strong></td><td>The distance from an exact line within which influence is felt</td></tr>
+            <tr><td><strong>Paran</strong></td><td>Where two planetary lines cross, creating a latitude band of combined energy</td></tr>
+            <tr><td><strong>Planetary line</strong></td><td>A line showing where a planet was at a specific angle at the time of your birth</td></tr>
+            <tr><td><strong>Power zone</strong></td><td>Area around a line crossing where both energies are active (~100–150 miles)</td></tr>
+            <tr><td><strong>Relocated chart</strong></td><td>Natal chart recalculated for a different location. Houses and angles shift</td></tr>
+            <tr><td><strong>Transit</strong></td><td>Current position of a planet interacting with your natal chart over time</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 16: WORKSHEETS                          -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <h2>16. Worksheets</h2>
+
+    <div class="worksheet">
+        <h4>Worksheet A: Priority Lines</h4>
+
+        <p><strong>My primary priority:</strong></p>
+        <div class="blank-line"></div>
+
+        <p><strong>Lines to focus on:</strong></p>
+
+        <table>
+            <thead><tr><th>#</th><th>Planet</th><th>Symbol</th><th>Angle</th><th>Why</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="worksheet">
+        <h4>Worksheet B: City Evaluation</h4>
+        <p><em>Use one copy per city.</em></p>
+
+        <p><strong>City:</strong></p>
+        <div class="blank-line"></div>
+
+        <p><strong>Active Lines:</strong></p>
+
+        <table>
+            <thead><tr><th>Planet</th><th>Symbol</th><th>Angle</th><th>Distance</th><th>Strength</th></tr></thead>
+            <tbody>
+                <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Line crossings nearby:</strong></p>
+        <div class="blank-line"></div>
+
+        <p><strong>Key themes:</strong></p>
+        <div class="blank-line"></div>
+        <div class="blank-line"></div>
+        <div class="blank-line"></div>
+
+        <p><strong>Relocated chart (optional):</strong></p>
+
+        <table>
+            <thead><tr><th>Element</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>New Ascendant</td><td></td></tr>
+                <tr><td>Moon's house</td><td></td></tr>
+                <tr><td>Sun's house</td><td></td></tr>
+                <tr><td>Planets in 7th</td><td></td></tr>
+                <tr><td>New MC sign</td><td></td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Practical assessment:</strong></p>
+
+        <table>
+            <thead><tr><th>Factor</th><th>Rating (1-5)</th><th>Notes</th></tr></thead>
+            <tbody>
+                <tr><td>Visa / legal</td><td></td><td></td></tr>
+                <tr><td>Cost of living</td><td></td><td></td></tr>
+                <tr><td>Language</td><td></td><td></td></tr>
+                <tr><td>Job market</td><td></td><td></td></tr>
+                <tr><td>Climate</td><td></td><td></td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Overall assessment:</strong></p>
+        <div class="blank-line"></div>
+    </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- WORKSHEET C + WHAT TO DO NEXT                   -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <div class="worksheet">
+        <h4>Worksheet C: Three-City Comparison</h4>
+
+        <table>
+            <thead><tr><th></th><th>City 1: _______</th><th>City 2: _______</th><th>City 3: _______</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Strongest line</strong></td><td></td><td></td><td></td></tr>
+                <tr><td><strong>Distance from line</strong></td><td></td><td></td><td></td></tr>
+                <tr><td><strong>Priority alignment</strong></td><td>Strong / Mod / Weak</td><td>Strong / Mod / Weak</td><td>Strong / Mod / Weak</td></tr>
+                <tr><td><strong>Challenging lines</strong></td><td></td><td></td><td></td></tr>
+                <tr><td><strong>Practical feasibility</strong></td><td>Strong / Mod / Weak</td><td>Strong / Mod / Weak</td><td>Strong / Mod / Weak</td></tr>
+                <tr><td><strong>Gut feeling</strong></td><td></td><td></td><td></td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Recommended choice and rationale:</strong></p>
+        <div class="blank-line"></div>
+        <div class="blank-line"></div>
+    </div>
+
+    <div class="divider">&#10022;</div>
+
+    <h2>What to Do Next</h2>
+
+    <p>You now have the knowledge to read your own astrocartography chart. You understand the angles, the planets, every major combination, distance rules, line crossings, relocated charts, and how to put it all together into a practical evaluation.</p>
+
+    <p>As a first step: pull up your chart and find the city you currently live in. Read the lines. See if it matches your experience. That tends to be the moment where this shifts from theory to something personal.</p>
+
+    <p>Then look at the cities you've always felt drawn to. See what lines run through them. Notice if there's a pattern.</p>
+
+    <p>If you're seriously considering a move, work through the framework in Section 11 and use the worksheets. Take your time.</p>
+
+    <p>Your chart is a map. Where you go is still your choice.</p>
+
+    <div class="info-box" style="margin-top: 30px; text-align: center; border-left: none; border-top: 2px solid #d4af37; background: transparent;">
+        <p style="font-style: italic; text-align: center;">Astrocartography shows where certain energies become more accessible. It does not determine outcomes. These are favourable conditions, not guarantees. What you do within those conditions is yours to decide.</p>
+    </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 17: SOURCES AND FURTHER READING         -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="page">
+
+    <h2>17. Sources and Further Reading</h2>
+
+    <h3>Books</h3>
+
+    <ul>
+        <li><em>The Psychology of Astro*Carto*Graphy</em> &mdash; Jim Lewis and Kenneth Irving. The foundational text.</li>
+        <li><em>The Astro*Carto*Graphy Book of Maps</em> &mdash; Jim Lewis. Case studies of famous people and their planetary lines.</li>
+    </ul>
+
+    <h3>Tools</h3>
+
+    <table>
+        <thead><tr><th>Tool</th><th>URL</th><th>Use</th></tr></thead>
+        <tbody>
+            <tr><td>Astro.com</td><td>astro.com</td><td>Free interactive astrocartography map (gold standard)</td></tr>
+            <tr><td>Astro-Seek</td><td>astro-seek.com</td><td>Free map with relocated chart tools</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Online Resources</h3>
+
+    <table>
+        <thead><tr><th>Source</th><th>Topic</th></tr></thead>
+        <tbody>
+            <tr><td>Helena Woods &mdash; How to Read Your Astrocartography Map</td><td>Step-by-step walkthrough with visuals</td></tr>
+            <tr><td>Kim Mott &mdash; How to Read Your Astrocartography Map</td><td>Beginner-friendly breakdown</td></tr>
+            <tr><td>Kim Mott &mdash; History of Astrocartography</td><td>Jim Lewis and technique development</td></tr>
+            <tr><td>My Astro Diaries &mdash; Paran Lines Explained</td><td>Paran crossings and mechanics</td></tr>
+            <tr><td>My Astro Diaries &mdash; Astrocartography vs Relocation Chart</td><td>When to use each technique</td></tr>
+            <tr><td>Alice Bell &mdash; Astrocartography &amp; Relocation Charts</td><td>Overview of both techniques</td></tr>
+            <tr><td>Sensitive Nomad &mdash; Intro to Astrocartography</td><td>Practical tips</td></tr>
+            <tr><td>Astrocartography.uk &mdash; Orbs of Influence</td><td>Technical orb distances</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Technical References</h3>
+
+    <table>
+        <thead><tr><th>Source</th><th>Topic</th></tr></thead>
+        <tbody>
+            <tr><td>Jim Lewis &mdash; Wikipedia</td><td>Inventor biography and contributions</td></tr>
+            <tr><td>Astrology for the Soul &mdash; Locational Astrology</td><td>Technical dive into line calculations</td></tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 60px; text-align: center;">
+        <div class="divider">&#10022; &#10022; &#10022;</div>
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 8pt; color: #bbb; letter-spacing: 2px; text-transform: uppercase; text-align: center;">Copyright Lunar Playground. All rights reserved.</p>
+    </div>
+
+</div>
+
+</body>
+</html>
