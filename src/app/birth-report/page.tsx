@@ -19,7 +19,7 @@ import {
   type LifePathNumber,
 } from '@/lib/moon';
 import { calculateChart, type ChartData, type BirthData } from '@/lib/ephemeris';
-import { getTimezoneForCountry, type City } from '@/lib/cities';
+import { type City } from '@/lib/cities';
 import { loadBirthData, saveBirthData } from '@/lib/birthData';
 import { getSectionConfig } from '@/lib/sectionConfig';
 import { SummaryScreen } from '@/components/birth-report/SummaryScreen';
@@ -157,10 +157,17 @@ function BirthReportContent() {
     if (city && birthtime) {
       const [year, month, day] = birthdate.split('-').map(Number);
       const [hour, minute] = birthtime.split(':').map(Number);
-      const countryTz = city.country ? getTimezoneForCountry(city.country) : null;
-      const rawTz = city.lng / 15;
-      const fallbackTz = city.lng >= 0 ? Math.ceil(rawTz) : Math.floor(rawTz);
-      const timezone = countryTz !== null ? countryTz : fallbackTz;
+
+      // Resolve DST-correct UTC offset for the birth coordinates + date
+      const birthTs = Date.UTC(year, month - 1, day, hour, minute);
+      let timezone: number;
+      try {
+        const res = await fetch(`/api/timezone?lat=${city.lat}&lng=${city.lng}&ts=${birthTs}`);
+        const data = await res.json();
+        timezone = typeof data.offset === 'number' ? data.offset : Math.round(city.lng / 15);
+      } catch {
+        timezone = Math.round(city.lng / 15);
+      }
 
       const birthData: BirthData = {
         year, month, day, hour, minute,
