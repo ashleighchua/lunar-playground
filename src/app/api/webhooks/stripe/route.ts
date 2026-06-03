@@ -3,6 +3,7 @@ import { Resend } from 'resend';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import type Stripe from 'stripe';
+import { parseBirthDetails } from '@/lib/parseBirthDetails';
 
 export async function POST(request: NextRequest) {
   const { default: StripeSDK } = await import('stripe');
@@ -24,7 +25,14 @@ export async function POST(request: NextRequest) {
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session;
     const productId = session.metadata?.productId;
+    const productTitle = session.metadata?.productTitle || 'Unknown product';
     const customerEmail = session.customer_details?.email;
+    const customerName = session.customer_details?.name || '';
+
+    const birthDetails = (session.custom_fields as Array<{ key: string; text?: { value?: string } }> | undefined)
+      ?.find(f => f.key === 'birth_details')?.text?.value || '';
+    const citiesOfInterest = (session.custom_fields as Array<{ key: string; text?: { value?: string } }> | undefined)
+      ?.find(f => f.key === 'cities_of_interest')?.text?.value || '';
 
     if (!customerEmail) {
       console.error('No customer email found for session:', session.id);
@@ -58,8 +66,7 @@ export async function POST(request: NextRequest) {
         console.error('Failed to send guide PDF:', err);
       }
     } else {
-      // For reading products, send order confirmation
-      const productTitle = session.metadata?.productTitle || 'your reading';
+      // For reading products, send order confirmation to customer
       try {
         await resend.emails.send({
           from: 'The Lunar Playground <noreply@thelunarplayground.com>',
@@ -74,9 +81,104 @@ export async function POST(request: NextRequest) {
         console.error('Failed to send order confirmation:', err);
       }
     }
+
+    // Notify owner of every order
+    const parsed = parseBirthDetails(birthDetails);
+    try {
+      await resend.emails.send({
+        from: 'The Lunar Playground <noreply@thelunarplayground.com>',
+        to: ['thelunarplayground@gmail.com'],
+        subject: `New order: ${productTitle}`,
+        html: generateOwnerNotificationEmail({
+          productTitle,
+          customerEmail,
+          customerName,
+          birthDetails,
+          citiesOfInterest,
+          sessionId: session.id,
+          parsedDate: parsed.date,
+          parsedTime: parsed.time,
+          parsedPlace: parsed.place,
+        }),
+      });
+
+      console.log('Owner notification sent for session:', session.id);
+    } catch (err) {
+      console.error('Failed to send owner notification:', err);
+    }
   }
 
   return NextResponse.json({ received: true });
+}
+
+function escapeHtml(s: string): string {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function generateOwnerNotificationEmail(data: {
+  productTitle: string;
+  customerEmail: string;
+  customerName: string;
+  birthDetails: string;
+  citiesOfInterest: string;
+  sessionId: string;
+  parsedDate: string | null;
+  parsedTime: string | null;
+  parsedPlace: string | null;
+}): string {
+  const parsedSummary = [data.parsedDate, data.parsedTime, data.parsedPlace].filter(Boolean).join(' · ');
+
+  const rows = [
+    ['Product', escapeHtml(data.productTitle)],
+    ['Customer email', escapeHtml(data.customerEmail)],
+    ...(data.customerName ? [['Customer name', escapeHtml(data.customerName)]] : []),
+    ...(data.birthDetails ? [['Birth details (raw)', escapeHtml(data.birthDetails)]] : []),
+    ...(parsedSummary ? [['Birth details (parsed)', escapeHtml(parsedSummary)]] : []),
+    ...(data.citiesOfInterest ? [['Cities of interest', escapeHtml(data.citiesOfInterest)]] : []),
+    ['Stripe session', escapeHtml(data.sessionId)],
+  ];
+
+  const tableRows = rows
+    .map(
+      ([label, value]) => `
+      <tr>
+        <td style="padding: 10px 12px; color: #655E78; font-size: 13px; white-space: nowrap; vertical-align: top;">${label}</td>
+        <td style="padding: 10px 12px; color: #2D2640; font-size: 13px; word-break: break-word;">${value}</td>
+      </tr>`
+    )
+    .join('');
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="margin: 0; padding: 0; background-color: #F0EBF8; font-family: Georgia, 'Times New Roman', serif;">
+      <div style="max-width: 560px; margin: 0 auto; padding: 48px 24px;">
+
+        <div style="text-align: center; font-size: 20px; color: #8A8099; margin-bottom: 16px;">&#10022;</div>
+        <div style="text-align: center; font-size: 22px; color: #2D2640; margin-bottom: 4px;">New Order</div>
+        <div style="text-align: center; color: #655E78; font-size: 14px; margin-bottom: 32px;">${escapeHtml(data.productTitle)}</div>
+
+        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid #E8E4DE;">
+          ${tableRows}
+        </table>
+
+        <div style="text-align: center; margin-top: 28px;">
+          <a href="https://dashboard.stripe.com/payments" style="display: inline-block; background: #2D2640; color: white; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-size: 13px;">View in Stripe</a>
+        </div>
+
+      </div>
+    </body>
+    </html>
+  `;
 }
 
 function generateGuideEmail(): string {
