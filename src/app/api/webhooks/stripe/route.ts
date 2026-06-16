@@ -22,6 +22,33 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
+  if (event.type === 'payment_intent.succeeded') {
+    const paymentIntent = event.data.object as Stripe.PaymentIntent;
+
+    // Skip if this payment came through a checkout session — that event handles it
+    const sessions = await stripe.checkout.sessions.list({ payment_intent: paymentIntent.id, limit: 1 });
+    if (sessions.data.length > 0) {
+      return NextResponse.json({ received: true });
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY!);
+    const amount = '$' + (paymentIntent.amount / 100).toFixed(0);
+    const customerEmail = paymentIntent.receipt_email || paymentIntent.metadata?.email || '';
+    const customerName = paymentIntent.metadata?.name || '';
+    const description = paymentIntent.description || 'Direct payment';
+
+    try {
+      await resend.emails.send({
+        from: 'The Lunar Playground <noreply@thelunarplayground.com>',
+        to: ['thelunarplayground@gmail.com'],
+        subject: `Payment received: ${amount}`,
+        html: generateDirectPaymentEmail({ amount, customerEmail, customerName, description, paymentIntentId: paymentIntent.id }),
+      });
+    } catch (err) {
+      console.error('Failed to send direct payment notification:', err);
+    }
+  }
+
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session;
     const productId = session.metadata?.productId;
@@ -109,6 +136,50 @@ export async function POST(request: NextRequest) {
   }
 
   return NextResponse.json({ received: true });
+}
+
+function generateDirectPaymentEmail(data: {
+  amount: string;
+  customerEmail: string;
+  customerName: string;
+  description: string;
+  paymentIntentId: string;
+}): string {
+  const rows = [
+    ['Amount', data.amount],
+    ...(data.description ? [['Description', escapeHtml(data.description)]] : []),
+    ...(data.customerName ? [['From', escapeHtml(data.customerName)]] : []),
+    ...(data.customerEmail ? [['Email', escapeHtml(data.customerEmail)]] : []),
+    ['Stripe ID', escapeHtml(data.paymentIntentId)],
+  ];
+
+  const tableRows = rows
+    .map(([label, value]) => `
+      <tr>
+        <td style="padding: 10px 12px; color: #655E78; font-size: 13px; white-space: nowrap; vertical-align: top;">${label}</td>
+        <td style="padding: 10px 12px; color: #2D2640; font-size: 13px; word-break: break-word;">${value}</td>
+      </tr>`)
+    .join('');
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <body style="margin: 0; padding: 0; background-color: #F0EBF8; font-family: Georgia, 'Times New Roman', serif;">
+      <div style="max-width: 560px; margin: 0 auto; padding: 48px 24px;">
+        <div style="text-align: center; font-size: 20px; color: #8A8099; margin-bottom: 16px;">&#10022;</div>
+        <div style="text-align: center; font-size: 22px; color: #2D2640; margin-bottom: 4px;">Payment Received</div>
+        <div style="text-align: center; color: #655E78; font-size: 14px; margin-bottom: 32px;">${data.amount}</div>
+        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid #E8E4DE;">
+          ${tableRows}
+        </table>
+        <div style="text-align: center; margin-top: 28px;">
+          <a href="https://dashboard.stripe.com/payments" style="display: inline-block; background: #2D2640; color: white; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-size: 13px;">View in Stripe</a>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
 }
 
 function escapeHtml(s: string): string {
