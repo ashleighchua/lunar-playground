@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
           replyTo: 'thelunarplayground@gmail.com',
           to: [customerEmail],
           subject: 'Your Astrocartography Guide is Here',
-          html: generateGuideEmail(),
+          html: generateGuideEmail(customerEmail),
           attachments: [
             {
               filename: 'How to Read Your Astrocartography Chart.pdf',
@@ -100,12 +100,22 @@ export async function POST(request: NextRequest) {
           replyTo: 'thelunarplayground@gmail.com',
           to: [customerEmail],
           subject: `Order Confirmed — ${productTitle}`,
-          html: generateOrderConfirmationEmail(productTitle),
+          html: generateOrderConfirmationEmail(productTitle, customerEmail),
         });
 
         console.log('Order confirmation sent to:', customerEmail);
       } catch (err) {
         console.error('Failed to send order confirmation:', err);
+      }
+    }
+
+    // Auto-subscribe customer to mailing list (opt-out model)
+    const audienceId = process.env.RESEND_AUDIENCE_ID;
+    if (audienceId) {
+      try {
+        await resend.contacts.create({ email: customerEmail, audienceId, unsubscribed: false });
+      } catch {
+        // Ignore duplicate contact errors
       }
     }
 
@@ -252,7 +262,14 @@ function generateOwnerNotificationEmail(data: {
   `;
 }
 
-function generateGuideEmail(): string {
+function unsubscribeFooter(email: string): string {
+  const encoded = Buffer.from(email).toString('base64');
+  return `<p style="color: #9E98AD; font-size: 11px; text-align: center; margin: 24px 0 0;">
+    You're on my occasional updates list. <a href="https://www.thelunarplayground.com/api/unsubscribe?e=${encoded}" style="color: #9E98AD;">Unsubscribe</a>
+  </p>`;
+}
+
+function generateGuideEmail(email: string): string {
   return `
     <!DOCTYPE html>
     <html>
@@ -301,6 +318,7 @@ function generateGuideEmail(): string {
             www.thelunarplayground.com
           </a>
         </div>
+        ${unsubscribeFooter(email)}
 
       </div>
     </body>
@@ -308,7 +326,7 @@ function generateGuideEmail(): string {
   `;
 }
 
-function generateOrderConfirmationEmail(productTitle: string): string {
+function generateOrderConfirmationEmail(productTitle: string, email: string): string {
   return `
     <!DOCTYPE html>
     <html>
@@ -357,6 +375,7 @@ function generateOrderConfirmationEmail(productTitle: string): string {
             www.thelunarplayground.com
           </a>
         </div>
+        ${unsubscribeFooter(email)}
 
       </div>
     </body>
