@@ -264,7 +264,8 @@ function generateOwnerNotificationEmail(data: {
 
 function unsubscribeFooter(email: string): string {
   const { createHmac } = require('crypto');
-  const secret = process.env.UNSUBSCRIBE_SECRET || 'fallback-change-me';
+  const secret = process.env.UNSUBSCRIBE_SECRET;
+  if (!secret) return '';
   const encoded = Buffer.from(email).toString('base64url');
   const sig = createHmac('sha256', secret).update(email).digest('base64url');
   return `<p style="color: #9E98AD; font-size: 11px; text-align: center; margin: 24px 0 0;">

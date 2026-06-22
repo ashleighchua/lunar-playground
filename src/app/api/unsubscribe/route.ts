@@ -18,7 +18,11 @@ export async function GET(request: NextRequest) {
   }
 
   // Verify HMAC signature to prevent forged unsubscribe requests
-  const secret = process.env.UNSUBSCRIBE_SECRET || 'fallback-change-me';
+  const secret = process.env.UNSUBSCRIBE_SECRET;
+  if (!secret) {
+    console.error('UNSUBSCRIBE_SECRET not configured');
+    return NextResponse.redirect(new URL('/', request.url));
+  }
   const expected = createHmac('sha256', secret).update(email).digest('base64url');
   try {
     if (!timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) {
