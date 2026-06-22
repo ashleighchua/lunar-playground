@@ -263,9 +263,12 @@ function generateOwnerNotificationEmail(data: {
 }
 
 function unsubscribeFooter(email: string): string {
-  const encoded = Buffer.from(email).toString('base64');
+  const { createHmac } = require('crypto');
+  const secret = process.env.UNSUBSCRIBE_SECRET || 'fallback-change-me';
+  const encoded = Buffer.from(email).toString('base64url');
+  const sig = createHmac('sha256', secret).update(email).digest('base64url');
   return `<p style="color: #9E98AD; font-size: 11px; text-align: center; margin: 24px 0 0;">
-    You're on my occasional updates list. <a href="https://www.thelunarplayground.com/api/unsubscribe?e=${encoded}" style="color: #9E98AD;">Unsubscribe</a>
+    You're on my occasional updates list. <a href="https://www.thelunarplayground.com/api/unsubscribe?e=${encoded}&s=${sig}" style="color: #9E98AD;">Unsubscribe</a>
   </p>`;
 }
 

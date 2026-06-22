@@ -1,16 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { createHmac, timingSafeEqual } from 'crypto';
 
 export async function GET(request: NextRequest) {
   const encoded = request.nextUrl.searchParams.get('e');
-  if (!encoded) {
+  const sig = request.nextUrl.searchParams.get('s');
+  if (!encoded || !sig) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
   let email: string;
   try {
-    email = Buffer.from(encoded, 'base64').toString('utf-8');
+    email = Buffer.from(encoded, 'base64url').toString('utf-8');
     if (!email.includes('@')) throw new Error('invalid');
+  } catch {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
+  // Verify HMAC signature to prevent forged unsubscribe requests
+  const secret = process.env.UNSUBSCRIBE_SECRET || 'fallback-change-me';
+  const expected = createHmac('sha256', secret).update(email).digest('base64url');
+  try {
+    if (!timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
   } catch {
     return NextResponse.redirect(new URL('/', request.url));
   }
