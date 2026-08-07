@@ -1,12 +1,17 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function FeedbackButton() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
+
+  // The /app section has its own bottom tab bar occupying this corner.
+  if (pathname?.startsWith('/app')) return null;
 
   const handleSubmit = async () => {
     if (!message.trim()) return;

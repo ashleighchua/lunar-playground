@@ -33,14 +33,6 @@ export function loadBirthData(): StoredBirthData | null {
     if (!stored) return null;
 
     const data: StoredBirthData = JSON.parse(stored);
-
-    // Check if data is less than 24 hours old
-    const oneDayMs = 24 * 60 * 60 * 1000;
-    if (Date.now() - data.savedAt > oneDayMs) {
-      localStorage.removeItem(STORAGE_KEY);
-      return null;
-    }
-
     return data;
   } catch {
     return null;
@@ -50,6 +42,26 @@ export function loadBirthData(): StoredBirthData | null {
 export function clearBirthData(): void {
   try {
     localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // localStorage might be unavailable
+  }
+}
+
+// Tracks completion of the /app onboarding wizard separately from birth data,
+// since a user can complete onboarding via "Skip" without saving birth data.
+const APP_ONBOARDED_KEY = 'lunar_app_onboarded';
+
+export function isAppOnboarded(): boolean {
+  try {
+    return localStorage.getItem(APP_ONBOARDED_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+export function setAppOnboarded(): void {
+  try {
+    localStorage.setItem(APP_ONBOARDED_KEY, 'true');
   } catch {
     // localStorage might be unavailable
   }
