@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { find } from 'geo-tz';
+import tzlookup from 'tz-lookup';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
@@ -11,12 +11,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'lat, lng, ts required' }, { status: 400 });
   }
 
-  const zones = find(lat, lng);
-  if (!zones.length) {
+  let tz: string;
+  try {
+    tz = tzlookup(lat, lng);
+  } catch {
     return NextResponse.json({ error: 'No timezone found' }, { status: 404 });
   }
 
-  const tz = zones[0];
   const date = new Date(ts);
 
   // Use Intl to get the UTC offset for this timezone at the given moment
