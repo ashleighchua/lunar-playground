@@ -6,10 +6,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'About | The Lunar Playground',
-  description: 'The Lunar Playground blends astrology, BaZi, numerology, and human design into one layered picture. Free tools, personalised readings, and zero gatekeeping.',
+  description: 'Who you are, and where you\'ll thrive. Free tools, honest readings, no jargon.',
   openGraph: {
     title: 'About | The Lunar Playground',
-    description: 'The Lunar Playground blends astrology, BaZi, numerology, and human design into one layered picture. Free tools, personalised readings, and zero gatekeeping.',
+    description: 'Who you are, and where you\'ll thrive. Free tools, honest readings, no jargon.',
   },
 };
 
@@ -23,11 +23,11 @@ export default function AboutPage() {
         <section className="container-editorial pt-6 pb-8 md:pt-8 md:pb-10">
           <div className="max-w-2xl">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight">
-              <span className="text-gradient-gold">Multiple Systems.</span>
-              <br /><span className="text-[#2D2640]">One Full Picture.</span>
+              <span className="text-gradient-gold">Two things.</span>
+              <br /><span className="text-[#2D2640]">That&apos;s it.</span>
             </h1>
             <p className="mt-6 text-lg text-[#655E78] leading-relaxed">
-              Hi, I&apos;m Ashleigh. I layer astrology, BaZi, human design, and numerology together because one system never gave me the full story. Turns out most people feel the same way.
+              Hi, I&apos;m Ashleigh. I read your birth chart to help with two things: who you are, and where you&apos;ll thrive. That&apos;s the whole toolkit.
             </p>
           </div>
         </section>
@@ -51,7 +51,7 @@ export default function AboutPage() {
                   I got into astrology the way most people do. Someone sent me a meme about my sign and I thought, &quot;okay wait, that&apos;s annoyingly accurate.&quot; Then I went down the rabbit hole. Sun, Moon, Rising. Suddenly I had language for things I&apos;d been feeling for years.
                 </p>
                 <p>
-                  But something still felt missing. Astrology gave me the who, but not the when or the how. Then I found BaZi and it filled in the gaps. Timing, element balance, the seasons of my life. Human Design showed me how I&apos;m wired to make decisions. Astrocartography showed me <em>where</em> I belong.
+                  Astrology gave me the who. Then I found astrocartography, which showed me <em>where</em> I belong, and that was the other half of the puzzle.
                 </p>
                 <p>
                   So I quit my job. Moved countries. Started over in a city my chart said would light me up. And honestly? It did.
@@ -85,10 +85,10 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-6 text-[#655E78] leading-relaxed">
                 <p>
-                  Most people stick to one system. I layer a few because you&apos;re not one-dimensional, so why should your reading be?
+                  Most sites bury you in jargon. I don&apos;t. Here&apos;s who you are. Here&apos;s where you&apos;ll thrive. Plain language, no fluff.
                 </p>
                 <p>
-                  I write personalised readings that pull from astrology, BaZi, Human Design, and relocation astrology. Every reading is built around your chart, your questions, and whatever season of life you&apos;re in right now.
+                  I write personalised readings built around your actual chart, not a template. A natal chart reading for who you are, a relocation report for where you&apos;ll thrive.
                 </p>
                 <p>
                   I also built the free tools on this site because curiosity shouldn&apos;t cost anything. Play around first. If you want to go deeper, the readings are there.
@@ -146,9 +146,9 @@ export default function AboutPage() {
               />
             </div>
             <div className="flex-1 md:text-right">
-              <h3 className="font-serif text-xl text-[#2D2640] mb-3">The whole picture, not one angle</h3>
+              <h3 className="font-serif text-xl text-[#2D2640] mb-3">Who you are, and where you&apos;ll thrive</h3>
               <p className="text-[#655E78] leading-relaxed">
-                Astrology shows you who. BaZi shows you when. Human Design shows you how. Relocation astrology shows you where. Each system catches something the others miss. I bring them together so you get the full picture, not just one fragment.
+                Your chart shows you who you are. It also shows you where that self actually gets to breathe. Most people only ever get the first half. I give you both.
               </p>
             </div>
           </div>

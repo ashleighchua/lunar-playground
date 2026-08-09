@@ -39,7 +39,7 @@ export default function AppHomePage() {
   return (
     <div className="px-5.5 pt-20 pb-30 flex flex-col gap-5">
       <div>
-        <div className="text-[11px] tracking-[0.22em] uppercase text-[#D9B878] mb-1.5">{todayLabel()}</div>
+        <div className="text-[11px] tracking-[0.22em] uppercase text-[#FF8FA3] mb-1.5">{todayLabel()}</div>
         <div className="font-serif text-[34px] font-medium leading-[1.05]">{greeting()}</div>
       </div>
 
@@ -51,28 +51,28 @@ export default function AppHomePage() {
         href="/app/readings/relocation"
         className="rounded-[22px] p-6 relative overflow-hidden block"
         style={{
-          background: 'linear-gradient(140deg, #2C2450 0%, #1C1738 55%, #241C44 100%)',
-          border: '1px solid rgba(217,184,120,0.35)',
+          background: 'linear-gradient(140deg, #2D2640 0%, #1E1835 55%, #1E1835 100%)',
+          border: '1px solid rgba(255,143,163,0.35)',
         }}
       >
         <div
-          className="text-[10.5px] tracking-[0.16em] uppercase text-[#D9B878] inline-block px-2.5 py-1.5 rounded-full"
-          style={{ background: 'rgba(217,184,120,0.12)' }}
+          className="text-[10.5px] tracking-[0.16em] uppercase text-[#FF8FA3] inline-block px-2.5 py-1.5 rounded-full"
+          style={{ background: 'rgba(255,143,163,0.12)' }}
         >
           Most popular · $35
         </div>
         <div className="font-serif text-[27px] leading-[1.1] mt-3.5 mb-2">
           Where would you<br />actually thrive?
         </div>
-        <div className="text-[13.5px] text-[#F0E9DC]/60 leading-relaxed mb-4">
+        <div className="text-[13.5px] text-[#F0EBF8]/60 leading-relaxed mb-4">
           Your birth chart, mapped across the globe. Some cities light you up. Others drain you.
         </div>
-        <div className="text-[#D9B878] text-sm font-medium">See your lines →</div>
+        <div className="text-[#FF8FA3] text-sm font-medium">See your lines →</div>
       </Link>
 
       <div>
         <div className="font-serif text-[23px] mb-1">Sound familiar?</div>
-        <div className="text-xs text-[#F0E9DC]/45 mb-3">Tap a card to reveal</div>
+        <div className="text-xs text-[#F0EBF8]/45 mb-3">Tap a card to reveal</div>
         <div className="flex gap-3 overflow-x-auto -mx-5.5 px-5.5 pb-1.5">
           {PAIN_CARDS.map((card) => (
             <RevealCard key={card.title} {...card} />
@@ -80,13 +80,13 @@ export default function AppHomePage() {
         </div>
       </div>
 
-      <div className="rounded-[18px] border border-[#F0E9DC]/10 bg-white/4 px-5 py-4.5">
-        <div className="font-serif italic text-[18px] leading-relaxed text-[#F0E9DC]/85">
+      <div className="rounded-[18px] border border-[#F0EBF8]/10 bg-white/4 px-5 py-4.5">
+        <div className="font-serif italic text-[18px] leading-relaxed text-[#F0EBF8]/85">
           &ldquo;I moved across the world because my chart told me to. Sounded unhinged. It worked.&rdquo;
         </div>
-        <div className="text-xs text-[#F0E9DC]/50 mt-2">
+        <div className="text-xs text-[#F0EBF8]/50 mt-2">
           — Ashleigh, your reader ·{' '}
-          <Link href="/about" className="text-[#D9B878]">Read my story</Link>
+          <Link href="/about" className="text-[#FF8FA3]">Read my story</Link>
         </div>
       </div>
     </div>

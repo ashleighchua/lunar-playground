@@ -14,11 +14,11 @@ export function BigThreeChips({ bigThree }: { bigThree: BigThree | null }) {
         return (
           <div
             key={row.key}
-            className="flex-1 rounded-2xl border border-[#F0E9DC]/10 bg-white/4 py-3.5 px-2 text-center"
+            className="flex-1 rounded-2xl border border-[#F0EBF8]/10 bg-white/4 py-3.5 px-2 text-center"
           >
-            <div className="text-xl text-[#D9B878]">{row.glyph}</div>
+            <div className="text-xl text-[#FF8FA3]">{row.glyph}</div>
             <div className="font-serif text-[19px] mt-1">{value ?? '—'}</div>
-            <div className="text-[10.5px] tracking-[0.14em] uppercase text-[#F0E9DC]/45 mt-0.5">
+            <div className="text-[10.5px] tracking-[0.14em] uppercase text-[#F0EBF8]/45 mt-0.5">
               {row.label}
             </div>
           </div>

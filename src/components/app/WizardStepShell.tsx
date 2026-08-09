@@ -32,15 +32,15 @@ export function WizardStepShell({
           <button
             onClick={onBack}
             aria-label="Back"
-            className="w-9.5 h-9.5 rounded-full border border-[#F0E9DC]/25 flex items-center justify-center text-[#F0E9DC]/70 text-lg"
+            className="w-9.5 h-9.5 rounded-full border border-[#F0EBF8]/25 flex items-center justify-center text-[#F0EBF8]/70 text-lg"
           >
             ←
           </button>
         ) : (
           <div className="w-9.5" />
         )}
-        <div className="text-[11px] tracking-[0.22em] uppercase text-[#D9B878]">The Lunar Playground</div>
-        <button onClick={onSkip} className="text-[13px] text-[#F0E9DC]/50 w-9.5 text-right">
+        <div className="text-[11px] tracking-[0.22em] uppercase text-[#FF8FA3]">The Lunar Playground</div>
+        <button onClick={onSkip} className="text-[13px] text-[#F0EBF8]/50 w-9.5 text-right">
           Skip
         </button>
       </div>
@@ -52,7 +52,7 @@ export function WizardStepShell({
             className="h-1.5 rounded-full transition-all"
             style={{
               width: i === step ? 22 : 6,
-              background: i <= step ? '#D9B878' : 'rgba(240,233,220,0.2)',
+              background: i <= step ? '#FF8FA3' : 'rgba(240,235,248,0.2)',
             }}
           />
         ))}
@@ -63,15 +63,15 @@ export function WizardStepShell({
           {glyph}
         </div>
         <div className="font-serif text-4xl leading-[1.1]">{title}</div>
-        <div className="text-[14.5px] leading-relaxed text-[#F0E9DC]/60 max-w-75">{sub}</div>
+        <div className="text-[14.5px] leading-relaxed text-[#F0EBF8]/60 max-w-75">{sub}</div>
         {children}
       </div>
 
       <button
         onClick={onCta}
         disabled={ctaDisabled}
-        className="rounded-full py-4.25 text-center text-base font-semibold text-[#241C0D] disabled:opacity-40 transition-opacity"
-        style={{ background: 'linear-gradient(135deg, #E2C188, #C9A260)' }}
+        className="rounded-full py-4.25 text-center text-base font-semibold text-[#2D2640] disabled:opacity-40 transition-opacity"
+        style={{ background: 'linear-gradient(135deg, #FF8FA3, #C4365A)' }}
       >
         {ctaLabel}
       </button>

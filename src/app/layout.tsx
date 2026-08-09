@@ -27,15 +27,15 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'The Lunar Playground | Astrology, BaZi, Human Design & Relocation Readings',
-  description: 'Six ancient systems, one birth date. Free tools and personalised readings that cross-reference astrology, BaZi, Human Design, and relocation analysis for deeper clarity.',
+  title: 'The Lunar Playground | Natal Chart & Relocation Astrology Readings',
+  description: 'Should I move? Why do I feel stuck? Where would I thrive? Your birth chart already knows. Natal chart readings, relocation reports, and free tools to find out.',
   icons: {
     icon: '/Images/logo.png',
     apple: '/Images/logo.png',
   },
   openGraph: {
-    title: 'The Lunar Playground | Astrology, BaZi, Human Design & Relocation Readings',
-    description: 'Six ancient systems, one birth date. Free tools and personalised readings that cross-reference astrology, BaZi, Human Design, and relocation analysis for deeper clarity.',
+    title: 'The Lunar Playground | Natal Chart & Relocation Astrology Readings',
+    description: 'Should I move? Why do I feel stuck? Where would I thrive? Your birth chart already knows. Natal chart readings, relocation reports, and free tools to find out.',
     url: 'https://thelunarplayground.com',
     siteName: 'The Lunar Playground',
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'The Lunar Playground',
-    description: 'Six ancient systems, one birth date. Free tools and personalised readings that cross-reference astrology, BaZi, Human Design, and relocation analysis for deeper clarity.',
+    description: 'Should I move? Why do I feel stuck? Where would I thrive? Your birth chart already knows. Natal chart readings, relocation reports, and free tools to find out.',
     images: ['/Images/og-image.png'],
   },
   metadataBase: new URL('https://thelunarplayground.com'),
@@ -92,19 +92,15 @@ export default function RootLayout({
               '@type': 'ProfessionalService',
               name: 'The Lunar Playground',
               url: 'https://thelunarplayground.com',
-              description: 'Relocation astrology specialist blending Western astrology, Chinese zodiac, BaZi, numerology, and human design.',
+              description: 'Relocation astrology specialist. Natal chart readings and relocation reports, plus free tools to explore your chart.',
               serviceType: 'Astrology Reading',
               areaServed: 'Worldwide',
               hasOfferCatalog: {
                 '@type': 'OfferCatalog',
                 name: 'Astrology Services',
                 itemListElement: [
-                  { '@type': 'Offer', price: '139', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'The Complete Architecture', description: 'Western astrology, BaZi, Human Design, and relocation astrology woven into one unified reading.' } },
-                  { '@type': 'Offer', price: '99', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'The Integrated Profile', description: 'Natal chart, BaZi, and Human Design layered together for deep self-understanding.' } },
-                  { '@type': 'Offer', price: '50', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'BaZi Reading', description: 'Four Pillars of Destiny revealing your elemental makeup, natural strengths, and timing of key life phases.' } },
-                  { '@type': 'Offer', price: '35', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'Relocation Report', description: 'Your birth chart mapped across the globe to find cities that activate career, love, and transformation.' } },
                   { '@type': 'Offer', price: '35', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'Natal Chart Reading', description: 'A deep reading of your birth chart covering personality, patterns, relationships, and growth edges.' } },
-                  { '@type': 'Offer', price: '35', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'Human Design Reading', description: 'Your Type, Strategy, and Authority decoded for better decisions and energy use.' } },
+                  { '@type': 'Offer', price: '35', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'Relocation Report', description: 'Your birth chart mapped across the globe to find cities that activate career, love, and transformation.' } },
                   { '@type': 'Offer', price: '20', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'Read Your Own Chart', description: 'A self-paced guide to reading your own relocation astrology chart.' } },
                 ],
               },

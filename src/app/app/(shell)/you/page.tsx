@@ -33,14 +33,14 @@ export default function AppProfilePage() {
     <div className="px-5.5 pt-20 pb-30 flex flex-col gap-4.5">
       <div className="flex items-center gap-4">
         <div
-          className="w-16 h-16 rounded-full flex-none flex items-center justify-center font-serif text-2xl text-[#D9B878]"
-          style={{ background: 'linear-gradient(135deg, #2C2450, #463A78)', border: '1px solid rgba(217,184,120,0.4)' }}
+          className="w-16 h-16 rounded-full flex-none flex items-center justify-center font-serif text-2xl text-[#FF8FA3]"
+          style={{ background: 'linear-gradient(135deg, #2D2640, #2D2640)', border: '1px solid rgba(255,143,163,0.4)' }}
         >
           ✧
         </div>
         <div>
           <div className="font-serif text-2xl">Your chart</div>
-          <div className="text-[12.5px] text-[#F0E9DC]/55">
+          <div className="text-[12.5px] text-[#F0EBF8]/55">
             {bigThree ? 'Your Big Three, below' : 'Add your birth details to see your signs'}
           </div>
         </div>
@@ -48,36 +48,36 @@ export default function AppProfilePage() {
 
       <BigThreeChips bigThree={bigThree} />
 
-      <div className="rounded-[18px] border border-[#F0E9DC]/10 bg-white/4.5 px-4.5">
-        <div className="flex justify-between py-3.5 border-b border-[#F0E9DC]/8 text-sm">
-          <span className="text-[#F0E9DC]/55">Date of birth</span>
+      <div className="rounded-[18px] border border-[#F0EBF8]/10 bg-white/4.5 px-4.5">
+        <div className="flex justify-between py-3.5 border-b border-[#F0EBF8]/8 text-sm">
+          <span className="text-[#F0EBF8]/55">Date of birth</span>
           <span>{birth ? formatDate(birth.birthdate) : 'Not set'}</span>
         </div>
-        <div className="flex justify-between py-3.5 border-b border-[#F0E9DC]/8 text-sm">
-          <span className="text-[#F0E9DC]/55">Time of birth</span>
+        <div className="flex justify-between py-3.5 border-b border-[#F0EBF8]/8 text-sm">
+          <span className="text-[#F0EBF8]/55">Time of birth</span>
           <span>{birth?.birthtime || 'Not set'}</span>
         </div>
         <div className="flex justify-between py-3.5 text-sm">
-          <span className="text-[#F0E9DC]/55">Place of birth</span>
+          <span className="text-[#F0EBF8]/55">Place of birth</span>
           <span>{birth?.birthplace?.name || 'Not set'}</span>
         </div>
         <Link
           href="/app/onboarding"
-          className="block py-3 text-[13.5px] text-[#D9B878] border-t border-[#F0E9DC]/8"
+          className="block py-3 text-[13.5px] text-[#FF8FA3] border-t border-[#F0EBF8]/8"
         >
           Edit birth details
         </Link>
       </div>
 
-      <div className="rounded-[18px] border border-[#F0E9DC]/10 bg-white/4.5 px-4.5">
+      <div className="rounded-[18px] border border-[#F0EBF8]/10 bg-white/4.5 px-4.5">
         {LINKS.map((link, i) => (
           <a
             key={link.label}
             href={link.href}
-            className={`flex justify-between py-3.5 text-sm ${i < LINKS.length - 1 ? 'border-b border-[#F0E9DC]/8' : ''}`}
+            className={`flex justify-between py-3.5 text-sm ${i < LINKS.length - 1 ? 'border-b border-[#F0EBF8]/8' : ''}`}
           >
             <span>{link.label}</span>
-            <span className="text-[#F0E9DC]/40">›</span>
+            <span className="text-[#F0EBF8]/40">›</span>
           </a>
         ))}
       </div>

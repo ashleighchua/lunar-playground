@@ -8,7 +8,7 @@ import type { City } from '@/lib/cities';
 import { WizardStepShell } from './WizardStepShell';
 
 const inputClasses =
-  'mt-2.5 w-full box-border rounded-[14px] border border-[#F0E9DC]/20 bg-white/6 px-[18px] py-4 text-[17px] text-[#F0E9DC] outline-none';
+  'mt-2.5 w-full box-border rounded-[14px] border border-[#F0EBF8]/20 bg-white/6 px-[18px] py-4 text-[17px] text-[#F0EBF8] outline-none';
 
 export function OnboardingWizard() {
   const router = useRouter();

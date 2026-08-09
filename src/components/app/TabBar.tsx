@@ -15,7 +15,7 @@ export default function TabBar() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center border-t border-[#F0E9DC]/10 bg-[#1A1628]/85 backdrop-blur-xl"
+      className="fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center border-t border-[#F0EBF8]/10 bg-[#1E1835]/85 backdrop-blur-xl"
       style={{ paddingTop: 12, paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)' }}
     >
       {TABS.map((tab) => {
@@ -25,7 +25,7 @@ export default function TabBar() {
             key={tab.href}
             href={tab.href}
             className="flex flex-col items-center gap-1 min-w-16 px-2 py-1"
-            style={{ color: active ? '#D9B878' : 'rgba(240,233,220,0.45)' }}
+            style={{ color: active ? '#FF8FA3' : 'rgba(240,235,248,0.45)' }}
           >
             <span className="text-xl leading-none">{tab.glyph}</span>
             <span className="text-[10.5px] tracking-wide">{tab.label}</span>
