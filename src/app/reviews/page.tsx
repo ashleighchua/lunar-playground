@@ -31,7 +31,7 @@ const reviewJsonLd = {
     reviewBody: r.text,
     author: {
       '@type': 'Person',
-      name: `Verified ${r.source} Client`,
+      name: r.handle,
     },
   })),
 };
@@ -82,7 +82,7 @@ export default function ReviewsPage() {
                 &ldquo;{review.text}&rdquo;
               </p>
               <p className="text-xs text-[#655E78]">
-                Verified {review.source} client
+                {review.handle} · Verified {review.source} client
               </p>
             </div>
           ))}

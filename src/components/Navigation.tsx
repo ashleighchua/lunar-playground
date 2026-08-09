@@ -30,37 +30,44 @@ export function Navigation({ currentPage }: NavigationProps) {
   ];
 
   return (
-    <nav className="bg-[#2D2640]">
-      <div className="container-editorial py-4">
+    <nav className="sticky top-0 z-50 bg-[#1A1628]/85 backdrop-blur-md border-b border-[#A6B4FF]/20">
+      <div className="container-editorial py-3.5">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-2.5">
+            <span className="text-lg text-[#A6B4FF]" aria-hidden="true">&#9789;</span>
             <Image
               src="/Images/logo.png"
               alt="The Lunar Playground"
               width={52}
               height={39}
-              className="rounded-full object-cover w-[52px] h-[52px]"
+              className="rounded-full object-cover w-[44px] h-[44px]"
               priority
             />
-            <span className="font-serif text-xl text-[#F0EBF8]">The Lunar Playground</span>
+            <span className="font-serif text-lg text-[#F0EBF8]">The Lunar Playground</span>
           </Link>
 
-          {/* Desktop: Key links + hamburger */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop: Key links + CTA + hamburger */}
+          <div className="hidden md:flex items-center gap-7">
             {desktopLinks.map((link) => (
               <Link
                 key={link.key}
                 href={link.href}
-                className={`text-sm transition-colors hover:text-[#F0EBF8]/70 ${
-                  currentPage === link.key ? 'text-[#F0EBF8]' : 'text-[#F0EBF8]/90'
+                className={`text-sm font-medium transition-colors hover:text-white ${
+                  currentPage === link.key ? 'text-white' : 'text-[#B5B0C8]'
                 }`}
               >
                 {link.label}
               </Link>
             ))}
+            <Link
+              href="/shop"
+              className="inline-flex items-center bg-[#FF8FA3] text-[#1A1628] rounded-full px-5 py-2 text-sm font-semibold whitespace-nowrap hover:bg-[#FFB8C6] transition-colors"
+            >
+              Get a reading
+            </Link>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-[#F0EBF8] hover:text-[#F0EBF8]/70 transition-colors"
+              className="p-2 text-[#F0EBF8] hover:text-white transition-colors"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
@@ -75,7 +82,7 @@ export function Navigation({ currentPage }: NavigationProps) {
             </button>
           </div>
 
-          {/* Mobile: Hamburger only */}
+          {/* Mobile: Hamburger only (CTA lives in the slide-down menu to avoid crowding) */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 text-[#F0EBF8]"
@@ -102,13 +109,20 @@ export function Navigation({ currentPage }: NavigationProps) {
                   key={link.key}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`text-lg transition-colors hover:text-[#F0EBF8]/70 ${
-                    currentPage === link.key ? 'text-[#F0EBF8]' : 'text-[#F0EBF8]/80'
+                  className={`text-lg transition-colors hover:text-white ${
+                    currentPage === link.key ? 'text-white' : 'text-[#B5B0C8]'
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
+              <Link
+                href="/shop"
+                onClick={() => setIsMenuOpen(false)}
+                className="md:hidden inline-flex w-fit items-center bg-[#FF8FA3] text-[#1A1628] rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-[#FFB8C6] transition-colors mt-1"
+              >
+                Get a reading
+              </Link>
             </div>
           </div>
         )}

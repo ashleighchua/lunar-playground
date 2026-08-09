@@ -1,64 +1,53 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 
 const insights = [
-  { image: '/Images/card-sun.png', label: 'Location', text: 'Exactly why certain cities light you up and others drain you' },
-  { image: '/Images/card-vase.png', label: 'Career', text: 'The career path that actually fits your energy, not someone else\'s template' },
-  { image: '/Images/card-moon.png', label: 'Timing', text: 'When to push forward and when to wait (and trusting the timing)' },
-  { image: '/Images/card-crystal.png', label: 'Patterns', text: 'Why that relationship pattern keeps repeating, and how to break it' },
-  { image: '/Images/card-star.png', label: 'Strengths', text: 'The strengths you\'ve been overlooking because nobody showed you the map' },
+  { title: 'Should I move?', icon: '☉', ring: '#FFB8C6', fill: '#FFF0F3', body: 'Some places make you feel like yourself. Others slowly drain you. We can tell you which is which before you pack a box.' },
+  { title: 'Why do I feel stuck?', icon: '⚱', ring: '#C4BCD4', fill: '#EBE6F2', body: 'Real talk, it might not be you. It might be where you are.' },
+  { title: 'Tokyo vs. London', icon: '☾', ring: '#A6B4FF', fill: '#E8EDF8', body: 'Not random. Different places bring out different sides of you. We’ll show you why.' },
+  { title: 'Same relationship', icon: '♡', ring: '#FFD4B8', fill: '#FFF3EB', body: 'There’s a pattern. Once you see it, you can actually break it.' },
+  { title: 'Wrong job, every time', icon: '✦', ring: '#B8E8D4', fill: '#EDFAF4', body: 'Some work fits how you’re built. Some really doesn’t. We’ll show you which.' },
 ];
 
-function TarotCard({ card }: { card: typeof insights[0] }) {
+function FlipCard({ card }: { card: typeof insights[0] }) {
   const [revealed, setRevealed] = useState(false);
 
   return (
     <button
       onClick={() => setRevealed((r) => !r)}
-      className="relative w-[140px] h-[210px] md:w-[160px] md:h-[240px] lg:w-[180px] lg:h-[270px] rounded-xl overflow-hidden transition-all duration-500 hover:scale-105 focus:outline-none"
+      aria-pressed={revealed}
+      aria-label={`${card.title}, tap to reveal`}
+      className="w-55 min-h-50 px-4.5 py-6 rounded-[20px] flex flex-col items-center justify-center gap-2.5 text-center transition-all duration-300 focus:outline-none"
+      style={{
+        background: revealed ? card.fill : '#FAFAFF',
+        border: `1px solid ${card.ring}`,
+        boxShadow: revealed ? '0 8px 28px -8px rgba(45, 38, 64, 0.22)' : '0 4px 16px -4px rgba(45, 38, 64, 0.08)',
+        transform: revealed ? 'translateY(-4px)' : 'none',
+      }}
     >
-      {/* Card image (front) */}
-      <Image
-        src={card.image}
-        alt={card.label}
-        fill
-        className="object-cover transition-opacity duration-500"
-        style={{ opacity: revealed ? 0.15 : 1 }}
-        sizes="180px"
-      />
-
-      {/* Revealed text overlay */}
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-center px-4 transition-opacity duration-500"
-        style={{
-          opacity: revealed ? 1 : 0,
-          background: revealed ? 'rgba(45, 38, 64, 0.85)' : 'transparent',
-        }}
-      >
-        <span className="text-lg mb-3" style={{ color: '#FF8FA3' }}>&#10022;</span>
-        <p className="font-serif text-sm md:text-base leading-relaxed text-center" style={{ color: '#F0EBF8' }}>
-          {card.text}
-        </p>
-      </div>
+      <span className="text-[22px]">{revealed ? '✦' : card.icon}</span>
+      <span className="font-serif text-lg font-medium leading-snug text-[#2D2640]">{card.title}</span>
+      <span className="text-sm leading-relaxed" style={{ color: revealed ? '#5A5472' : '#8A8099' }}>
+        {revealed ? card.body : 'Tap to reveal'}
+      </span>
     </button>
   );
 }
 
 export function ImagineCards() {
   return (
-    <section className="container-editorial py-12 md:py-16">
+    <section id="familiar" className="container-editorial py-12 md:py-16">
       <div className="text-center mb-10">
         <h2 className="font-serif text-3xl md:text-4xl" style={{ color: '#2D2640' }}>
-          Imagine knowing...
+          Sound familiar?
         </h2>
         <p className="mt-3 text-sm" style={{ color: '#655E78' }}>Tap a card to reveal</p>
       </div>
 
       <div className="flex flex-wrap justify-center gap-4 md:gap-5 max-w-4xl mx-auto">
         {insights.map((card, i) => (
-          <TarotCard key={i} card={card} />
+          <FlipCard key={i} card={card} />
         ))}
       </div>
     </section>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Figtree, Fraunces } from 'next/font/google';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
@@ -8,15 +8,15 @@ import FeedbackButton from '@/components/FeedbackButton';
 const GA_MEASUREMENT_ID = 'G-MP7S8LJ1XG';
 const CLARITY_PROJECT_ID = 'uy38asrmsr';
 
-const inter = Inter({
+const figtree = Figtree({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-figtree',
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
+const fraunces = Fraunces({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-fraunces',
   display: 'swap',
 });
 
@@ -64,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${figtree.variable} ${fraunces.variable}`}>
       <head>
         {/* JSON-LD Structured Data */}
         <script
