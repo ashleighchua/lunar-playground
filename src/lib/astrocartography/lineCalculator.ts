@@ -4,6 +4,14 @@
  *
  * Computes planetary lines (MC, IC, AC, DC) across the globe
  * using spherical astronomy formulas.
+ *
+ * Takes each planet's true equatorial coordinates (Right Ascension,
+ * Declination) as input rather than deriving them internally from ecliptic
+ * longitude. RA/Dec depend on ecliptic longitude AND latitude; assuming
+ * latitude = 0 (as this module used to, deriving RA/Dec from longitude
+ * alone) is fine for the Sun but wrong enough for Pluto (whose orbit is
+ * inclined ~17° to the ecliptic) to move an MC line by hundreds of miles.
+ * Callers get true RA/Dec from `calculatePlanetEquatorial` in ephemeris.ts.
  */
 
 export interface LinePoint {
@@ -18,6 +26,11 @@ export interface AstroLine {
   longitude?: number; // Fixed longitude for MC/IC lines
 }
 
+export interface Equatorial {
+  ra: number; // Right Ascension, degrees, 0-360
+  dec: number; // Declination, degrees, -90 to 90
+}
+
 const DEG_TO_RAD = Math.PI / 180;
 const RAD_TO_DEG = 180 / Math.PI;
 
@@ -27,27 +40,21 @@ function normalizeAngle(angle: number): number {
   return result;
 }
 
+/** Greenwich Mean Sidereal Time, in degrees, via the standard IAU formula (matches houses.ts's calculateGMST). */
+function calculateGMST(julianDay: number): number {
+  const d = julianDay - 2451545.0;
+  const T = d / 36525;
+  const gmst = 280.46061837 + 360.98564736629 * d + 0.000387933 * T * T - (T * T * T) / 38710000;
+  return normalizeAngle(gmst);
+}
+
 /**
  * Calculate the geographic longitude where a planet's MC line is located
  */
-function calculateMCLongitude(planetLong: number, julianDay: number): number {
-  const d = julianDay - 2451545.0;
-  const obliquity = 23.4393 - 0.0000004 * d;
-  const oblRad = obliquity * DEG_TO_RAD;
-  const planetRad = planetLong * DEG_TO_RAD;
+function calculateMCLongitude(ra: number, julianDay: number): number {
+  const gmst = calculateGMST(julianDay);
 
-  // Right ascension of the planet
-  const ra = Math.atan2(
-    Math.sin(planetRad) * Math.cos(oblRad),
-    Math.cos(planetRad)
-  );
-
-  // GMST at epoch
-  const gmst = (280.46061837 + 360.98564736629 * d) * DEG_TO_RAD;
-
-  // Geographic longitude
-  let geoLon = (ra - gmst) * RAD_TO_DEG;
-  geoLon = normalizeAngle(geoLon);
+  let geoLon = normalizeAngle(ra - gmst);
   if (geoLon > 180) geoLon -= 360;
 
   return geoLon;
@@ -56,46 +63,30 @@ function calculateMCLongitude(planetLong: number, julianDay: number): number {
 /**
  * Calculate the geographic longitude where a planet's AC line crosses a given latitude
  */
-function calculateACLongitude(planetLong: number, latitude: number, julianDay: number): number | null {
-  const d = julianDay - 2451545.0;
-  const obliquity = 23.4393 - 0.0000004 * d;
-  const oblRad = obliquity * DEG_TO_RAD;
+function calculateACLongitude(ra: number, dec: number, latitude: number, julianDay: number): number | null {
+  const decRad = dec * DEG_TO_RAD;
   const latRad = latitude * DEG_TO_RAD;
-  const planetRad = planetLong * DEG_TO_RAD;
-
-  // Calculate declination of the planet
-  const sinDecl = Math.sin(planetRad) * Math.sin(oblRad);
-  const decl = Math.asin(sinDecl);
 
   // Check if planet can rise at this latitude
-  if (Math.abs(decl) > Math.PI / 2 - Math.abs(latRad)) {
+  if (Math.abs(decRad) > Math.PI / 2 - Math.abs(latRad)) {
     return null;
   }
 
   // Calculate hour angle
-  const cosH = -Math.tan(latRad) * Math.tan(decl);
+  const cosH = -Math.tan(latRad) * Math.tan(decRad);
   if (Math.abs(cosH) > 1) {
     return null;
   }
 
-  // Right ascension of the planet
-  const ra = Math.atan2(
-    Math.sin(planetRad) * Math.cos(oblRad),
-    Math.cos(planetRad)
-  );
-
-  // Hour angle
-  const H = Math.acos(cosH);
+  const H = Math.acos(cosH) * RAD_TO_DEG;
 
   // Local sidereal time at rising
   const lst = ra - H;
 
-  // GMST at epoch
-  const gmst = (280.46061837 + 360.98564736629 * d) * DEG_TO_RAD;
+  const gmst = calculateGMST(julianDay);
 
   // Geographic longitude
-  let geoLon = (lst - gmst) * RAD_TO_DEG;
-  geoLon = normalizeAngle(geoLon);
+  let geoLon = normalizeAngle(lst - gmst);
   if (geoLon > 180) geoLon -= 360;
 
   return geoLon;
@@ -104,8 +95,8 @@ function calculateACLongitude(planetLong: number, latitude: number, julianDay: n
 /**
  * Calculate MC (Midheaven) line - vertical meridian where planet culminates
  */
-export function calculateMCLine(planet: string, longitude: number, julianDay: number): AstroLine {
-  const mcLon = calculateMCLongitude(longitude, julianDay);
+export function calculateMCLine(planet: string, eq: Equatorial, julianDay: number): AstroLine {
+  const mcLon = calculateMCLongitude(eq.ra, julianDay);
   const points: LinePoint[] = [];
 
   for (let lat = -66; lat <= 66; lat += 2) {
@@ -118,8 +109,8 @@ export function calculateMCLine(planet: string, longitude: number, julianDay: nu
 /**
  * Calculate IC (Nadir) line - opposite of MC
  */
-export function calculateICLine(planet: string, longitude: number, julianDay: number): AstroLine {
-  const mcLon = calculateMCLongitude(longitude, julianDay);
+export function calculateICLine(planet: string, eq: Equatorial, julianDay: number): AstroLine {
+  const mcLon = calculateMCLongitude(eq.ra, julianDay);
   let icLon = normalizeAngle(mcLon + 180);
   if (icLon > 180) icLon -= 360;
   const points: LinePoint[] = [];
@@ -134,11 +125,11 @@ export function calculateICLine(planet: string, longitude: number, julianDay: nu
 /**
  * Calculate AC (Ascendant/Rising) line - curved line where planet rises
  */
-export function calculateACLine(planet: string, longitude: number, julianDay: number): AstroLine {
+export function calculateACLine(planet: string, eq: Equatorial, julianDay: number): AstroLine {
   const points: LinePoint[] = [];
 
   for (let lat = -66; lat <= 66; lat += 1) {
-    const lon = calculateACLongitude(longitude, lat, julianDay);
+    const lon = calculateACLongitude(eq.ra, eq.dec, lat, julianDay);
     if (lon !== null) {
       points.push({ lat, lon });
     }
@@ -150,11 +141,11 @@ export function calculateACLine(planet: string, longitude: number, julianDay: nu
 /**
  * Calculate DC (Descendant/Setting) line - opposite of AC
  */
-export function calculateDCLine(planet: string, longitude: number, julianDay: number): AstroLine {
+export function calculateDCLine(planet: string, eq: Equatorial, julianDay: number): AstroLine {
   const points: LinePoint[] = [];
 
   for (let lat = -66; lat <= 66; lat += 1) {
-    const acLon = calculateACLongitude(longitude, lat, julianDay);
+    const acLon = calculateACLongitude(eq.ra, eq.dec, lat, julianDay);
     if (acLon !== null) {
       let dcLon = normalizeAngle(acLon + 180);
       if (dcLon > 180) dcLon -= 360;
@@ -168,11 +159,11 @@ export function calculateDCLine(planet: string, longitude: number, julianDay: nu
 /**
  * Calculate all 4 lines for a single planet
  */
-export function calculatePlanetLines(planet: string, longitude: number, julianDay: number): AstroLine[] {
+export function calculatePlanetLines(planet: string, eq: Equatorial, julianDay: number): AstroLine[] {
   return [
-    calculateMCLine(planet, longitude, julianDay),
-    calculateICLine(planet, longitude, julianDay),
-    calculateACLine(planet, longitude, julianDay),
-    calculateDCLine(planet, longitude, julianDay),
+    calculateMCLine(planet, eq, julianDay),
+    calculateICLine(planet, eq, julianDay),
+    calculateACLine(planet, eq, julianDay),
+    calculateDCLine(planet, eq, julianDay),
   ];
 }

@@ -6,6 +6,7 @@
  */
 
 import type { AstroLine } from './lineCalculator';
+import type { ThemeWeight } from './themes';
 
 export interface CityData {
   name: string;
@@ -39,6 +40,9 @@ const PLANET_WEIGHTS: Record<string, number> = {
   Mars: 0.8,
   Saturn: 0.75,
   Mercury: 0.6,
+  Pluto: 0.75,
+  Uranus: 0.65,
+  Neptune: 0.6,
 };
 
 // Angle weights
@@ -121,10 +125,15 @@ function distanceToLine(lat: number, lon: number, line: AstroLine): number {
 
   if (points.length === 0) return Infinity;
 
-  // For MC/IC lines (vertical meridians), distance is longitude-based
+  // For MC/IC lines (vertical meridians), distance is longitude-based.
+  // Meridians converge toward the poles, so a degree of longitude is only
+  // cos(latitude) as wide (in miles) at this city's latitude as it is at
+  // the equator — without this factor, MC/IC distances are overstated at
+  // higher latitudes (AC/DC's curved-line distance already applies it via
+  // angularDistance below).
   if (angle === 'MC' || angle === 'IC') {
     const lineLon = points[0].lon;
-    return longitudeDifference(lon, lineLon);
+    return longitudeDifference(lon, lineLon) * Math.cos(lat * DEG_TO_RAD);
   }
 
   // For AC/DC lines (curved), find closest point on curve
@@ -256,4 +265,100 @@ export function scoreCities(
   scored.sort((a, b) => b.totalScore - a.totalScore);
 
   return scored.slice(0, limit);
+}
+
+/**
+ * Score a single city against a weighted, multi-planet life-theme blend
+ * (e.g. "love" = Venus/DC heavily + Moon/DC lightly), rather than a single
+ * planet's lines. Each theme weight independently filters `allLines` down to
+ * the (planet, angle) combinations it cares about, so a city's line proximity
+ * to *unrelated* planets never affects a theme's score.
+ */
+function scoreCityForTheme(
+  city: CityData,
+  allLines: AstroLine[],
+  themeWeights: ThemeWeight[]
+): ScoredCity {
+  const lineActivations: LineActivation[] = [];
+  let totalScore = 0;
+
+  for (const tw of themeWeights) {
+    const matchingLines = allLines.filter(
+      (line) => line.planet === tw.planet && (!tw.angle || line.angle === tw.angle)
+    );
+
+    for (const line of matchingLines) {
+      const distance = distanceToLine(city.lat, city.lon, line);
+      const distanceMiles = distance * MILES_PER_DEGREE;
+
+      if (distanceMiles <= MAX_ORB_MILES) {
+        let baseScore = 1 - distanceMiles / MAX_ORB_MILES;
+        if (distanceMiles <= BONUS_ORB_MILES) {
+          baseScore += 0.5 * (1 - distanceMiles / BONUS_ORB_MILES);
+        }
+
+        const angleWeight = ANGLE_WEIGHTS[line.angle] ?? 0.5;
+        const lineScore = baseScore * angleWeight * tw.weight;
+
+        lineActivations.push({
+          planet: line.planet,
+          angle: line.angle,
+          distance: Math.round(distanceMiles * 10) / 10,
+          score: Math.round(lineScore * 1000) / 1000,
+          key: `${line.planet}_${line.angle}`,
+        });
+
+        totalScore += lineScore;
+      }
+    }
+  }
+
+  lineActivations.sort((a, b) => b.score - a.score);
+
+  return {
+    ...city,
+    totalScore: Math.round(totalScore * 100) / 100,
+    activationCount: lineActivations.length,
+    lineActivations,
+    bestActivation: lineActivations[0] ?? null,
+  };
+}
+
+/**
+ * Score and rank all cities for a single weighted life theme.
+ */
+export function scoreCitiesForTheme(
+  cities: CityData[],
+  allLines: AstroLine[],
+  themeWeights: ThemeWeight[],
+  limit: number = 5
+): ScoredCity[] {
+  const scored: ScoredCity[] = [];
+
+  for (const city of cities) {
+    if (EXCLUDED_COUNTRIES.has(city.country)) continue;
+    const result = scoreCityForTheme(city, allLines, themeWeights);
+    if (result.totalScore > 0) {
+      scored.push(result);
+    }
+  }
+
+  scored.sort((a, b) => b.totalScore - a.totalScore);
+  return scored.slice(0, limit);
+}
+
+/**
+ * Score and rank all cities across several themes at once, blended by summing
+ * each theme's independently-computed score. Useful when a customer selects
+ * more than one life area (e.g. "love" + "career") and wants one combined
+ * ranking, in addition to (not instead of) each theme's own ranking.
+ */
+export function scoreCitiesForCombinedThemes(
+  cities: CityData[],
+  allLines: AstroLine[],
+  themeWeightSets: ThemeWeight[][],
+  limit: number = 5
+): ScoredCity[] {
+  const combinedWeights = themeWeightSets.flat();
+  return scoreCitiesForTheme(cities, allLines, combinedWeights, limit);
 }

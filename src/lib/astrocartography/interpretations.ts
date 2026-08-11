@@ -168,6 +168,110 @@ const interpretations: Record<string, Interpretation> = {
     full: 'Jupiter on your Descendant brings good fortune through partnerships and relationships. You may attract generous, optimistic, or successful partners. Opportunities often come through other people. This is an excellent placement for beneficial business partnerships and relationships that expand your horizons.',
     themes: ['Fortunate partnerships', 'Generous partners', 'Lucky connections'],
   },
+
+  // Saturn lines
+  Saturn_MC: {
+    title: 'Saturn on Midheaven: Disciplined Achievement',
+    short: 'Builds lasting success through sustained effort and responsibility.',
+    full: 'Saturn on your Midheaven brings serious, disciplined energy to your career and public life. Success here comes through sustained effort, responsibility, and time. You may be drawn to positions of authority or fields requiring expertise and dedication. This placement builds lasting achievements but requires patience. Recognition comes later but is well-earned.',
+    themes: ['Disciplined achievement', 'Earned authority', 'Long-game success'],
+  },
+  Saturn_IC: {
+    title: 'Saturn on IC: Structured Foundations',
+    short: 'Creates structure and discipline in private life and home.',
+    full: "Saturn on your IC brings structure and discipline to your home and inner life. You may feel drawn to create a stable, well-organized home environment. Family responsibilities may feel heavy, but you build lasting foundations. This placement supports maturation and dealing with family patterns consciously. The challenge is not letting home life feel too restrictive.",
+    themes: ['Structured home', 'Lasting foundations', 'Family maturity'],
+  },
+  Saturn_AC: {
+    title: 'Saturn on Ascendant: Serious Presence',
+    short: 'Projects maturity and seriousness; requires effort in self-expression.',
+    full: "Saturn on the Ascendant can feel heavy. This placement often manifests as a sense of burden, increased responsibility, or feeling like life requires more effort. You may be perceived as serious, mature, or reserved, even if that's not your natural disposition. The gift of Saturn is mastery through discipline. If you're willing to work hard and accept delayed gratification, this placement builds something lasting.",
+    themes: ['Earned mastery', 'Serious presence', 'Disciplined growth'],
+  },
+  Saturn_DC: {
+    title: 'Saturn on Descendant: Committed Partnerships',
+    short: 'Attracts serious, stable partners; relationships require commitment.',
+    full: 'Saturn on your Descendant adds seriousness and maturity to relationships. First impressions may be more reserved. Whatever develops here requires genuine effort. Relationships tend toward commitment rather than casual dating. You may attract older, more established, or authority-figure partners. This placement builds lasting partnerships through mutual responsibility.',
+    themes: ['Committed partnership', 'Earned trust', 'Lasting bonds'],
+  },
+
+  // Uranus lines
+  Uranus_MC: {
+    title: 'Uranus on Midheaven: Unconventional Career',
+    short: 'Brings sudden changes and innovation to career and public image.',
+    full: 'Uranus on your Midheaven brings innovation, unpredictability, and originality to your career and public life. You may be drawn to unconventional careers or experience sudden changes in your professional direction. This placement supports technology, innovation, and breaking from tradition. Your public image may be that of a rebel or visionary. The challenge is instability in career matters.',
+    themes: ['Unconventional career', 'Sudden change', 'Visionary image'],
+  },
+  Uranus_IC: {
+    title: 'Uranus on IC: Restless Foundations',
+    short: 'Brings sudden change and a need for independence to home and private life.',
+    full: 'Uranus on your IC unsettles the usual sense of home. You may find yourself changing living situations more than expected, drawn to unconventional domestic arrangements, or simply needing more independence within your private life than tradition allows. Family patterns may shift suddenly here. The private self becomes a place of experimentation rather than routine.',
+    themes: ['Restless home', 'Independence', 'Unconventional roots'],
+  },
+  Uranus_AC: {
+    title: 'Uranus on Ascendant: Magnetic Unpredictability',
+    short: 'Projects individuality, originality, and magnetic unpredictability.',
+    full: "Uranus on your Ascendant projects individuality, originality, and magnetic unpredictability. Others may see you as different, ahead of your time, or hard to categorise. This placement enhances personal freedom and the courage to be authentically yourself, even when it doesn't fit convention. Change and reinvention come naturally here.",
+    themes: ['Magnetic individuality', 'Personal freedom', 'Reinvention'],
+  },
+  Uranus_DC: {
+    title: 'Uranus on Descendant: Unconventional Partnerships',
+    short: 'Brings sudden change and excitement to relationships and partnerships.',
+    full: "Uranus on your Descendant brings excitement, unpredictability, and a need for independence into your relationships. Partnerships here often begin suddenly and unconventionally, and the people you attract tend to be unusual, independent-minded, or resistant to being tied down. This placement favours relationships built on freedom and mutual respect for each other's individuality over traditional structure. The challenge is stability, since connections here can end as suddenly as they begin.",
+    themes: ['Unconventional partners', 'Exciting connection', 'Need for freedom'],
+  },
+
+  // Neptune lines
+  Neptune_MC: {
+    title: 'Neptune on Midheaven: Visionary Public Image',
+    short: 'Infuses your public image with creative, visionary qualities.',
+    full: 'Neptune on the Midheaven can infuse your public image with creative, artistic qualities. It supports careers in imaginative fields. Others may see you as a visionary or creative professional. The challenge is keeping your public direction clear rather than diffuse.',
+    themes: ['Visionary career', 'Creative recognition', 'Artistic image'],
+  },
+  Neptune_IC: {
+    title: 'Neptune on IC: Dissolving Boundaries at Home',
+    short: 'Softens boundaries around home and family, inviting spiritual reflection.',
+    full: 'Neptune on your IC brings a dreamy, porous quality to your home and inner life. Boundaries between yourself and family may blur, and your sense of roots may feel more spiritual or imaginative than literal. This placement supports meditation, creative retreat, and healing work done in private, though it can also bring confusion around family history or where you truly belong. The private self becomes less about walls and more about atmosphere.',
+    themes: ['Spiritual home', 'Soft boundaries', 'Inner retreat'],
+  },
+  Neptune_AC: {
+    title: 'Neptune on Ascendant: Dreamy Presence',
+    short: 'Projects artistic, mysterious, spiritually-attuned presence.',
+    full: 'Neptune on your Ascendant gives you a dreamy, artistic, or spiritually-attuned presence. Others may see you as mysterious, creative, or hard to define. This placement enhances intuition and artistic expression. You naturally tune into subtle energies. The challenge is that others may project fantasies onto you or misunderstand who you really are.',
+    themes: ['Dreamy presence', 'Heightened intuition', 'Artistic aura'],
+  },
+  Neptune_DC: {
+    title: 'Neptune on Descendant: Idealized Partnerships',
+    short: 'Brings a soulmate quality to relationships, with real risk of idealisation.',
+    full: 'Neptune on your Descendant brings a soulmate-like, almost fated quality to relationships formed here. Partners may feel spiritually or creatively aligned with you in ways that feel meant to be. The risk is idealisation: Neptune can blur the line between who someone actually is and who you want them to be, so clarity may take longer to arrive than usual. Handled consciously, this placement supports deeply compassionate, artistic, or spiritually connected partnership.',
+    themes: ['Soulmate energy', 'Creative connection', 'Idealisation risk'],
+  },
+
+  // Pluto lines
+  Pluto_MC: {
+    title: 'Pluto on Midheaven: Transformation & Power',
+    short: 'Profound transformation in career and public image; power dynamics.',
+    full: "Pluto on the Midheaven is one of the most intense placements in astrocartography. This is a location of profound transformation, particularly around career, public image, and your place in the world. Pluto demands authenticity; it strips away what's false and forces you to confront your own power. You may experience significant rises and falls, power dynamics in professional settings, or deep reinvention of your public self.",
+    themes: ['Career transformation', 'Personal power', 'Public reinvention'],
+  },
+  Pluto_IC: {
+    title: 'Pluto on IC: Deep Roots, Deep Change',
+    short: 'Brings intense transformation to home, family, and your private foundations.',
+    full: 'Pluto on your IC reaches into the deepest layers of your private life: family history, inherited patterns, and your sense of roots. This placement can surface buried family dynamics or ancestral material that has been waiting to be acknowledged. Home here is rarely neutral ground; it becomes a place of real psychological excavation. What gets rebuilt afterward tends to be far more solid than what was there before.',
+    themes: ['Family excavation', 'Rebuilt foundations', 'Ancestral material'],
+  },
+  Pluto_AC: {
+    title: 'Pluto on Ascendant: Intense Presence',
+    short: 'Projects powerful, magnetic, transformative presence.',
+    full: 'Pluto on your Ascendant gives you an intense, magnetic presence. You come across as powerful, perceptive, and somewhat mysterious. Others feel your depth. This placement enhances personal power and the ability to transform yourself and situations. You may be drawn to crisis situations or roles requiring psychological insight. The challenge is managing the intensity of how others respond to you.',
+    themes: ['Magnetic intensity', 'Personal power', 'Deep perception'],
+  },
+  Pluto_DC: {
+    title: 'Pluto on Descendant: Transformative Partnerships',
+    short: 'Attracts intense, powerful partners; relationships that transform you.',
+    full: "Pluto on your Descendant draws intense, powerful partnerships into your life, the kind that don't stay surface-level for long. You may attract partners who are magnetic, controlling, or deeply transformative to know, and relationships formed here tend to strip away pretence quickly. Power dynamics are often part of the territory, for better or worse. What survives this placement's intensity tends to be real.",
+    themes: ['Transformative partners', 'Power dynamics', 'Real intimacy'],
+  },
 };
 
 // Vision narratives per planet/angle. {city} is replaced at runtime.

@@ -1,7 +1,15 @@
 /**
  * Astronomical calculations for birth chart
- * Uses simplified algorithms for moon and rising sign calculation
  */
+
+import * as Astronomy from 'astronomy-engine';
+import {
+  calculateAscendantLongitude,
+  getMidheaven,
+  calculateHouseCusps,
+  assignPlanetToHouse,
+  type HouseCusps,
+} from './houses';
 
 const zodiacSigns = [
   { name: 'Aries', symbol: '♈', element: 'Fire', quality: 'Cardinal' },
@@ -154,6 +162,7 @@ export interface PlanetPosition {
   element: string;
   quality: string;
   description: string;
+  house?: number; // 1-12, whole-sign house relative to the chart's Ascendant
 }
 
 export interface ChartData {
@@ -165,6 +174,12 @@ export interface ChartData {
   mars: PlanetPosition;
   jupiter: PlanetPosition;
   saturn: PlanetPosition;
+  uranus: PlanetPosition;
+  neptune: PlanetPosition;
+  pluto: PlanetPosition;
+  houseSystem: 'whole-sign';
+  midheaven: number | null; // ecliptic longitude of the MC, null if no lat/lon given
+  houses: HouseCusps | null; // null if no lat/lon given (mirrors `rising`'s nullability)
 }
 
 export interface BirthData {
@@ -180,7 +195,10 @@ export interface BirthData {
 
 /**
  * Convert longitude to zodiac sign
- * @param context - 'sun', 'moon', 'rising', 'mercury', 'venus', 'mars', 'saturn' or undefined for generic description
+ * @param context - 'sun', 'moon', 'rising', 'mercury', 'venus', 'mars', 'saturn' or undefined for generic description.
+ * Uranus/Neptune/Pluto have no per-sign description table yet (net-new placements
+ * added for relocation/combined-report facts, not the static template pages), so
+ * they fall through to the generic `signDescriptions` fallback.
  */
 function longitudeToSign(longitude: number, context?: 'sun' | 'moon' | 'rising' | 'mercury' | 'venus' | 'mars' | 'saturn'): PlanetPosition {
   const signIndex = Math.floor(longitude / 30) % 12;
@@ -239,100 +257,13 @@ export function toJulianDay(year: number, month: number, day: number, hour: numb
 }
 
 /**
- * Calculate Moon's ecliptic longitude using simplified algorithm
- * Based on Meeus "Astronomical Algorithms"
+ * Calculate Moon's ecliptic longitude via astronomy-engine.
+ * Previously a 6-term truncated series (~0.3-0.5° typical accuracy) — the Moon
+ * changes sign every ~2.5 days, making it one of the highest cusp-risk bodies,
+ * so it's migrated to the same accurate source as the other planets.
  */
 export function calculateMoonLongitude(jd: number): number {
-  // Days since J2000.0
-  const T = (jd - 2451545.0) / 36525;
-
-  // Moon's mean longitude
-  const L0 = 218.3164477 + 481267.88123421 * T - 0.0015786 * T * T;
-
-  // Moon's mean anomaly
-  const M = 134.9633964 + 477198.8675055 * T + 0.0087414 * T * T;
-
-  // Moon's argument of latitude
-  const F = 93.272095 + 483202.0175233 * T - 0.0036539 * T * T;
-
-  // Sun's mean anomaly
-  const Ms = 357.5291092 + 35999.0502909 * T - 0.0001536 * T * T;
-
-  // Moon's mean elongation
-  const D = 297.8501921 + 445267.1114034 * T - 0.0018819 * T * T;
-
-  // Convert to radians
-  const Lrad = L0 * Math.PI / 180;
-  const Mrad = M * Math.PI / 180;
-  const Frad = F * Math.PI / 180;
-  const Msrad = Ms * Math.PI / 180;
-  const Drad = D * Math.PI / 180;
-
-  // Calculate main perturbations (simplified)
-  let longitude = L0;
-  longitude += 6.289 * Math.sin(Mrad);
-  longitude += 1.274 * Math.sin(2 * Drad - Mrad);
-  longitude += 0.658 * Math.sin(2 * Drad);
-  longitude += 0.214 * Math.sin(2 * Mrad);
-  longitude -= 0.186 * Math.sin(Msrad);
-  longitude -= 0.114 * Math.sin(2 * Frad);
-
-  // Normalize to 0-360
-  longitude = longitude % 360;
-  if (longitude < 0) longitude += 360;
-
-  return longitude;
-}
-
-/**
- * Calculate Rising Sign (Ascendant) using accurate algorithm
- * Based on standard astrological calculation methods
- */
-function calculateAscendant(jd: number, latitude: number, longitude: number): number {
-  // Calculate Julian centuries from J2000.0
-  const T = (jd - 2451545.0) / 36525;
-
-  // Calculate Greenwich Mean Sidereal Time (in degrees)
-  // Using IAU formula
-  let GMST = 280.46061837 + 360.98564736629 * (jd - 2451545.0) +
-             0.000387933 * T * T - T * T * T / 38710000;
-
-  // Normalize GMST to 0-360
-  GMST = GMST % 360;
-  if (GMST < 0) GMST += 360;
-
-  // Local Sidereal Time (add geographic longitude)
-  let LST = GMST + longitude;
-  LST = LST % 360;
-  if (LST < 0) LST += 360;
-
-  // RAMC (Right Ascension of Midheaven) equals LST
-  const RAMC = LST;
-
-  // Convert to radians
-  const ramcRad = RAMC * Math.PI / 180;
-  const latRad = latitude * Math.PI / 180;
-
-  // Obliquity of the ecliptic (more accurate formula)
-  const eps = 23.439291 - 0.0130042 * T - 0.00000016 * T * T + 0.000000504 * T * T * T;
-  const epsRad = eps * Math.PI / 180;
-
-  // Calculate Ascendant using the standard formula
-  // ASC = atan2(-cos(RAMC), sin(eps)*tan(lat) + cos(eps)*sin(RAMC))
-  const y = -Math.cos(ramcRad);
-  const x = Math.sin(epsRad) * Math.tan(latRad) + Math.cos(epsRad) * Math.sin(ramcRad);
-
-  let asc = Math.atan2(y, x) * 180 / Math.PI;
-
-  // The atan2 result needs to be adjusted to ecliptic longitude
-  // Add 180 degrees to get the correct quadrant for the ascendant
-  asc = asc + 180;
-
-  // Normalize to 0-360
-  asc = asc % 360;
-  if (asc < 0) asc += 360;
-
-  return asc;
+  return geoEclipticLongitude(Astronomy.Body.Moon, jd);
 }
 
 /**
@@ -346,80 +277,74 @@ export async function calculateChart(birthData: BirthData): Promise<ChartData | 
     // Calculate Julian Day
     const jd = toJulianDay(birthData.year, birthData.month, birthData.day, utcHour);
 
-    // Calculate Moon position
-    const moonLongitude = calculateMoonLongitude(jd);
-    const moonSign = longitudeToSign(moonLongitude, 'moon');
-    const moon: PlanetPosition = {
-      ...moonSign,
-      name: 'Moon',
-      symbol: '☽',
-    };
-
-    // Calculate Ascendant (Rising sign)
+    // Ascendant (Rising sign), Midheaven, and whole-sign houses — all require a
+    // birth location, so are computed first and mirror `rising`'s existing
+    // nullability rather than introducing a second convention.
     let rising: PlanetPosition | null = null;
-    if (birthData.latitude && birthData.longitude) {
-      const ascLongitude = calculateAscendant(jd, birthData.latitude, birthData.longitude);
+    let midheaven: number | null = null;
+    let houses: HouseCusps | null = null;
+    // Number.isFinite (not a truthy check) deliberately — a truthy check would
+    // silently skip the Ascendant/houses/Midheaven for anyone born exactly on
+    // the equator (latitude 0) or the Greenwich meridian (longitude 0).
+    if (Number.isFinite(birthData.latitude) && Number.isFinite(birthData.longitude)) {
+      const ascLongitude = calculateAscendantLongitude(jd, birthData.latitude, birthData.longitude);
       const ascSign = longitudeToSign(ascLongitude, 'rising');
       rising = {
         ...ascSign,
         name: 'Rising',
         symbol: '↑',
       };
+      midheaven = getMidheaven(jd, birthData.longitude);
+      houses = calculateHouseCusps(jd, birthData.latitude, birthData.longitude);
     }
 
-    // Calculate Sun position
+    // Assigns a whole-sign house number to a planet, if houses were computed
+    const houseOf = (longitude: number): number | undefined =>
+      houses ? assignPlanetToHouse(longitude, houses) : undefined;
+
+    const buildPlanet = (
+      longitude: number,
+      context: 'sun' | 'moon' | 'mercury' | 'venus' | 'mars' | 'saturn' | undefined,
+      name: string,
+      symbol: string
+    ): PlanetPosition => ({
+      ...longitudeToSign(longitude, context),
+      name,
+      symbol,
+      house: houseOf(longitude),
+    });
+
+    const moonLongitude = calculateMoonLongitude(jd);
+    const moon = buildPlanet(moonLongitude, 'moon', 'Moon', '☽');
+
     const sunLongitude = calculateSunLongitude(jd);
-    const sunSign = longitudeToSign(sunLongitude, 'sun');
-    const sun: PlanetPosition = {
-      ...sunSign,
-      name: 'Sun',
-      symbol: '☉',
-    };
+    const sun = buildPlanet(sunLongitude, 'sun', 'Sun', '☉');
 
-    // Calculate Mercury position
     const mercuryLongitude = calculateMercuryLongitude(jd);
-    const mercurySign = longitudeToSign(mercuryLongitude, 'mercury');
-    const mercury: PlanetPosition = {
-      ...mercurySign,
-      name: 'Mercury',
-      symbol: '☿',
-    };
+    const mercury = buildPlanet(mercuryLongitude, 'mercury', 'Mercury', '☿');
 
-    // Calculate Venus position
     const venusLongitude = calculateVenusLongitude(jd);
-    const venusSign = longitudeToSign(venusLongitude, 'venus');
-    const venus: PlanetPosition = {
-      ...venusSign,
-      name: 'Venus',
-      symbol: '♀',
-    };
+    const venus = buildPlanet(venusLongitude, 'venus', 'Venus', '♀');
 
-    // Calculate Mars position
     const marsLongitude = calculateMarsLongitude(jd);
-    const marsSign = longitudeToSign(marsLongitude, 'mars');
-    const mars: PlanetPosition = {
-      ...marsSign,
-      name: 'Mars',
-      symbol: '♂',
-    };
+    const mars = buildPlanet(marsLongitude, 'mars', 'Mars', '♂');
 
-    // Calculate Saturn position
     const saturnLongitude = calculateSaturnLongitude(jd);
-    const saturnSign = longitudeToSign(saturnLongitude, 'saturn');
-    const saturn: PlanetPosition = {
-      ...saturnSign,
-      name: 'Saturn',
-      symbol: '♄',
-    };
+    const saturn = buildPlanet(saturnLongitude, 'saturn', 'Saturn', '♄');
 
-    // Calculate Jupiter position
     const jupiterLongitude = calculateJupiterLongitude(jd);
-    const jupiterSign = longitudeToSign(jupiterLongitude);
-    const jupiter: PlanetPosition = {
-      ...jupiterSign,
-      name: 'Jupiter',
-      symbol: '♃',
-    };
+    const jupiter = buildPlanet(jupiterLongitude, undefined, 'Jupiter', '♃');
+
+    // Outer planets: no per-sign description tables (net-new for the
+    // relocation/combined-report facts engine, not the static template pages)
+    const uranusLongitude = calculateUranusLongitude(jd);
+    const uranus = buildPlanet(uranusLongitude, undefined, 'Uranus', '♅');
+
+    const neptuneLongitude = calculateNeptuneLongitude(jd);
+    const neptune = buildPlanet(neptuneLongitude, undefined, 'Neptune', '♆');
+
+    const plutoLongitude = calculatePlutoLongitude(jd);
+    const pluto = buildPlanet(plutoLongitude, undefined, 'Pluto', '♇');
 
     return {
       sun,
@@ -430,6 +355,12 @@ export async function calculateChart(birthData: BirthData): Promise<ChartData | 
       mars,
       jupiter,
       saturn,
+      uranus,
+      neptune,
+      pluto,
+      houseSystem: 'whole-sign',
+      midheaven,
+      houses,
     };
   } catch (error) {
     console.error('Error calculating chart:', error);
@@ -466,231 +397,123 @@ export function calculateSunLongitude(jd: number): number {
 }
 
 /**
- * Helper to normalize angle to 0-360
+ * Convert a Julian Day to an astronomy-engine AstroTime.
+ * AstroTime's numeric constructor takes UT days since J2000.0, which is
+ * exactly jd - 2451545.0 — avoids any precision loss from round-tripping
+ * through a calendar Date object.
  */
-function normalizeAngle(angle: number): number {
-  let result = angle % 360;
-  if (result < 0) result += 360;
-  return result;
+function jdToAstroTime(jd: number): Astronomy.AstroTime {
+  return new Astronomy.AstroTime(jd - 2451545.0);
 }
 
 /**
- * Helper to calculate Earth's heliocentric position
+ * Geocentric ecliptic longitude of a body via astronomy-engine.
+ * Same GeoVector -> Ecliptic pattern already proven in src/lib/humanDesign.ts.
+ * Accurate to ~1 arcminute (truncated VSOP87, validated against NOVAS/JPL Horizons),
+ * replacing the bare two-body Keplerian approximations previously used here for
+ * every body but the Sun.
  */
-function getEarthHeliocentricPosition(jd: number): { x: number; y: number; r: number; lon: number } {
-  const sunLon = calculateSunLongitude(jd);
-  const earthLon = normalizeAngle(sunLon + 180);
+function geoEclipticLongitude(body: Astronomy.Body, jd: number): number {
+  const time = jdToAstroTime(jd);
+  const vec = Astronomy.GeoVector(body, time, true);
+  const ecl = Astronomy.Ecliptic(vec);
+  let longitude = ecl.elon % 360;
+  if (longitude < 0) longitude += 360;
+  return longitude;
+}
 
-  const T = (jd - 2451545.0) / 36525;
-  const Me = normalizeAngle(357.52911 + 35999.05029 * T);
-  const MeRad = Me * Math.PI / 180;
-  const ee = 0.016709;
-  const re = 1.0 * (1 - ee * ee) / (1 + ee * Math.cos(MeRad));
+const EQUATORIAL_BODY_MAP: Record<string, Astronomy.Body> = {
+  Sun: Astronomy.Body.Sun,
+  Moon: Astronomy.Body.Moon,
+  Mercury: Astronomy.Body.Mercury,
+  Venus: Astronomy.Body.Venus,
+  Mars: Astronomy.Body.Mars,
+  Jupiter: Astronomy.Body.Jupiter,
+  Saturn: Astronomy.Body.Saturn,
+  Uranus: Astronomy.Body.Uranus,
+  Neptune: Astronomy.Body.Neptune,
+  Pluto: Astronomy.Body.Pluto,
+};
 
-  const earthLonRad = earthLon * Math.PI / 180;
-  return {
-    x: re * Math.cos(earthLonRad),
-    y: re * Math.sin(earthLonRad),
-    r: re,
-    lon: earthLon
-  };
+/**
+ * True geocentric equatorial coordinates (Right Ascension, Declination) of a
+ * planet, for astrocartography line calculation (MC/IC/AC/DC).
+ *
+ * This is deliberately NOT derived from ecliptic longitude the way
+ * `geoEclipticLongitude` is. RA/Dec depend on both ecliptic longitude AND
+ * ecliptic latitude; a body's latitude is usually small enough to treat as
+ * zero, but Pluto's orbit is inclined ~17° to the ecliptic, so its latitude
+ * can exceed 10° and swing declination by a similar amount — enough to move
+ * an astrocartography MC line by hundreds of miles if ignored. Using
+ * astronomy-engine's `EquatorFromVector` on the same geocentric vector
+ * `geoEclipticLongitude` already computes sidesteps that error entirely
+ * rather than re-deriving RA/Dec from longitude alone.
+ */
+export function calculatePlanetEquatorial(planet: string, jd: number): { ra: number; dec: number } {
+  const body = EQUATORIAL_BODY_MAP[planet];
+  if (!body) throw new Error(`Unknown planet for equatorial calculation: ${planet}`);
+  const time = jdToAstroTime(jd);
+  const vec = Astronomy.GeoVector(body, time, true);
+  const eq = Astronomy.EquatorFromVector(vec);
+  let ra = (eq.ra * 15) % 360; // hours -> degrees
+  if (ra < 0) ra += 360;
+  return { ra, dec: eq.dec };
 }
 
 /**
  * Calculate Mercury's GEOCENTRIC ecliptic longitude
  */
 export function calculateMercuryLongitude(jd: number): number {
-  const T = (jd - 2451545.0) / 36525;
-
-  // Mercury's heliocentric position
-  const L = normalizeAngle(252.2509 + 149474.0722 * T);
-  const M = normalizeAngle(174.7948 + 149472.5153 * T);
-  const Mrad = M * Math.PI / 180;
-  const C = 23.4400 * Math.sin(Mrad) + 2.9818 * Math.sin(2 * Mrad) + 0.5255 * Math.sin(3 * Mrad);
-  const mercuryHelioLon = normalizeAngle(L + C);
-
-  // Mercury's orbital radius
-  const em = 0.205630;
-  const am = 0.387098;
-  const rm = am * (1 - em * em) / (1 + em * Math.cos(Mrad));
-
-  // Convert to rectangular
-  const mercuryHelioRad = mercuryHelioLon * Math.PI / 180;
-  const xm = rm * Math.cos(mercuryHelioRad);
-  const ym = rm * Math.sin(mercuryHelioRad);
-
-  // Earth's position
-  const earth = getEarthHeliocentricPosition(jd);
-
-  // Geocentric position
-  const xg = xm - earth.x;
-  const yg = ym - earth.y;
-
-  // Geocentric longitude
-  let longitude = Math.atan2(yg, xg) * 180 / Math.PI;
-  if (longitude < 0) longitude += 360;
-
-  return longitude;
+  return geoEclipticLongitude(Astronomy.Body.Mercury, jd);
 }
 
 /**
  * Calculate Venus's GEOCENTRIC ecliptic longitude
  */
 export function calculateVenusLongitude(jd: number): number {
-  const T = (jd - 2451545.0) / 36525;
-
-  // Venus's heliocentric position
-  const L = normalizeAngle(181.9798 + 58519.2130 * T);
-  const M = normalizeAngle(50.4161 + 58517.8039 * T);
-  const Mrad = M * Math.PI / 180;
-  const C = 0.7758 * Math.sin(Mrad) + 0.0033 * Math.sin(2 * Mrad);
-  const venusHelioLon = normalizeAngle(L + C);
-
-  // Venus's orbital radius
-  const ev = 0.006773;
-  const av = 0.723332;
-  const rv = av * (1 - ev * ev) / (1 + ev * Math.cos(Mrad));
-
-  // Convert to rectangular
-  const venusHelioRad = venusHelioLon * Math.PI / 180;
-  const xv = rv * Math.cos(venusHelioRad);
-  const yv = rv * Math.sin(venusHelioRad);
-
-  // Earth's position
-  const earth = getEarthHeliocentricPosition(jd);
-
-  // Geocentric position
-  const xg = xv - earth.x;
-  const yg = yv - earth.y;
-
-  // Geocentric longitude
-  let longitude = Math.atan2(yg, xg) * 180 / Math.PI;
-  if (longitude < 0) longitude += 360;
-
-  return longitude;
+  return geoEclipticLongitude(Astronomy.Body.Venus, jd);
 }
 
 /**
  * Calculate Mars's GEOCENTRIC ecliptic longitude
  */
 export function calculateMarsLongitude(jd: number): number {
-  const T = (jd - 2451545.0) / 36525;
-
-  // Mars's heliocentric position
-  const L = normalizeAngle(355.4330 + 19141.6964 * T);
-  const M = normalizeAngle(19.3730 + 19139.8585 * T);
-  const Mrad = M * Math.PI / 180;
-  const C = 10.6912 * Math.sin(Mrad) + 0.6228 * Math.sin(2 * Mrad) + 0.0503 * Math.sin(3 * Mrad);
-  const marsHelioLon = normalizeAngle(L + C);
-
-  // Mars's orbital radius
-  const ema = 0.093394;
-  const ama = 1.523679;
-  const rma = ama * (1 - ema * ema) / (1 + ema * Math.cos(Mrad));
-
-  // Convert to rectangular
-  const marsHelioRad = marsHelioLon * Math.PI / 180;
-  const xma = rma * Math.cos(marsHelioRad);
-  const yma = rma * Math.sin(marsHelioRad);
-
-  // Earth's position
-  const earth = getEarthHeliocentricPosition(jd);
-
-  // Geocentric position
-  const xg = xma - earth.x;
-  const yg = yma - earth.y;
-
-  // Geocentric longitude
-  let longitude = Math.atan2(yg, xg) * 180 / Math.PI;
-  if (longitude < 0) longitude += 360;
-
-  return longitude;
+  return geoEclipticLongitude(Astronomy.Body.Mars, jd);
 }
 
 /**
  * Calculate Jupiter's GEOCENTRIC ecliptic longitude
  */
 export function calculateJupiterLongitude(jd: number): number {
-  const T = (jd - 2451545.0) / 36525;
-
-  // Jupiter's heliocentric position
-  const L = normalizeAngle(34.3515 + 3034.9057 * T);
-  const M = normalizeAngle(19.8950 + 3034.6982 * T);
-  const Mrad = M * Math.PI / 180;
-  const C = 5.5549 * Math.sin(Mrad) + 0.1683 * Math.sin(2 * Mrad) + 0.0071 * Math.sin(3 * Mrad);
-
-  // Saturn perturbation on Jupiter
-  const Ms = normalizeAngle(317.0207 + 1222.1138 * T);
-  const MsRad = Ms * Math.PI / 180;
-  const Cs = 0.3 * Math.sin(MsRad);
-
-  const jupiterHelioLon = normalizeAngle(L + C + Cs);
-
-  // Jupiter's orbital radius
-  const ej = 0.048498;
-  const aj = 5.20260;
-  const rj = aj * (1 - ej * ej) / (1 + ej * Math.cos(Mrad));
-
-  // Convert to rectangular
-  const jupiterHelioRad = jupiterHelioLon * Math.PI / 180;
-  const xj = rj * Math.cos(jupiterHelioRad);
-  const yj = rj * Math.sin(jupiterHelioRad);
-
-  // Earth's position
-  const earth = getEarthHeliocentricPosition(jd);
-
-  // Geocentric position
-  const xg = xj - earth.x;
-  const yg = yj - earth.y;
-
-  // Geocentric longitude
-  let longitude = Math.atan2(yg, xg) * 180 / Math.PI;
-  if (longitude < 0) longitude += 360;
-
-  return longitude;
+  return geoEclipticLongitude(Astronomy.Body.Jupiter, jd);
 }
 
 /**
  * Calculate Saturn's GEOCENTRIC ecliptic longitude
  */
 export function calculateSaturnLongitude(jd: number): number {
-  const T = (jd - 2451545.0) / 36525;
+  return geoEclipticLongitude(Astronomy.Body.Saturn, jd);
+}
 
-  // Saturn's heliocentric position
-  const L = normalizeAngle(50.0774 + 1223.5110 * T);
-  const M = normalizeAngle(317.0207 + 1222.1138 * T);
-  const Mrad = M * Math.PI / 180;
-  const C = 6.4000 * Math.sin(Mrad) + 0.2300 * Math.sin(2 * Mrad);
+/**
+ * Calculate Uranus's GEOCENTRIC ecliptic longitude
+ */
+export function calculateUranusLongitude(jd: number): number {
+  return geoEclipticLongitude(Astronomy.Body.Uranus, jd);
+}
 
-  // Jupiter perturbation
-  const Mj = normalizeAngle(20.020 + 3034.906 * T);
-  const MjRad = Mj * Math.PI / 180;
-  const Cj = 0.8 * Math.sin(MjRad);
+/**
+ * Calculate Neptune's GEOCENTRIC ecliptic longitude
+ */
+export function calculateNeptuneLongitude(jd: number): number {
+  return geoEclipticLongitude(Astronomy.Body.Neptune, jd);
+}
 
-  const saturnHelioLon = normalizeAngle(L + C + Cj);
-
-  // Saturn's orbital radius
-  const es = 0.054151;
-  const as = 9.554909;
-  const rs = as * (1 - es * es) / (1 + es * Math.cos(Mrad));
-
-  // Convert to rectangular
-  const saturnHelioRad = saturnHelioLon * Math.PI / 180;
-  const xs = rs * Math.cos(saturnHelioRad);
-  const ys = rs * Math.sin(saturnHelioRad);
-
-  // Earth's position
-  const earth = getEarthHeliocentricPosition(jd);
-
-  // Geocentric position
-  const xg = xs - earth.x;
-  const yg = ys - earth.y;
-
-  // Geocentric longitude
-  let longitude = Math.atan2(yg, xg) * 180 / Math.PI;
-  if (longitude < 0) longitude += 360;
-
-  return longitude;
+/**
+ * Calculate Pluto's GEOCENTRIC ecliptic longitude
+ */
+export function calculatePlutoLongitude(jd: number): number {
+  return geoEclipticLongitude(Astronomy.Body.Pluto, jd);
 }
 
 /**

@@ -5,18 +5,11 @@
  * and finds the top city near the selected planetary line.
  */
 
-import {
-  toJulianDay,
-  calculateSunLongitude,
-  calculateMoonLongitude,
-  calculateMercuryLongitude,
-  calculateVenusLongitude,
-  calculateMarsLongitude,
-  calculateJupiterLongitude,
-} from '../ephemeris';
-import { calculatePlanetLines } from './lineCalculator';
-import { scoreCities, type CityData } from './cityScorer';
+import { toJulianDay, calculatePlanetEquatorial } from '../ephemeris';
+import { calculatePlanetLines, type AstroLine } from './lineCalculator';
+import { scoreCities, scoreCitiesForTheme, scoreCitiesForCombinedThemes, type CityData, type ScoredCity } from './cityScorer';
 import { generateDescription, getInterpretation, getVision } from './interpretations';
+import { LIFE_THEMES, THEME_LABELS, type ThemeName } from './themes';
 import citiesData from '../../data/cities.json';
 
 export interface LifeArea {
@@ -51,6 +44,10 @@ const CATEGORY_PLANET: Record<string, string> = {
   venus: 'Venus',
   mars: 'Mars',
   jupiter: 'Jupiter',
+  saturn: 'Saturn',
+  uranus: 'Uranus',
+  neptune: 'Neptune',
+  pluto: 'Pluto',
 };
 
 // Life area definitions (mapped to planet categories)
@@ -60,16 +57,6 @@ const LIFE_AREAS: { category: string; label: string }[] = [
   { category: 'jupiter', label: 'Growth & Opportunity' },
   { category: 'moon', label: 'Home & Emotions' },
 ];
-
-// Map UI categories to planet longitude calculation functions
-const PLANET_CALCULATORS: Record<string, (jd: number) => number> = {
-  sun: calculateSunLongitude,
-  moon: calculateMoonLongitude,
-  mercury: calculateMercuryLongitude,
-  venus: calculateVenusLongitude,
-  mars: calculateMarsLongitude,
-  jupiter: calculateJupiterLongitude,
-};
 
 /**
  * Calculate astrocartography for a given birth data and category
@@ -100,16 +87,15 @@ export function calculateAstrocartography(
     utcHour
   );
 
-  // Get the planet calculator for this category
-  const calcFn = PLANET_CALCULATORS[category];
+  // Get the planet name for this category
   const planetName = CATEGORY_PLANET[category];
-  if (!calcFn || !planetName) return null;
+  if (!planetName) return null;
 
-  // Calculate the planet's ecliptic longitude
-  const planetLongitude = calcFn(jd);
+  // Calculate the planet's true equatorial position (RA/Dec)
+  const equatorial = calculatePlanetEquatorial(planetName, jd);
 
   // Calculate all 4 lines (MC, IC, AC, DC) for this planet
-  const lines = calculatePlanetLines(planetName, planetLongitude, jd);
+  const lines = calculatePlanetLines(planetName, equatorial, jd);
 
   // Score all cities against these lines
   const cities = citiesData as CityData[];
@@ -157,12 +143,11 @@ export function calculateAstrocartography(
   };
 
   const lifeAreas: LifeArea[] = LIFE_AREAS.map(({ category: cat, label }) => {
-    const fn = PLANET_CALCULATORS[cat];
     const planet = CATEGORY_PLANET[cat];
-    if (!fn || !planet) return { category: cat, label, strength: 'quiet' as const, active: cat === category };
+    if (!planet) return { category: cat, label, strength: 'quiet' as const, active: cat === category };
 
-    const lon = fn(jd);
-    const catLines = calculatePlanetLines(planet, lon, jd);
+    const eq = calculatePlanetEquatorial(planet, jd);
+    const catLines = calculatePlanetLines(planet, eq, jd);
     const scored = scoreCities([cityData], catLines, cat, 1);
     const score = scored.length > 0 ? scored[0].totalScore : 0;
 
@@ -191,3 +176,77 @@ export function calculateAstrocartography(
     lifeAreas,
   };
 }
+
+/**
+ * Compute every supported planet's MC/IC/AC/DC lines for a birth chart in one
+ * pass — the shared input for weighted multi-planet life-theme scoring, so a
+ * theme blend never needs to recompute a planet's lines it already has.
+ */
+export function calculateAllPlanetLines(
+  birthDate: Date,
+  birthTime: string | undefined,
+  timezone: number
+): { lines: AstroLine[]; jd: number } {
+  let hour = 12;
+  let minute = 0;
+  if (birthTime) {
+    const parts = birthTime.split(':').map(Number);
+    hour = parts[0];
+    minute = parts[1] || 0;
+  }
+  const utcHour = hour + minute / 60 - timezone;
+  const jd = toJulianDay(
+    birthDate.getFullYear(),
+    birthDate.getMonth() + 1,
+    birthDate.getDate(),
+    utcHour
+  );
+
+  const lines: AstroLine[] = [];
+  for (const cat of Object.keys(CATEGORY_PLANET)) {
+    const planetName = CATEGORY_PLANET[cat];
+    const eq = calculatePlanetEquatorial(planetName, jd);
+    lines.push(...calculatePlanetLines(planetName, eq, jd));
+  }
+
+  return { lines, jd };
+}
+
+export interface ThemedRelocationResult {
+  perTheme: Partial<Record<ThemeName, ScoredCity[]>>;
+  combined: ScoredCity[];
+}
+
+/**
+ * Rank destination cities by customer-selected life themes (e.g. "love",
+ * "career"), each a weighted blend of multiple planets' lines (see themes.ts)
+ * rather than a single planet. Returns both each theme's own ranking and a
+ * combined ranking across all selected themes.
+ */
+export function calculateThemedRelocation(
+  birthDate: Date,
+  birthTime: string | undefined,
+  timezone: number,
+  themeNames: ThemeName[],
+  limit: number = 5
+): ThemedRelocationResult {
+  const { lines } = calculateAllPlanetLines(birthDate, birthTime, timezone);
+  const cities = citiesData as CityData[];
+
+  const perTheme: Partial<Record<ThemeName, ScoredCity[]>> = {};
+  for (const themeName of themeNames) {
+    perTheme[themeName] = scoreCitiesForTheme(cities, lines, LIFE_THEMES[themeName], limit);
+  }
+
+  const combined = scoreCitiesForCombinedThemes(
+    cities,
+    lines,
+    themeNames.map((t) => LIFE_THEMES[t]),
+    limit
+  );
+
+  return { perTheme, combined };
+}
+
+export { THEME_LABELS };
+export type { ThemeName };
