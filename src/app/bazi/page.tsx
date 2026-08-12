@@ -7,7 +7,7 @@ import { Footer } from '@/components/Footer';
 import { SendResultsEmail } from '@/components/ui/SendResultsEmail';
 import { calculateBaZi } from '@/lib/bazi';
 import type { BaZiProfile } from '@/lib/bazi';
-import { dayMasterContent, elementContent, patternDescriptions } from '@/lib/data/bazi-content';
+import { dayMasterContent, elementContent, patternDescriptions, baziFaqs } from '@/lib/data/bazi-content';
 import { loadBirthData, saveBirthData } from '@/lib/birthData';
 import { isValidDate } from '@/lib/utils';
 
@@ -322,6 +322,71 @@ export default function BaZiPage() {
                     Calculate my Four Pillars
                   </button>
                 </form>
+              </div>
+            </section>
+
+            <div className="container-editorial">
+              <div className="h-px bg-[#2D2640]/10" />
+            </div>
+
+            {/* What is BaZi + Five Elements (static, always visible) */}
+            <section className="container-editorial py-12 md:py-16">
+              <div className="max-w-2xl mb-10">
+                <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">What is BaZi?</h2>
+                <p className="text-[#655E78] leading-relaxed">
+                  BaZi, or Four Pillars of Destiny, is a Chinese astrological system that maps the elemental energy present at the moment of your birth. It breaks your birth date and time into four pillars, Year, Month, Day, and Hour, each built from a Heavenly Stem and an Earthly Branch. Together, they reveal your dominant elements, your Day Master (the core &ldquo;you&rdquo; of the chart), and the patterns that shape your personality, career, and relationships.
+                </p>
+              </div>
+
+              <h3 className="font-serif text-xl text-[#2D2640] mb-6">The Five Elements</h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                {Object.values(elementContent).map((el) => (
+                  <div key={el.name} className="rounded-lg border border-[#2D2640]/10 p-5">
+                    <div className="text-2xl mb-2">{el.emoji}</div>
+                    <p className="font-serif text-lg text-[#2D2640] mb-2">{el.name}</p>
+                    <p className="text-sm text-[#655E78] leading-relaxed">{el.qualities}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <div className="container-editorial">
+              <div className="h-px bg-[#2D2640]/10" />
+            </div>
+
+            {/* Ten Day Masters (static, always visible) */}
+            <section className="container-editorial py-12 md:py-16">
+              <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-2">The Ten Day Masters</h2>
+              <p className="text-[#655E78] mb-8 max-w-2xl">
+                Your Day Master is the Heavenly Stem of your Day Pillar, the element at the center of your chart. Here&apos;s what each one represents.
+              </p>
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                {Object.values(dayMasterContent).map((dm) => (
+                  <div key={dm.stem} className="border-b border-[#2D2640]/10 pb-6 md:pb-8">
+                    <p className="font-serif text-lg text-[#2D2640] mb-1">
+                      {dm.stem} {dm.element} ({dm.yinYang})
+                    </p>
+                    <p className="text-sm text-[#655E78] italic mb-2">{dm.metaphor}</p>
+                    <p className="text-sm text-[#655E78] leading-relaxed">{dm.overview}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <div className="container-editorial">
+              <div className="h-px bg-[#2D2640]/10" />
+            </div>
+
+            {/* FAQ (static, always visible) */}
+            <section className="container-editorial py-12 md:py-16">
+              <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-8">Common Questions</h2>
+              <div className="max-w-2xl space-y-8">
+                {baziFaqs.map((item, i) => (
+                  <div key={i}>
+                    <h3 className="font-serif text-lg text-[#2D2640] mb-2">{item.q}</h3>
+                    <p className="text-[#655E78] leading-relaxed">{item.a}</p>
+                  </div>
+                ))}
               </div>
             </section>
           </>

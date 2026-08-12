@@ -208,6 +208,29 @@ export const elementContent: Record<string, ElementContent> = {
 // Pattern Descriptions
 // ============================================================
 
+// ============================================================
+// FAQ Content
+// ============================================================
+
+export const baziFaqs: { q: string; a: string }[] = [
+  {
+    q: 'What is BaZi (Four Pillars of Destiny)?',
+    a: 'BaZi, also called the Four Pillars of Destiny, is a Chinese astrological system that maps the Five Elements (Wood, Fire, Earth, Metal, Water) active at the moment of your birth. It breaks your birth date and time into four pillars, Year, Month, Day, and Hour, each built from a Heavenly Stem and an Earthly Branch, revealing your elemental balance, natural strengths, and timing.',
+  },
+  {
+    q: 'What is a Day Master?',
+    a: 'Your Day Master is the Heavenly Stem of your Day Pillar, the element that represents you at the center of your BaZi chart. There are ten possible Day Masters, each paired with one of the Five Elements in either a Yin or Yang expression, and it shapes your core personality, career fit, and relationship style.',
+  },
+  {
+    q: 'Do I need my exact birth time for BaZi?',
+    a: 'Yes, ideally. Your birth time determines your Hour Pillar, which factors into your overall reading. If you don’t know your exact time, noon is a reasonable estimate, though the Hour Pillar specifically will be less precise.',
+  },
+  {
+    q: 'Is BaZi the same as Chinese zodiac?',
+    a: 'They’re related but not the same. Your Chinese zodiac animal comes from your birth year alone. BaZi uses your full birth date and time to calculate four pillars instead of one, giving a much more detailed and individual elemental profile.',
+  },
+];
+
 export const patternDescriptions: Record<string, string> = {
   'Scholarly Pattern':
     'The Scholarly Pattern (Shi Shen / Shang Guan) indicates a brilliant, creative mind with exceptional talent for self-expression. You have a natural gift for learning, teaching, and artistic creation. Your intelligence is paired with a desire to share your knowledge and vision with the world. This pattern favors careers in education, writing, the arts, and innovation. You think independently and are not afraid to challenge conventions.',
