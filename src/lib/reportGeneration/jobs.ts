@@ -7,6 +7,8 @@ export interface CreateOrderInput {
   stripeSessionId: string;
   productType: string;
   customerEmail: string;
+  /** No default at the DB level on purpose — every caller must decide explicitly. */
+  subscribeToMailingList: boolean;
 }
 
 /**

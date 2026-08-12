@@ -1,4 +1,4 @@
-import { pgTable, pgEnum, serial, text, timestamp, jsonb, integer, uniqueIndex, index } from 'drizzle-orm/pg-core';
+import { pgTable, pgEnum, serial, text, timestamp, jsonb, integer, boolean, uniqueIndex, index } from 'drizzle-orm/pg-core';
 
 /**
  * One row per Stripe checkout for an in-scope product (Relocation Report,
@@ -6,6 +6,11 @@ import { pgTable, pgEnum, serial, text, timestamp, jsonb, integer, uniqueIndex, 
  * component). `stripeSessionId` is unique so the webhook can insert-or-noop
  * on `checkout.session.completed` — Stripe retries webhook delivery, and
  * generation must only ever be enqueued once per real purchase.
+ *
+ * `subscribeToMailingList` has no default and every insert path must set it
+ * explicitly (Stripe webhook: true, admin/Fiverr tool: false) — a silent
+ * default here is exactly how a Fiverr client who never opted in would end
+ * up auto-subscribed.
  */
 export const orders = pgTable(
   'orders',
@@ -14,6 +19,7 @@ export const orders = pgTable(
     stripeSessionId: text('stripe_session_id').notNull(),
     productType: text('product_type').notNull(), // 'relocation-report' | 'relocation-birth-chart' | 'bundle-relocation-component'
     customerEmail: text('customer_email').notNull(),
+    subscribeToMailingList: boolean('subscribe_to_mailing_list').notNull(),
     // Populated by the post-checkout intake page (not built yet); null between
     // purchase and intake completion.
     birthData: jsonb('birth_data'),

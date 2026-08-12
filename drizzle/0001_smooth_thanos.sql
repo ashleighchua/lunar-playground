@@ -1,0 +1,1 @@
+ALTER TABLE "orders" ADD COLUMN "subscribe_to_mailing_list" boolean NOT NULL;
