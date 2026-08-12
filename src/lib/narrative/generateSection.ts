@@ -21,8 +21,10 @@ import { checkGrounding, type GroundingViolation } from './groundingCheck';
 
 export type ModelTier = 'premium' | 'standard';
 
+// Both tiers use Sonnet-5 — live-tested output quality was strong enough
+// that Opus's extra cost isn't justified for either report type.
 const MODEL_BY_TIER: Record<ModelTier, string> = {
-  premium: 'anthropic/claude-opus-5', // combined (birth chart + relocation) report
+  premium: 'anthropic/claude-sonnet-5', // combined (birth chart + relocation) report
   standard: 'anthropic/claude-sonnet-5', // relocation-only report
 };
 
