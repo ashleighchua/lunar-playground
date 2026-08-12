@@ -30,6 +30,27 @@ export interface HDAuthorityContent {
   howToUse: string;
 }
 
+// --- FAQ Content ---
+
+export const humanDesignFaqs: { q: string; a: string }[] = [
+  {
+    q: 'What is Human Design?',
+    a: 'Human Design combines astrology, the I Ching, the Kabbalah Tree of Life, and the chakra system into one framework. It maps your exact birth data onto a "body graph" that shows your Type, Strategy, Authority, and Profile, a personal operating manual for how you\'re designed to make decisions and use your energy.',
+  },
+  {
+    q: 'Why does Human Design need my exact birth time?',
+    a: 'Your body graph is calculated from planetary positions at two moments: the moment you were born, and roughly 88 days before that. Even a small shift in birth time can move a planet into a different gate, changing which centers are defined. This is why Human Design is more sensitive to birth time than most other systems.',
+  },
+  {
+    q: 'What\'s the difference between Type and Authority?',
+    a: 'Your Type describes your overall energy strategy, whether you\'re here to respond, initiate, wait for invitations, and so on. Your Authority is more specific: it\'s the internal decision-making process (gut response, emotional wave, and so on) that tells you how to actually apply your strategy in the moment.',
+  },
+  {
+    q: 'What are the five Human Design Types?',
+    a: 'Manifestor, Generator, Manifesting Generator, Projector, and Reflector. Each has a different aura, a different strategy for engaging with the world, and a different "not-self" theme that shows up when they\'re out of alignment.',
+  },
+];
+
 // --- Type Content ---
 
 export const typeContent: Record<string, HDTypeContent> = {

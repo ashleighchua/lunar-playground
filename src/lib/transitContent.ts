@@ -4,6 +4,25 @@
  * Each sign gets: felt experience, stakes, single anchor, single question
  */
 
+export const transitFaqs: { q: string; a: string }[] = [
+  {
+    q: 'What is a moon transit?',
+    a: 'The Moon moves through all twelve zodiac signs roughly every 27 days, spending about 2 to 2.5 days in each one. As it moves, it colors the general emotional tone of each day, regardless of your personal birth chart.',
+  },
+  {
+    q: 'Is this the same as my personal transits?',
+    a: 'Not quite. This tool tracks the Moon\'s current sign and phase, which affects everyone\'s general mood. Your personal transits (how today\'s planets interact with your specific birth chart) are more individual and require your full birth details to calculate.',
+  },
+  {
+    q: 'What\'s the difference between the Moon\'s sign and its phase?',
+    a: 'The Moon\'s sign (Aries, Taurus, and so on) changes every couple of days and shapes the emotional flavor of the day. The Moon\'s phase (New, Waxing, Full, Waning) moves on a slower, roughly 29.5-day cycle and reflects where you are in a longer cycle of beginnings, building, culmination, and release.',
+  },
+  {
+    q: 'How often does the Moon change signs?',
+    a: 'About every 2 to 2.5 days. It\'s the fastest-moving body in astrology, which is why the day-to-day emotional weather can shift so quickly compared to other planetary transits.',
+  },
+];
+
 // How the day actually feels - visceral, not technical
 export const feltExperience: Record<string, string> = {
   Aries: `You're likely to feel a push today. Things that were fine yesterday may suddenly feel too slow, too careful, or just wrong. The urge to act is stronger than usual, and patience feels like a waste of energy.

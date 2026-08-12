@@ -7,7 +7,7 @@ import { Footer } from '@/components/Footer';
 import { SendResultsEmail } from '@/components/ui/SendResultsEmail';
 import { getNumerologyProfile } from '@/lib/numerology';
 import type { NumerologyProfile } from '@/lib/numerology';
-import { numberMeanings } from '@/lib/data/numerology-content';
+import { numberMeanings, numerologyFaqs } from '@/lib/data/numerology-content';
 import { loadBirthData, saveBirthData } from '@/lib/birthData';
 
 type PageState = 'form' | 'loading' | 'results';
@@ -610,6 +610,60 @@ function FormView({ onSubmit }: { onSubmit: (date: string) => void }) {
           </div>
         </div>
       </main>
+
+      <div className="container-editorial">
+        <div className="h-px bg-[#2D2640]/10" />
+      </div>
+
+      {/* What is Numerology? (static, always visible) */}
+      <section className="container-editorial py-12 md:py-16">
+        <div className="max-w-2xl mx-auto mb-10">
+          <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">What is Numerology?</h2>
+          <p className="text-[#655E78] leading-relaxed">
+            Numerology is the study of the numbers hidden inside your name and birth date. Every number carries its own vibration, and the way those numbers combine in your birth date reveals your Life Path (your core purpose), your Birthday Number (a natural talent), and the patterns and gaps that shape how you move through the world.
+          </p>
+        </div>
+
+        <div className="max-w-2xl mx-auto">
+          <h3 className="font-serif text-xl text-[#2D2640] mb-6">The Life Path Numbers</h3>
+          <div className="space-y-8">
+            {Object.values(numberMeanings).map((n) => (
+              <div key={n.number} className="border-b border-[#2D2640]/10 pb-8">
+                <p className="font-serif text-lg text-[#2D2640] mb-2">
+                  {n.number} &mdash; {n.title}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {n.keywords.map((kw) => (
+                    <span key={kw} className="text-xs uppercase tracking-widest text-[#655E78] bg-[#EDE9F0] rounded-full px-3 py-1">
+                      {kw}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-sm text-[#655E78] leading-relaxed whitespace-pre-line">{n.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="container-editorial">
+        <div className="h-px bg-[#2D2640]/10" />
+      </div>
+
+      {/* FAQ (static, always visible) */}
+      <section className="container-editorial py-12 md:py-16">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-8">Common Questions</h2>
+          <div className="space-y-8">
+            {numerologyFaqs.map((item, i) => (
+              <div key={i}>
+                <h3 className="font-serif text-lg text-[#2D2640] mb-2">{item.q}</h3>
+                <p className="text-[#655E78] leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

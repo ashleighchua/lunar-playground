@@ -6,7 +6,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { getChineseZodiac } from '@/lib/chineseZodiac';
 import type { ChineseZodiacProfile } from '@/lib/chineseZodiac';
-import { zodiacContent } from '@/lib/data/zodiac-content';
+import { zodiacContent, zodiacFaqs } from '@/lib/data/zodiac-content';
 import { loadBirthData, saveBirthData } from '@/lib/birthData';
 import { SendResultsEmail } from '@/components/ui/SendResultsEmail';
 
@@ -183,6 +183,56 @@ export default function ChineseZodiacPage() {
                   <div key={item.label} className="border border-[#2D2640]/10 rounded-lg p-6">
                     <p className="font-serif text-[#2D2640] mb-2">{item.label}</p>
                     <p className="text-sm text-[#655E78] leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Divider */}
+          <div className="container-editorial">
+            <div className="h-px bg-[#2D2640]/10" />
+          </div>
+
+          {/* The Twelve Animals (static, always visible) */}
+          <section className="container-editorial py-12 md:py-16">
+            <div className="max-w-2xl mb-10">
+              <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">The Twelve Animals</h2>
+              <p className="text-[#655E78] leading-relaxed">
+                The Chinese zodiac runs on a 12-year cycle, with each year ruled by one of twelve animals. Here&rsquo;s the personality archetype behind each one.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+              {Object.values(zodiacContent).map((animal) => (
+                <div key={animal.animal} className="border-b border-[#2D2640]/10 pb-6 md:pb-8">
+                  <p className="font-serif text-lg text-[#2D2640] mb-2">
+                    <span className="mr-2">{animal.emoji}</span>
+                    {animal.title}
+                  </p>
+                  {animal.overview.split('\n\n').map((para, i) => (
+                    <p key={i} className="text-sm text-[#655E78] leading-relaxed mb-2 last:mb-0">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Divider */}
+          <div className="container-editorial">
+            <div className="h-px bg-[#2D2640]/10" />
+          </div>
+
+          {/* FAQ (static, always visible) */}
+          <section className="container-editorial py-12 md:py-16">
+            <div className="max-w-2xl">
+              <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-8">Common Questions</h2>
+              <div className="space-y-8">
+                {zodiacFaqs.map((item, i) => (
+                  <div key={i}>
+                    <h3 className="font-serif text-lg text-[#2D2640] mb-2">{item.q}</h3>
+                    <p className="text-[#655E78] leading-relaxed">{item.a}</p>
                   </div>
                 ))}
               </div>

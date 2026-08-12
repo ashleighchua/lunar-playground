@@ -21,6 +21,7 @@ import {
   generateElementFocus,
   getWeeklyQuestion,
   getPhaseArcGuidance,
+  transitFaqs,
 } from '@/lib/transitContent';
 
 // Moon sign symbols for display
@@ -821,6 +822,49 @@ export default function TransitPage() {
             </section>
           </>
         )}
+
+        {/* The Moon in Each Sign (static, always visible) */}
+        <div className="container-editorial">
+          <div className="h-px bg-[#2D2640]/10" />
+        </div>
+
+        <section className="container-editorial py-12 md:py-16">
+          <div className="max-w-2xl mb-10">
+            <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">The Moon in Each Sign</h2>
+            <p className="text-[#655E78] leading-relaxed">
+              The Moon moves through a new sign roughly every 2 to 2.5 days, coloring the day&rsquo;s general emotional tone. Here&rsquo;s what each placement tends to bring.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            {Object.entries(moonSignTransits).map(([sign, data]) => (
+              <div key={sign} className="border-b border-[#2D2640]/10 pb-6 md:pb-8">
+                <p className="font-serif text-lg text-[#2D2640] mb-2">
+                  <span className="mr-2">{data.symbol}</span>
+                  Moon in {sign}
+                </p>
+                <p className="text-sm text-[#655E78] leading-relaxed">{data.energy}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div className="container-editorial">
+          <div className="h-px bg-[#2D2640]/10" />
+        </div>
+
+        <section className="container-editorial py-12 md:py-16">
+          <div className="max-w-2xl">
+            <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-8">Common Questions</h2>
+            <div className="space-y-8">
+              {transitFaqs.map((item, i) => (
+                <div key={i}>
+                  <h3 className="font-serif text-lg text-[#2D2640] mb-2">{item.q}</h3>
+                  <p className="text-[#655E78] leading-relaxed">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Spacer to push footer down */}
         <div className="flex-1" />

@@ -7,7 +7,7 @@ import { Footer } from '@/components/Footer';
 import { SendResultsEmail } from '@/components/ui/SendResultsEmail';
 import { calculateHumanDesign } from '@/lib/humanDesign';
 import type { HumanDesignProfile } from '@/lib/humanDesign';
-import { typeContent, centerContent } from '@/lib/data/human-design-content';
+import { typeContent, centerContent, humanDesignFaqs } from '@/lib/data/human-design-content';
 import { loadBirthData, saveBirthData } from '@/lib/birthData';
 import { CitySelect } from '@/components/ui/CitySelect';
 import type { City } from '@/lib/cities';
@@ -533,6 +533,56 @@ export default function HumanDesignPage() {
                     Map my design
                   </button>
                 </form>
+              </div>
+            </section>
+
+            <div className="container-editorial">
+              <div className="h-px bg-[#2D2640]/10" />
+            </div>
+
+            {/* What is Human Design? (static, always visible) */}
+            <section className="container-editorial py-12 md:py-16">
+              <div className="max-w-2xl mb-10">
+                <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">What is Human Design?</h2>
+                <p className="text-[#655E78] leading-relaxed">
+                  Human Design combines astrology, the I Ching, the Kabbalah Tree of Life, and the chakra system into one framework. It maps your exact birth data onto a &ldquo;body graph&rdquo; that reveals your Type, Strategy, Authority, and Profile, a kind of personal operating manual for how you&apos;re designed to make decisions, use your energy, and interact with the world.
+                </p>
+              </div>
+
+              <h3 className="font-serif text-xl text-[#2D2640] mb-6">The Five Types</h3>
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                {Object.values(typeContent).map((t) => (
+                  <div key={t.type} className="border-b border-[#2D2640]/10 pb-6 md:pb-8">
+                    <p className="font-serif text-lg text-[#2D2640] mb-1">{t.type}</p>
+                    <p className="text-sm text-[#655E78] mb-3">
+                      Strategy: {t.strategy} &middot; {t.percentage}
+                    </p>
+                    {t.overview.split('\n\n').map((para, i) => (
+                      <p key={i} className="text-sm text-[#655E78] leading-relaxed mb-2 last:mb-0">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <div className="container-editorial">
+              <div className="h-px bg-[#2D2640]/10" />
+            </div>
+
+            {/* FAQ (static, always visible) */}
+            <section className="container-editorial py-12 md:py-16">
+              <div className="max-w-2xl">
+                <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-8">Common Questions</h2>
+                <div className="space-y-8">
+                  {humanDesignFaqs.map((item, i) => (
+                    <div key={i}>
+                      <h3 className="font-serif text-lg text-[#2D2640] mb-2">{item.q}</h3>
+                      <p className="text-[#655E78] leading-relaxed">{item.a}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </section>
           </>

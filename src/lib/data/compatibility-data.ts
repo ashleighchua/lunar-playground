@@ -52,6 +52,25 @@ export const signDescriptions: Record<ZodiacSign, string> = {
   Pisces: 'Empathetic, imaginative, and spiritually attuned. Pisces feels the world deeply and often absorbs others\' emotions as their own. They bring creativity and compassion to relationships, seeing the best in people even when others can\'t.',
 };
 
+export const compatibilityFaqs: { q: string; a: string }[] = [
+  {
+    q: 'How is zodiac compatibility calculated?',
+    a: 'It starts with elements. Fire, Earth, Air, and Water signs each interact differently, some fuel each other, some clash, some balance each other out. From there, each of the 144 possible sign pairings has its own dynamic based on how the two signs typically communicate, handle conflict, and express affection.',
+  },
+  {
+    q: 'If our signs aren\'t compatible, does that mean the relationship won\'t work?',
+    a: 'No. Sun sign compatibility is a starting point, not a verdict. It reflects general tendencies based on birth month alone. A full birth chart (which factors in Moon sign, Rising sign, and Venus and Mars placements) gives a far more accurate picture of how two people actually fit together.',
+  },
+  {
+    q: 'What are the four elements in astrology?',
+    a: 'Fire (Aries, Leo, Sagittarius) is passionate and spontaneous. Earth (Taurus, Virgo, Capricorn) is grounded and practical. Air (Gemini, Libra, Aquarius) is communicative and idea-driven. Water (Cancer, Scorpio, Pisces) is emotional and intuitive. Same-element signs tend to understand each other instinctively; complementary elements (Fire-Air, Earth-Water) often balance well too.',
+  },
+  {
+    q: 'Can two people with the same zodiac sign be compatible?',
+    a: 'Often, yes. Sharing a sign means sharing core values and communication styles, which can create an easy sense of mutual understanding. The risk is that shared weaknesses can amplify each other, so it depends on how self-aware both people are.',
+  },
+];
+
 // Compatibility data with detailed sections
 export const compatibilityData: Record<string, {
   level: 'High' | 'Moderate' | 'Challenging';

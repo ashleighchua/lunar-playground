@@ -12,6 +12,7 @@ import {
   type Destination
 } from '@/lib/travel';
 import { calculateAstrocartography, type AstrocartographyResult } from '@/lib/astrocartography';
+import { getInterpretation, astrocartographyFaqs } from '@/lib/astrocartography/interpretations';
 import { loadBirthData } from '@/lib/birthData';
 import { estimateTimezone } from '@/lib/ephemeris';
 import { getCityCharacter } from '@/data/cityCharacters';
@@ -282,6 +283,70 @@ export default function TravelPage() {
               </div>
             </div>
           </section>
+        )}
+
+        {/* What is Astrocartography? (static, always visible) */}
+        {step === 'category' && (
+          <>
+            <div className="container-editorial">
+              <div className="h-px bg-[#2D2640]/10" />
+            </div>
+
+            <section className="container-editorial py-12 md:py-16">
+              <div className="max-w-2xl mx-auto mb-10">
+                <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">What is Astrocartography?</h2>
+                <p className="text-[#655E78] leading-relaxed">
+                  Astrocartography maps your birth chart onto the globe. Wherever a planet was rising, setting, culminating overhead, or at its lowest point at the moment you were born, that creates a line running across the map, and everywhere that line passes, that planet&rsquo;s energy is especially active for you.
+                </p>
+              </div>
+
+              <div className="max-w-2xl mx-auto space-y-10">
+                {(['sun', 'moon', 'venus', 'jupiter'] as const).map((planetKey) => {
+                  const info = categoryInfo[planetKey];
+                  const planetName = planetKey.charAt(0).toUpperCase() + planetKey.slice(1);
+                  return (
+                    <div key={planetKey}>
+                      <p className="font-serif text-lg text-[#2D2640] mb-1">
+                        <span className="mr-2">{info.symbol}</span>
+                        {info.name} &mdash; {info.title}
+                      </p>
+                      <p className="text-sm text-[#655E78] leading-relaxed mb-4">{info.description}</p>
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        {(['MC', 'IC', 'AC', 'DC'] as const).map((angle) => {
+                          const interp = getInterpretation(planetName, angle);
+                          if (!interp) return null;
+                          return (
+                            <div key={angle} className="border border-[#2D2640]/10 rounded-lg p-4">
+                              <p className="text-xs uppercase tracking-widest text-[#655E78] mb-1">{angle} Line</p>
+                              <p className="text-sm text-[#2D2640]/80 leading-relaxed">{interp.short}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+
+            <div className="container-editorial">
+              <div className="h-px bg-[#2D2640]/10" />
+            </div>
+
+            <section className="container-editorial py-12 md:py-16">
+              <div className="max-w-2xl mx-auto">
+                <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-8">Common Questions</h2>
+                <div className="space-y-8">
+                  {astrocartographyFaqs.map((item, i) => (
+                    <div key={i}>
+                      <h3 className="font-serif text-lg text-[#2D2640] mb-2">{item.q}</h3>
+                      <p className="text-[#655E78] leading-relaxed">{item.a}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </>
         )}
 
         {/* Form Step */}

@@ -307,6 +307,25 @@ const visions: Record<string, string> = {
   Jupiter_DC: 'In {city}, the people who enter your life could change its trajectory. Your Jupiter Descendant line attracts generous, expansive partners. The kind who broaden your world simply by being in it.',
 };
 
+export const astrocartographyFaqs: { q: string; a: string }[] = [
+  {
+    q: 'What is astrocartography?',
+    a: 'Astrocartography maps your birth chart onto the globe, showing where each planet was rising, setting, culminating, or at its lowest point at the moment you were born. The lines that result mark places where that planet\'s energy is especially strong for you.',
+  },
+  {
+    q: 'What do AC, DC, MC, and IC mean?',
+    a: 'These are the four angles of your chart. AC (Ascendant) is about identity and how you come across. DC (Descendant) is about relationships and partnerships. MC (Midheaven) is about career and public life. IC (Nadir) is about home, roots, and your private world.',
+  },
+  {
+    q: 'Do I need my exact birth time for astrocartography?',
+    a: 'Yes. Astrocartography lines are calculated from your exact birth time and location, since even a few minutes\' difference can shift a line\'s position on the map. Without an accurate birth time, the lines shown won\'t be reliable.',
+  },
+  {
+    q: 'Can a planetary line have a difficult meaning?',
+    a: 'Some lines (like Saturn or Pluto) bring intensity or require more effort rather than ease. That doesn\'t make them "bad." Saturn lines often build the most lasting achievements, and Pluto lines drive real transformation, they just ask more of you along the way.',
+  },
+];
+
 /**
  * Get interpretation for a planet/angle combination
  */

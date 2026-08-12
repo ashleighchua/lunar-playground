@@ -12,6 +12,7 @@ import {
   signElements,
   signDescriptions,
   getCompatibility,
+  compatibilityFaqs,
 } from '@/lib/data/compatibility-data';
 
 const ELEMENT_BG: Record<string, string> = {
@@ -238,6 +239,56 @@ export default function Compatibility2Page() {
               </div>
             </div>
           </section>
+        )}
+
+        {/* The Twelve Signs (static, always visible) */}
+        {pageState === 'selection' && (
+          <>
+            <div className="container-editorial">
+              <div className="h-px bg-[#2D2640]/10" />
+            </div>
+
+            <section className="container-editorial py-12 md:py-16">
+              <div className="max-w-2xl mb-10">
+                <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">The Twelve Signs</h2>
+                <p className="text-[#655E78] leading-relaxed">
+                  Compatibility starts with knowing the players. Here&rsquo;s a quick read on each sign&rsquo;s core personality and element.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                {zodiacSigns.map((sign) => (
+                  <div key={sign} className="border-b border-[#2D2640]/10 pb-6 md:pb-8">
+                    <p className="font-serif text-lg text-[#2D2640] mb-1">
+                      <span className="mr-2">{signElements[sign].symbol}</span>
+                      {sign}
+                    </p>
+                    <p className="text-sm text-[#655E78] mb-2">
+                      {signDates[sign]} &middot; {signElements[sign].element}
+                    </p>
+                    <p className="text-sm text-[#655E78] leading-relaxed">{signDescriptions[sign]}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <div className="container-editorial">
+              <div className="h-px bg-[#2D2640]/10" />
+            </div>
+
+            <section className="container-editorial py-12 md:py-16">
+              <div className="max-w-2xl">
+                <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-8">Common Questions</h2>
+                <div className="space-y-8">
+                  {compatibilityFaqs.map((item, i) => (
+                    <div key={i}>
+                      <h3 className="font-serif text-lg text-[#2D2640] mb-2">{item.q}</h3>
+                      <p className="text-[#655E78] leading-relaxed">{item.a}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </>
         )}
 
         {/* Loading */}

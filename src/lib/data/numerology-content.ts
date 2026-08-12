@@ -9,6 +9,25 @@ export interface NumberMeaning {
   relationships: string;
 }
 
+export const numerologyFaqs: { q: string; a: string }[] = [
+  {
+    q: 'What is a Life Path Number?',
+    a: 'Your Life Path Number is the most important number in numerology. It\'s calculated from your full birth date and represents your core purpose, the lessons you\'re here to learn, and the path your life naturally wants to take.',
+  },
+  {
+    q: 'How do I calculate my Life Path Number?',
+    a: 'Add together every digit in your birth date (day, month, and year) and keep reducing the total until you reach a single digit, unless you land on a Master Number (11, 22, or 33), in which case it stays as is.',
+  },
+  {
+    q: 'What are Master Numbers (11, 22, and 33)?',
+    a: 'Master Numbers carry a more intense version of their root number\'s energy. 11 amplifies 2, 22 amplifies 4, and 33 amplifies 6. They come with greater potential, but also greater pressure to live up to it.',
+  },
+  {
+    q: 'What\'s the difference between my Life Path and Birthday Number?',
+    a: 'Your Life Path Number uses your entire birth date and reflects your overall purpose. Your Birthday Number uses just the day you were born and points to a specific natural talent you carry, layered on top of your Life Path.',
+  },
+];
+
 export const numberMeanings: Record<number, NumberMeaning> = {
   1: {
     number: 1,

@@ -12,6 +12,25 @@ export interface ZodiacAnimalContent {
   famous: string[];
 }
 
+export const zodiacFaqs: { q: string; a: string }[] = [
+  {
+    q: 'How is my Chinese zodiac animal determined?',
+    a: 'It\'s based on the year you were born. The twelve animals rotate in a fixed 12-year cycle: Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog, and Pig.',
+  },
+  {
+    q: 'What if I was born in January or February?',
+    a: 'Traditionally, the Chinese zodiac follows the lunar new year, which falls between January 21 and February 20 depending on the year, not January 1. If your birthday falls in that window, your true animal year may differ by one from what a simple calendar-year calculation would show. This tool uses your solar birth year for simplicity.',
+  },
+  {
+    q: 'What\'s the difference between my animal and my element?',
+    a: 'Your animal comes from a 12-year cycle, while your element (Wood, Fire, Earth, Metal, or Water) comes from a 10-year cycle based on the last digit of your birth year. Together, the two cycles combine into a 60-year pattern, so a "Fire Tiger" only comes around once every 60 years.',
+  },
+  {
+    q: 'Is the Chinese zodiac related to Western astrology?',
+    a: 'They\'re separate systems. Western astrology is based on the sun\'s position at your exact birth date within the year. The Chinese zodiac is based entirely on your birth year, so everyone born in the same year shares the same animal.',
+  },
+];
+
 export const zodiacContent: Record<string, ZodiacAnimalContent> = {
   Rat: {
     animal: 'Rat',
