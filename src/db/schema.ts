@@ -22,12 +22,10 @@ export const orders = pgTable(
   (table) => [uniqueIndex('orders_stripe_session_id_unique').on(table.stripeSessionId)]
 );
 
-export const generationJobStatus = pgEnum('generation_job_status', [
-  'pending',
-  'generating',
-  'ready',
-  'held-for-review',
-]);
+export const GENERATION_JOB_STATUSES = ['pending', 'generating', 'ready', 'held-for-review'] as const;
+export type GenerationJobStatus = (typeof GENERATION_JOB_STATUSES)[number];
+
+export const generationJobStatus = pgEnum('generation_job_status', GENERATION_JOB_STATUSES);
 
 /**
  * Per-order generation state. Stores the frozen `FactsPayload` set and
