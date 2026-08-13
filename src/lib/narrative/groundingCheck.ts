@@ -119,7 +119,18 @@ function anyFactMentionsSign(facts: Fact[], sign: SignName): boolean {
 }
 
 function anyFactMentionsAngle(facts: Fact[], angle: AngleName): boolean {
-  return facts.some((f) => f.type === 'city-line-activation' && f.angle === angle);
+  return facts.some(
+    (f) =>
+      (f.type === 'city-line-activation' && f.angle === angle) ||
+      // An ascendant-sign fact IS the AC angle by definition — found via a
+      // real end-to-end test where natal-chart prose naturally mentioning
+      // "your Ascendant" alongside other placements (falling through to this
+      // loose tier-2 check, since tier-1's dedicated ascendant branch only
+      // fires for an isolated single-claim sentence) was wrongly rejected,
+      // because this function only ever recognized angle mentions backed by
+      // a city-line-activation fact.
+      (f.type === 'ascendant-sign' && angle === 'AC')
+  );
 }
 
 function anyFactMentionsHouse(facts: Fact[], house: number): boolean {

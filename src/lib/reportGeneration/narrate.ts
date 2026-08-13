@@ -5,6 +5,12 @@ import { generatePlacement, type PlacementObject } from '../narrative/generatePl
 import { generateCitySynthesis, type CitySynthesisObject } from '../narrative/generateCitySynthesis';
 import { tierForMiles, isFullPlacementTier } from './tiers';
 import { themeLabelFor, type AstroAngle } from '../astrocartography/themes';
+import type { GroundingViolation } from '../narrative/groundingCheck';
+
+function summarizeViolations(violations?: GroundingViolation[]): string {
+  if (!violations || violations.length === 0) return '';
+  return ' — ' + violations.map((v) => `"${v.sentence}" (${v.reason})`).join('; ');
+}
 
 export interface CityProse {
   synthesis: CitySynthesisObject;
@@ -66,7 +72,7 @@ export async function narrateOrder(input: RelocationOrderInput, facts: OrderFact
       tier: modelTier,
     });
     if (introResult.heldForReview || !introResult.prose) {
-      throw new HeldForReviewError(`Natal chart intro failed grounding after ${introResult.attempts} attempts`);
+      throw new HeldForReviewError(`Natal chart intro failed grounding after ${introResult.attempts} attempts${summarizeViolations(introResult.lastViolations)}`);
     }
     prose.identityIntro = introResult.prose;
 
@@ -76,11 +82,11 @@ export async function narrateOrder(input: RelocationOrderInput, facts: OrderFact
       const label = fact.type === 'planet-placement' ? fact.planet : 'Ascendant';
       const result = await generateSection({
         payload,
-        promptTemplate: `Write a short (2-3 sentence) description of what this single placement means for ${input.client}.`,
+        promptTemplate: `Write a short (2-3 sentence) description of what this single placement means for ${input.client}. This payload contains only ONE placement — do not mention any other planet, sign, house, or angle, including a sign's traditional ruling planet or any other astrological association not listed in the facts below.`,
         tier: modelTier,
       });
       if (result.heldForReview || !result.prose) {
-        throw new HeldForReviewError(`Natal identity placement for ${label} failed grounding after ${result.attempts} attempts`);
+        throw new HeldForReviewError(`Natal identity placement for ${label} failed grounding after ${result.attempts} attempts${summarizeViolations(result.lastViolations)}`);
       }
       perPlanetDescriptions[label] = result.prose;
     }
@@ -99,7 +105,7 @@ export async function narrateOrder(input: RelocationOrderInput, facts: OrderFact
       tier: modelTier,
     });
     if (synthesisResult.heldForReview || !synthesisResult.synthesis) {
-      throw new HeldForReviewError(`City synthesis for ${city.name} failed grounding after ${synthesisResult.attempts} attempts`);
+      throw new HeldForReviewError(`City synthesis for ${city.name} failed grounding after ${synthesisResult.attempts} attempts${summarizeViolations(synthesisResult.lastViolations)}`);
     }
 
     const placements: { activationIndex: number; placement: PlacementObject }[] = [];
@@ -118,7 +124,7 @@ export async function narrateOrder(input: RelocationOrderInput, facts: OrderFact
         tier: modelTier,
       });
       if (result.heldForReview || !result.placement) {
-        throw new HeldForReviewError(`Placement ${activation.planet} ${activation.angle} in ${city.name} failed grounding after ${result.attempts} attempts`);
+        throw new HeldForReviewError(`Placement ${activation.planet} ${activation.angle} in ${city.name} failed grounding after ${result.attempts} attempts${summarizeViolations(result.lastViolations)}`);
       }
       placements.push({ activationIndex: i, placement: result.placement });
     }

@@ -34,6 +34,30 @@ describe('groundingCheck: correctly-grounded prose passes', () => {
     expect(result.grounded).toBe(true);
   });
 
+  it('mentioning the Ascendant/AC alongside other real placements in one sentence is grounded (regression: found via a live end-to-end test)', () => {
+    // Real bug found running narrateOrder against a live model: a natal-chart
+    // intro naturally wrote "...Moon, Mercury, Mars, and Jupiter crowding
+    // your 1st house alongside your Leo Ascendant" — a true, accurate
+    // sentence. Because it names 4 planets (not exactly 1), it falls through
+    // tier-1's dedicated ascendant branch to tier-2's loose per-token check,
+    // where anyFactMentionsAngle previously only recognized angle mentions
+    // backed by a city-line-activation fact — never an ascendant-sign fact,
+    // even though an ascendant-sign fact IS the AC angle by definition.
+    const payload: FactsPayload = {
+      sectionId: 'birth-chart-identity',
+      facts: [
+        { type: 'planet-placement', planet: 'Moon', sign: 'Leo', house: 1 },
+        { type: 'planet-placement', planet: 'Mercury', sign: 'Leo', house: 1 },
+        { type: 'planet-placement', planet: 'Mars', sign: 'Leo', house: 1 },
+        { type: 'planet-placement', planet: 'Jupiter', sign: 'Leo', house: 1 },
+        { type: 'ascendant-sign', sign: 'Leo' },
+      ],
+    };
+    const prose = 'Moon, Mercury, Mars, and Jupiter all crowd your 1st house alongside your Leo Ascendant.';
+    const result = checkGrounding(prose, payload);
+    expect(result.grounded).toBe(true);
+  });
+
   it('a "tenth house" synonym is recognized as the same claim as "10th house"', () => {
     const payload: FactsPayload = {
       sectionId: 'test',
