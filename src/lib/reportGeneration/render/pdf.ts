@@ -28,8 +28,13 @@ import { renderReportHtml, buildTocEntries, type ReportContent, type TocEntry } 
 // https://pptr.dev/chromium-support before bumping either package, and keep
 // them in lockstep (this comment, package.json, and the CHROMIUM_PACK_URL
 // major version below all need to move together).
+//
+// Release assets are architecture-specific (found via a live 404 — the
+// generic `chromium-v149.0.0-pack.tar` name doesn't exist): x64 for Vercel
+// Functions' default runtime, arm64 only if the function is explicitly
+// configured for it.
 const CHROMIUM_PACK_URL =
-  'https://github.com/Sparticuz/chromium/releases/download/v149.0.0/chromium-v149.0.0-pack.tar';
+  'https://github.com/Sparticuz/chromium/releases/download/v149.0.0/chromium-v149.0.0-pack.x64.tar';
 
 async function getBrowser(): Promise<Browser> {
   if (process.env.VERCEL) {
