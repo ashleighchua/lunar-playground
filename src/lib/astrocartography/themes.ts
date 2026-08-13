@@ -73,3 +73,21 @@ export const THEME_LABELS: Record<ThemeName, string> = {
 export function isThemeName(value: string): value is ThemeName {
   return value in LIFE_THEMES;
 }
+
+/**
+ * The best-matching theme label for a (planet, angle) pair, e.g. for a
+ * PlacementBlock header suffix like "JUPITER ON MIDHEAVEN — LUCK &
+ * OPPORTUNITY". Deterministic — never LLM output, since checkGrounding has
+ * no vocabulary to verify a free-text theme claim against.
+ */
+export function themeLabelFor(planet: string, angle: AstroAngle): string | null {
+  let best: { theme: ThemeName; weight: number } | null = null;
+  for (const themeName of Object.keys(LIFE_THEMES) as ThemeName[]) {
+    for (const tw of LIFE_THEMES[themeName]) {
+      if (tw.planet === planet && (!tw.angle || tw.angle === angle)) {
+        if (!best || tw.weight > best.weight) best = { theme: themeName, weight: tw.weight };
+      }
+    }
+  }
+  return best ? THEME_LABELS[best.theme] : null;
+}

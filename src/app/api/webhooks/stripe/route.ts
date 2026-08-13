@@ -4,6 +4,7 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 import type Stripe from 'stripe';
 import { parseBirthDetails } from '@/lib/parseBirthDetails';
+import { escapeHtml, unsubscribeFooter } from '@/lib/email/unsubscribeFooter';
 
 export async function POST(request: NextRequest) {
   const { default: StripeSDK } = await import('stripe');
@@ -192,15 +193,6 @@ function generateDirectPaymentEmail(data: {
   `;
 }
 
-function escapeHtml(s: string): string {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
 function generateOwnerNotificationEmail(data: {
   productTitle: string;
   customerEmail: string;
@@ -260,17 +252,6 @@ function generateOwnerNotificationEmail(data: {
     </body>
     </html>
   `;
-}
-
-function unsubscribeFooter(email: string): string {
-  const { createHmac } = require('crypto');
-  const secret = process.env.UNSUBSCRIBE_SECRET;
-  if (!secret) return '';
-  const encoded = Buffer.from(email).toString('base64url');
-  const sig = createHmac('sha256', secret).update(email).digest('base64url');
-  return `<p style="color: #9E98AD; font-size: 11px; text-align: center; margin: 24px 0 0;">
-    You're on my occasional updates list. <a href="https://www.thelunarplayground.com/api/unsubscribe?e=${encoded}&s=${sig}" style="color: #9E98AD;">Unsubscribe</a>
-  </p>`;
 }
 
 function generateGuideEmail(email: string): string {

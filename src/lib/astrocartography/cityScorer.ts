@@ -65,7 +65,7 @@ const CATEGORY_ANGLE_BOOSTS: Record<string, Record<string, number>> = {
 
 const MAX_ORB_MILES = 300;
 const BONUS_ORB_MILES = 50;
-const MILES_PER_DEGREE = 69;
+export const MILES_PER_DEGREE = 69;
 
 const DEG_TO_RAD = Math.PI / 180;
 
@@ -118,9 +118,16 @@ function pointToSegmentDistance(
 }
 
 /**
- * Calculate distance from a point to a line in degrees
+ * Calculate distance from a point to a line in degrees. Exported for
+ * src/lib/reportGeneration/buildFacts.ts, which needs raw per-(planet,angle)
+ * orb distances (independent of theme weighting) to decide which placements
+ * get a badge/box in a specific city's report section — a different need
+ * than this file's own theme-weighted city ranking. Previously this was
+ * being re-derived in scripts/relocation-report/facts.ts, deliberately
+ * "kept in sync" with this function rather than imported (it was private);
+ * exporting it removes that duplication risk for the real pipeline.
  */
-function distanceToLine(lat: number, lon: number, line: AstroLine): number {
+export function distanceToLine(lat: number, lon: number, line: AstroLine): number {
   const { points, angle } = line;
 
   if (points.length === 0) return Infinity;
