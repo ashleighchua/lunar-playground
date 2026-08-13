@@ -104,3 +104,49 @@ describe('groundingCheck: catches real hallucination', () => {
     expect(result.grounded).toBe(false);
   });
 });
+
+describe('groundingCheck: multi-entity sentences and why Phase 6 scopes placement generation to a single tuple', () => {
+  // Real Phase 6 review finding: the first draft of Phase 6's narrative
+  // layer planned to batch a whole city's placements into one
+  // generateObject call, checked against that city's FULL multi-fact
+  // payload. This reopens the exact hole tier-1 pairing exists to close —
+  // tier-1 only fires for a sentence naming exactly one planet + one
+  // house/sign/angle; a sentence naming TWO planets and TWO angles (which
+  // synthesis text like "combinedEnergy" requires, by design) falls through
+  // to tier-2's loose "does each token appear somewhere" check.
+  const multiFactCityPayload: FactsPayload = {
+    sectionId: 'city-angularity-Los Angeles',
+    facts: [
+      { type: 'city-line-activation', city: 'Los Angeles', planet: 'Venus', angle: 'DC', orbMiles: 8 },
+      { type: 'city-line-activation', city: 'Los Angeles', planet: 'Saturn', angle: 'MC', orbMiles: 15 },
+    ],
+  };
+
+  // Both individually-true placements, swapped: Venus is really on the DC
+  // (relationships), Saturn is really on the MC (career) — this sentence
+  // asserts the opposite pairing.
+  const swappedPairingProse = 'Venus energizes your career ambition here while Saturn steadies your close partnerships.';
+
+  it('demonstrates the vulnerability: a multi-fact payload lets a swapped pairing slip through', () => {
+    const result = checkGrounding(swappedPairingProse, multiFactCityPayload);
+    // Every token (Venus, Saturn, MC, DC-implied-by-"partnerships"... in this
+    // case no literal angle words appear, so tier-2's token check has
+    // nothing to flag either) has *some* backing fact in the payload, so
+    // this incorrectly grounds. This is exactly why generatePlacement.ts
+    // never checks against a multi-fact payload.
+    expect(result.grounded).toBe(true);
+  });
+
+  it('the fix: the SAME prose, checked against a single-tuple payload, correctly rejects the out-of-scope claim', () => {
+    // This is what generatePlacement.ts actually does: scope the payload to
+    // exactly the one placement being written about (here, only Venus/DC).
+    const singleTuplePayload: FactsPayload = {
+      sectionId: 'city-angularity-Los Angeles-0',
+      facts: [multiFactCityPayload.facts[0]], // Venus/DC only
+    };
+    const result = checkGrounding(swappedPairingProse, singleTuplePayload);
+    expect(result.grounded).toBe(false);
+    // Saturn and MC aren't in this placement's payload at all.
+    expect(result.violations.some((v) => v.reason.includes('Saturn'))).toBe(true);
+  });
+});
