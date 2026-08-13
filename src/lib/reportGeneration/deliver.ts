@@ -25,7 +25,7 @@ export async function deliverReport(options: DeliverReportOptions): Promise<void
   const { customerEmail, pdfBytes, productTitle, subscribeToMailingList } = options;
   const resend = new Resend(process.env.RESEND_API_KEY!);
 
-  await resend.emails.send({
+  const { error } = await resend.emails.send({
     from: 'The Lunar Playground <noreply@thelunarplayground.com>',
     replyTo: 'thelunarplayground@gmail.com',
     to: [customerEmail],
@@ -38,6 +38,15 @@ export async function deliverReport(options: DeliverReportOptions): Promise<void
       },
     ],
   });
+  // The Resend SDK does NOT throw on an API-level failure (invalid key,
+  // unverified domain, bad recipient) — it resolves with { data: null,
+  // error }. Found live: a delivery silently "succeeded" while nothing was
+  // ever sent, because this wasn't checked. Throwing here is what lets
+  // orchestrate.ts's failure-convergence catch actually see this failure
+  // and hold the job for review instead of marking it 'ready'.
+  if (error) {
+    throw new Error(`Resend delivery to ${customerEmail} failed: ${error.name} — ${error.message}`);
+  }
 
   if (subscribeToMailingList) {
     const audienceId = process.env.RESEND_AUDIENCE_ID;
@@ -63,7 +72,7 @@ export async function notifyOwnerHeldForReview(options: { orderId: number; jobId
   const resend = new Resend(process.env.RESEND_API_KEY!);
   const { orderId, jobId, reason } = options;
 
-  await resend.emails.send({
+  const { error } = await resend.emails.send({
     from: 'The Lunar Playground <noreply@thelunarplayground.com>',
     to: ['thelunarplayground@gmail.com'],
     subject: `Report held for review — order #${orderId}`,
@@ -87,6 +96,16 @@ export async function notifyOwnerHeldForReview(options: { orderId: number; jobId
       </html>
     `,
   });
+  // Same reasoning as deliverReport() above — an alert that silently fails
+  // to send is actively harmful here, since the whole point is making sure
+  // a held-for-review order doesn't go unnoticed. Letting this throw means
+  // Workflow DevKit's default step retry gets a chance to redeliver it; the
+  // job's DB status is already durably set to 'held-for-review' by the time
+  // this runs (see orchestrate.ts), so a persistent alert failure doesn't
+  // lose that state even if this step ultimately exhausts its retries.
+  if (error) {
+    throw new Error(`Resend owner alert for order #${orderId} failed: ${error.name} — ${error.message}`);
+  }
 }
 
 function generateReportReadyEmail(email: string, productTitle: string): string {
