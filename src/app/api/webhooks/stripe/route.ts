@@ -39,12 +39,17 @@ export async function POST(request: NextRequest) {
     const description = paymentIntent.description || 'Direct payment';
 
     try {
-      await resend.emails.send({
+      const { error } = await resend.emails.send({
         from: 'The Lunar Playground <noreply@thelunarplayground.com>',
         to: ['thelunarplayground@gmail.com'],
         subject: `Payment received: ${amount}`,
         html: generateDirectPaymentEmail({ amount, customerEmail, customerName, description, paymentIntentId: paymentIntent.id }),
       });
+      // resend.emails.send() does NOT throw on an API-level failure (invalid
+      // key, unverified domain, etc.) — it resolves with { data: null, error }.
+      // Checked explicitly everywhere in this file now; previously this was
+      // silently swallowed, indistinguishable from a real send.
+      if (error) console.error('Failed to send direct payment notification:', error);
     } catch (err) {
       console.error('Failed to send direct payment notification:', err);
     }
@@ -75,7 +80,7 @@ export async function POST(request: NextRequest) {
         const pdfPath = join(process.cwd(), 'public', 'guides', 'How to Read Your Astrocartography Chart — Lunar Playground.pdf');
         const pdfBuffer = await readFile(pdfPath);
 
-        await resend.emails.send({
+        const { error } = await resend.emails.send({
           from: 'The Lunar Playground <noreply@thelunarplayground.com>',
           replyTo: 'thelunarplayground@gmail.com',
           to: [customerEmail],
@@ -89,14 +94,15 @@ export async function POST(request: NextRequest) {
           ],
         });
 
-        console.log('Guide PDF sent to:', customerEmail);
+        if (error) console.error('Failed to send guide PDF:', error);
+        else console.log('Guide PDF sent to:', customerEmail);
       } catch (err) {
         console.error('Failed to send guide PDF:', err);
       }
     } else {
       // For reading products, send order confirmation to customer
       try {
-        await resend.emails.send({
+        const { error } = await resend.emails.send({
           from: 'The Lunar Playground <noreply@thelunarplayground.com>',
           replyTo: 'thelunarplayground@gmail.com',
           to: [customerEmail],
@@ -104,7 +110,8 @@ export async function POST(request: NextRequest) {
           html: generateOrderConfirmationEmail(productTitle, customerEmail),
         });
 
-        console.log('Order confirmation sent to:', customerEmail);
+        if (error) console.error('Failed to send order confirmation:', error);
+        else console.log('Order confirmation sent to:', customerEmail);
       } catch (err) {
         console.error('Failed to send order confirmation:', err);
       }
@@ -123,7 +130,7 @@ export async function POST(request: NextRequest) {
     // Notify owner of every order
     const parsed = parseBirthDetails(birthDetails);
     try {
-      await resend.emails.send({
+      const { error } = await resend.emails.send({
         from: 'The Lunar Playground <noreply@thelunarplayground.com>',
         to: ['thelunarplayground@gmail.com'],
         subject: `New order: ${productTitle}`,
@@ -140,7 +147,8 @@ export async function POST(request: NextRequest) {
         }),
       });
 
-      console.log('Owner notification sent for session:', session.id);
+      if (error) console.error('Failed to send owner notification:', error);
+      else console.log('Owner notification sent for session:', session.id);
     } catch (err) {
       console.error('Failed to send owner notification:', err);
     }
