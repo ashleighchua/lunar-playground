@@ -28,6 +28,25 @@ export const orders = pgTable(
   (table) => [uniqueIndex('orders_stripe_session_id_unique').on(table.stripeSessionId)]
 );
 
+/**
+ * One row per login attempt against the password-gated admin/Fiverr order
+ * tool (`/admin/relocation-order`). That route triggers real paid AI Gateway
+ * calls with no Stripe payment gate in front of it, so the login check
+ * enforces an IP-windowed lockout read from this table before ever
+ * comparing the submitted password — durable across serverless instances,
+ * unlike an in-memory counter.
+ */
+export const adminLoginAttempts = pgTable(
+  'admin_login_attempts',
+  {
+    id: serial('id').primaryKey(),
+    ip: text('ip').notNull(),
+    succeeded: boolean('succeeded').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('admin_login_attempts_ip_created_at_idx').on(table.ip, table.createdAt)]
+);
+
 export const GENERATION_JOB_STATUSES = ['pending', 'generating', 'ready', 'held-for-review'] as const;
 export type GenerationJobStatus = (typeof GENERATION_JOB_STATUSES)[number];
 
