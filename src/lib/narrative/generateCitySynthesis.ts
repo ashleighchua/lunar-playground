@@ -42,7 +42,8 @@ STRICT RULES — breaking any of these makes the reading wrong, not just stylist
 - Do not hedge ("might," "could," "perhaps") — state what the chart shows directly and specifically.
 - Write in second person, warm but direct, psychologically grounded — not generic horoscope language.
 - The nickname/tagline are cultural color, not astrology claims — keep them plausible and well-known, don't invent obscure or made-up nicknames.
-- You may use ordinary astrological adjectives (mercurial, jovial, saturnine, etc.) as color/tone without that counting as a placement claim.`;
+- You may use ordinary astrological adjectives (mercurial, jovial, saturnine, etc.) as color/tone without that counting as a placement claim.
+- The prompt may include a short note on why the client is considering this move — that's context from them, not a chart fact. Use it only to shape tone and emphasis; never state it back as if the chart itself said it.`;
 
 const MODEL_BY_TIER: Record<ModelTier, string> = {
   premium: 'anthropic/claude-sonnet-5',

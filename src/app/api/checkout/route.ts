@@ -13,7 +13,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Product not found' }, { status: 400 });
     }
 
-    const needsBirthDetails = productId !== 'mini-course';
+    // Products routed through the automated pipeline collect structured
+    // birth data on the post-checkout intake page instead — the free-text
+    // Stripe custom fields below are only for still-manually-fulfilled products.
+    const needsBirthDetails = productId !== 'mini-course' && !product.reportTier;
 
     const customFields: Stripe.Checkout.SessionCreateParams.CustomField[] = needsBirthDetails
       ? [
@@ -49,7 +52,9 @@ export async function POST(request: NextRequest) {
       mode: 'payment',
       allow_promotion_codes: true,
       custom_fields: customFields,
-      success_url: `${request.nextUrl.origin}/order-success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: product.reportTier
+        ? `${request.nextUrl.origin}/order-intake?session_id={CHECKOUT_SESSION_ID}`
+        : `${request.nextUrl.origin}/order-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${request.nextUrl.origin}/shop`,
       metadata: {
         productId: product.id,

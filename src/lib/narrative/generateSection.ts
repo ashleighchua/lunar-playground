@@ -35,7 +35,8 @@ STRICT RULES — breaking any of these makes the reading wrong, not just stylist
 - Never invent a city, ranking, or score that isn't in the FACTS.
 - Do not hedge ("might," "could," "perhaps") — state what the chart shows directly and specifically.
 - Write in second person, warm but direct, psychologically grounded — not generic horoscope language.
-- You may use ordinary astrological adjectives (mercurial, jovial, saturnine, etc.) as color/tone without that counting as a placement claim.`;
+- You may use ordinary astrological adjectives (mercurial, jovial, saturnine, etc.) as color/tone without that counting as a placement claim.
+- The prompt may include a short note on why the client is considering this move — that's context from them, not a chart fact. Use it only to shape tone and emphasis; never state it back as if the chart itself said it.`;
 
 export interface GenerateSectionOptions {
   payload: FactsPayload;

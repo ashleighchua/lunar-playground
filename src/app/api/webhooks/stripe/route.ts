@@ -5,6 +5,8 @@ import { join } from 'path';
 import type Stripe from 'stripe';
 import { parseBirthDetails } from '@/lib/parseBirthDetails';
 import { escapeHtml, unsubscribeFooter } from '@/lib/email/unsubscribeFooter';
+import { products } from '@/data/products';
+import { createOrderIfNew } from '@/lib/reportGeneration/jobs';
 
 export async function POST(request: NextRequest) {
   const { default: StripeSDK } = await import('stripe');
@@ -70,6 +72,28 @@ export async function POST(request: NextRequest) {
     if (!customerEmail) {
       console.error('No customer email found for session:', session.id);
       return NextResponse.json({ received: true });
+    }
+
+    // Record an order row for products routed through the automated
+    // relocation-report pipeline (Phase 5+). Idempotent on session.id since
+    // Stripe retries webhook delivery — createOrderIfNew no-ops on a repeat.
+    // A genuine DB failure here returns 500 (not the unconditional 200 the
+    // rest of this handler uses for best-effort email sends) so Stripe
+    // retries: losing this row silently would mean a paid customer's order
+    // never gets automated, with nothing else to catch it.
+    const inScopeProduct = products.find((p) => p.id === productId && p.reportTier);
+    if (inScopeProduct) {
+      try {
+        await createOrderIfNew({
+          stripeSessionId: session.id,
+          productType: inScopeProduct.id,
+          customerEmail,
+          subscribeToMailingList: true, // public checkout is opt-out, matching the mailing-list subscribe below
+        });
+      } catch (err) {
+        console.error('Failed to record order for session:', session.id, err);
+        return NextResponse.json({ error: 'Failed to record order' }, { status: 500 });
+      }
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY!);

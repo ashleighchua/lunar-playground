@@ -1,7 +1,8 @@
-import { eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 import { getDb } from '../../db';
 import { orders, generationJobs, type GenerationJobStatus } from '../../db/schema';
 import type { FactsPayload } from '../reportFacts/types';
+import type { RelocationOrderInput } from './orderInput';
 
 export interface CreateOrderInput {
   stripeSessionId: string;
@@ -25,6 +26,30 @@ export async function createOrderIfNew(input: CreateOrderInput): Promise<number 
     .onConflictDoNothing({ target: orders.stripeSessionId })
     .returning({ id: orders.id });
   return row?.id ?? null;
+}
+
+export async function getOrderByStripeSessionId(stripeSessionId: string) {
+  const db = getDb();
+  const [row] = await db.select().from(orders).where(eq(orders.stripeSessionId, stripeSessionId));
+  return row ?? null;
+}
+
+/**
+ * Idempotent on `birthData` being unset: a resubmitted intake form (double
+ * click, network retry) never overwrites an already-completed intake.
+ * Returns whether THIS call completed intake for the first time — the
+ * caller (the intake API route) must only create a generation job and
+ * trigger the workflow when this is true, otherwise a resubmit would spin
+ * up a second paid generation run for the same order.
+ */
+export async function completeIntakeIfNotAlready(orderId: number, orderInput: RelocationOrderInput): Promise<boolean> {
+  const db = getDb();
+  const [row] = await db
+    .update(orders)
+    .set({ birthData: orderInput })
+    .where(and(eq(orders.id, orderId), isNull(orders.birthData)))
+    .returning({ id: orders.id });
+  return row != null;
 }
 
 export async function createGenerationJob(orderId: number): Promise<number> {

@@ -17,7 +17,7 @@ export const orders = pgTable(
   {
     id: serial('id').primaryKey(),
     stripeSessionId: text('stripe_session_id').notNull(),
-    productType: text('product_type').notNull(), // 'relocation-report' | 'relocation-birth-chart' | 'bundle-relocation-component'
+    productType: text('product_type').notNull(), // the product's `id` from `src/data/products.ts` (e.g. 'astrocartography')
     customerEmail: text('customer_email').notNull(),
     subscribeToMailingList: boolean('subscribe_to_mailing_list').notNull(),
     // Populated by the post-checkout intake page (not built yet); null between

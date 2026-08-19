@@ -1,4 +1,4 @@
-import type { RelocationOrderInput } from './orderInput';
+import { MOTIVATION_LABELS, type RelocationOrderInput } from './orderInput';
 import type { OrderFacts } from './buildFacts';
 import { generateSection, type ModelTier } from '../narrative/generateSection';
 import { generatePlacement, type PlacementObject } from '../narrative/generatePlacement';
@@ -41,6 +41,18 @@ function modelTierFor(reportTier: RelocationOrderInput['reportTier']): ModelTier
   return reportTier === 'combined' ? 'premium' : 'standard';
 }
 
+/**
+ * Client-provided framing, not a fact — only appended to the two broadest
+ * calls below (identity intro, city synthesis), never to the narrowly-scoped
+ * single-placement calls, and never inspected by checkGrounding. Empty
+ * string when the client skipped this at intake.
+ */
+export function motivationContext(input: RelocationOrderInput): string {
+  if (!input.motivations || input.motivations.length === 0) return '';
+  const labels = input.motivations.map((m) => MOTIVATION_LABELS[m]);
+  return ` The client shared why they're considering this move: ${labels.join('; ')}. Use this only to inform tone and which of the given facts you lead with — never state it back as if the chart itself said it.`;
+}
+
 function fallbackSynthesisForEmptyCity(): CitySynthesisObject {
   return {
     nickname: '',
@@ -68,7 +80,7 @@ export async function narrateOrder(input: RelocationOrderInput, facts: OrderFact
   if (input.reportTier === 'combined' && facts.identityFacts && facts.perPlanetIdentityFacts) {
     const introResult = await generateSection({
       payload: facts.identityFacts,
-      promptTemplate: `Write a short (3-4 sentence) introduction to ${input.client}'s birth chart, previewing the overall pattern across the placements below.`,
+      promptTemplate: `Write a short (3-4 sentence) introduction to ${input.client}'s birth chart, previewing the overall pattern across the placements below.${motivationContext(input)}`,
       tier: modelTier,
     });
     if (introResult.heldForReview || !introResult.prose) {
@@ -101,7 +113,7 @@ export async function narrateOrder(input: RelocationOrderInput, facts: OrderFact
 
     const synthesisResult = await generateCitySynthesis({
       payload: city.angularityFacts,
-      promptTemplate: `Write the introductory/summary copy for ${city.name}, ${city.country} in ${input.client}'s relocation reading, based on the placements below.`,
+      promptTemplate: `Write the introductory/summary copy for ${city.name}, ${city.country} in ${input.client}'s relocation reading, based on the placements below.${motivationContext(input)}`,
       tier: modelTier,
     });
     if (synthesisResult.heldForReview || !synthesisResult.synthesis) {

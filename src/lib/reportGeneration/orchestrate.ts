@@ -2,6 +2,7 @@ import { eq } from 'drizzle-orm';
 import { FatalError } from 'workflow';
 import { getDb } from '../../db';
 import { orders, generationJobs } from '../../db/schema';
+import { products } from '../../data/products';
 import { setJobStatus, type JobStatusExtra } from './jobs';
 import { uploadReportPdf } from './blob';
 import { buildFactsForOrder, type OrderFacts } from './buildFacts';
@@ -134,11 +135,12 @@ function collectFactsPayloads(facts: OrderFacts): FactsPayload[] {
   return payloads.filter((p): p is FactsPayload => p !== undefined);
 }
 
-const PRODUCT_TITLES: Record<string, string> = {
-  'relocation-report': 'Relocation Report',
-  'relocation-birth-chart': 'Relocation + Birth Chart',
-  'bundle-relocation-component': 'Relocation Report',
-};
+// `productType` on the orders row is the product's `id` from `products.ts`
+// (see schema.ts) — look the title up there instead of a hand-maintained
+// map, so a new automated product never needs a second place updated.
+function productTitleFor(productType: string): string {
+  return products.find((p) => p.id === productType)?.title ?? 'Relocation Report';
+}
 
 // ---------------------------------------------------------------------------
 // Workflow
@@ -168,7 +170,7 @@ export async function generateRelocationReport(jobId: number): Promise<GenerateR
     await runDeliver({
       customerEmail,
       pdfBytes,
-      productTitle: PRODUCT_TITLES[productType] ?? 'Relocation Report',
+      productTitle: productTitleFor(productType),
       subscribeToMailingList,
     });
 
