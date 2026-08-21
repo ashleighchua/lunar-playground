@@ -1,4 +1,4 @@
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, desc, eq, isNull } from 'drizzle-orm';
 import { getDb } from '../../db';
 import { orders, generationJobs, type GenerationJobStatus } from '../../db/schema';
 import type { FactsPayload } from '../reportFacts/types';
@@ -31,6 +31,24 @@ export async function createOrderIfNew(input: CreateOrderInput): Promise<number 
 export async function getOrderByStripeSessionId(stripeSessionId: string) {
   const db = getDb();
   const [row] = await db.select().from(orders).where(eq(orders.stripeSessionId, stripeSessionId));
+  return row ?? null;
+}
+
+/**
+ * The order's most recent generation_jobs row. `orderId` has no unique
+ * constraint on generation_jobs, so this is the canonical way to resolve
+ * "the job for this order" — nothing today creates a second job per order,
+ * but callers (order-success's status view, the retention cleanup job)
+ * should never assume a raw join is unambiguous.
+ */
+export async function getLatestGenerationJobForOrder(orderId: number) {
+  const db = getDb();
+  const [row] = await db
+    .select()
+    .from(generationJobs)
+    .where(eq(generationJobs.orderId, orderId))
+    .orderBy(desc(generationJobs.id))
+    .limit(1);
   return row ?? null;
 }
 

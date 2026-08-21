@@ -122,7 +122,7 @@ export function OrderIntakeForm({ sessionId }: OrderIntakeFormProps) {
         throw new Error(data?.error || 'Something went wrong submitting your details.');
       }
 
-      router.push('/order-success');
+      router.push(`/order-success?session_id=${encodeURIComponent(sessionId)}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong submitting your details.');
       setIsSubmitting(false);

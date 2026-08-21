@@ -59,8 +59,19 @@ export default function PrivacyPage() {
             <section className="space-y-4">
               <h2 className="font-serif text-xl text-[#2D2640]">Data storage</h2>
               <p>
-                Your birth details are stored locally in your browser and are not saved on our servers.
-                If you provide an email, it is only used to send your report and is not stored permanently.
+                If you&apos;re just exploring your chart with our free tools, your birth details are stored
+                locally in your browser and are not saved on our servers.
+              </p>
+              <p>
+                If you purchase a reading, your birth details are sent to our servers so we can generate and
+                deliver it. Your birth details and the computed chart data behind your reading are automatically
+                and permanently deleted 150 days after your report is delivered. Your finished PDF and a record
+                of the order itself (email, product, purchase date) are kept afterward for support and business
+                records, so we can still help with a question about a past order or resend the PDF if you lose it.
+              </p>
+              <p>
+                Your email address is used to send your report and other order-related communication, and is
+                kept as part of that order record.
               </p>
             </section>
 
@@ -69,7 +80,7 @@ export default function PrivacyPage() {
               <p>You can:</p>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Clear your locally stored data by clearing your browser storage</li>
-                <li>Request deletion of any data we may have by contacting us</li>
+                <li>Request deletion of your birth details, chart data, or order record at any time by contacting us</li>
                 <li>Opt out of analytics by using a browser ad-blocker</li>
               </ul>
             </section>
