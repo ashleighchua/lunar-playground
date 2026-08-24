@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
 
               <!-- Readings CTA -->
               <p style="color: #4A4A4A; font-size: 15px; line-height: 1.8; text-align: center; margin: 0 0 24px;">
-                When you're ready to go deeper, personalised readings are available. Written by a real human, not AI.
+                When you're ready to go deeper, personalised readings are available. The Natal Chart Reading is written by me, personally. The Relocation Report is calculated with Swiss Ephemeris and written by AI trained to stay true to your chart.
               </p>
 
               <div style="text-align: center; margin-bottom: 40px;">

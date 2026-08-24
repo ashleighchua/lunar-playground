@@ -92,7 +92,7 @@ export default function TermsPage() {
                 please email us and we will make it right.
               </p>
               <p>
-                Delivery is typically 1-3 business days. You will receive updates as your reading is prepared.
+                The Relocation Report and Read Your Own Chart course are delivered instantly. The Natal Chart Reading is written to order and typically takes 1-3 business days, with updates as it&apos;s prepared.
               </p>
             </section>
 

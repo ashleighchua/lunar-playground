@@ -411,7 +411,7 @@ ${content.toc ? renderTocPage(content.toc) : ''}
   <h2 class="section-title">Introduction</h2>
   <p>Thank you for your request and welcome to <em>The Lunar Playground</em>. This reading explores the energetic influences of different locations using astrocartography, the art of mapping your birth chart onto the world to discover where specific planetary energies are strongest for you.</p>
   <p>Astrocartography reveals that we don't experience life the same way everywhere. Certain places amplify our capacity for love, others catalyze career success, and some invite deep transformation. By understanding which planetary lines cross through the locations you're considering, you can make more aligned choices about where to live, travel, or invest your energy.</p>
-  <p>Based on your birth information, I've analyzed the planetary lines running through your areas of interest: <strong>${esc(content.citiesListLabel)}</strong>. Each location carries distinct energies that will shape your experience differently.</p>
+  <p>Your placements are calculated using Swiss Ephemeris, the same tool professional astrologers rely on, and this reading was written by AI trained to stay true to those exact placements, checked against your real chart before it reaches you. Here's what's running through your areas of interest: <strong>${esc(content.citiesListLabel)}</strong>. Each location carries distinct energies that will shape your experience differently.</p>
 
   <div class="client-info">
     <p><strong>Client:</strong> ${esc(content.client)}</p>

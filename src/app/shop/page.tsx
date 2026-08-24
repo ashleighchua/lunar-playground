@@ -91,7 +91,7 @@ export default function ShopPage() {
             <div>
               <h3 className="font-medium text-[#2D2640] mb-2">How long does delivery take?</h3>
               <p className="text-sm text-[#655E78] leading-relaxed">
-                Most readings are delivered within 1-3 business days. I&apos;ll send you updates as I work on your report.
+                The Relocation Report and Read Your Own Chart course are delivered instantly. The Natal Chart Reading is written to order, usually 1-3 business days, and I&apos;ll send you updates as I work on it.
               </p>
             </div>
             <div className="h-px bg-[#2D2640]/5" />
@@ -105,7 +105,7 @@ export default function ShopPage() {
             <div>
               <h3 className="font-medium text-[#2D2640] mb-2">Who writes the readings?</h3>
               <p className="text-sm text-[#655E78] leading-relaxed">
-                Every reading is written by me (Ashleigh) after studying your actual chart. No AI, no templates.
+                I designed this system myself. Your chart is calculated with Swiss Ephemeris (the same gold-standard tool real astrologers use), then AI turns your exact placements into plain English. Every line gets checked against your real chart before it reaches you. Nothing generic, nothing templated.
               </p>
             </div>
           </div>

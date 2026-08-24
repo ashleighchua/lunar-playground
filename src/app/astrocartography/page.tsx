@@ -758,6 +758,7 @@ export default function TravelPage() {
                       Get your relocation report &mdash; $35
                     </a>
                     <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
+                    <p className="text-xs text-[#655E78]/60 mt-1">Calculated with Swiss Ephemeris, written by AI trained to stay true to your chart</p>
                   </div>
                 </div>
               </div>
