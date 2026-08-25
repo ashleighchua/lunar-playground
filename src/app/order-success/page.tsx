@@ -10,17 +10,18 @@ export const metadata: Metadata = {
 };
 
 const MANUAL_FALLBACK_BODY = [
-  "Your reading is now in the queue. I'll get started on it and send you updates as I work on your report.",
-  'Most readings are delivered within 1-3 business days. Check your email for a confirmation from Stripe.',
+  "Your order is confirmed. We'll be in touch shortly with next steps.",
+  'Check your email for a confirmation from Stripe.',
 ];
 
 /**
- * Resolves the real status for automated-pipeline products (relocation
- * report, relocation + birth chart) via generation_jobs, and the instant
- * mini-course delivery via a Stripe session lookup (it never gets an
- * `orders` row — only reportTier products do). Falls back to the original
- * manual "1-3 business days" copy for the Natal Chart Reading and anything
- * unrecognized — this page must never error out for someone who just paid.
+ * Resolves the real status for automated-pipeline products (every current
+ * paid reading, plus the combined product) via generation_jobs, and the
+ * instant mini-course delivery via a Stripe session lookup (it never gets an
+ * `orders` row — only reportTier products do). Falls back to a generic
+ * "order confirmed" message for anything unrecognized (no current live
+ * product should hit this) — this page must never error out for someone who
+ * just paid.
  */
 async function getStatusBody(sessionId: string | undefined): Promise<string[]> {
   if (!sessionId) return MANUAL_FALLBACK_BODY;

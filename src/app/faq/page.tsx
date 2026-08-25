@@ -24,7 +24,7 @@ const faqCategories = [
       },
       {
         q: 'What\'s the difference between the free tools and the paid readings?',
-        a: 'The free tools give you automated results based on your birth data. Good starting point. The Natal Chart Reading is written by me, personally, I go deep on your actual chart and write something built around your specific questions. The Relocation Report is calculated with Swiss Ephemeris and written by AI I built to stay true to your exact chart, with every claim checked before it reaches you.',
+        a: 'The free tools give you automated results based on your birth data. Good starting point. Both paid readings go deeper: calculated with Swiss Ephemeris and written by AI I built to stay true to your exact chart, with every claim checked before it reaches you.',
       },
     ],
   },
@@ -33,15 +33,15 @@ const faqCategories = [
     questions: [
       {
         q: 'What readings do you offer?',
-        a: 'Two. A Natal Chart Reading ($35) for who you are, and a Relocation Report ($35) for where you\'ll thrive. There\'s also a $20 self-guided course if you want to learn to read your own relocation chart. No bundles, no add-ons.',
+        a: 'Two. A Natal Chart Reading ($5) for who you are, and a Relocation Report ($35) for where you\'ll thrive. There\'s also a $20 self-guided course if you want to learn to read your own relocation chart. No bundles, no add-ons.',
       },
       {
         q: 'Who writes the readings?',
-        a: 'Depends on the reading. The Natal Chart Reading is me. I go through your actual chart, find the patterns, and write it up in a way that makes sense. The Relocation Report is calculated with Swiss Ephemeris (the same tool real astrologers use) and written by AI I built and designed myself, with every line checked against your real chart before it reaches you.',
+        a: 'Both are calculated with Swiss Ephemeris (the same tool real astrologers use) and written by AI I built and designed myself, with every line checked against your real chart before it reaches you.',
       },
       {
         q: 'How long does delivery take?',
-        a: 'The Relocation Report and the Read Your Own Chart course are delivered instantly. The Natal Chart Reading is written to order, usually 1 to 3 business days, I\'ll keep you posted as I work on it.',
+        a: 'Every paid reading, plus the Read Your Own Chart course, is delivered instantly.',
       },
       {
         q: 'What format do I get?',

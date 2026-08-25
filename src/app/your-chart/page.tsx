@@ -539,9 +539,9 @@ export default function YourChartPage() {
                     href="/shop"
                     className="inline-block px-8 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-lg text-sm font-medium hover:bg-[#1E1835] transition-colors"
                   >
-                    Get your natal chart reading &mdash; $35
+                    Get your natal chart reading &mdash; $5
                   </Link>
-                  <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
+                  <p className="text-xs text-[#655E78]/60 mt-4">Delivered instantly</p>
                 </div>
               </div>
             </div>

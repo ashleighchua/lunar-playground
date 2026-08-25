@@ -22,6 +22,7 @@ import path from 'path';
 import type { Browser } from 'puppeteer-core';
 import { PDFDocument } from 'pdf-lib';
 import { renderReportHtml, buildTocEntries, type ReportContent, type TocEntry } from './template';
+import { renderNatalReportHtml, buildNatalTocEntries, type NatalReportContent } from './natalTemplate';
 
 // Pinned to match @sparticuz/chromium-min@149.0.0's bundled Chromium build.
 // This pair drifts as Chrome releases roll forward — re-check
@@ -51,8 +52,8 @@ async function getBrowser(): Promise<Browser> {
   return browser as unknown as Browser;
 }
 
-async function buildMergedPdf(content: ReportContent, browser: Browser, logoDataUri: string): Promise<Uint8Array> {
-  const html = renderReportHtml(content).replaceAll('LOGO_SRC', logoDataUri);
+async function buildMergedPdf(rawHtml: string, browser: Browser, logoDataUri: string): Promise<Uint8Array> {
+  const html = rawHtml.replaceAll('LOGO_SRC', logoDataUri);
 
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: 'load' });
@@ -144,22 +145,56 @@ function loadLogoDataUri(): string {
 }
 
 /**
- * Renders a ReportContent to a finished PDF: measurement pass (blank ToC
- * page numbers) to find where sections land, then a final pass with real
- * page numbers filled in.
+ * Shared two-pass sequencing: measurement pass with blank ToC page numbers
+ * to find where sections land, then a final pass with real page numbers
+ * filled in. `buildHtml` renders a document's full HTML for a given ToC
+ * (or none, for the very first pass) — this function doesn't know or care
+ * what content shape backs it, only that it produces a `TocEntry[]` and an
+ * HTML-rendering function from it. Both `renderReportPdf` and
+ * `renderNatalReportPdf` below call this with their own `buildHtml` closure.
  */
+async function renderTwoPassPdf(options: {
+  buildHtml: (toc?: TocEntry[]) => string;
+  tocEntries: TocEntry[];
+  browser: Browser;
+  logoDataUri: string;
+}): Promise<Uint8Array> {
+  const { buildHtml, tocEntries, browser, logoDataUri } = options;
+
+  const measurementPdf = await buildMergedPdf(buildHtml(tocEntries), browser, logoDataUri);
+  const tocWithPages = await findTocPageNumbers(measurementPdf, tocEntries);
+  return buildMergedPdf(buildHtml(tocWithPages), browser, logoDataUri);
+}
+
+/** Renders a relocation-report ReportContent to a finished PDF. */
 export async function renderReportPdf(content: ReportContent): Promise<Uint8Array> {
   const logoDataUri = loadLogoDataUri();
   const browser = await getBrowser();
 
   try {
-    const withToc: ReportContent = { ...content, toc: buildTocEntries(content) };
-    const measurementPdf = await buildMergedPdf(withToc, browser, logoDataUri);
+    return await renderTwoPassPdf({
+      buildHtml: (toc) => renderReportHtml({ ...content, toc }),
+      tocEntries: buildTocEntries(content),
+      browser,
+      logoDataUri,
+    });
+  } finally {
+    await browser.close();
+  }
+}
 
-    const tocWithPages = await findTocPageNumbers(measurementPdf, withToc.toc!);
+/** Renders a standalone Natal Chart Reading NatalReportContent to a finished PDF. */
+export async function renderNatalReportPdf(content: NatalReportContent): Promise<Uint8Array> {
+  const logoDataUri = loadLogoDataUri();
+  const browser = await getBrowser();
 
-    const finalContent: ReportContent = { ...content, toc: tocWithPages };
-    return await buildMergedPdf(finalContent, browser, logoDataUri);
+  try {
+    return await renderTwoPassPdf({
+      buildHtml: (toc) => renderNatalReportHtml({ ...content, toc }),
+      tocEntries: buildNatalTocEntries(),
+      browser,
+      logoDataUri,
+    });
   } finally {
     await browser.close();
   }

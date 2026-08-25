@@ -5,9 +5,17 @@ import { products } from '@/data/products';
 import { getOrderByStripeSessionId, completeIntakeIfNotAlready, createGenerationJob } from '@/lib/reportGeneration/jobs';
 import { generateRelocationReport } from '@/lib/reportGeneration/orchestrate';
 import { isThemeName } from '@/lib/astrocartography/themes';
-import type { RelocationOrderInput, RelocationMotivation } from '@/lib/reportGeneration/orderInput';
+import type { RelocationOrderInput, RelocationMotivation, NatalMotivation } from '@/lib/reportGeneration/orderInput';
 
 const MOTIVATION_VALUES = ['career', 'relationship', 'family', 'fresh-start', 'lifestyle', 'exploring'] as const;
+const NATAL_MOTIVATION_VALUES = [
+  'self-understanding',
+  'relationship-patterns',
+  'career-purpose',
+  'life-transition',
+  'feeling-stuck',
+  'just-curious',
+] as const;
 
 const RequestSchema = z.object({
   // Stripe's own opaque checkout session id — the de facto access token for
@@ -23,7 +31,10 @@ const RequestSchema = z.object({
     lon: z.number().min(-180).max(180),
     placeLabel: z.string().trim().min(1).max(200),
   }),
-  themes: z.array(z.string()).min(1).max(3),
+  // No .min(1) here — natal-only orders never collect themes at all. "At
+  // least one theme" is enforced below, after the order's product/tier is
+  // resolved, only for tiers that actually use themes.
+  themes: z.array(z.string()).max(3),
   destinationCities: z
     .array(
       z.object({
@@ -36,6 +47,7 @@ const RequestSchema = z.object({
     .max(3)
     .optional(),
   motivations: z.array(z.enum(MOTIVATION_VALUES)).max(3).optional(),
+  natalMotivations: z.array(z.enum(NATAL_MOTIVATION_VALUES)).max(3).optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -60,6 +72,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'This order is not eligible for automated intake' }, { status: 400 });
   }
 
+  // Enforced here, after the product/tier is known, not via Zod's .min(1) —
+  // relocation/combined orders need at least one theme to rank cities by;
+  // natal-only orders never collect themes and must be allowed to submit
+  // an empty array.
+  if (product.reportTier !== 'natal-only' && parsed.data.themes.length === 0) {
+    return NextResponse.json({ error: 'Pick at least one theme for this reading' }, { status: 400 });
+  }
+
   const orderInput: RelocationOrderInput = {
     client: parsed.data.client,
     reportTier: product.reportTier,
@@ -68,6 +88,7 @@ export async function POST(request: NextRequest) {
     cityCount: 3,
     destinationCities: parsed.data.destinationCities,
     motivations: parsed.data.motivations as RelocationMotivation[] | undefined,
+    natalMotivations: parsed.data.natalMotivations as NatalMotivation[] | undefined,
   };
 
   const isFirstSubmission = await completeIntakeIfNotAlready(order.id, orderInput);

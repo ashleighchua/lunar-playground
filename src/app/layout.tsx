@@ -99,7 +99,7 @@ export default function RootLayout({
                 '@type': 'OfferCatalog',
                 name: 'Astrology Services',
                 itemListElement: [
-                  { '@type': 'Offer', price: '35', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'Natal Chart Reading', description: 'A deep reading of your birth chart covering personality, patterns, relationships, and growth edges.' } },
+                  { '@type': 'Offer', price: '5', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'Natal Chart Reading', description: 'A deep reading of your birth chart covering personality, patterns, relationships, and growth edges.' } },
                   { '@type': 'Offer', price: '35', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'Relocation Report', description: 'Your birth chart mapped across the globe to find cities that activate career, love, and transformation.' } },
                   { '@type': 'Offer', price: '20', priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: 'Read Your Own Chart', description: 'A self-paced guide to reading your own relocation astrology chart.' } },
                 ],

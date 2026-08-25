@@ -91,7 +91,7 @@ export default function ShopPage() {
             <div>
               <h3 className="font-medium text-[#2D2640] mb-2">How long does delivery take?</h3>
               <p className="text-sm text-[#655E78] leading-relaxed">
-                The Relocation Report and Read Your Own Chart course are delivered instantly. The Natal Chart Reading is written to order, usually 1-3 business days, and I&apos;ll send you updates as I work on it.
+                Every paid reading, plus the Read Your Own Chart course, is delivered instantly.
               </p>
             </div>
             <div className="h-px bg-[#2D2640]/5" />

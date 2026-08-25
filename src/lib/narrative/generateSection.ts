@@ -24,7 +24,7 @@ export type ModelTier = 'premium' | 'standard';
 // Both tiers use Sonnet-5 — live-tested output quality was strong enough
 // that Opus's extra cost isn't justified for either report type.
 const MODEL_BY_TIER: Record<ModelTier, string> = {
-  premium: 'anthropic/claude-sonnet-5', // combined (birth chart + relocation) report
+  premium: 'anthropic/claude-sonnet-5', // combined (birth chart + relocation) and natal-only reports
   standard: 'anthropic/claude-sonnet-5', // relocation-only report
 };
 
@@ -36,7 +36,7 @@ STRICT RULES — breaking any of these makes the reading wrong, not just stylist
 - Do not hedge ("might," "could," "perhaps") — state what the chart shows directly and specifically.
 - Write in second person, warm but direct, psychologically grounded — not generic horoscope language.
 - You may use ordinary astrological adjectives (mercurial, jovial, saturnine, etc.) as color/tone without that counting as a placement claim.
-- The prompt may include a short note on why the client is considering this move — that's context from them, not a chart fact. Use it only to shape tone and emphasis; never state it back as if the chart itself said it.`;
+- The prompt may include a short note on why the client wants this reading — that's context from them, not a chart fact. Use it only to shape tone and emphasis; never state it back as if the chart itself said it. If no such note is given, don't invent one — do not reference relocation, moving, or "where you land" unless the facts or prompt below are actually about a location.`;
 
 export interface GenerateSectionOptions {
   payload: FactsPayload;

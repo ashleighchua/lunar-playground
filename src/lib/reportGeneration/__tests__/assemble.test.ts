@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { assembleReportContent } from '../assemble';
-import { SAMPLE_ORDER_INPUT } from '../orderInput';
+import { assembleReportContent, assembleNatalReportContent } from '../assemble';
+import { SAMPLE_ORDER_INPUT, SAMPLE_NATAL_ORDER_INPUT } from '../orderInput';
 import type { OrderFacts, CityFacts } from '../buildFacts';
 import type { GeneratedProse } from '../narrate';
 import type { ChartData } from '../../ephemeris';
@@ -85,6 +85,46 @@ function fakeProse(facts: OrderFacts): GeneratedProse {
   };
 }
 
+function fakeDomainInsight(label: string) {
+  return { pattern: `${label} pattern.`, watchFor: `${label} watch for.`, practice: `${label} practice.` };
+}
+
+/** fakeProse() plus the natal-only domain-section fields assembleNatalReportContent requires. */
+function fakeNatalProse(facts: OrderFacts): GeneratedProse {
+  return {
+    ...fakeProse(facts),
+    // Natal-only tier only describes Sun/Moon/Ascendant/Uranus/Neptune/Pluto flatly — Mercury/Venus/Mars/Saturn move into the domain sections below.
+    perPlanetDescriptions: {
+      Sun: 'Sun description.',
+      Moon: 'Moon description.',
+      Ascendant: 'Rising description.',
+      Uranus: 'Uranus description.',
+      Neptune: 'Neptune description.',
+      Pluto: 'Pluto description.',
+    },
+    coreDrives: {
+      Mercury: fakeDomainInsight('Mercury'),
+      Venus: fakeDomainInsight('Venus'),
+      Mars: fakeDomainInsight('Mars'),
+      Saturn: fakeDomainInsight('Saturn'),
+    },
+    decisionMaking: fakeDomainInsight('Decision Making'),
+    emotionalPattern: fakeDomainInsight('Emotional Pattern'),
+    restRecharge: fakeDomainInsight('Rest & Recharge'),
+    relationshipBlueprint: fakeDomainInsight('Relationship Blueprint'),
+    workImpact: fakeDomainInsight('Work & Impact'),
+    shadowGrowth: fakeDomainInsight('Shadow & Growth'),
+    practicalTakeaways: {
+      keyInsight: 'Key insight.',
+      leanInto: ['Lean 1', 'Lean 2', 'Lean 3'],
+      watchFor: ['Watch 1', 'Watch 2', 'Watch 3'],
+      reframe: 'Reframe.',
+      tryThis: 'Try this.',
+      notice: 'Notice this.',
+    },
+  };
+}
+
 describe('assembleReportContent', () => {
   it('maps facts + prose into a well-formed ReportContent for the combined tier', () => {
     const facts = fakeFacts();
@@ -138,5 +178,80 @@ describe('assembleReportContent', () => {
     });
 
     expect(content.natalChart).toBeUndefined();
+  });
+});
+
+describe('assembleNatalReportContent', () => {
+  it('maps facts + prose into a well-formed NatalReportContent, with no relocation content at all', () => {
+    // Realistic natal-only shape: no cities, matching what buildFactsForOrder
+    // actually returns for this tier (see buildFacts.test.ts).
+    const facts = { ...fakeFacts(), cities: [], rankingFacts: {} };
+    const prose = fakeNatalProse(facts);
+
+    const content = assembleNatalReportContent({
+      input: SAMPLE_NATAL_ORDER_INPUT,
+      facts,
+      prose,
+      generatedAt: new Date('2026-08-01'),
+    });
+
+    expect(content.client).toBe(SAMPLE_NATAL_ORDER_INPUT.client);
+    expect(content.monthYear).toBe('August 2026');
+    expect(content.natalChart.intro).toBe('Natal chart intro.');
+    expect(content.natalChart.bigThree.find((b) => b.label === 'Sun')?.description).toBe('Sun description.');
+
+    // Not present on NatalReportContent at all — no city/relocation shape to carry.
+    expect('cities' in content).toBe(false);
+    expect('planetaryLines' in content).toBe(false);
+
+    // "What Your Chart Shows" only lists the outer planets for natal-only —
+    // Sun/Moon are already covered by the Big Three cards (checked above),
+    // and Mercury/Venus/Mars/Saturn moved into the domain sections below.
+    const planetDescription = (name: string) => content.natalChart.planets.find((p) => p.planet === name)?.description;
+    expect(planetDescription('Sun')).toBeUndefined();
+    expect(planetDescription('Moon')).toBeUndefined();
+    expect(planetDescription('Mercury')).toBeUndefined();
+    expect(planetDescription('Venus')).toBeUndefined();
+    expect(planetDescription('Mars')).toBeUndefined();
+    expect(planetDescription('Saturn')).toBeUndefined();
+    expect(planetDescription('Uranus')).toBe('Uranus description.');
+    expect(planetDescription('Neptune')).toBe('Neptune description.');
+    expect(planetDescription('Pluto')).toBe('Pluto description.');
+
+    // Core Drives: one card per planet, paired with that planet's real sign/house from the chart, not invented.
+    expect(content.coreDrives).toHaveLength(4);
+    const mercuryCard = content.coreDrives.find((c) => c.planet === 'Mercury');
+    expect(mercuryCard?.sign).toBe('Virgo'); // from fakeChart()
+    expect(mercuryCard?.house).toBe(6);
+    expect(mercuryCard?.pattern).toBe('Mercury pattern.');
+
+    // Single-planet domain sections paired with the right real placement.
+    expect(content.decisionMaking.sign).toBe('Virgo'); // Mercury
+    expect(content.emotionalPattern.sign).toBe('Cancer'); // Moon
+    expect(content.restRecharge.sign).toBe('Cancer'); // Moon
+    expect(content.relationshipBlueprint.sign).toBe('Cancer'); // Moon
+    expect(content.workImpact.sign).toBe('Leo'); // Sun
+    expect(content.shadowGrowth.sign).toBe('Leo'); // Sun
+
+    // Whole-chart synthesis closing section, not invented.
+    expect(content.practicalTakeaways.leanInto).toHaveLength(3);
+    expect(content.practicalTakeaways.keyInsight).toBe('Key insight.');
+  });
+
+  it('throws if narration never produced a natalChart (should never happen given orchestrate.ts\'s flow, but assembly must not silently ship a report with no content)', () => {
+    const facts = { ...fakeFacts(), cities: [], rankingFacts: {}, identityFacts: undefined, perPlanetIdentityFacts: undefined };
+    const prose = fakeProse(facts);
+    prose.identityIntro = undefined;
+    prose.perPlanetDescriptions = undefined;
+
+    expect(() => assembleNatalReportContent({ input: SAMPLE_NATAL_ORDER_INPUT, facts, prose })).toThrow();
+  });
+
+  it('throws with a clear message if a domain-section field is missing (narration must complete before assembly, not silently ship a gap)', () => {
+    const facts = { ...fakeFacts(), cities: [], rankingFacts: {} };
+    const prose = fakeNatalProse(facts);
+    prose.decisionMaking = undefined;
+
+    expect(() => assembleNatalReportContent({ input: SAMPLE_NATAL_ORDER_INPUT, facts, prose })).toThrow(/decisionMaking/);
   });
 });

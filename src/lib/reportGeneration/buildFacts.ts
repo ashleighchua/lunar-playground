@@ -122,13 +122,9 @@ export async function buildFactsForOrder(input: RelocationOrderInput): Promise<O
   const chart = await calculateChart(birthData);
   if (!chart) throw new Error(`calculateChart failed for order "${input.client}"`);
 
-  const utcHour = hh + mm / 60 - offset;
-  const jd = toJulianDay(y, m, d, utcHour);
-  const lines = computeAllPlanetLines(jd);
-
   let identityFacts: FactsPayload | undefined;
   let perPlanetIdentityFacts: FactsPayload[] | undefined;
-  if (input.reportTier === 'combined') {
+  if (input.reportTier === 'combined' || input.reportTier === 'natal-only') {
     identityFacts = buildBirthChartIdentityFacts(chart);
     perPlanetIdentityFacts = identityFacts.facts.map((fact, i) => ({
       sectionId: `${identityFacts!.sectionId}-${i}`,
@@ -136,9 +132,26 @@ export async function buildFactsForOrder(input: RelocationOrderInput): Promise<O
     }));
   }
 
+  // natal-only has no relocation content at all — skip planetary-line
+  // computation and city ranking entirely rather than doing wasted work for
+  // a product that never uses it.
+  if (input.reportTier === 'natal-only') {
+    return { chart, timezone, identityFacts, perPlanetIdentityFacts, cities: [], rankingFacts: {} };
+  }
+
+  if (!input.themes || input.themes.length === 0) {
+    throw new Error(`Order "${input.client}" (tier ${input.reportTier}) has no themes — required for relocation content`);
+  }
+  const themes = input.themes;
+  const cityCount = input.cityCount ?? 3;
+
+  const utcHour = hh + mm / 60 - offset;
+  const jd = toJulianDay(y, m, d, utcHour);
+  const lines = computeAllPlanetLines(jd);
+
   const destinations = input.destinationCities?.length
     ? input.destinationCities
-    : rankTopCities(input.themes, lines, input.cityCount);
+    : rankTopCities(themes, lines, cityCount);
 
   const natalPlanetLongitudes = NATAL_PLANET_KEYS.map((key) => ({
     name: chart[key].name,
@@ -174,8 +187,8 @@ export async function buildFactsForOrder(input: RelocationOrderInput): Promise<O
   });
 
   const rankingFacts: Partial<Record<ThemeName, FactsPayload>> = {};
-  for (const theme of input.themes) {
-    const ranked = scoreCitiesForTheme(citiesData as CityData[], lines, LIFE_THEMES[theme], input.cityCount);
+  for (const theme of themes) {
+    const ranked = scoreCitiesForTheme(citiesData as CityData[], lines, LIFE_THEMES[theme], cityCount);
     rankingFacts[theme] = buildCityRankingFacts(theme, ranked);
   }
 

@@ -132,7 +132,7 @@ export interface ReportContent {
   closingMessage: string;
 }
 
-function esc(s: string): string {
+export function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
@@ -253,7 +253,14 @@ function renderLinesTable(cities: SummaryCity[]): string {
   </table>`;
 }
 
-function renderNatalChart(chart: NatalChart): string {
+/**
+ * Part One — Big Three cards, the full sign/degree/house data table, and
+ * the Ascendant/Midheaven cards. Exported on its own so natalTemplate.ts
+ * can place its own new domain sections between this and
+ * `renderChartShowsCards` below (their relative order isn't fixed for
+ * every consumer the way it is for the relocation/combined report).
+ */
+export function renderBirthChartOverview(chart: NatalChart): string {
   return `
 <main class="page page-break">
   <p class="part-eyebrow">Part One — Your Birth Chart</p>
@@ -295,8 +302,18 @@ function renderNatalChart(chart: NatalChart): string {
     <div class="angle-card"><div class="angle-card-label">Ascendant</div><div class="angle-card-value">${esc(chart.ascendant.sign)} ${esc(chart.ascendant.degree)}</div></div>
     <div class="angle-card"><div class="angle-card-label">Midheaven</div><div class="angle-card-value">${esc(chart.midheaven.sign)} ${esc(chart.midheaven.degree)}</div></div>
   </div>
-</main>
+</main>`;
+}
 
+/**
+ * "What Your Chart Shows" — one card per planet that has a `description`
+ * (`NatalPlanetRow.description` is optional precisely so a consumer can
+ * omit planets covered elsewhere; natal-only's assemble.ts only populates
+ * this for Uranus/Neptune/Pluto, since the six personal planets get their
+ * own domain sections instead — see the natal-chart-automation plan).
+ */
+export function renderChartShowsCards(chart: NatalChart): string {
+  return `
 <main class="page">
   <h2 class="section-title">What Your Chart Shows</h2>
   ${chart.planets
@@ -308,14 +325,36 @@ function renderNatalChart(chart: NatalChart): string {
     </div>`
     )
     .join('\n')}
-</main>
+</main>`;
+}
 
+/** Explicitly promises astrocartography content follows — relocation/combined tier only. */
+export function renderChartTravelsBridge(): string {
+  return `
 <main class="page page-break bridge-section">
   <h2 class="section-title">How Your Chart Travels</h2>
   <p>Your birth chart is anchored to one place and one moment: the exact time and location given at the front of this report. It describes who you are wherever you go, your Sun, Moon, and every planet above stay exactly where they are in your chart no matter where you're standing.</p>
   <p>Astrocartography works with those same planets, but asks a different question: at the moment you were born, where else on Earth would each one have been rising, setting, culminating overhead, or at its lowest point? Wherever one of those lines crosses is a place where that planet's themes become more active and more visible, not because you become a different person there, but because that placement gets called forward by the location itself.</p>
   <p>The pages so far told you what each planet means for you, personally, wherever you are. The pages that follow tell you where in the world those same meanings get amplified.</p>
-</main>
+</main>`;
+}
+
+/**
+ * `includeBridge` renders "How Your Chart Travels" — true for the
+ * relocation/combined-tier document this was built for, wrong for a
+ * standalone natal-only reading with no relocation content. Defaults to
+ * true so relocation/combined rendering is unchanged. Composes the three
+ * pieces above in the relocation report's fixed order; natalTemplate.ts
+ * calls the pieces directly instead, since it needs a different order.
+ */
+export function renderNatalChart(chart: NatalChart, options: { includeBridge?: boolean } = {}): string {
+  const { includeBridge = true } = options;
+  return `
+${renderBirthChartOverview(chart)}
+
+${renderChartShowsCards(chart)}
+
+${includeBridge ? renderChartTravelsBridge() : ''}
 `;
 }
 
@@ -496,7 +535,7 @@ ${content.cities.map((c, i) => renderCity(c, i)).join('\n')}
 </html>`;
 }
 
-const CSS = `
+export const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }

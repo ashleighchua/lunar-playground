@@ -181,7 +181,7 @@ export function SummaryScreen({
           <p className="text-[#F0EBF8]/70 text-sm mb-2 max-w-md mx-auto">
             Get all 9 sections with personalized insights on your decision-making, emotional patterns, relationships, career, and more.
           </p>
-          <p className="text-[#FF8FA3] text-2xl font-serif mb-5">$35</p>
+          <p className="text-[#FF8FA3] text-2xl font-serif mb-5">$5</p>
           <div className="max-w-xs mx-auto">
             <CheckoutButton productId="natal-chart" label="Unlock Now" />
           </div>

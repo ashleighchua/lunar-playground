@@ -81,7 +81,7 @@ export default async function OrderIntakePage({ searchParams }: { searchParams: 
         <div className="max-w-xl mx-auto">
           <h1 className="font-serif text-3xl md:text-4xl text-[#2D2640] mb-3">Tell us about you</h1>
           <p className="text-[#655E78] leading-relaxed mb-10">A few details and we&apos;ll get started on your {product?.title ?? 'reading'}.</p>
-          <OrderIntakeForm sessionId={sessionId} />
+          <OrderIntakeForm sessionId={sessionId} reportTier={product?.reportTier} />
         </div>
       </main>
     </div>

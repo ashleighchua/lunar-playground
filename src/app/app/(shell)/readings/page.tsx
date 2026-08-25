@@ -16,7 +16,7 @@ export default function AppReadingsPage() {
           Two readings.<br />That&rsquo;s it.
         </div>
         <div className="text-sm text-[#F0EBF8]/55 mt-2">
-          One to understand yourself. One to know where to go. The first written by me, the second calculated with Swiss Ephemeris and phrased by AI true to your chart.
+          One to understand yourself. One to know where to go. Both calculated with Swiss Ephemeris and phrased by AI true to your chart.
         </div>
       </div>
 
@@ -30,7 +30,7 @@ export default function AppReadingsPage() {
           Personality, patterns, relationships, and growth edges. The foundation for understanding everything else.
         </div>
         <div className="flex items-center justify-between gap-3">
-          <div className="font-serif text-[26px]">$35</div>
+          <div className="font-serif text-[26px]">$5</div>
           <CheckoutButton productId="natal-chart" label="Uncover your patterns" className={outlinePillClasses} />
         </div>
       </div>

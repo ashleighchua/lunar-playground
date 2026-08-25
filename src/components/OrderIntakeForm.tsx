@@ -6,10 +6,17 @@ import { CitySelect } from '@/components/ui/CitySelect';
 import { type City } from '@/lib/cities';
 import { isValidDate } from '@/lib/utils';
 import { THEME_LABELS, type ThemeName } from '@/lib/astrocartography/themes';
-import { MOTIVATION_LABELS, type RelocationMotivation } from '@/lib/reportGeneration/orderInput';
+import {
+  MOTIVATION_LABELS,
+  NATAL_MOTIVATION_LABELS,
+  type RelocationMotivation,
+  type NatalMotivation,
+  type ReportTier,
+} from '@/lib/reportGeneration/orderInput';
 
 const THEME_OPTIONS = Object.keys(THEME_LABELS) as ThemeName[];
 const MOTIVATION_OPTIONS = Object.keys(MOTIVATION_LABELS) as RelocationMotivation[];
+const NATAL_MOTIVATION_OPTIONS = Object.keys(NATAL_MOTIVATION_LABELS) as NatalMotivation[];
 const MAX_THEMES = 3;
 const MAX_MOTIVATIONS = 3;
 const MAX_DESTINATION_CITIES = 3;
@@ -20,9 +27,12 @@ function capitalize(s: string): string {
 
 interface OrderIntakeFormProps {
   sessionId: string;
+  /** Undefined for a product somehow reaching this page without a reportTier — treated as relocation-shaped, same as before this prop existed. */
+  reportTier?: ReportTier;
 }
 
-export function OrderIntakeForm({ sessionId }: OrderIntakeFormProps) {
+export function OrderIntakeForm({ sessionId, reportTier }: OrderIntakeFormProps) {
+  const isNatalOnly = reportTier === 'natal-only';
   const router = useRouter();
   const [client, setClient] = useState('');
   const [birthdate, setBirthdate] = useState('');
@@ -31,6 +41,7 @@ export function OrderIntakeForm({ sessionId }: OrderIntakeFormProps) {
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const [themes, setThemes] = useState<ThemeName[]>([]);
   const [motivations, setMotivations] = useState<RelocationMotivation[]>([]);
+  const [natalMotivations, setNatalMotivations] = useState<NatalMotivation[]>([]);
   const [knowsCities, setKnowsCities] = useState(false);
   const [destinationCities, setDestinationCities] = useState<(City | null)[]>([null]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,6 +55,16 @@ export function OrderIntakeForm({ sessionId }: OrderIntakeFormProps) {
 
   function toggleMotivation(motivation: RelocationMotivation) {
     setMotivations((prev) =>
+      prev.includes(motivation)
+        ? prev.filter((m) => m !== motivation)
+        : prev.length < MAX_MOTIVATIONS
+          ? [...prev, motivation]
+          : prev
+    );
+  }
+
+  function toggleNatalMotivation(motivation: NatalMotivation) {
+    setNatalMotivations((prev) =>
       prev.includes(motivation)
         ? prev.filter((m) => m !== motivation)
         : prev.length < MAX_MOTIVATIONS
@@ -79,14 +100,14 @@ export function OrderIntakeForm({ sessionId }: OrderIntakeFormProps) {
       return;
     }
     if (!birthtime) {
-      setError('We need your exact birth time to calculate your houses and relocation lines accurately.');
+      setError('We need your exact birth time to calculate your houses accurately.');
       return;
     }
     if (!selectedCity) {
       setError('Add your place of birth.');
       return;
     }
-    if (themes.length === 0) {
+    if (!isNatalOnly && themes.length === 0) {
       setError('Pick at least one thing you want this reading to focus on.');
       return;
     }
@@ -108,10 +129,11 @@ export function OrderIntakeForm({ sessionId }: OrderIntakeFormProps) {
             lon: selectedCity.lng,
             placeLabel: selectedCity.label,
           },
-          themes,
-          motivations: motivations.length > 0 ? motivations : undefined,
+          themes: isNatalOnly ? [] : themes,
+          motivations: !isNatalOnly && motivations.length > 0 ? motivations : undefined,
+          natalMotivations: isNatalOnly && natalMotivations.length > 0 ? natalMotivations : undefined,
           destinationCities:
-            knowsCities && chosenCities.length > 0
+            !isNatalOnly && knowsCities && chosenCities.length > 0
               ? chosenCities.map((c) => ({ name: c.label, country: c.country || '', lat: c.lat, lon: c.lng }))
               : undefined,
         }),
@@ -187,85 +209,104 @@ export function OrderIntakeForm({ sessionId }: OrderIntakeFormProps) {
         <CitySelect value={selectedCity?.label || ''} onChange={setSelectedCity} placeholder="Search for a city..." />
       </div>
 
-      <div>
-        <label className="block text-sm text-[#655E78] mb-2">What do you want this reading to focus on? (up to {MAX_THEMES})</label>
-        <div className="flex flex-wrap gap-2">
-          {THEME_OPTIONS.map((theme) => (
-            <button
-              key={theme}
-              type="button"
-              onClick={() => toggleTheme(theme)}
-              className={`px-4 py-2 rounded-full text-sm border transition-colors ${
-                themes.includes(theme)
-                  ? 'bg-[#2D2640] text-[#F0EBF8] border-[#2D2640]'
-                  : 'border-[#2D2640]/15 text-[#655E78] hover:border-[#2D2640]/30'
-              }`}
-            >
-              {THEME_LABELS[theme]}
-            </button>
-          ))}
+      {!isNatalOnly && (
+        <div>
+          <label className="block text-sm text-[#655E78] mb-2">What do you want this reading to focus on? (up to {MAX_THEMES})</label>
+          <div className="flex flex-wrap gap-2">
+            {THEME_OPTIONS.map((theme) => (
+              <button
+                key={theme}
+                type="button"
+                onClick={() => toggleTheme(theme)}
+                className={`px-4 py-2 rounded-full text-sm border transition-colors ${
+                  themes.includes(theme)
+                    ? 'bg-[#2D2640] text-[#F0EBF8] border-[#2D2640]'
+                    : 'border-[#2D2640]/15 text-[#655E78] hover:border-[#2D2640]/30'
+                }`}
+              >
+                {THEME_LABELS[theme]}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div>
         <label className="block text-sm text-[#655E78] mb-2">
           What&apos;s bringing you to this? <span className="text-[#655E78]/60">(optional, up to {MAX_MOTIVATIONS})</span>
         </label>
         <div className="flex flex-wrap gap-2">
-          {MOTIVATION_OPTIONS.map((motivation) => (
-            <button
-              key={motivation}
-              type="button"
-              onClick={() => toggleMotivation(motivation)}
-              className={`px-4 py-2 rounded-full text-sm border transition-colors ${
-                motivations.includes(motivation)
-                  ? 'bg-[#2D2640] text-[#F0EBF8] border-[#2D2640]'
-                  : 'border-[#2D2640]/15 text-[#655E78] hover:border-[#2D2640]/30'
-              }`}
-            >
-              {capitalize(MOTIVATION_LABELS[motivation])}
-            </button>
-          ))}
+          {isNatalOnly
+            ? NATAL_MOTIVATION_OPTIONS.map((motivation) => (
+                <button
+                  key={motivation}
+                  type="button"
+                  onClick={() => toggleNatalMotivation(motivation)}
+                  className={`px-4 py-2 rounded-full text-sm border transition-colors ${
+                    natalMotivations.includes(motivation)
+                      ? 'bg-[#2D2640] text-[#F0EBF8] border-[#2D2640]'
+                      : 'border-[#2D2640]/15 text-[#655E78] hover:border-[#2D2640]/30'
+                  }`}
+                >
+                  {capitalize(NATAL_MOTIVATION_LABELS[motivation])}
+                </button>
+              ))
+            : MOTIVATION_OPTIONS.map((motivation) => (
+                <button
+                  key={motivation}
+                  type="button"
+                  onClick={() => toggleMotivation(motivation)}
+                  className={`px-4 py-2 rounded-full text-sm border transition-colors ${
+                    motivations.includes(motivation)
+                      ? 'bg-[#2D2640] text-[#F0EBF8] border-[#2D2640]'
+                      : 'border-[#2D2640]/15 text-[#655E78] hover:border-[#2D2640]/30'
+                  }`}
+                >
+                  {capitalize(MOTIVATION_LABELS[motivation])}
+                </button>
+              ))}
         </div>
       </div>
 
-      <div>
-        <label className="flex items-center gap-2 text-sm text-[#655E78] mb-3">
-          <input type="checkbox" checked={knowsCities} onChange={(e) => setKnowsCities(e.target.checked)} className="rounded" />
-          I already have specific cities in mind
-        </label>
-        {!knowsCities && (
-          <p className="text-xs text-[#655E78]">
-            Leave this off and we&apos;ll rank the best-matching cities for you based on what you picked above.
-          </p>
-        )}
-        {knowsCities && (
-          <div className="space-y-3">
-            {destinationCities.map((city, i) => (
-              <div key={i} className="flex gap-2 items-start">
-                <div className="flex-1">
-                  <CitySelect value={city?.label || ''} onChange={(c) => updateDestinationCity(i, c)} placeholder="Search for a city..." />
+      {!isNatalOnly && (
+        <div>
+          <label className="flex items-center gap-2 text-sm text-[#655E78] mb-3">
+            <input type="checkbox" checked={knowsCities} onChange={(e) => setKnowsCities(e.target.checked)} className="rounded" />
+            I already have specific cities in mind
+          </label>
+          {!knowsCities && (
+            <p className="text-xs text-[#655E78]">
+              Leave this off and we&apos;ll rank the best-matching cities for you based on what you picked above.
+            </p>
+          )}
+          {knowsCities && (
+            <div className="space-y-3">
+              {destinationCities.map((city, i) => (
+                <div key={i} className="flex gap-2 items-start">
+                  <div className="flex-1">
+                    <CitySelect value={city?.label || ''} onChange={(c) => updateDestinationCity(i, c)} placeholder="Search for a city..." />
+                  </div>
+                  {destinationCities.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeDestinationCity(i)}
+                      className="px-3 py-3 text-[#655E78] hover:text-[#2D2640]"
+                      aria-label="Remove city"
+                    >
+                      &times;
+                    </button>
+                  )}
                 </div>
-                {destinationCities.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeDestinationCity(i)}
-                    className="px-3 py-3 text-[#655E78] hover:text-[#2D2640]"
-                    aria-label="Remove city"
-                  >
-                    &times;
-                  </button>
-                )}
-              </div>
-            ))}
-            {destinationCities.length < MAX_DESTINATION_CITIES && (
-              <button type="button" onClick={addDestinationCity} className="text-sm text-[#2D2640] underline">
-                + Add another city
-              </button>
-            )}
-          </div>
-        )}
-      </div>
+              ))}
+              {destinationCities.length < MAX_DESTINATION_CITIES && (
+                <button type="button" onClick={addDestinationCity} className="text-sm text-[#2D2640] underline">
+                  + Add another city
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {error && <p className="text-sm text-red-500">{error}</p>}
 

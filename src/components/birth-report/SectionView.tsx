@@ -148,7 +148,7 @@ export function SectionView({
             Get your decision-making style, emotional patterns, relationship blueprint, and more in a comprehensive personalized reading.
           </p>
           <div className="max-w-xs mx-auto">
-            <CheckoutButton productId="natal-chart" label="Get your full reading - $35" />
+            <CheckoutButton productId="natal-chart" label="Get your full reading - $5" />
           </div>
         </div>
 

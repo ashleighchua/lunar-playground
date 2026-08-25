@@ -368,7 +368,7 @@ function generateOrderConfirmationEmail(productTitle: string, email: string): st
           Received with gratitude.
         </p>
         <p style="color: #4A4A4A; font-size: 15px; line-height: 1.8; text-align: center; margin: 0 0 28px;">
-          Your <strong style="color: #2D2640;">${productTitle}</strong> is now in the works. I'll be with your chart shortly and will send your reading within 1-3 days.
+          Your <strong style="color: #2D2640;">${productTitle}</strong> order is confirmed. Add a few birth details and your reading will be ready shortly after.
         </p>
         <p style="color: #4A4A4A; font-size: 15px; line-height: 1.8; text-align: center; margin: 0 0 28px;">
           If anything comes up, I'm at

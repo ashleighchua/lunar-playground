@@ -7,9 +7,10 @@ import { setJobStatus, type JobStatusExtra } from './jobs';
 import { uploadReportPdf } from './blob';
 import { buildFactsForOrder, type OrderFacts } from './buildFacts';
 import { narrateOrder, HeldForReviewError, type GeneratedProse } from './narrate';
-import { assembleReportContent } from './assemble';
-import { renderReportPdf } from './render/pdf';
+import { assembleReportContent, assembleNatalReportContent } from './assemble';
+import { renderReportPdf, renderNatalReportPdf } from './render/pdf';
 import type { ReportContent } from './render/template';
+import type { NatalReportContent } from './render/natalTemplate';
 import { deliverReport, notifyOwnerHeldForReview } from './deliver';
 import type { FactsPayload } from '../reportFacts/types';
 import type { RelocationOrderInput } from './orderInput';
@@ -105,6 +106,21 @@ async function runRender(reportContent: ReportContent): Promise<Uint8Array> {
   return renderReportPdf(reportContent);
 }
 
+async function runNatalAssemble(
+  orderInput: RelocationOrderInput,
+  facts: OrderFacts,
+  prose: GeneratedProse,
+  generatedAt: string
+): Promise<NatalReportContent> {
+  'use step';
+  return assembleNatalReportContent({ input: orderInput, facts, prose, generatedAt: new Date(generatedAt) });
+}
+
+async function runNatalRender(reportContent: NatalReportContent): Promise<Uint8Array> {
+  'use step';
+  return renderNatalReportPdf(reportContent);
+}
+
 async function runUpload(orderId: number, pdfBytes: Uint8Array): Promise<string> {
   'use step';
   return uploadReportPdf(orderId, pdfBytes);
@@ -162,9 +178,20 @@ export async function generateRelocationReport(jobId: number): Promise<GenerateR
 
     const facts = await runFacts(orderInput);
     const prose = await runNarration(orderInput, facts);
-    const reportContent = await runAssemble(orderInput, facts, prose, generatedAt);
 
-    const pdfBytes = await runRender(reportContent);
+    // natal-only gets its own document (no relocation content to render) —
+    // deliberately two separate assemble/render calls rather than reusing
+    // the relocation ones, so a natal-only order can never accidentally
+    // ship a "RELOCATION REPORT"-titled PDF with empty city sections.
+    let pdfBytes: Uint8Array;
+    if (orderInput.reportTier === 'natal-only') {
+      const natalReportContent = await runNatalAssemble(orderInput, facts, prose, generatedAt);
+      pdfBytes = await runNatalRender(natalReportContent);
+    } else {
+      const reportContent = await runAssemble(orderInput, facts, prose, generatedAt);
+      pdfBytes = await runRender(reportContent);
+    }
+
     const pdfBlobUrl = await runUpload(orderId, pdfBytes);
 
     await runDeliver({

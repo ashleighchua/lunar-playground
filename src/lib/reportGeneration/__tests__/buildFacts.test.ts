@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { buildFactsForOrder } from '../buildFacts';
-import { SAMPLE_ORDER_INPUT, type RelocationOrderInput } from '../orderInput';
+import { SAMPLE_ORDER_INPUT, SAMPLE_NATAL_ORDER_INPUT, type RelocationOrderInput } from '../orderInput';
 
 describe('buildFactsForOrder', () => {
   it('computes a natal chart and per-city facts for the sample fixture (combined tier)', async () => {
@@ -36,7 +36,7 @@ describe('buildFactsForOrder', () => {
     }
 
     // City ranking facts computed for every requested theme.
-    for (const theme of SAMPLE_ORDER_INPUT.themes) {
+    for (const theme of SAMPLE_ORDER_INPUT.themes!) {
       expect(facts.rankingFacts[theme]).toBeDefined();
     }
   });
@@ -64,5 +64,26 @@ describe('buildFactsForOrder', () => {
       expect(city.name).toBeTruthy();
       expect(city.country).toBeTruthy();
     }
+  });
+
+  it('natal-only tier computes identity facts and skips all relocation computation, with the real (empty-themes, no-destinationCities) intake shape', async () => {
+    // Deliberately the realistic shape a natal-only intake submission has —
+    // the intake form never collects themes/destinationCities for this
+    // tier — not SAMPLE_ORDER_INPUT with themes filled in. A happy-path-only
+    // test here would pass even if the early-return branch in
+    // buildFactsForOrder were missing or misplaced.
+    expect(SAMPLE_NATAL_ORDER_INPUT.themes).toBeUndefined();
+    expect(SAMPLE_NATAL_ORDER_INPUT.destinationCities).toBeUndefined();
+
+    const facts = await buildFactsForOrder(SAMPLE_NATAL_ORDER_INPUT);
+
+    expect(facts.chart.sun.sign).toBeTruthy();
+    expect(facts.identityFacts).toBeDefined();
+    expect(facts.identityFacts!.facts.length).toBeGreaterThan(0);
+    expect(facts.perPlanetIdentityFacts).toBeDefined();
+
+    // No relocation content at all — this is the whole point of the tier.
+    expect(facts.cities).toEqual([]);
+    expect(facts.rankingFacts).toEqual({});
   });
 });

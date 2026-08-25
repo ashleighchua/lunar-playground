@@ -18,6 +18,9 @@ import type {
   Planet,
   Angle,
 } from './render/template';
+import type { NatalReportContent, DomainInsightCard, PracticalTakeaways } from './render/natalTemplate';
+import type { LifeAreaInsightObject } from '../narrative/generateLifeAreaInsight';
+import type { PlanetPosition } from '../ephemeris';
 
 /**
  * Pure function: maps facts + already-generated prose into the ReportContent
@@ -149,7 +152,13 @@ function buildPlanetaryLines(facts: OrderFacts): ReportContent['planetaryLines']
 }
 
 function buildNatalChart(input: RelocationOrderInput, facts: OrderFacts, prose: GeneratedProse): NatalChart | undefined {
-  if (input.reportTier !== 'combined' || !prose.identityIntro || !prose.perPlanetDescriptions) return undefined;
+  if (
+    (input.reportTier !== 'combined' && input.reportTier !== 'natal-only') ||
+    !prose.identityIntro ||
+    !prose.perPlanetDescriptions
+  ) {
+    return undefined;
+  }
   const { chart } = facts;
 
   const bigThree: BigThreeCard[] = [
@@ -165,14 +174,22 @@ function buildNatalChart(input: RelocationOrderInput, facts: OrderFacts, prose: 
     });
   }
 
+  // Natal-only tier: prose.perPlanetDescriptions only has entries for
+  // Sun/Moon/Ascendant (Big Three, above) and Uranus/Neptune/Pluto — the
+  // six personal planets moved into the domain sections below, so this
+  // "What Your Chart Shows" list only shows the outer planets for that
+  // tier (see narrate.ts). Combined tier is unchanged: every planet gets a
+  // description here, exactly as before.
+  const OUTER_PLANETS = new Set(['Uranus', 'Neptune', 'Pluto']);
   const planets: NatalPlanetRow[] = NATAL_PLANET_KEYS.map((key) => {
     const pos = chart[key];
+    const includeDescription = input.reportTier === 'combined' || OUTER_PLANETS.has(pos.name);
     return {
       planet: pos.name as Planet,
       sign: pos.sign,
       degree: `${pos.degree}°`,
       house: pos.house ?? 0,
-      description: prose.perPlanetDescriptions?.[pos.name],
+      description: includeDescription ? prose.perPlanetDescriptions?.[pos.name] : undefined,
     };
   });
 
@@ -180,6 +197,18 @@ function buildNatalChart(input: RelocationOrderInput, facts: OrderFacts, prose: 
   const ascendant = chart.rising ? { sign: chart.rising.sign, degree: `${chart.rising.degree}°` } : { sign: '', degree: '' };
 
   return { intro: prose.identityIntro, bigThree, planets, ascendant, midheaven };
+}
+
+/** Pairs a planet's real sign/house (from the computed chart, not the LLM) with its generated life-area insight. */
+function buildDomainInsightCard(pos: PlanetPosition, insight: LifeAreaInsightObject): DomainInsightCard {
+  return {
+    planet: pos.name as Planet,
+    sign: pos.sign,
+    house: pos.house ?? 0,
+    pattern: insight.pattern,
+    watchFor: insight.watchFor,
+    practice: insight.practice,
+  };
 }
 
 export interface AssembleOptions {
@@ -207,5 +236,60 @@ export function assembleReportContent({ input, facts, prose, generatedAt = new D
     cities,
     summaryCities,
     closingMessage: `May this reading offer clarity as you consider where in the world calls to you next, ${input.client}.`,
+  };
+}
+
+/**
+ * Natal-only tier's lean equivalent of assembleReportContent — no
+ * cities/summaryCities/planetaryLines/citiesListLabel, since a standalone
+ * Natal Chart Reading has no relocation content to carry through a document
+ * that never renders it.
+ */
+export function assembleNatalReportContent({ input, facts, prose, generatedAt = new Date() }: AssembleOptions): NatalReportContent {
+  const natalChart = buildNatalChart(input, facts, prose);
+  if (!natalChart) {
+    throw new Error(`assembleNatalReportContent: no natalChart for order "${input.client}" — narration must complete before assembly`);
+  }
+
+  const { chart } = facts;
+  function required<T>(value: T | undefined, label: string): T {
+    if (value === undefined) {
+      throw new Error(`assembleNatalReportContent: missing "${label}" for order "${input.client}" — narration must complete before assembly`);
+    }
+    return value;
+  }
+
+  const coreDrives: DomainInsightCard[] = (['mercury', 'venus', 'mars', 'saturn'] as const).map((key) => {
+    const planetName = chart[key].name as 'Mercury' | 'Venus' | 'Mars' | 'Saturn';
+    const insight = required(prose.coreDrives?.[planetName], `coreDrives.${planetName}`);
+    return buildDomainInsightCard(chart[key], insight);
+  });
+
+  const decisionMaking = buildDomainInsightCard(chart.mercury, required(prose.decisionMaking, 'decisionMaking'));
+  const emotionalPattern = buildDomainInsightCard(chart.moon, required(prose.emotionalPattern, 'emotionalPattern'));
+  const restRecharge = buildDomainInsightCard(chart.moon, required(prose.restRecharge, 'restRecharge'));
+  const relationshipBlueprint = buildDomainInsightCard(chart.moon, required(prose.relationshipBlueprint, 'relationshipBlueprint'));
+  const workImpact = buildDomainInsightCard(chart.sun, required(prose.workImpact, 'workImpact'));
+  const shadowGrowth = buildDomainInsightCard(chart.sun, required(prose.shadowGrowth, 'shadowGrowth'));
+  const practicalTakeaways: PracticalTakeaways = required(prose.practicalTakeaways, 'practicalTakeaways');
+
+  return {
+    client: input.client,
+    monthYear: `${MONTH_NAMES[generatedAt.getMonth()]} ${generatedAt.getFullYear()}`,
+    birth: {
+      dateLabel: formatDateLabel(input.birth.date),
+      timeLabel: formatTimeLabel(input.birth.time),
+      placeLabel: input.birth.placeLabel,
+    },
+    natalChart,
+    coreDrives,
+    decisionMaking,
+    emotionalPattern,
+    restRecharge,
+    relationshipBlueprint,
+    workImpact,
+    shadowGrowth,
+    practicalTakeaways,
+    closingMessage: `May this reading offer clarity as you continue getting to know yourself, ${input.client}.`,
   };
 }
