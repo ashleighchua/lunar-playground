@@ -27,7 +27,7 @@ export default function AppReadingsPage() {
           Who you are at your core
         </div>
         <div className="text-[13.5px] leading-relaxed text-[#F0EBF8]/65 my-3">
-          Personality, patterns, relationships, and growth edges. The foundation for understanding everything else.
+          Core drives, decision-making, relationships, work, and growth edges — plus practical takeaways you can actually use.
         </div>
         <div className="flex items-center justify-between gap-3">
           <div className="font-serif text-[26px]">$5</div>
@@ -51,7 +51,7 @@ export default function AppReadingsPage() {
           Which cities activate career breakthroughs, love, and transformation — based on your planetary lines.
         </div>
         <div className="flex items-center justify-between gap-3">
-          <div className="font-serif text-[26px]">$35</div>
+          <div className="font-serif text-[26px]">$5</div>
           <PillButton href="/app/readings/relocation">Find where you thrive →</PillButton>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default function AppReadingsPage() {
         <div className="text-[13px] leading-relaxed text-[#F0EBF8]/65">
           Not ready to buy?{' '}
           <Link href="/shop#mini-course" className="text-[#FF8FA3]">
-            Learn to read it yourself — $20 mini-course.
+            Learn to read it yourself — $5 mini-course.
           </Link>
         </div>
       </div>

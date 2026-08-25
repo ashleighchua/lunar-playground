@@ -138,7 +138,7 @@ If you have never seen your full chart before, generate it using your exact birt
 
 Seeing the visual layout changes everything. What felt abstract becomes personal.
 
-And if you want a deeper interpretation, a Natal Chart Reading ($35) connects the symbols into something coherent, practical, and grounded in your real life. Or if you want to learn to read charts yourself, the Read Your Own Chart Course ($20) is a self-paced guide that teaches you the framework.
+And if you want a deeper interpretation, a Natal Chart Reading ($5) connects the symbols into something coherent, practical, and grounded in your real life. Or if you want to learn to read charts yourself, the Read Your Own Chart Course ($5) is a self-paced guide that teaches you the framework.
 
 Because the value of a birth chart is not prediction.
 
@@ -259,7 +259,7 @@ You need your date of birth, your exact birth time, and your birth location.
 
 With that information, you can generate your full birth chart and see your Big Three instantly.
 
-If you want deeper interpretation of how your Big Three interact, a Natal Chart Reading ($35) breaks down the dynamics. For those who want the full picture across multiple systems, The Integrated Profile ($99) layers your natal chart with BaZi and Human Design for cross-system clarity.
+If you want deeper interpretation of how your Big Three interact, a Natal Chart Reading ($5) breaks down the dynamics. For those who want the full picture across multiple systems, The Integrated Profile ($99) layers your natal chart with BaZi and Human Design for cross-system clarity.
 
 Because you are not one sign.
 
@@ -394,7 +394,7 @@ The kind that supports you for decades.
 
 Generate your full birth chart and find your Saturn placement. The house and sign placement matter.
 
-Understanding your personal Saturn placement gives this cycle context instead of chaos. A Natal Chart Reading ($35) will identify exactly where Saturn sits in your chart and what themes it activates.
+Understanding your personal Saturn placement gives this cycle context instead of chaos. A Natal Chart Reading ($5) will identify exactly where Saturn sits in your chart and what themes it activates.
 
 ## What Happens After Saturn Return?
 
@@ -646,7 +646,7 @@ Strategy is everything.
 
 Generate your free astrocartography map to see where your planetary lines fall across the globe.
 
-For a full interpretation, a Relocation Report ($35) maps all your major planetary lines and reveals your top three cities matched to your goals. If you want to understand the system deeply enough to evaluate any city yourself, the Read Your Own Chart Course ($20) teaches you the framework.
+For a full interpretation, a Relocation Report ($5) maps all your major planetary lines and reveals your top three cities matched to your goals. If you want to understand the system deeply enough to evaluate any city yourself, the Read Your Own Chart Course ($5) teaches you the framework.
 
 Because the place calling you is not always accidental.
 
@@ -1007,7 +1007,7 @@ The Integrated Profile ($99) blends natal astrology, BaZi, and Human Design into
 
 The Complete Architecture ($139) adds relocation astrology and deeper timing analysis for those navigating major life decisions.
 
-For those who want to start with a single system, individual readings are available: Natal Chart Reading ($35), BaZi Reading ($50), or Human Design Reading ($35).
+For those who want to start with a single system, individual readings are available: Natal Chart Reading ($5), BaZi Reading ($50), or Human Design Reading ($35).
 
 Because destiny is multi-dimensional.
 
@@ -1120,7 +1120,7 @@ Astrology can help you see the dynamics clearly. When you understand the planeta
 
 Use the free Compatibility tool to explore the dynamics between your signs.
 
-For a full picture of your relationship patterns, a Natal Chart Reading ($35) reveals your Venus, Mars, and 7th house themes. Understanding your own chart is always the first step to understanding your connections.
+For a full picture of your relationship patterns, a Natal Chart Reading ($5) reveals your Venus, Mars, and 7th house themes. Understanding your own chart is always the first step to understanding your connections.
 
 Because the most important relationship pattern is the one you carry with you into every connection.
 
@@ -1616,7 +1616,7 @@ Awareness turns potential conflict into conscious navigation.
 
 Start with the free Compatibility tool to compare Sun sign dynamics.
 
-For deeper insight into your relationship patterns, a Natal Chart Reading ($35) reveals your Venus, Mars, Moon, and 7th house themes. Understanding your own chart first is always the most powerful step toward better relationships.
+For deeper insight into your relationship patterns, a Natal Chart Reading ($5) reveals your Venus, Mars, Moon, and 7th house themes. Understanding your own chart first is always the most powerful step toward better relationships.
 
 Because the best relationship compatibility starts with self-knowledge.
 

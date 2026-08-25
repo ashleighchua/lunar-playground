@@ -59,7 +59,7 @@ export default function AppHomePage() {
           className="text-[10.5px] tracking-[0.16em] uppercase text-[#FF8FA3] inline-block px-2.5 py-1.5 rounded-full"
           style={{ background: 'rgba(255,143,163,0.12)' }}
         >
-          Most popular · $35
+          Most popular · $5
         </div>
         <div className="font-serif text-[27px] leading-[1.1] mt-3.5 mb-2">
           Where would you<br />actually thrive?

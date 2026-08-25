@@ -33,7 +33,7 @@ const faqCategories = [
     questions: [
       {
         q: 'What readings do you offer?',
-        a: 'Two. A Natal Chart Reading ($5) for who you are, and a Relocation Report ($35) for where you\'ll thrive. There\'s also a $20 self-guided course if you want to learn to read your own relocation chart. No bundles, no add-ons.',
+        a: 'Two. A Natal Chart Reading ($5) for who you are, and a Relocation Report ($5) for where you\'ll thrive. There\'s also a $5 self-guided course if you want to learn to read your own relocation chart. No bundles, no add-ons.',
       },
       {
         q: 'Who writes the readings?',

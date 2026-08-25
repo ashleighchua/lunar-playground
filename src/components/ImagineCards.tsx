@@ -18,7 +18,7 @@ function FlipCard({ card }: { card: typeof insights[0] }) {
       onClick={() => setRevealed((r) => !r)}
       aria-pressed={revealed}
       aria-label={`${card.title}, tap to reveal`}
-      className="w-55 min-h-50 px-4.5 py-6 rounded-[20px] flex flex-col items-center justify-center gap-2.5 text-center transition-all duration-300 focus:outline-none"
+      className="w-[calc(50%-0.5rem)] sm:w-55 min-h-40 sm:min-h-50 px-3.5 sm:px-4.5 py-4.5 sm:py-6 rounded-[20px] flex flex-col items-center justify-center gap-2 sm:gap-2.5 text-center transition-all duration-300 focus:outline-none"
       style={{
         background: revealed ? card.fill : '#FAFAFF',
         border: `1px solid ${card.ring}`,

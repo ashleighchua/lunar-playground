@@ -10,6 +10,7 @@ import { products } from '@/data/products';
 export default function HomePage() {
   const natalChart = products.find((p) => p.id === 'natal-chart')!;
   const relocationReport = products.find((p) => p.id === 'astrocartography')!;
+  const combined = products.find((p) => p.id === 'relocation-birth-chart')!;
   const miniCourse = products.find((p) => p.id === 'mini-course');
 
   return (
@@ -38,10 +39,10 @@ export default function HomePage() {
 
         {/* The Offer */}
         <section id="readings" className="container-editorial py-12 md:py-16">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] text-center mb-2">Two readings. That&apos;s it.</h2>
-            <p className="text-[#655E78] text-center mb-10">One to understand yourself. One to know where to go.</p>
-            <div className="grid md:grid-cols-2 gap-6 text-left">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] text-center mb-2">Two readings, or both together.</h2>
+            <p className="text-[#655E78] text-center mb-10">One to understand yourself. One to know where to go. Or get both in one.</p>
+            <div className="grid md:grid-cols-3 gap-6 text-left">
               {/* Natal Chart - neutral border, subtle coral shadow */}
               <div
                 className="bg-[#FAFAFF] border border-[#D6CFE3] rounded-3xl p-6 md:p-8 flex flex-col gap-3"
@@ -92,6 +93,37 @@ export default function HomePage() {
                     productId={relocationReport.id}
                     label={relocationReport.ctaText}
                     className="block w-full text-center px-6 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-full font-semibold transition-colors hover:bg-[#7B8AE0] hover:text-white disabled:opacity-60"
+                  />
+                </div>
+              </div>
+
+              {/* Relocation + Birth Chart - gold border + glow, badge */}
+              <div
+                className="relative bg-[#FAFAFF] border border-[#E3C567] rounded-3xl p-6 md:p-8 flex flex-col gap-3"
+                style={{ boxShadow: '0 0 28px rgba(227, 197, 103, 0.28), 0 4px 16px -4px rgba(45, 38, 64, 0.06)' }}
+              >
+                {combined.badge && (
+                  <span
+                    className="absolute -top-3 right-5.5 bg-[#E3C567] text-[#2D2640] rounded-full px-3.5 py-1.25 text-[11px] font-bold uppercase"
+                    style={{ letterSpacing: '0.08em' }}
+                  >
+                    {combined.badge}
+                  </span>
+                )}
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex w-11 h-11 rounded-full bg-[#FBF3DD] border border-[#E3C567] items-center justify-center text-xl">
+                    {combined.icon}
+                  </span>
+                  <span className="font-serif text-2xl text-[#2D2640]">{combined.price}</span>
+                </div>
+                <h3 className="font-serif text-xl text-[#2D2640]">{combined.title}</h3>
+                <p className="font-semibold text-[#A5822F] text-sm">{combined.subtitle}</p>
+                <p className="text-[#5A5472] text-sm leading-relaxed">{combined.description}</p>
+                <div className="mt-auto pt-2">
+                  <CheckoutButton
+                    productId={combined.id}
+                    label={combined.ctaText}
+                    className="block w-full text-center px-6 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-full font-semibold transition-colors hover:bg-[#E3C567] hover:text-[#2D2640] disabled:opacity-60"
                   />
                 </div>
               </div>

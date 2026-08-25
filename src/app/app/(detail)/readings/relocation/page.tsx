@@ -14,7 +14,7 @@ const GETS = [
   'Your full planetary line map, city by city',
   'Deep-dives on 3 cities you choose',
   'Timing windows — when to move, not just where',
-  'A written PDF report, personally by Ashleigh',
+  'A written PDF report, calculated with Swiss Ephemeris and fact-checked',
 ];
 
 export default function RelocationDetailPage() {
@@ -66,13 +66,13 @@ export default function RelocationDetailPage() {
 
       <CheckoutButton
         productId="astrocartography"
-        label="Get your report — $35"
+        label="Get your report — $5"
         className="block w-full rounded-full py-4.25 text-center text-base font-semibold text-[#2D2640] bg-[linear-gradient(135deg,#FF8FA3,#C4365A)] disabled:opacity-60 transition-opacity"
       />
       <div
         className="text-center text-xs text-[#F0EBF8]/45 -mt-2.5"
       >
-        Written personally by Ashleigh · delivered in 5 days
+        Calculated with Swiss Ephemeris · delivered instantly
       </div>
     </div>
   );
