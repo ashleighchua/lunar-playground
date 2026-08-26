@@ -6,6 +6,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ShareButtons } from '@/components/ShareButtons';
 import { getCurrentMoonPhase } from '@/lib/moon';
+import { calculateMoonLongitude, toJulianDay } from '@/lib/ephemeris';
 import {
   feltExperience,
   morelikelyToday,
@@ -490,26 +491,23 @@ const moonSignTransits: Record<string, {
   }
 };
 
-// Calculate approximate moon sign for a given date
-// The moon moves through each sign roughly every 2.5 days
+const ZODIAC_SIGNS = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
+  'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+
+// Moon sign for a given date, from the Moon's actual ecliptic longitude
+// (same accurate ephemeris used for birth charts) rather than a day-count
+// approximation, which drifts since the Moon doesn't move through each
+// sign at an exactly even rate.
 function getMoonSign(date: Date): string {
-  const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
-                 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
-
-  // Reference: January 1, 2025 00:00 UTC the moon was in Cancer (approximately)
-  const referenceDate = new Date(Date.UTC(2025, 0, 1, 0, 0, 0));
-  const referenceSignIndex = 3; // Cancer
-
-  const msPerDay = 24 * 60 * 60 * 1000;
-  const daysSinceReference = (date.getTime() - referenceDate.getTime()) / msPerDay;
-
-  // Moon takes ~27.3 days to complete the zodiac
-  // So it spends ~2.27 days in each sign
-  const daysPerSign = 27.3 / 12;
-  const signOffset = Math.floor(daysSinceReference / daysPerSign);
-
-  const currentSignIndex = (referenceSignIndex + signOffset) % 12;
-  return signs[currentSignIndex >= 0 ? currentSignIndex : currentSignIndex + 12];
+  const jd = toJulianDay(
+    date.getUTCFullYear(),
+    date.getUTCMonth() + 1,
+    date.getUTCDate(),
+    date.getUTCHours() + date.getUTCMinutes() / 60
+  );
+  const longitude = calculateMoonLongitude(jd);
+  const signIndex = Math.floor(longitude / 30) % 12;
+  return ZODIAC_SIGNS[signIndex];
 }
 
 // Get the week's moon sign transitions

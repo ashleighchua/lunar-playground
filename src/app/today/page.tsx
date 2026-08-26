@@ -40,8 +40,8 @@ const reflections: Record<string, string[]> = {
     'The light begins to recede, and with it comes the urge to share. What have you learned? What wisdom wants to move through you to others?',
     'The waning gibbous is generous. It has received the full moon\'s light and now passes it on. How can you give today?'
   ],
-  'Last Quarter': [
-    'Another threshold. The last quarter asks: what are you ready to release? Completion requires letting go. Make space for what comes next.',
+  'Third Quarter': [
+    'Another threshold. The third quarter asks: what are you ready to release? Completion requires letting go. Make space for what comes next.',
     'Half the moon has returned to shadow. This is a time for clearing: physical spaces, mental clutter, relationships that have run their course.'
   ],
   'Waning Crescent': [

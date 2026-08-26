@@ -1,12 +1,10 @@
 /**
  * Moon phase calculation utilities
- * Based on the synodic month (lunar cycle) of approximately 29.53 days
  */
 
-const LUNAR_CYCLE = 29.53058867; // Average length of lunar cycle in days
+import * as Astronomy from 'astronomy-engine';
 
-// Known new moon reference: December 20, 2025 at 01:43 UTC
-const KNOWN_NEW_MOON = new Date(Date.UTC(2025, 11, 20, 1, 43, 0));
+const LUNAR_CYCLE = 29.53058867; // Average length of lunar cycle in days (display purposes only)
 
 export interface MoonPhase {
   name: string;
@@ -59,39 +57,46 @@ const moonPhaseData = [
   },
 ];
 
+// The four "cardinal" moments (new/first quarter/full/last quarter) are
+// treated as roughly single-day events, matching how moon-phase calendars
+// label them — the moon spends the bulk of the ~29.5-day cycle in the four
+// in-between (crescent/gibbous) phases, not split evenly across all eight.
+const CARDINAL_WINDOW_DEG = 360 / LUNAR_CYCLE; // ~12.2°, about one day of motion
+
+function angleDistance(a: number, b: number): number {
+  const diff = Math.abs(a - b) % 360;
+  return diff > 180 ? 360 - diff : diff;
+}
+
 /**
- * Calculate the moon phase for a given date
+ * Calculate the moon phase for a given date from the Moon-Sun ecliptic
+ * longitude separation (accurate for any date — no fixed reference epoch
+ * to drift out of sync over time).
  */
 export function getMoonPhase(date: Date): MoonPhase {
-  // Calculate days since the known new moon
-  const diffMs = date.getTime() - KNOWN_NEW_MOON.getTime();
-  const diffDays = diffMs / (1000 * 60 * 60 * 24);
-
-  // Get position in current lunar cycle (0 to ~29.53)
-  let daysIntoCycle = diffDays % LUNAR_CYCLE;
-  if (daysIntoCycle < 0) {
-    daysIntoCycle += LUNAR_CYCLE; // Handle dates before reference
-  }
-
-  // Calculate illumination percentage (0 at new moon, 100 at full moon)
-  // Using a simple sinusoidal approximation
+  // 0 = new moon, 90 = first quarter, 180 = full moon, 270 = last quarter
+  const phaseAngle = Astronomy.MoonPhase(date);
   const illumination = Math.round(
-    (1 - Math.cos((daysIntoCycle / LUNAR_CYCLE) * 2 * Math.PI)) / 2 * 100
+    Astronomy.Illumination(Astronomy.Body.Moon, date).phase_fraction * 100
   );
+  const daysIntoCycle = Math.round((phaseAngle / 360) * LUNAR_CYCLE * 10) / 10;
 
-  // Determine which of the 8 phases we're in
-  // Each phase is roughly 3.69 days (29.53 / 8)
-  // Offset by half a phase so phases are centered on their peak moments
-  const phaseLength = LUNAR_CYCLE / 8;
-  const adjustedDays = (daysIntoCycle + phaseLength / 2) % LUNAR_CYCLE;
-  const phaseIndex = Math.floor(adjustedDays / phaseLength) % 8;
+  let phaseIndex: number;
+  if (angleDistance(phaseAngle, 0) <= CARDINAL_WINDOW_DEG) phaseIndex = 0; // New Moon
+  else if (angleDistance(phaseAngle, 90) <= CARDINAL_WINDOW_DEG) phaseIndex = 2; // First Quarter
+  else if (angleDistance(phaseAngle, 180) <= CARDINAL_WINDOW_DEG) phaseIndex = 4; // Full Moon
+  else if (angleDistance(phaseAngle, 270) <= CARDINAL_WINDOW_DEG) phaseIndex = 6; // Third Quarter
+  else if (phaseAngle < 90) phaseIndex = 1; // Waxing Crescent
+  else if (phaseAngle < 180) phaseIndex = 3; // Waxing Gibbous
+  else if (phaseAngle < 270) phaseIndex = 5; // Waning Gibbous
+  else phaseIndex = 7; // Waning Crescent
 
   const phase = moonPhaseData[phaseIndex];
 
   return {
     ...phase,
     illumination,
-    daysIntoCycle: Math.round(daysIntoCycle * 10) / 10,
+    daysIntoCycle,
   };
 }
 
