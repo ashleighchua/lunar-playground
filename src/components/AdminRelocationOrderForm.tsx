@@ -204,7 +204,7 @@ export function AdminRelocationOrderForm({ eligibleProducts }: AdminRelocationOr
           value={customerEmail}
           onChange={(e) => setCustomerEmail(e.target.value)}
           placeholder="client@example.com"
-          className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]/40"
+          className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]"
         />
         <p className="mt-2 text-xs text-[#655E78]">The finished PDF gets emailed here. Never added to the mailing list.</p>
       </div>
@@ -220,7 +220,7 @@ export function AdminRelocationOrderForm({ eligibleProducts }: AdminRelocationOr
           value={client}
           onChange={(e) => setClient(e.target.value)}
           placeholder="Client's name"
-          className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]/40"
+          className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]"
         />
       </div>
 
@@ -286,7 +286,7 @@ export function AdminRelocationOrderForm({ eligibleProducts }: AdminRelocationOr
 
       <div>
         <label className="block text-sm text-[#655E78] mb-2">
-          Motivation <span className="text-[#655E78]/60">(optional, up to {MAX_MOTIVATIONS})</span>
+          Motivation <span className="text-[#655E78]">(optional, up to {MAX_MOTIVATIONS})</span>
         </label>
         <div className="flex flex-wrap gap-2">
           {MOTIVATION_OPTIONS.map((motivation) => (

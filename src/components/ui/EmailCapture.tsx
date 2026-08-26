@@ -118,7 +118,7 @@ export function EmailCapture({
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your@email.com"
           className={cn(
-            'flex-1 px-5 py-4 rounded-lg border bg-white text-[#2D2640] placeholder:text-[#655E78]/50',
+            'flex-1 px-5 py-4 rounded-lg border bg-white text-[#2D2640] placeholder:text-[#655E78]',
             'focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50',
             'transition-colors duration-200',
             status === 'error' ? 'border-red-300' : 'border-[#2D2640]/10'

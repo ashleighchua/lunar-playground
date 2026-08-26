@@ -379,20 +379,20 @@ export default function TravelPage() {
                     onChange={(e) => setBirthdate(e.target.value)}
                     max={new Date().toISOString().split('T')[0]}
                     required
-                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthdate ? 'text-[#2D2640]' : 'text-[#655E78]/50'}`}
+                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthdate ? 'text-[#2D2640]' : 'text-[#655E78]'}`}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="birthtime" className="block text-sm text-[#655E78] mb-2">
-                    Time of birth <span className="text-[#655E78]/50">(optional)</span>
+                    Time of birth <span className="text-[#655E78]">(optional)</span>
                   </label>
                   <input
                     type="time"
                     id="birthtime"
                     value={birthtime}
                     onChange={(e) => setBirthtime(e.target.value)}
-                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthtime ? 'text-[#2D2640]' : 'text-[#655E78]/50'}`}
+                    className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#FF8FA3]/50 transition-colors ${birthtime ? 'text-[#2D2640]' : 'text-[#655E78]'}`}
                   />
                 </div>
 
@@ -656,7 +656,7 @@ export default function TravelPage() {
                         </div>
                       ))}
                     </div>
-                    <p className="text-xs text-[#655E78]/60 mt-4 text-center">
+                    <p className="text-xs text-[#655E78] mt-4 text-center">
                       Full report reveals all life areas for your top cities
                     </p>
                   </div>
@@ -710,7 +710,7 @@ export default function TravelPage() {
                   </div>
                 </div>
 
-                <p className="text-xs text-[#655E78]/60 text-center">
+                <p className="text-xs text-[#655E78] text-center">
                   This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
                 </p>
               </div>
@@ -757,8 +757,8 @@ export default function TravelPage() {
                     >
                       Get your relocation report &mdash; $5
                     </a>
-                    <p className="text-xs text-[#655E78]/60 mt-4">Delivered instantly</p>
-                    <p className="text-xs text-[#655E78]/60 mt-1">Calculated with Swiss Ephemeris, written by AI trained to stay true to your chart</p>
+                    <p className="text-xs text-[#655E78] mt-4">Delivered instantly</p>
+                    <p className="text-xs text-[#655E78] mt-1">Calculated with Swiss Ephemeris, written by AI trained to stay true to your chart</p>
                   </div>
                 </div>
               </div>

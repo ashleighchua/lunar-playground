@@ -394,7 +394,7 @@ function BirthReportContent() {
                         value={formData.birthdate}
                         onChange={(e) => { setFormData({ ...formData, birthdate: e.target.value }); setDateError(null); }}
                         className={`w-full px-4 py-3 border rounded-lg bg-white focus:outline-none transition-colors ${
-                          formData.birthdate ? 'text-[#2D2640]' : 'text-[#655E78]/60'
+                          formData.birthdate ? 'text-[#2D2640]' : 'text-[#655E78]'
                         } ${dateError ? 'border-red-400' : 'border-[#2D2640]/10 focus:border-[#2D2640]/30'}`}
                       />
                       {dateError && <p className="mt-2 text-sm text-red-500">{dateError}</p>}
@@ -402,7 +402,7 @@ function BirthReportContent() {
 
                     <div>
                       <label htmlFor="birthtime" className="block text-sm text-[#655E78] mb-2">
-                        Time of birth <span className="text-[#655E78]/60">(optional)</span>
+                        Time of birth <span className="text-[#655E78]">(optional)</span>
                       </label>
                       <div className="relative">
                         <input
@@ -411,14 +411,14 @@ function BirthReportContent() {
                           value={formData.birthtime}
                           onChange={(e) => setFormData({ ...formData, birthtime: e.target.value })}
                           className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors ${
-                            formData.birthtime ? 'text-[#2D2640] pr-10' : 'text-[#655E78]/60'
+                            formData.birthtime ? 'text-[#2D2640] pr-10' : 'text-[#655E78]'
                           }`}
                         />
                         {formData.birthtime && (
                           <button
                             type="button"
                             onClick={() => setFormData({ ...formData, birthtime: '' })}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#655E78]/60 hover:text-[#2D2640] transition-colors"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#655E78] hover:text-[#2D2640] transition-colors"
                             aria-label="Clear time"
                           >
                             {'\u2715'}
@@ -440,7 +440,7 @@ function BirthReportContent() {
 
                   <div className="pt-2">
                     <label htmlFor="email" className="block text-sm text-[#655E78] mb-2">
-                      Email <span className="text-[#655E78]/60">(optional)</span>
+                      Email <span className="text-[#655E78]">(optional)</span>
                     </label>
                     <input
                       type="email"
@@ -448,7 +448,7 @@ function BirthReportContent() {
                       value={userEmail}
                       onChange={(e) => setUserEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]/40"
+                      className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]"
                     />
                     <p className="mt-2 text-xs text-[#655E78]">We&apos;ll email you a copy of your report</p>
                   </div>
@@ -543,7 +543,7 @@ function BirthReportContent() {
                     value={modalEmail}
                     onChange={(e) => setModalEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]/40"
+                    className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-white focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]"
                     onKeyDown={(e) => e.key === 'Enter' && handleModalEmailSubmit()}
                   />
                   <button

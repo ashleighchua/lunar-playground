@@ -497,7 +497,7 @@ function ResultsView({
             >
               See every layer of your chart &mdash; $139
             </Link>
-            <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
+            <p className="text-xs text-[#655E78] mt-4">Personalised report delivered within 48 hours</p>
           </div>
         </div>
 

@@ -446,7 +446,7 @@ export default function Compatibility2Page() {
 
             </div>
 
-              <p className="text-xs text-[#655E78]/60 mt-8 text-center">
+              <p className="text-xs text-[#655E78] mt-8 text-center">
                 This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
               </p>
           </section>
@@ -493,7 +493,7 @@ export default function Compatibility2Page() {
                   >
                     See every layer of your chart &mdash; $139
                   </Link>
-                  <p className="text-xs text-[#655E78]/60 mt-4">Personalised report delivered within 48 hours</p>
+                  <p className="text-xs text-[#655E78] mt-4">Personalised report delivered within 48 hours</p>
                 </div>
               </div>
             </div>

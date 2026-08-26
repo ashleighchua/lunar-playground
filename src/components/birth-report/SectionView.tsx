@@ -69,7 +69,7 @@ export function SectionView({
             <span>&larr;</span> Back to your chart
           </button>
           {birthdate && (
-            <p className="text-xs text-[#655E78]/60">
+            <p className="text-xs text-[#655E78]">
               {formatBirthInfo(birthdate, birthtime, birthplace)}
             </p>
           )}

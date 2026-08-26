@@ -104,7 +104,7 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
                 <MoonIcon size={18} className="text-[--moon-glyph]/40" />
                 <span className="text-xs tracking-wide uppercase text-[--moon-glyph]/40">Moon</span>
               </div>
-              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]">Requires birth time and place</p>
             </div>
           )}
 
@@ -136,7 +136,7 @@ export function OperatingSystemSection({ sunSign, moonSignName, risingSignName }
                 <RisingIcon size={18} className="text-[--rising-glyph]/40" />
                 <span className="text-xs tracking-wide uppercase text-[--rising-glyph]/40">Rising</span>
               </div>
-              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]">Requires birth time and place</p>
             </div>
           )}
         </div>

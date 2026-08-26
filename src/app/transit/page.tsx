@@ -882,7 +882,7 @@ export default function TransitPage() {
 
         {/* Disclaimer */}
         <section className="container-editorial py-6">
-          <p className="text-xs text-[#655E78]/60 text-center">
+          <p className="text-xs text-[#655E78] text-center">
             This is for reflection, not prediction. Take what resonates and leave what doesn&apos;t.
           </p>
         </section>

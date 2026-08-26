@@ -69,7 +69,7 @@ export function CoreDrivesSection({ mercurySignName, venusSignName, marsSignName
             {mercurySignName && mercuryThinking[mercurySignName] ? (
               <p className="text-[#2D2640]/80 text-sm leading-relaxed">{mercuryThinking[mercurySignName]}</p>
             ) : (
-              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]">Requires birth time and place</p>
             )}
           </div>
 
@@ -93,7 +93,7 @@ export function CoreDrivesSection({ mercurySignName, venusSignName, marsSignName
             {venusSignName && venusConnecting[venusSignName] ? (
               <p className="text-[#2D2640]/80 text-sm leading-relaxed">{venusConnecting[venusSignName]}</p>
             ) : (
-              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]">Requires birth time and place</p>
             )}
           </div>
 
@@ -117,7 +117,7 @@ export function CoreDrivesSection({ mercurySignName, venusSignName, marsSignName
             {marsSignName && marsActing[marsSignName] ? (
               <p className="text-[#2D2640]/80 text-sm leading-relaxed">{marsActing[marsSignName]}</p>
             ) : (
-              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]">Requires birth time and place</p>
             )}
           </div>
 
@@ -141,7 +141,7 @@ export function CoreDrivesSection({ mercurySignName, venusSignName, marsSignName
             {saturnSignName && saturnPressure[saturnSignName] ? (
               <p className="text-[#2D2640]/80 text-sm leading-relaxed">{saturnPressure[saturnSignName]}</p>
             ) : (
-              <p className="text-sm text-[#655E78]/60">Requires birth time and place</p>
+              <p className="text-sm text-[#655E78]">Requires birth time and place</p>
             )}
           </div>
         </div>

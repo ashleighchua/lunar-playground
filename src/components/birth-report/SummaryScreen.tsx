@@ -201,7 +201,7 @@ export function SummaryScreen({
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 placeholder="you@example.com"
-                className="flex-1 sm:w-48 px-3 py-2 border border-[#2D2640]/10 rounded-lg bg-white text-sm focus:outline-none focus:border-[#2D2640]/30 text-[#2D2640] placeholder:text-[#655E78]/40"
+                className="flex-1 sm:w-48 px-3 py-2 border border-[#2D2640]/10 rounded-lg bg-white text-sm focus:outline-none focus:border-[#2D2640]/30 text-[#2D2640] placeholder:text-[#655E78]"
                 onKeyDown={(e) => e.key === 'Enter' && handleEmailSubmit()}
               />
               <button
@@ -223,7 +223,7 @@ export function SummaryScreen({
 
         {/* Disclaimer */}
         <div className="mt-12">
-          <p className="text-xs text-[#655E78]/60 text-center max-w-xl mx-auto">
+          <p className="text-xs text-[#655E78] text-center max-w-xl mx-auto">
             This report uses astrology as a reflective framework, not prediction.
             It describes tendencies and patterns, not certainties.
             Take what resonates. Leave what doesn&apos;t.

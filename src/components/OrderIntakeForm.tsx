@@ -164,7 +164,7 @@ export function OrderIntakeForm({ sessionId, reportTier }: OrderIntakeFormProps)
           value={client}
           onChange={(e) => setClient(e.target.value)}
           placeholder="Your name"
-          className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]/40"
+          className="w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors text-[#2D2640] placeholder:text-[#655E78]"
         />
       </div>
 
@@ -233,7 +233,7 @@ export function OrderIntakeForm({ sessionId, reportTier }: OrderIntakeFormProps)
 
       <div>
         <label className="block text-sm text-[#655E78] mb-2">
-          What&apos;s bringing you to this? <span className="text-[#655E78]/60">(optional, up to {MAX_MOTIVATIONS})</span>
+          What&apos;s bringing you to this? <span className="text-[#655E78]">(optional, up to {MAX_MOTIVATIONS})</span>
         </label>
         <div className="flex flex-wrap gap-2">
           {isNatalOnly

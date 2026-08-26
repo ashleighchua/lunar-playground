@@ -195,7 +195,7 @@ export function CitySelect({
               onFocus={() => setIsOpen(true)}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2D2640]/10 rounded-lg bg-white text-[#2D2640] placeholder:text-[#655E78]/50 focus:outline-none focus:border-[#FF8FA3]/50 transition-colors"
+              className="w-full px-4 py-3 pl-10 pr-10 border border-[#2D2640]/10 rounded-lg bg-white text-[#2D2640] placeholder:text-[#655E78] focus:outline-none focus:border-[#FF8FA3]/50 transition-colors"
             />
             {isLoading ? (
               <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#655E78] animate-spin" />

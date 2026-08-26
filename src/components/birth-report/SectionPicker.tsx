@@ -77,7 +77,7 @@ function SectionCard({
                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
             </div>
-            <p className="text-xs text-[#655E78]/40 mb-1">{section.subtitle}</p>
+            <p className="text-xs text-[#655E78] mb-1">{section.subtitle}</p>
             <p className="text-sm text-[#2D2640]/30 leading-relaxed mb-3">{section.description}</p>
             <button
               onClick={handleUnlock}

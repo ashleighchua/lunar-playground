@@ -245,7 +245,7 @@ export default function BaZiPage() {
                       className={`w-full px-4 py-3 border rounded-lg bg-transparent focus:outline-none transition-colors ${
                         formData.birthdate
                           ? 'text-[#2D2640] [&::-webkit-datetime-edit]:text-[#2D2640]'
-                          : 'text-[#655E78]/50 [&::-webkit-datetime-edit]:text-[#655E78]/50'
+                          : 'text-[#655E78] [&::-webkit-datetime-edit]:text-[#655E78]'
                       } ${
                         dateError
                           ? 'border-red-400 focus:border-red-500'
@@ -270,7 +270,7 @@ export default function BaZiPage() {
                       className={`w-full px-4 py-3 border border-[#2D2640]/10 rounded-lg bg-transparent focus:outline-none focus:border-[#2D2640]/30 transition-colors ${
                         formData.birthtime
                           ? 'text-[#2D2640] [&::-webkit-datetime-edit]:text-[#2D2640]'
-                          : 'text-[#655E78]/50 [&::-webkit-datetime-edit]:text-[#655E78]/50'
+                          : 'text-[#655E78] [&::-webkit-datetime-edit]:text-[#655E78]'
                       }`}
                     />
                     <p className="mt-2 text-xs text-[#655E78]">
@@ -672,7 +672,7 @@ export default function BaZiPage() {
                       >
                         Get your BaZi reading &mdash; $50
                       </Link>
-                      <p className="text-xs text-[#655E78]/60 mt-4">Or save with The Complete Architecture &mdash; $139</p>
+                      <p className="text-xs text-[#655E78] mt-4">Or save with The Complete Architecture &mdash; $139</p>
                     </div>
                   </div>
                 </div>
