@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const body = await request.json();
-    const { to, type, data, subscribe } = body;
+    const { to, type, data, subscribe, name } = body;
 
     if (!to || !type || !data) {
       return NextResponse.json(
@@ -85,16 +85,39 @@ export async function POST(request: NextRequest) {
       html,
     });
 
+    // resend.emails.send() resolves with { data: null, error } on an API-level
+    // failure rather than throwing — an unchecked result here would tell the
+    // caller (and the user) the email was sent when it wasn't.
+    if (result.error) {
+      console.error('Resend send error:', result.error);
+      return NextResponse.json(
+        { error: result.error.message || 'Failed to send email' },
+        { status: 502 }
+      );
+    }
+
     // Subscribe to audience if opted in
     if (subscribe) {
       const audienceId = process.env.RESEND_AUDIENCE_ID;
       if (audienceId) {
         try {
-          await resend.contacts.create({
+          const trimmedName = typeof name === 'string' ? name.trim() : '';
+          const [firstName, ...lastNameParts] = trimmedName ? trimmedName.split(/\s+/) : [];
+          const contactResult = await resend.contacts.create({
             email: to,
             audienceId,
             unsubscribed: false,
+            ...(firstName ? { firstName } : {}),
+            ...(lastNameParts.length ? { lastName: lastNameParts.join(' ') } : {}),
           });
+          // Same non-throwing { data, error } shape as emails.send() — an
+          // unchecked result here silently drops the contact from the list.
+          if (contactResult.error) {
+            const msg = contactResult.error.message || '';
+            if (!msg.includes('already') && !msg.includes('exists')) {
+              console.error('Contact create error:', contactResult.error);
+            }
+          }
         } catch (contactErr) {
           const msg = contactErr instanceof Error ? contactErr.message : '';
           if (!msg.includes('already') && !msg.includes('exists')) {

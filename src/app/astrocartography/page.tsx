@@ -91,10 +91,13 @@ export default function TravelPage() {
   const [destination, setDestination] = useState<Destination | null>(null);
   const [astroResult, setAstroResult] = useState<AstrocartographyResult | null>(null);
   const [loadingStep, setLoadingStep] = useState(0);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [subscribeToNewsletter, setSubscribeToNewsletter] = useState(true);
+  const [revealed, setRevealed] = useState(false);
+  const [revealError, setRevealError] = useState('');
   const [emailSent, setEmailSent] = useState(false);
   const [emailSending, setEmailSending] = useState(false);
+  const [emailSendFailed, setEmailSendFailed] = useState(false);
 
   const loadingSteps = [
     'Calculating planetary positions at your birth...',
@@ -178,16 +181,31 @@ export default function TravelPage() {
     setSelectedCategory(null);
     setDestination(null);
     setAstroResult(null);
-    setEmail('');
     setEmailSent(false);
-    setSubscribeToNewsletter(true);
+    setEmailSendFailed(false);
+    // Deliberately not resetting `revealed`/`name`/`email`: once someone has
+    // unlocked a result this session, later categories shouldn't re-gate.
   };
 
-  const handleEmailSubmit = async (e: React.FormEvent) => {
+  const handleReveal = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !destination || !selectedCategory) return;
+    setRevealError('');
 
+    if (!name.trim()) {
+      setRevealError('Please enter your name.');
+      return;
+    }
+    if (!email || !email.includes('@')) {
+      setRevealError('Please enter a valid email address.');
+      return;
+    }
+    if (!destination || !selectedCategory) return;
+
+    // Unlock immediately — the free reveal shouldn't hang on (or fail because
+    // of) the email round-trip below.
+    setRevealed(true);
     setEmailSending(true);
+    setEmailSendFailed(false);
 
     try {
       const response = await fetch('/api/send-email', {
@@ -195,8 +213,9 @@ export default function TravelPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           to: email,
+          name,
           type: 'astrocartography',
-          subscribe: subscribeToNewsletter,
+          subscribe: true,
           data: {
             destination: {
               name: destination.city,
@@ -219,6 +238,7 @@ export default function TravelPage() {
       setEmailSent(true);
     } catch (error) {
       console.error('Email send error:', error);
+      setEmailSendFailed(true);
     } finally {
       setEmailSending(false);
     }
@@ -522,7 +542,7 @@ export default function TravelPage() {
                 <p className="text-[#655E78] leading-relaxed">
                   For <span className="text-[#2D2640] font-medium">{categoryInfo[selectedCategory].title}</span>, the city that resonates with your chart is
                 </p>
-                <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-2">
+                <h2 className={`font-serif text-3xl md:text-4xl text-[#2D2640] mt-2 ${revealed ? '' : 'blur-[7px] select-none'}`} aria-hidden={!revealed}>
                   {destination.city}, {destination.country}
                 </h2>
                 <div className="flex items-center justify-center gap-2 mt-3">
@@ -557,272 +577,298 @@ export default function TravelPage() {
                 )}
               </div>
 
-              {/* Centered: Map */}
-              <div className="max-w-3xl mx-auto mb-8">
-                <WorldMap
-                  destination={destination}
-                  className="w-full"
-                />
-              </div>
+              {/* Map + content cards — blurred and inert until name + email are given */}
+              <div className={revealed ? '' : 'relative select-none pointer-events-none'} aria-hidden={!revealed}>
+                <div className={revealed ? '' : 'blur-[3px] opacity-60'}>
+                  {/* Centered: Map */}
+                  <div className="max-w-3xl mx-auto mb-8">
+                    <WorldMap
+                      destination={destination}
+                      className="w-full"
+                    />
+                  </div>
 
-              {/* Content cards */}
-              <div className="max-w-3xl mx-auto space-y-6 pb-4 md:pb-6">
-                {/* Interpretation + themes */}
-                {astroResult?.interpretationShort && (
-                  <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
-                    <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
-                      What this means
-                    </h3>
-                    <p className="font-serif text-lg text-[#2D2640] leading-relaxed mb-3">
-                      {astroResult.interpretationShort}
-                    </p>
-                    {astroResult.themes.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {astroResult.themes.map((theme) => (
-                          <span key={theme} className="px-3 py-1.5 rounded-full border border-[#FF8FA3]/20 text-xs text-[#C4365A] bg-[#FF8FA3]/5">
-                            {theme}
-                          </span>
-                        ))}
+                  {/* Content cards */}
+                  <div className="max-w-3xl mx-auto space-y-6 pb-4 md:pb-6">
+                    {/* Interpretation + themes */}
+                    {astroResult?.interpretationShort && (
+                      <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
+                        <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
+                          What this means
+                        </h3>
+                        <p className="font-serif text-lg text-[#2D2640] leading-relaxed mb-3">
+                          {astroResult.interpretationShort}
+                        </p>
+                        {astroResult.themes.length > 0 && (
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {astroResult.themes.map((theme) => (
+                              <span key={theme} className="px-3 py-1.5 rounded-full border border-[#FF8FA3]/20 text-xs text-[#C4365A] bg-[#FF8FA3]/5">
+                                {theme}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        <p className="text-sm text-[#655E78] leading-relaxed">
+                          {destination.description}
+                        </p>
                       </div>
                     )}
-                    <p className="text-sm text-[#655E78] leading-relaxed">
-                      {destination.description}
-                    </p>
-                  </div>
-                )}
 
-                {/* Vision narrative */}
-                {astroResult?.vision && (
-                  <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
-                    <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
-                      What life here could look like
-                    </h3>
-                    <p className="font-serif text-lg text-[#2D2640] leading-relaxed">
-                      {astroResult.vision}
-                    </p>
-                  </div>
-                )}
+                    {/* Vision narrative */}
+                    {astroResult?.vision && (
+                      <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
+                        <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
+                          What life here could look like
+                        </h3>
+                        <p className="font-serif text-lg text-[#2D2640] leading-relaxed">
+                          {astroResult.vision}
+                        </p>
+                      </div>
+                    )}
 
-                {/* Life area snapshot */}
-                {astroResult?.lifeAreas && astroResult.lifeAreas.length > 0 && (
-                  <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
-                    <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-4">
-                      Your alignment in {destination.city}
-                    </h3>
-                    <div className="space-y-3">
-                      {astroResult.lifeAreas.map((area) => (
-                        <div key={area.category} className="relative">
-                          {area.active ? (
-                            <div className="flex items-center justify-between py-2">
-                              <span className="text-sm text-[#2D2640] font-medium">{area.label}</span>
-                              <div className="flex items-center gap-2">
-                                <div className="flex gap-1">
-                                  {[0, 1, 2].map((i) => (
-                                    <div
-                                      key={i}
-                                      className={`w-2.5 h-2.5 rounded-full ${
-                                        (area.strength === 'strong' && i <= 2) ||
-                                        (area.strength === 'active' && i <= 1) ||
-                                        (area.strength === 'present' && i === 0)
-                                          ? 'bg-[#FF8FA3]'
-                                          : 'bg-[#2D2640]/10'
-                                      }`}
-                                    />
-                                  ))}
+                    {/* Life area snapshot */}
+                    {astroResult?.lifeAreas && astroResult.lifeAreas.length > 0 && (
+                      <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
+                        <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-4">
+                          Your alignment in {destination.city}
+                        </h3>
+                        <div className="space-y-3">
+                          {astroResult.lifeAreas.map((area) => (
+                            <div key={area.category} className="relative">
+                              {area.active ? (
+                                <div className="flex items-center justify-between py-2">
+                                  <span className="text-sm text-[#2D2640] font-medium">{area.label}</span>
+                                  <div className="flex items-center gap-2">
+                                    <div className="flex gap-1">
+                                      {[0, 1, 2].map((i) => (
+                                        <div
+                                          key={i}
+                                          className={`w-2.5 h-2.5 rounded-full ${
+                                            (area.strength === 'strong' && i <= 2) ||
+                                            (area.strength === 'active' && i <= 1) ||
+                                            (area.strength === 'present' && i === 0)
+                                              ? 'bg-[#FF8FA3]'
+                                              : 'bg-[#2D2640]/10'
+                                          }`}
+                                        />
+                                      ))}
+                                    </div>
+                                    <span className="text-xs text-[#655E78] w-16 text-right capitalize">
+                                      {area.strength}
+                                    </span>
+                                  </div>
                                 </div>
-                                <span className="text-xs text-[#655E78] w-16 text-right capitalize">
-                                  {area.strength}
-                                </span>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="flex items-center justify-between py-2 opacity-40">
-                              <span className="text-sm text-[#2D2640]">{area.label}</span>
-                              <div className="flex items-center gap-2">
-                                <div className="flex gap-1">
-                                  {[0, 1, 2].map((i) => (
-                                    <div key={i} className="w-2.5 h-2.5 rounded-full bg-[#2D2640]/10" />
-                                  ))}
+                              ) : (
+                                <div className="flex items-center justify-between py-2 opacity-40">
+                                  <span className="text-sm text-[#2D2640]">{area.label}</span>
+                                  <div className="flex items-center gap-2">
+                                    <div className="flex gap-1">
+                                      {[0, 1, 2].map((i) => (
+                                        <div key={i} className="w-2.5 h-2.5 rounded-full bg-[#2D2640]/10" />
+                                      ))}
+                                    </div>
+                                    <span className="text-xs text-[#655E78] w-16 text-right">
+                                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 inline">
+                                        <rect x="3" y="7" width="10" height="7" rx="1.5" />
+                                        <path d="M5 7V5a3 3 0 0 1 6 0v2" />
+                                      </svg>
+                                    </span>
+                                  </div>
                                 </div>
-                                <span className="text-xs text-[#655E78] w-16 text-right">
-                                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 inline">
-                                    <rect x="3" y="7" width="10" height="7" rx="1.5" />
-                                    <path d="M5 7V5a3 3 0 0 1 6 0v2" />
-                                  </svg>
-                                </span>
-                              </div>
+                              )}
                             </div>
-                          )}
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                    <p className="text-xs text-[#655E78] mt-4 text-center">
-                      Full report reveals all life areas for your top cities
-                    </p>
-                  </div>
-                )}
+                        <p className="text-xs text-[#655E78] mt-4 text-center">
+                          Full report reveals all life areas for your top cities
+                        </p>
+                      </div>
+                    )}
 
-                {/* City character */}
-                {(() => {
-                  const character = getCityCharacter(destination.city);
-                  if (!character) return null;
-                  return (
+                    {/* City character */}
+                    {(() => {
+                      const character = getCityCharacter(destination.city);
+                      if (!character) return null;
+                      return (
+                        <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
+                          <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
+                            About {destination.city}
+                          </h3>
+                          <p className="text-sm text-[#655E78] leading-relaxed">
+                            {character}
+                          </p>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Try your other lines */}
                     <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
                       <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
-                        About {destination.city}
+                        Try your other lines
                       </h3>
-                      <p className="text-sm text-[#655E78] leading-relaxed">
-                        {character}
+                      <p className="text-sm text-[#655E78] mb-4">
+                        Each planetary line points to a different city. See where else your chart takes you.
                       </p>
+                      <div className="flex flex-wrap gap-2">
+                        {([
+                          ['venus', categoryInfo.venus] as const,
+                          ['jupiter', categoryInfo.jupiter] as const,
+                          ['sun', categoryInfo.sun] as const,
+                          ['moon', categoryInfo.moon] as const,
+                        ]).filter(([key]) => key !== selectedCategory).map(([key, info]) => (
+                          <button
+                            key={key}
+                            onClick={() => {
+                              setSelectedCategory(key);
+                              setDestination(null);
+                              setAstroResult(null);
+                              setStep('loading');
+                            }}
+                            className="flex items-center gap-2 px-4 py-2 border border-[#2D2640]/10 rounded-full text-sm text-[#2D2640] hover:border-[#FF8FA3]/40 hover:bg-[#FF8FA3]/5 transition-colors"
+                          >
+                            <PlanetIcon planet={key} className="w-4 h-4" />
+                            {info.title}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  );
-                })()}
 
-                {/* Try your other lines */}
-                <div className="bg-white rounded-2xl border border-[#2D2640]/5 p-6 shadow-glow-gold">
-                  <h3 className="text-xs tracking-[0.15em] uppercase text-[#FF8FA3] mb-3">
-                    Try your other lines
-                  </h3>
-                  <p className="text-sm text-[#655E78] mb-4">
-                    Each planetary line points to a different city. See where else your chart takes you.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {([
-                      ['venus', categoryInfo.venus] as const,
-                      ['jupiter', categoryInfo.jupiter] as const,
-                      ['sun', categoryInfo.sun] as const,
-                      ['moon', categoryInfo.moon] as const,
-                    ]).filter(([key]) => key !== selectedCategory).map(([key, info]) => (
-                      <button
-                        key={key}
-                        onClick={() => {
-                          setSelectedCategory(key);
-                          setDestination(null);
-                          setAstroResult(null);
-                          setStep('loading');
-                        }}
-                        className="flex items-center gap-2 px-4 py-2 border border-[#2D2640]/10 rounded-full text-sm text-[#2D2640] hover:border-[#FF8FA3]/40 hover:bg-[#FF8FA3]/5 transition-colors"
-                      >
-                        <PlanetIcon planet={key} className="w-4 h-4" />
-                        {info.title}
-                      </button>
-                    ))}
+                    <p className="text-xs text-[#655E78] text-center">
+                      This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
+                    </p>
                   </div>
                 </div>
 
-                <p className="text-xs text-[#655E78] text-center">
-                  This is meant for reflection, not professional guidance. Take what resonates, leave what doesn&apos;t.
-                </p>
+                {/* Fade the blurred content into the unlock card below */}
+                {!revealed && (
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F0EBF8]/50 to-[#F0EBF8]" />
+                )}
               </div>
             </section>
 
-            {/* Paid Reading CTA */}
-            <section className="container-editorial py-12 md:py-16">
-              <div className="max-w-3xl mx-auto">
-                <div className="bg-[#F0E6D6] rounded-2xl p-8 md:p-12">
-                  <div className="text-center mb-8">
-                    <span className="text-xs tracking-[0.15em] uppercase text-[#C4365A]">Go deeper</span>
-                    <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
-                      Get your full relocation report
+            {/* Reveal gate — name + email unlock the map and full reading */}
+            {!revealed && (
+              <section className="container-editorial relative -mt-28 md:-mt-32 pb-12 md:pb-16">
+                <div className="max-w-md mx-auto">
+                  <div className="bg-white rounded-2xl border border-[#2D2640]/5 shadow-glow-gold p-8 md:p-10 text-center">
+                    <h2 className="font-serif text-2xl text-[#2D2640] mb-2">
+                      Reveal your city
                     </h2>
-                    <p className="text-lg text-[#655E78] leading-relaxed max-w-lg mx-auto">
-                      This free tool shows one city. Your full relocation report maps all your planetary lines, cross-references them with your natal chart, and reveals the cities where everything clicks.
+                    <p className="text-[#655E78] mb-6">
+                      We&apos;ve matched your chart to a city for {categoryInfo[selectedCategory].title.toLowerCase()}. Tell us where to send it.
                     </p>
-                  </div>
-
-                  <ul className="max-w-sm mx-auto mb-6 space-y-3">
-                    <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
-                      <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
-                      All major planetary lines mapped and interpreted
-                    </li>
-                    <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
-                      <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
-                      Top 3 cities personalised to your chart
-                    </li>
-                    <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
-                      <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
-                      Line crossings and power zones identified
-                    </li>
-                    <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
-                      <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
-                      Delivered as a detailed PDF report
-                    </li>
-                  </ul>
-
-
-                  <div className="text-center">
-                    <a
-                      href="/shop"
-                      className="inline-block px-8 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-lg text-sm font-medium hover:bg-[#1E1835] transition-colors"
-                    >
-                      Get your relocation report &mdash; $5
-                    </a>
-                    <p className="text-xs text-[#655E78] mt-4">Delivered instantly</p>
-                    <p className="text-xs text-[#655E78] mt-1">Calculated with Swiss Ephemeris, written by AI trained to stay true to your chart</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Full-width divider */}
-            <div className="container-editorial">
-              <div className="h-px bg-[#2D2640]/10" />
-            </div>
-
-            {/* Email Results - Centered */}
-            <section className="container-editorial py-12 md:py-16">
-              <div className="max-w-xl mx-auto text-center">
-                {!emailSent ? (
-                  <>
-                    <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
-                      Save your destination
-                    </h2>
-                    <p className="text-[#655E78] mb-8">
-                      Get your {categoryInfo[selectedCategory].title} reading for {destination.city} sent to your inbox.
-                    </p>
-                    <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
-                      <div className="flex flex-col sm:flex-row gap-3">
+                    <form onSubmit={handleReveal} className="space-y-3 text-left">
+                      <div>
+                        <label htmlFor="reveal-name" className="sr-only">Your name</label>
                         <input
+                          id="reveal-name"
+                          type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Your name"
+                          className="w-full px-5 py-4 rounded-lg border border-[#2D2640]/10 bg-white text-[#2D2640] placeholder-[#655E78]/50 focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50 transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="reveal-email" className="sr-only">Email address</label>
+                        <input
+                          id="reveal-email"
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="flex-1 px-5 py-4 rounded-lg border border-[#2D2640]/10 bg-white text-[#2D2640] placeholder-[#655E78]/50 focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50 transition-colors"
-                          required
+                          className="w-full px-5 py-4 rounded-lg border border-[#2D2640]/10 bg-white text-[#2D2640] placeholder-[#655E78]/50 focus:outline-none focus:ring-2 focus:ring-[#8A8099]/30 focus:border-[#8A8099]/50 transition-colors"
                         />
-                        <button
-                          type="submit"
-                          disabled={emailSending}
-                          className="px-8 py-4 rounded-lg bg-[#8A8099] text-white hover:bg-[#A89080] transition-colors disabled:opacity-50 whitespace-nowrap"
-                        >
-                          {emailSending ? 'Sending...' : 'Send to me'}
-                        </button>
                       </div>
-                      <label className="flex items-center justify-center gap-2 cursor-pointer mt-4">
-                        <input
-                          type="checkbox"
-                          checked={subscribeToNewsletter}
-                          onChange={(e) => setSubscribeToNewsletter(e.target.checked)}
-                          className="w-4 h-4 rounded border-[#2D2640]/20 accent-[#8A8099]"
-                        />
-                        <span className="text-sm text-[#655E78]">
-                          Also receive occasional notes from Lunar Playground
-                        </span>
-                      </label>
+                      <button
+                        type="submit"
+                        className="w-full px-8 py-4 rounded-lg bg-[#2D2640] text-[#F0EBF8] text-sm tracking-wide hover:bg-[#1E1835] transition-colors"
+                      >
+                        Reveal my city
+                      </button>
+                      {revealError && (
+                        <p className="text-sm text-red-600 text-center">{revealError}</p>
+                      )}
                     </form>
-                  </>
-                ) : (
-                  <>
-                    <h2 className="font-serif text-2xl text-[#2D2640] mb-4">
-                      On its way
-                    </h2>
-                    <p className="text-[#655E78]">
-                      Check your inbox for your {destination.city} travel reading.
+                    <p className="text-xs text-[#655E78] mt-4">
+                      We&apos;ll also send you occasional astrology finds and new tools. Unsubscribe anytime.
                     </p>
-                  </>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {revealed && (
+              <>
+                {/* Paid Reading CTA */}
+                <section className="container-editorial py-12 md:py-16">
+                  <div className="max-w-3xl mx-auto">
+                    <div className="bg-[#F0E6D6] rounded-2xl p-8 md:p-12">
+                      <div className="text-center mb-8">
+                        <span className="text-xs tracking-[0.15em] uppercase text-[#C4365A]">Go deeper</span>
+                        <h2 className="font-serif text-3xl md:text-4xl text-[#2D2640] mt-4 mb-4">
+                          Get your full relocation report
+                        </h2>
+                        <p className="text-lg text-[#655E78] leading-relaxed max-w-lg mx-auto">
+                          This free tool shows one city. Your full relocation report maps all your planetary lines, cross-references them with your natal chart, and reveals the cities where everything clicks.
+                        </p>
+                      </div>
+
+                      <ul className="max-w-sm mx-auto mb-6 space-y-3">
+                        <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                          <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
+                          All major planetary lines mapped and interpreted
+                        </li>
+                        <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                          <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
+                          Top 3 cities personalised to your chart
+                        </li>
+                        <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                          <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
+                          Line crossings and power zones identified
+                        </li>
+                        <li className="flex items-start gap-2 text-[#2D2640]/70 text-sm">
+                          <span className="text-[#FF8FA3] mt-0.5">&#183;</span>
+                          Delivered as a detailed PDF report
+                        </li>
+                      </ul>
+
+
+                      <div className="text-center">
+                        <a
+                          href="/shop"
+                          className="inline-block px-8 py-3.5 bg-[#2D2640] text-[#F0EBF8] rounded-lg text-sm font-medium hover:bg-[#1E1835] transition-colors"
+                        >
+                          Get your relocation report &mdash; $5
+                        </a>
+                        <p className="text-xs text-[#655E78] mt-4">Delivered instantly</p>
+                        <p className="text-xs text-[#655E78] mt-1">Calculated with Swiss Ephemeris, written by AI trained to stay true to your chart</p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Full-width divider */}
+                <div className="container-editorial">
+                  <div className="h-px bg-[#2D2640]/10" />
+                </div>
+
+                {/* Quiet email-delivery status — the reveal above already happened */}
+                {(emailSending || emailSent || emailSendFailed) && (
+                  <section className="container-editorial py-10 md:py-12">
+                    <div className="max-w-xl mx-auto text-center">
+                      <p className="text-sm text-[#655E78]">
+                        {emailSending
+                          ? 'Sending your copy…'
+                          : emailSent
+                          ? `✓ We've also sent your ${categoryInfo[selectedCategory].title.toLowerCase()} reading to ${email}.`
+                          : "We couldn't email you a copy just now — everything above is still yours to keep."}
+                      </p>
+                    </div>
+                  </section>
                 )}
-              </div>
-            </section>
+              </>
+            )}
           </>
         )}
 

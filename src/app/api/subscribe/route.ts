@@ -26,11 +26,20 @@ export async function POST(request: NextRequest) {
     const audienceId = process.env.RESEND_AUDIENCE_ID;
     if (audienceId) {
       try {
-        await resend.contacts.create({
+        const contactResult = await resend.contacts.create({
           email,
           audienceId,
           unsubscribed: false,
         });
+        // resend.contacts.create() resolves with { data: null, error } on an
+        // API-level failure (e.g. a bad audience id) rather than throwing —
+        // an unchecked result here silently drops the signup from the list.
+        if (contactResult.error) {
+          const msg = contactResult.error.message || '';
+          if (!msg.includes('already') && !msg.includes('exists')) {
+            console.error('Contact create error:', contactResult.error);
+          }
+        }
       } catch (contactErr) {
         // Resend throws if contact already exists — that's fine
         const msg = contactErr instanceof Error ? contactErr.message : '';
