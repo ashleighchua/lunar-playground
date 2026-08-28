@@ -7,29 +7,33 @@ import type { ChartData } from '../../ephemeris';
 
 // A minimal, hand-built ChartData — enough fields for assemble.ts's natal-chart
 // mapping, not a real computed chart (buildFacts.test.ts already covers real computation).
+// Longitudes are hand-computed as signIndex*30 + degree(12), consistent with each
+// planet's `sign`/`degree` fields below, so wheel-placement assertions have a real
+// value to check rather than a placeholder.
 function fakeChart(): ChartData {
-  const planet = (name: string, sign: string, house: number) => ({
-    name, symbol: '', longitude: 0, sign, signSymbol: '', degree: 12, element: '', quality: '', description: '', house,
+  const planet = (name: string, sign: string, house: number, longitude: number) => ({
+    name, symbol: '', longitude, sign, signSymbol: '', degree: 12, element: '', quality: '', description: '', house,
   });
   return {
-    sun: planet('Sun', 'Leo', 5),
-    moon: planet('Moon', 'Cancer', 4),
-    rising: { ...planet('Rising', 'Libra', 1), name: 'Rising', symbol: '↑' },
-    mercury: planet('Mercury', 'Virgo', 6),
-    venus: planet('Venus', 'Libra', 7),
-    mars: planet('Mars', 'Aries', 1),
-    jupiter: planet('Jupiter', 'Sagittarius', 9),
-    saturn: planet('Saturn', 'Capricorn', 10),
-    uranus: planet('Uranus', 'Aquarius', 11),
-    neptune: planet('Neptune', 'Pisces', 12),
-    pluto: planet('Pluto', 'Scorpio', 8),
+    sun: planet('Sun', 'Leo', 5, 132),
+    moon: planet('Moon', 'Cancer', 4, 102),
+    rising: { ...planet('Rising', 'Libra', 1, 192), name: 'Rising', symbol: '↑' },
+    mercury: planet('Mercury', 'Virgo', 6, 162),
+    venus: planet('Venus', 'Libra', 7, 192),
+    mars: planet('Mars', 'Aries', 1, 12),
+    jupiter: planet('Jupiter', 'Sagittarius', 9, 252),
+    saturn: planet('Saturn', 'Capricorn', 10, 282),
+    uranus: planet('Uranus', 'Aquarius', 11, 312),
+    neptune: planet('Neptune', 'Pisces', 12, 342),
+    pluto: planet('Pluto', 'Scorpio', 8, 222),
     houseSystem: 'whole-sign',
     midheaven: 100, // 100deg -> Cancer, 10deg
-    houses: { system: 'whole-sign', ascendantSign: 6, cusps: [] },
+    // Ascendant is Libra (index 6) -> house 1 starts at 180deg, each cusp +30deg from there.
+    houses: { system: 'whole-sign', ascendantSign: 6, cusps: [180, 210, 240, 270, 300, 330, 0, 30, 60, 90, 120, 150] },
   };
 }
 
-function fakeCityFacts(name: string, country: string): CityFacts {
+function fakeCityFacts(name: string, country: string, lat = 0, lon = 0): CityFacts {
   const lineActivations = [
     { planet: 'Venus', angle: 'DC', distance: 8, score: 0.9, key: 'Venus_DC' }, // exact tier -> full placement
     { planet: 'Saturn', angle: 'MC', distance: 450, score: 0.2, key: 'Saturn_MC' }, // soft tier -> softer influence
@@ -37,8 +41,8 @@ function fakeCityFacts(name: string, country: string): CityFacts {
   return {
     name,
     country,
-    lat: 0,
-    lon: 0,
+    lat,
+    lon,
     lineActivations,
     angularityFacts: {
       sectionId: `city-angularity-${name}`,
@@ -57,8 +61,14 @@ function fakeFacts(): OrderFacts {
     timezone: 'America/New_York',
     identityFacts: { sectionId: 'birth-chart-identity', facts: [{ type: 'planet-placement', planet: 'Sun', sign: 'Leo', house: 5 }] },
     perPlanetIdentityFacts: [{ sectionId: 'birth-chart-identity-0', facts: [{ type: 'planet-placement', planet: 'Sun', sign: 'Leo', house: 5 }] }],
-    cities: [fakeCityFacts('Los Angeles', 'United States'), fakeCityFacts('Austin', 'United States')],
+    cities: [
+      fakeCityFacts('Los Angeles', 'United States', 34.05, -118.24),
+      fakeCityFacts('Austin', 'United States', 30.27, -97.74),
+    ],
     rankingFacts: {},
+    // Matches the Venus/DC activation both cities share — the only full-placement-tier
+    // line, so it's the one buildPlanetaryLines should attach points to.
+    allLines: [{ planet: 'Venus', angle: 'DC', points: [{ lat: 10, lon: -20 }, { lat: 11, lon: -21 }] }],
   };
 }
 
@@ -82,6 +92,7 @@ function fakeProse(facts: OrderFacts): GeneratedProse {
     identityIntro: 'Natal chart intro.',
     perPlanetDescriptions: { Sun: 'Sun description.', Moon: 'Moon description.', Ascendant: 'Rising description.' },
     cities,
+    closingReflection: 'If I were you, I\'d pay attention to Austin.',
   };
 }
 
@@ -141,6 +152,27 @@ describe('assembleReportContent', () => {
     expect(content.natalChart!.bigThree.find((b) => b.label === 'Sun')?.description).toBe('Sun description.');
     expect(content.natalChart!.bigThree.find((b) => b.label === 'Rising')?.description).toBe('Rising description.');
 
+    // Raw longitude/cusp data threaded through for the chart wheel — not just formatted strings.
+    expect(content.natalChart!.cusps).toEqual([180, 210, 240, 270, 300, 330, 0, 30, 60, 90, 120, 150]);
+    expect(content.natalChart!.ascendant.longitude).toBe(192);
+    expect(content.natalChart!.midheaven.longitude).toBe(100);
+    expect(content.natalChart!.planets.find((p) => p.planet === 'Sun')?.longitude).toBe(132);
+
+    // City lat/lon threaded through for the world-map render.
+    expect(content.summaryCities[0].lat).toBe(34.05);
+    expect(content.summaryCities[0].lon).toBe(-118.24);
+
+    // "Your Strongest Themes" — deterministic, built from each city's nearest activation + its already-grounded bottomLine.
+    expect(content.themeHighlights).toHaveLength(2);
+    for (const highlight of content.themeHighlights) {
+      expect(highlight.planet).toBe('Venus');
+      expect(highlight.angle).toBe('DC');
+      expect(highlight.blurb).toBe(`${highlight.city} bottom line.`);
+    }
+
+    // "If I were you..." closing reflection passes through from prose unchanged.
+    expect(content.closingReflection).toBe('If I were you, I\'d pay attention to Austin.');
+
     for (const city of content.cities) {
       // Only the exact-tier Venus/DC activation becomes a full placement box.
       expect(city.placements).toHaveLength(1);
@@ -161,6 +193,8 @@ describe('assembleReportContent', () => {
     // planetaryLines is deduplicated across cities and uses the deterministic interpretation blurb.
     expect(content.planetaryLines).toHaveLength(1); // Venus/DC appears in both cities but only once here
     expect(content.planetaryLines[0].blurb.length).toBeGreaterThan(0);
+    // Its full lat/lon polyline is attached (from OrderFacts.allLines) for the world-map render.
+    expect(content.planetaryLines[0].points).toEqual([{ lat: 10, lon: -20 }, { lat: 11, lon: -21 }]);
   });
 
   it('omits natalChart entirely for the relocation-only tier', () => {

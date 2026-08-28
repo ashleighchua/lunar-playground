@@ -10,6 +10,8 @@
  * from grounded facts + LLM-generated prose instead of hand-authored copy.
  * pdf.ts prints this to PDF via Puppeteer.
  */
+import { renderChartWheelSvg } from './chartWheel';
+import { renderWorldMapSvg } from './worldMap';
 
 export type Angle = 'MC' | 'IC' | 'AC' | 'DC';
 export type Planet =
@@ -21,7 +23,7 @@ export const PLANET_ABBR: Record<Planet, string> = {
   Jupiter: 'JU', Saturn: 'SA', Uranus: 'UR', Neptune: 'NE', Pluto: 'PL',
 };
 
-const PLANET_COLOR: Record<Planet, string> = {
+export const PLANET_COLOR: Record<Planet, string> = {
   Sun: '#B08D3E',
   Moon: '#8CA0B3',
   Mercury: '#5B8A6B',
@@ -34,14 +36,32 @@ const PLANET_COLOR: Record<Planet, string> = {
   Pluto: '#6B3F73',
 };
 
-const ANGLE_COLOR: Record<Angle, string> = {
+/** Classical astrological glyphs (Unicode, not emoji) — the same symbols astrology software renders on any real chart, matching chartWheel.ts's sign glyphs. */
+export const PLANET_SYMBOL: Record<Planet, string> = {
+  Sun: '☉', Moon: '☽', Mercury: '☿', Venus: '♀', Mars: '♂',
+  Jupiter: '♃', Saturn: '♄', Uranus: '♅', Neptune: '♆', Pluto: '♇',
+};
+
+/** Keyed by SIGNS (reportFacts/vocabulary.ts) — same order/glyphs as chartWheel.ts's SIGN_SYMBOLS. */
+// The zodiac symbols (unlike the planet symbols above) are registered Unicode
+// emoji — without the U+FE0E text-presentation selector they render as
+// colorful emoji glyphs on emoji-capable fonts instead of plain typographic
+// marks, which is exactly what this is trying to avoid.
+const VS15 = '︎';
+export const SIGN_SYMBOL: Record<string, string> = {
+  Aries: `♈${VS15}`, Taurus: `♉${VS15}`, Gemini: `♊${VS15}`, Cancer: `♋${VS15}`,
+  Leo: `♌${VS15}`, Virgo: `♍${VS15}`, Libra: `♎${VS15}`, Scorpio: `♏${VS15}`,
+  Sagittarius: `♐${VS15}`, Capricorn: `♑${VS15}`, Aquarius: `♒${VS15}`, Pisces: `♓${VS15}`,
+};
+
+export const ANGLE_COLOR: Record<Angle, string> = {
   MC: '#1A1A2E',
   IC: '#4A3B5C',
   AC: '#B99567',
   DC: '#6E7A4E',
 };
 
-const ANGLE_LABEL: Record<Angle, string> = {
+export const ANGLE_LABEL: Record<Angle, string> = {
   MC: 'Midheaven',
   IC: 'Imum Coeli',
   AC: 'Ascendant',
@@ -84,15 +104,28 @@ export interface CitySection {
 export interface SummaryCity {
   name: string;
   country: string;
+  lat: number;
+  lon: number;
   badges: Badge[];
   nickname: string;
   paragraph: string;
+}
+
+/** One highlight card for the "Your Strongest Themes" page — built deterministically in assemble.ts from each city's nearest (strongest) activation and its already-grounded bottomLine, never a fresh LLM call. */
+export interface ThemeHighlight {
+  city: string;
+  country: string;
+  planet: Planet;
+  angle: Angle;
+  headline: string;
+  blurb: string;
 }
 
 export interface NatalPlanetRow {
   planet: Planet;
   sign: string;
   degree: string; // e.g. "20°52'"
+  longitude: number; // raw ecliptic longitude, 0-360 — needed to place this planet on the chart wheel
   house: number;
   description?: string; // omitted for outer planets with no tested per-sign copy
 }
@@ -109,8 +142,10 @@ export interface NatalChart {
   intro: string;
   bigThree: BigThreeCard[];
   planets: NatalPlanetRow[];
-  ascendant: { sign: string; degree: string };
-  midheaven: { sign: string; degree: string };
+  ascendant: { sign: string; degree: string; longitude: number };
+  midheaven: { sign: string; degree: string; longitude: number | null };
+  /** 12 entries, cusps[0] = house 1's starting ecliptic longitude, etc. (see houses.ts's HouseCusps) — empty when no birth location was available. Drives the chart wheel's house/zodiac spokes; renderChartWheelSvg degrades to '' if this isn't exactly 12 entries. */
+  cusps: number[];
 }
 
 export interface TocEntry {
@@ -125,11 +160,15 @@ export interface ReportContent {
   birth: { dateLabel: string; timeLabel: string; placeLabel: string };
   citiesListLabel: string;
   natalChart?: NatalChart;
-  planetaryLines: { planet: Planet; angle: Angle; blurb: string }[];
+  /** points is this line's full lat/lon polyline (from AstroLine), used to draw it on the world map — empty if the source line couldn't be matched (should not happen in practice, see assemble.ts's buildPlanetaryLines). */
+  planetaryLines: { planet: Planet; angle: Angle; blurb: string; points: { lat: number; lon: number }[] }[];
   cities: CitySection[];
   summaryCities: SummaryCity[];
+  themeHighlights: ThemeHighlight[];
   toc?: TocEntry[]; // omitted on the first (measurement) render pass
   closingMessage: string;
+  /** First-person "If I were you..." editorial synthesis — interpretive, not a fact claim, so it deliberately skips checkGrounding (see generateSection's skipGrounding option). Undefined if generation failed or was skipped (natal-only tier). */
+  closingReflection?: string;
 }
 
 export function esc(s: string): string {
@@ -170,7 +209,7 @@ function renderPlacement(p: PlacementBlock): string {
   </div>`;
 }
 
-function renderCity(city: CitySection, index: number): string {
+function renderCity(city: CitySection): string {
   const softer = city.softerInfluences?.length
     ? `
     <div class="softer-influences">
@@ -191,7 +230,7 @@ function renderCity(city: CitySection, index: number): string {
     </div>`;
 
   return `
-  <section class="city-section ${index > 0 ? 'page-break' : ''}">
+  <section class="city-section page-break">
     <h2 class="city-name">${esc(city.name)}, ${esc(city.country)}</h2>
     <p class="city-nickname">${esc(city.nickname)}</p>
     ${badgeRow(city.badges)}
@@ -267,12 +306,14 @@ export function renderBirthChartOverview(chart: NatalChart): string {
   <h2 class="section-title">Your Birth Chart</h2>
   <p class="city-intro">${esc(chart.intro)}</p>
 
+  <div class="chart-wheel-wrap">${renderChartWheelSvg(chart)}</div>
+
   <div class="big-three-row">
     ${chart.bigThree
       .map(
         (b) => `<div class="big-three-card">
         <div class="big-three-label">${esc(b.label)}</div>
-        <div class="big-three-sign">${esc(b.sign)}</div>
+        <div class="big-three-sign"><span class="glyph">${SIGN_SYMBOL[b.sign] ?? ''}</span>${esc(b.sign)}</div>
         <div class="big-three-degree">${esc(b.degree)}${b.house ? ` &middot; House ${b.house}` : ''}</div>
         <p>${esc(b.description)}</p>
       </div>`
@@ -288,8 +329,8 @@ export function renderBirthChartOverview(chart: NatalChart): string {
       ${chart.planets
         .map(
           (p) => `<tr>
-        <td class="natal-planet"><span class="dot" style="background:${PLANET_COLOR[p.planet]}"></span>${esc(p.planet)}</td>
-        <td>${esc(p.sign)}</td>
+        <td class="natal-planet"><span class="glyph" style="color:${PLANET_COLOR[p.planet]}">${PLANET_SYMBOL[p.planet]}</span>${esc(p.planet)}</td>
+        <td><span class="glyph glyph-muted">${SIGN_SYMBOL[p.sign] ?? ''}</span>${esc(p.sign)}</td>
         <td>${esc(p.degree)}</td>
         <td>${p.house}</td>
       </tr>`
@@ -299,8 +340,8 @@ export function renderBirthChartOverview(chart: NatalChart): string {
   </table>
 
   <div class="angles-row">
-    <div class="angle-card"><div class="angle-card-label">Ascendant</div><div class="angle-card-value">${esc(chart.ascendant.sign)} ${esc(chart.ascendant.degree)}</div></div>
-    <div class="angle-card"><div class="angle-card-label">Midheaven</div><div class="angle-card-value">${esc(chart.midheaven.sign)} ${esc(chart.midheaven.degree)}</div></div>
+    <div class="angle-card"><div class="angle-card-label">Ascendant</div><div class="angle-card-value"><span class="glyph">${SIGN_SYMBOL[chart.ascendant.sign] ?? ''}</span>${esc(chart.ascendant.sign)} ${esc(chart.ascendant.degree)}</div></div>
+    <div class="angle-card"><div class="angle-card-label">Midheaven</div><div class="angle-card-value"><span class="glyph">${SIGN_SYMBOL[chart.midheaven.sign] ?? ''}</span>${esc(chart.midheaven.sign)} ${esc(chart.midheaven.degree)}</div></div>
   </div>
 </main>`;
 }
@@ -320,7 +361,7 @@ export function renderChartShowsCards(chart: NatalChart): string {
     .filter((p) => p.description)
     .map(
       (p) => `<div class="placement-box" style="border-left-color:${PLANET_COLOR[p.planet]}">
-      <h3>${esc(p.planet)} in ${esc(p.sign)} <span class="angle-tag">House ${p.house}</span></h3>
+      <h3><span class="glyph" style="color:${PLANET_COLOR[p.planet]}">${PLANET_SYMBOL[p.planet]}</span>${esc(p.planet)} in ${esc(p.sign)} <span class="angle-tag">House ${p.house}</span></h3>
       <p>${esc(p.description!)}</p>
     </div>`
     )
@@ -367,6 +408,10 @@ ${includeBridge ? renderChartTravelsBridge() : ''}
 export function buildTocEntries(content: ReportContent): TocEntry[] {
   const entries: TocEntry[] = [{ title: 'Introduction', page: null }];
 
+  if (content.themeHighlights.length > 0) {
+    entries.push({ title: 'Your Strongest Themes', page: null });
+  }
+
   if (content.natalChart) {
     entries.push({ title: 'Your Birth Chart', page: null });
     entries.push({ title: 'What Your Chart Shows', page: null, indent: true });
@@ -376,6 +421,7 @@ export function buildTocEntries(content: ReportContent): TocEntry[] {
   entries.push({ title: 'What is Astrocartography?', page: null });
   entries.push({ title: 'The Planetary Lines in Your Reading', page: null, indent: true });
   entries.push({ title: 'Lines at Each Location', page: null, indent: true });
+  entries.push({ title: 'Your Cities on the Map', page: null, indent: true });
 
   for (const city of content.cities) {
     entries.push({ title: `${city.name}, ${city.country}`, page: null, indent: true });
@@ -416,6 +462,26 @@ function renderSummaryCity(c: SummaryCity): string {
   </div>`;
 }
 
+function renderThemeHighlight(h: ThemeHighlight): string {
+  return `
+  <div class="big-three-card theme-highlight-card">
+    <div class="big-three-label">${esc(h.city)}, ${esc(h.country)}</div>
+    <div class="theme-highlight-headline">${badgePair(h.planet, h.angle)} ${esc(h.headline)}</div>
+    <p>${esc(h.blurb)}</p>
+  </div>`;
+}
+
+function renderThemeHighlights(highlights: ThemeHighlight[]): string {
+  return `
+<main class="page page-break">
+  <h2 class="section-title">Your Strongest Themes</h2>
+  <p class="city-intro">At a glance, before the full breakdown: the single strongest planetary line in each location you're considering.</p>
+  <div class="big-three-row theme-highlight-row">
+    ${highlights.map(renderThemeHighlight).join('')}
+  </div>
+</main>`;
+}
+
 export function renderReportHtml(content: ReportContent): string {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -448,9 +514,9 @@ ${content.toc ? renderTocPage(content.toc) : ''}
 
 <main class="page page-break">
   <h2 class="section-title">Introduction</h2>
-  <p>Thank you for your request and welcome to <em>The Lunar Playground</em>. This reading explores the energetic influences of different locations using astrocartography, the art of mapping your birth chart onto the world to discover where specific planetary energies are strongest for you.</p>
+  <p class="intro-lead">Thank you for your request and welcome to <em>The Lunar Playground</em>. This reading explores the energetic influences of different locations using astrocartography, the art of mapping your birth chart onto the world to discover where specific planetary energies are strongest for you.</p>
   <p>Astrocartography reveals that we don't experience life the same way everywhere. Certain places amplify our capacity for love, others catalyze career success, and some invite deep transformation. By understanding which planetary lines cross through the locations you're considering, you can make more aligned choices about where to live, travel, or invest your energy.</p>
-  <p>Your placements are calculated using Swiss Ephemeris, the same tool professional astrologers rely on, and this reading was written by AI trained to stay true to those exact placements, checked against your real chart before it reaches you. Here's what's running through your areas of interest: <strong>${esc(content.citiesListLabel)}</strong>. Each location carries distinct energies that will shape your experience differently.</p>
+  <p>Your placements are calculated using Swiss Ephemeris, the same tool professional astrologers rely on, with every line checked against your real chart before it reaches you. Here's what's running through your areas of interest: <strong>${esc(content.citiesListLabel)}</strong>. Each location carries distinct energies that will shape your experience differently.</p>
 
   <div class="client-info">
     <p><strong>Client:</strong> ${esc(content.client)}</p>
@@ -460,6 +526,8 @@ ${content.toc ? renderTocPage(content.toc) : ''}
     <p><strong>Locations Analyzed:</strong> ${esc(content.citiesListLabel)}</p>
   </div>
 </main>
+
+${content.themeHighlights.length > 0 ? renderThemeHighlights(content.themeHighlights) : ''}
 
 ${content.natalChart ? renderNatalChart(content.natalChart) : ''}
 
@@ -490,7 +558,16 @@ ${content.natalChart ? renderNatalChart(content.natalChart) : ''}
   ${renderLinesTable(content.summaryCities)}
 </main>
 
-${content.cities.map((c, i) => renderCity(c, i)).join('\n')}
+<main class="page page-break">
+  <h2 class="section-title">Your Cities on the Map</h2>
+  <p class="city-intro">Where each location sits, and the planetary lines running through it. Each tag on the map shows the line's symbol and angle — see below for what each one means.</p>
+  ${renderWorldMapSvg(content.summaryCities, content.planetaryLines)}
+  <div class="map-legend">
+    ${badgeRow(content.planetaryLines)}
+  </div>
+</main>
+
+${content.cities.map((c) => renderCity(c)).join('\n')}
 
 <main class="page page-break">
   <h2 class="section-title">Summary</h2>
@@ -505,6 +582,11 @@ ${content.cities.map((c, i) => renderCity(c, i)).join('\n')}
 </main>
 
 <main class="page page-break closing-page">
+  ${content.closingReflection ? `
+  <div class="if-i-were-you">
+    <div class="if-i-were-you-label">If I were you...</div>
+    <p>${esc(content.closingReflection)}</p>
+  </div>` : ''}
   <p class="closing-message">${esc(content.closingMessage)}</p>
   <p class="signature-text">With warmth and cosmic guidance,</p>
   <p class="signature-name">Ashleigh @ The Lunar Playground</p>
@@ -538,6 +620,17 @@ ${content.cities.map((c, i) => renderCity(c, i)).join('\n')}
 export const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 
+:root {
+  --ink: #1a1a2e;
+  --gold: #b98f3c;
+  --gold-deep: #a5822f;
+  --gold-tint: #f4efe4;
+  --cream: #f8f5ef;
+  --rose: #A85D74;
+  --plum: #5b4b6b;
+  --hairline: #e7e0d2;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -551,6 +644,18 @@ body {
 em, i { font-style: italic; }
 
 h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
+
+/* Editorial lead paragraph — drop cap on the Introduction's opening line, a
+   print-native device instead of one more tinted card. */
+.intro-lead::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 42pt;
+  font-weight: 500;
+  color: var(--gold-deep);
+  float: left;
+  line-height: 0.8;
+  padding: 6px 8px 0 0;
+}
 
 /* ---------- Cover ---------- */
 .cover-page, .promo-page {
@@ -632,9 +737,9 @@ h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
 .section-title {
   font-size: 19pt;
   font-weight: 500;
-  color: #1a1a2e;
+  color: var(--ink);
   padding-bottom: 10px;
-  border-bottom: 1px solid #cba135;
+  border-bottom: 1px solid var(--gold);
   margin-bottom: 20px;
 }
 
@@ -644,7 +749,7 @@ h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #b98f3c;
+  color: var(--gold);
   margin-bottom: 6px;
 }
 
@@ -676,7 +781,7 @@ h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
 .toc-pagenum {
   font-family: 'Inter', sans-serif;
   font-size: 10pt;
-  color: #a5822f;
+  color: var(--gold-deep);
   font-weight: 600;
   min-width: 1.5em;
   text-align: right;
@@ -685,8 +790,8 @@ h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
 p { margin-bottom: 14px; }
 
 .client-info {
-  background: #f8f5ef;
-  border-left: 3px solid #cba135;
+  background: var(--cream);
+  border-left: 3px solid var(--gold);
   padding: 20px 26px;
   margin-top: 28px;
   page-break-inside: avoid;
@@ -695,9 +800,8 @@ p { margin-bottom: 14px; }
 .client-info p { margin: 5px 0; font-size: 10.5pt; }
 
 .glossary-box {
-  background: #f8f5ef;
-  border: 1px solid #ebe4d6;
-  border-radius: 4px;
+  background: var(--cream);
+  border: 1px solid var(--hairline);
   padding: 20px 26px;
   margin-top: 22px;
   page-break-inside: avoid;
@@ -709,11 +813,11 @@ p { margin-bottom: 14px; }
   font-size: 9pt;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #1a1a2e;
+  color: var(--ink);
   margin-bottom: 12px;
 }
 .glossary-box p { font-size: 10.5pt; margin-bottom: 8px; }
-.glossary-box strong { color: #a5822f; }
+.glossary-box strong { color: var(--gold-deep); }
 
 /* badges */
 .badge-pair { display: inline-flex; vertical-align: middle; margin-right: 4px; }
@@ -733,6 +837,10 @@ p { margin-bottom: 14px; }
 .badge-name { font-weight: 500; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
 
+/* Classical planet/sign glyphs — real astrological typography, not emoji. */
+.glyph { font-family: 'Playfair Display', serif; font-size: 1.15em; margin-right: 7px; display: inline-block; }
+.glyph-muted { opacity: 0.55; font-size: 1.05em; }
+
 /* planetary lines list */
 .pl-line { font-size: 10.5pt; margin-bottom: 16px; }
 .pl-angle-label { color: #888; font-size: 9.5pt; }
@@ -743,23 +851,23 @@ p { margin-bottom: 14px; }
 .lines-table th {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  background: #f8f5ef;
-  border-bottom: 2px solid #cba135;
+  background: var(--cream);
+  border-bottom: 2px solid var(--gold);
   padding: 8px 4px;
   text-align: center;
 }
-.lines-table th.loc-col, .lines-table td.loc-col { text-align: left; font-weight: 600; color: #1a1a2e; padding-left: 8px; }
+.lines-table th.loc-col, .lines-table td.loc-col { text-align: left; font-weight: 600; color: var(--ink); padding-left: 8px; }
 .lines-table td { border-bottom: 1px solid #eee; padding: 8px 4px; text-align: center; }
 
 /* city sections */
 .city-section { padding: 6mm 2mm; }
-.city-name { font-size: 22pt; font-weight: 500; color: #1a1a2e; margin-bottom: 2px; }
-.city-nickname { font-family: 'Playfair Display', serif; font-style: italic; font-size: 13pt; color: #b98f3c; margin-bottom: 4px; }
+.city-name { font-size: 22pt; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.city-nickname { font-family: 'Playfair Display', serif; font-style: italic; font-size: 13pt; color: var(--gold); margin-bottom: 4px; }
 .city-intro { font-size: 11.5pt; color: #333; margin: 16px 0 22px; }
 
 .placement-box {
   border-left: 3px solid #ccc;
-  background: #fbfaf7;
+  background: var(--cream);
   padding: 16px 20px;
   margin-bottom: 16px;
   page-break-inside: avoid;
@@ -770,7 +878,7 @@ p { margin-bottom: 14px; }
   font-size: 10.5pt;
   font-weight: 700;
   letter-spacing: 0.3px;
-  color: #1a1a2e;
+  color: var(--ink);
   margin-bottom: 8px;
   display: flex;
   align-items: center;
@@ -782,87 +890,119 @@ p { margin-bottom: 14px; }
 .placement-box p { font-size: 10.3pt; color: #333; margin-bottom: 10px; }
 
 .what-to-do {
-  background: #f4efe4;
-  border-left: 2px solid #cba135;
+  background: var(--gold-tint);
+  border-left: 2px solid var(--gold);
   padding: 10px 14px;
   margin-top: 8px;
 }
-.what-to-do-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #a5822f; margin-bottom: 4px; }
+.what-to-do-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 4px; }
 .what-to-do p { margin: 0; font-size: 9.8pt; color: #4a4a4a; }
 
-.softer-influences { background: #f6f6f4; border-radius: 4px; padding: 14px 18px; margin: 18px 0; page-break-inside: avoid; break-inside: avoid; }
+/* Softer influences, the "what to do" recap, and combined energy read as
+   quiet asides rather than more tinted cards — a hairline rule and room to
+   breathe instead of another box, so the placement boxes above keep their
+   visual weight instead of competing with lookalike siblings. */
+.softer-influences { border-top: 1px solid var(--hairline); padding-top: 14px; margin: 22px 0; page-break-inside: avoid; break-inside: avoid; }
 .softer-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #888; margin-bottom: 6px; }
 .softer-intro { font-size: 9.5pt; font-style: italic; color: #777; margin-bottom: 8px; }
 .softer-line { font-size: 9.8pt; margin-bottom: 6px; }
 
-.rc-row { display: flex; gap: 16px; margin: 18px 0; page-break-inside: avoid; break-inside: avoid; }
-.rc-box { flex: 1; background: #fbfaf7; padding: 14px 18px; }
-.rc-romance { border-left: 3px solid #A85D74; }
-.rc-career { border-left: 3px solid #cba135; }
-.rc-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a1a2e; margin-bottom: 6px; }
+.rc-row { display: flex; gap: 28px; margin: 22px 0; padding-top: 14px; border-top: 1px solid var(--hairline); page-break-inside: avoid; break-inside: avoid; }
+.rc-box { flex: 1; padding-left: 14px; }
+.rc-romance { border-left: 2px solid var(--rose); }
+.rc-career { border-left: 2px solid var(--gold); }
+.rc-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink); margin-bottom: 6px; }
 .rc-box p { font-size: 9.8pt; margin: 0; color: #444; }
 
-.combined-energy { background: #f8f5ef; padding: 16px 20px; margin: 18px 0; border-radius: 4px; page-break-inside: avoid; break-inside: avoid; }
-.combined-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a1a2e; margin-bottom: 8px; }
+.combined-energy { margin: 22px 0; padding-top: 14px; border-top: 1px solid var(--hairline); page-break-inside: avoid; break-inside: avoid; }
+.combined-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink); margin-bottom: 8px; }
 .combined-energy p { font-size: 9.8pt; color: #444; margin-bottom: 10px; }
 .combined-energy p:last-child { margin-bottom: 0; }
 
 .bottom-line {
-  background: #5b4b6b;
+  background: var(--plum);
   color: #f4eef7;
   padding: 18px 22px;
-  border-radius: 4px;
   font-size: 10.3pt;
   line-height: 1.7;
   page-break-inside: avoid;
   break-inside: avoid;
 }
-.bottom-line strong { color: #d8b978; }
+.bottom-line strong { color: var(--gold); }
 
-.practical-note { background: #f6f6f4; border-radius: 4px; padding: 14px 18px; margin-top: 16px; page-break-inside: avoid; break-inside: avoid; }
+.practical-note { border-top: 1px solid var(--hairline); padding-top: 14px; margin-top: 20px; page-break-inside: avoid; break-inside: avoid; }
 .practical-note-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #888; margin-bottom: 6px; }
 .practical-note p { font-size: 9.8pt; font-style: italic; color: #666; margin: 0; }
 
+/* chart wheel */
+.chart-wheel-wrap { margin: 20px 0 28px; page-break-inside: avoid; break-inside: avoid; }
+
+/* world map legend */
+.map-legend { margin-top: 20px; }
+.map-legend .badge-row { margin: 0; }
+
+/* strongest themes */
+.theme-highlight-row { flex-wrap: wrap; }
+.theme-highlight-card { flex: 1 1 30%; min-width: 150px; }
+.theme-highlight-headline { font-family: 'Inter', sans-serif; font-size: 9.5pt; font-weight: 600; color: var(--ink); margin: 4px 0 8px; display: flex; align-items: center; gap: 6px; }
+
 /* natal chart */
 .big-three-row { display: flex; gap: 14px; margin: 24px 0 30px; }
-.big-three-card { flex: 1; background: #f8f5ef; border-top: 3px solid #cba135; padding: 18px 18px 16px; page-break-inside: avoid; break-inside: avoid; }
-.big-three-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #a5822f; margin-bottom: 6px; }
-.big-three-sign { font-family: 'Playfair Display', serif; font-size: 15pt; color: #1a1a2e; margin-bottom: 2px; }
+.big-three-card { flex: 1; background: var(--cream); border-top: 3px solid var(--gold); padding: 18px 18px 16px; page-break-inside: avoid; break-inside: avoid; }
+.big-three-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 6px; }
+.big-three-sign { font-family: 'Playfair Display', serif; font-size: 15pt; color: var(--ink); margin-bottom: 2px; }
 .big-three-degree { font-size: 8.5pt; color: #888; margin-bottom: 10px; }
 .big-three-card p { font-size: 9.5pt; color: #444; margin: 0; }
 
 .natal-table { width: 100%; border-collapse: collapse; margin: 10px 0 26px; font-size: 9.5pt; }
-.natal-table th { font-family: 'Inter', sans-serif; font-weight: 700; background: #f8f5ef; border-bottom: 2px solid #cba135; padding: 8px 10px; text-align: left; }
+.natal-table th { font-family: 'Inter', sans-serif; font-weight: 700; background: var(--cream); border-bottom: 2px solid var(--gold); padding: 8px 10px; text-align: left; }
 .natal-table td { border-bottom: 1px solid #eee; padding: 7px 10px; }
 .natal-planet { display: flex; align-items: center; gap: 8px; font-weight: 500; }
 .natal-planet .dot { width: 8px; height: 8px; }
 
 .angles-row { display: flex; gap: 14px; margin-bottom: 26px; }
-.angle-card { flex: 1; background: #fbfaf7; border-left: 3px solid #1a1a2e; padding: 12px 16px; }
+.angle-card { flex: 1; background: var(--cream); border-left: 3px solid var(--ink); padding: 12px 16px; }
 .angle-card-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #888; margin-bottom: 4px; }
-.angle-card-value { font-family: 'Playfair Display', serif; font-size: 12pt; color: #1a1a2e; }
+.angle-card-value { font-family: 'Playfair Display', serif; font-size: 12pt; color: var(--ink); }
 
 /* summary */
-.summary-city { background: #f8f5ef; border-left: 3px solid #cba135; padding: 18px 22px; margin-bottom: 16px; page-break-inside: avoid; break-inside: avoid; }
+.summary-city { background: var(--cream); border-left: 3px solid var(--gold); padding: 18px 22px; margin-bottom: 16px; page-break-inside: avoid; break-inside: avoid; }
 .summary-head { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 4px; }
-.summary-head strong { font-size: 12pt; color: #1a1a2e; }
-.summary-nickname { font-family: 'Playfair Display', serif; font-style: italic; color: #b98f3c; margin-bottom: 8px; font-size: 10.5pt; }
+.summary-head strong { font-size: 12pt; color: var(--ink); }
+.summary-nickname { font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); margin-bottom: 8px; font-size: 10.5pt; }
 .summary-city p:last-child { margin-bottom: 0; font-size: 10pt; color: #444; }
 
 .closing-italic { font-style: italic; color: #777; text-align: center; margin: 20px 0; }
 
-.deeper-box { background: #f8f5ef; border-left: 3px solid #cba135; padding: 18px 24px; margin-top: 26px; page-break-inside: avoid; break-inside: avoid; }
-.deeper-label { font-family: 'Inter', sans-serif; font-size: 9pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #A85D74; margin-bottom: 8px; }
+.deeper-box { background: var(--cream); border-left: 3px solid var(--rose); padding: 18px 24px; margin-top: 26px; page-break-inside: avoid; break-inside: avoid; }
+.deeper-label { font-family: 'Inter', sans-serif; font-size: 9pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--rose); margin-bottom: 8px; }
 .deeper-box p { font-size: 10pt; margin: 0; color: #444; }
+
+/* if I were you — the reading's one deliberate pull-quote moment, marked
+   with an oversized quotation glyph rather than another tinted card. */
+.if-i-were-you { position: relative; padding: 26px 32px 22px 40px; margin: 0 auto 30px; max-width: 480px; text-align: left; page-break-inside: avoid; break-inside: avoid; }
+.if-i-were-you::before {
+  content: '\\201C';
+  position: absolute;
+  top: -6px;
+  left: -4px;
+  font-family: 'Playfair Display', serif;
+  font-size: 64pt;
+  color: var(--gold);
+  opacity: 0.35;
+  line-height: 1;
+}
+.if-i-were-you-label { font-family: 'Playfair Display', serif; font-style: italic; font-size: 13pt; color: var(--gold-deep); margin-bottom: 10px; }
+.if-i-were-you p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 11.5pt; color: #444; line-height: 1.8; margin: 0; }
 
 /* closing */
 .closing-page { text-align: center; padding-top: 40mm; }
 .closing-message { font-family: 'Playfair Display', serif; font-style: italic; font-size: 13pt; color: #444; max-width: 480px; margin: 0 auto 26px; line-height: 1.9; }
 .signature-text { font-style: italic; color: #888; margin-bottom: 2px; }
-.signature-name { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 10.5pt; color: #1a1a2e; }
-.about-rule { border: none; border-top: 1px solid #e5ded0; width: 200px; margin: 40px auto; }
+.signature-name { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 10.5pt; color: var(--ink); }
+.about-rule { border: none; border-top: 1px solid var(--hairline); width: 200px; margin: 40px auto; }
 .about-box { max-width: 560px; margin: 0 auto; text-align: left; }
-.about-label { font-family: 'Inter', sans-serif; font-size: 8.5pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #a5822f; text-align: center; margin-bottom: 14px; }
+.about-label { font-family: 'Inter', sans-serif; font-size: 8.5pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-deep); text-align: center; margin-bottom: 14px; }
 .about-box p { font-size: 9.8pt; color: #555; line-height: 1.8; }
 
 /* promo */

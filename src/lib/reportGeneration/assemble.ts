@@ -1,7 +1,7 @@
 import { SIGNS } from '../reportFacts/vocabulary';
 import { getInterpretation } from '../astrocartography/interpretations';
 import { themeLabelFor, type AstroAngle } from '../astrocartography/themes';
-import { tierForMiles } from './tiers';
+import { tierForMiles, isFullPlacementTier } from './tiers';
 import type { RelocationOrderInput } from './orderInput';
 import type { OrderFacts, CityFacts } from './buildFacts';
 import type { GeneratedProse } from './narrate';
@@ -15,6 +15,7 @@ import type {
   Badge,
   PlacementBlock,
   SofterInfluence,
+  ThemeHighlight,
   Planet,
   Angle,
 } from './render/template';
@@ -125,9 +126,50 @@ function buildSummaryCity(city: CityFacts, prose: GeneratedProse['cities'][strin
   return {
     name: city.name,
     country: city.country,
+    lat: city.lat,
+    lon: city.lon,
     badges: buildBadges(city),
     nickname: prose.synthesis.nickname,
     paragraph: prose.synthesis.bottomLine,
+  };
+}
+
+/**
+ * "Your Strongest Themes" highlight — deterministic, no LLM call. Every input
+ * is already grounded: lineActivations is pre-sorted nearest-first
+ * (buildFacts.ts's computeCityLineActivations), and bottomLine is already a
+ * checked one-sentence takeaway. A themes summary that names concrete
+ * placements is exactly what checkGrounding exists to verify — reusing
+ * already-checked content sidesteps that judgment call instead of exempting
+ * fresh prose from it.
+ *
+ * Picks the nearest *full-placement-tier* activation, not just the nearest
+ * activation overall — lineActivations can include soft-tier (300-600mi)
+ * entries that only ever get a one-line "softer influence" footnote in that
+ * city's own section (see buildSofterInfluences/renderCity), never a full
+ * placement box. Highlighting one of those here would headline a claim the
+ * city's own detail page barely mentions, and would draw a line on the world
+ * map that a reader can't map back to anything they read about that city.
+ * Returns undefined (city omitted from the highlights page) if the city has
+ * no full-tier activation at all, matching how it also gets no placement
+ * boxes in its own section in that case.
+ */
+function buildThemeHighlight(city: CityFacts, prose: GeneratedProse['cities'][string]): ThemeHighlight | undefined {
+  const top = city.lineActivations.find((a) => {
+    const tier = tierForMiles(a.distance);
+    return tier && isFullPlacementTier(tier);
+  });
+  if (!top) return undefined;
+  const planet = top.planet as Planet;
+  const angle = top.angle as Angle;
+  const label = themeLabelFor(planet, angle as AstroAngle);
+  return {
+    city: city.name,
+    country: city.country,
+    planet,
+    angle,
+    headline: label ?? `${planet} on your ${ANGLE_LABEL[angle]}`,
+    blurb: prose.synthesis.bottomLine,
   };
 }
 
@@ -141,10 +183,12 @@ function buildPlanetaryLines(facts: OrderFacts): ReportContent['planetaryLines']
       const key = `${activation.planet}_${activation.angle}`;
       if (seen.has(key)) continue;
       seen.add(key);
+      const sourceLine = facts.allLines?.find((l) => l.planet === activation.planet && l.angle === activation.angle);
       lines.push({
         planet: activation.planet as Planet,
         angle: activation.angle as Angle,
         blurb: getInterpretation(activation.planet, activation.angle)?.short ?? '',
+        points: sourceLine?.points ?? [],
       });
     }
   }
@@ -188,15 +232,21 @@ function buildNatalChart(input: RelocationOrderInput, facts: OrderFacts, prose: 
       planet: pos.name as Planet,
       sign: pos.sign,
       degree: `${pos.degree}°`,
+      longitude: pos.longitude,
       house: pos.house ?? 0,
       description: includeDescription ? prose.perPlanetDescriptions?.[pos.name] : undefined,
     };
   });
 
-  const midheaven = chart.midheaven != null ? longitudeToSignDegree(chart.midheaven) : { sign: '', degree: '' };
-  const ascendant = chart.rising ? { sign: chart.rising.sign, degree: `${chart.rising.degree}°` } : { sign: '', degree: '' };
+  const midheaven = chart.midheaven != null
+    ? { ...longitudeToSignDegree(chart.midheaven), longitude: chart.midheaven }
+    : { sign: '', degree: '', longitude: null };
+  const ascendant = chart.rising
+    ? { sign: chart.rising.sign, degree: `${chart.rising.degree}°`, longitude: chart.rising.longitude }
+    : { sign: '', degree: '', longitude: 0 };
+  const cusps = chart.houses?.cusps ?? [];
 
-  return { intro: prose.identityIntro, bigThree, planets, ascendant, midheaven };
+  return { intro: prose.identityIntro, bigThree, planets, ascendant, midheaven, cusps };
 }
 
 /** Pairs a planet's real sign/house (from the computed chart, not the LLM) with its generated life-area insight. */
@@ -221,6 +271,9 @@ export interface AssembleOptions {
 export function assembleReportContent({ input, facts, prose, generatedAt = new Date() }: AssembleOptions): ReportContent {
   const cities: CitySection[] = facts.cities.map((city) => buildCitySection(city, prose.cities[city.name]));
   const summaryCities: SummaryCity[] = facts.cities.map((city) => buildSummaryCity(city, prose.cities[city.name]));
+  const themeHighlights: ThemeHighlight[] = facts.cities
+    .map((city) => buildThemeHighlight(city, prose.cities[city.name]))
+    .filter((h): h is ThemeHighlight => !!h);
 
   return {
     client: input.client,
@@ -235,7 +288,9 @@ export function assembleReportContent({ input, facts, prose, generatedAt = new D
     planetaryLines: buildPlanetaryLines(facts),
     cities,
     summaryCities,
+    themeHighlights,
     closingMessage: `May this reading offer clarity as you consider where in the world calls to you next, ${input.client}.`,
+    closingReflection: prose.closingReflection,
   };
 }
 

@@ -44,6 +44,15 @@ export interface GenerateSectionOptions {
   promptTemplate: string;
   tier: ModelTier;
   maxRetries?: number;
+  /**
+   * Bypasses checkGrounding entirely — for prose that's deliberately
+   * interpretive/first-person and asserts no new placement claim, the same
+   * exemption already accepted for CitySynthesisObject.nickname/.tagline in
+   * generateCitySynthesis.ts (checkGrounding has no vocabulary for
+   * non-factual color/reflection text anyway). Never set this for prose that
+   * states or restates a sign/house/angle.
+   */
+  skipGrounding?: boolean;
 }
 
 export interface GenerateSectionResult {
@@ -56,11 +65,18 @@ export interface GenerateSectionResult {
 }
 
 export async function generateSection(options: GenerateSectionOptions): Promise<GenerateSectionResult> {
-  const { payload, promptTemplate, tier, maxRetries = 2 } = options;
+  const { payload, promptTemplate, tier, maxRetries = 2, skipGrounding = false } = options;
   const model = MODEL_BY_TIER[tier];
 
   const factsJson = JSON.stringify(payload.facts, null, 2);
-  const prompt = `${promptTemplate}\n\nFACTS (only reference these; do not add anything not listed):\n${factsJson}`;
+  const prompt = payload.facts.length > 0
+    ? `${promptTemplate}\n\nFACTS (only reference these; do not add anything not listed):\n${factsJson}`
+    : promptTemplate;
+
+  if (skipGrounding) {
+    const { text } = await generateText({ model, instructions: SYSTEM_INSTRUCTIONS, prompt });
+    return { prose: text, attempts: 1, heldForReview: false };
+  }
 
   let attempts = 0;
   let lastViolations: GroundingViolation[] | undefined;

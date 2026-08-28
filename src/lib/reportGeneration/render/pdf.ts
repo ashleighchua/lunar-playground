@@ -89,11 +89,22 @@ async function buildMergedPdf(rawHtml: string, browser: Browser, logoDataUri: st
   const [coverPage] = await mergedDoc.copyPages(coverDoc, [0]);
   mergedDoc.addPage(coverPage);
 
-  const pageCount = contentDoc.getPageCount();
-  for (let i = 1; i < pageCount; i++) {
+  // The promo page (like the cover) is a full-bleed `min-height: 297mm` block
+  // with `page-break-before: always` and nothing after it in the DOM — so
+  // regardless of how many pages the reflowable body content in between
+  // takes, it's reliably the LAST page of both renders. Pulling it from
+  // contentPdf (rendered with real page margins) left a visible white border
+  // around its full-bleed background; pulling it from coverPdf (zero margin,
+  // same trick already used for the cover page above) fixes that without a
+  // third render pass.
+  const contentPageCount = contentDoc.getPageCount();
+  for (let i = 1; i < contentPageCount - 1; i++) {
     const [pg] = await mergedDoc.copyPages(contentDoc, [i]);
     mergedDoc.addPage(pg);
   }
+  const coverPageCount = coverDoc.getPageCount();
+  const [promoPage] = await mergedDoc.copyPages(coverDoc, [coverPageCount - 1]);
+  mergedDoc.addPage(promoPage);
 
   return mergedDoc.save();
 }

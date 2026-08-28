@@ -27,16 +27,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* "Sound familiar?" - Flip Cards */}
-        <ImagineCards />
-
-        {/* Divider (indigo) */}
-        <div className="flex items-center justify-center gap-2 py-2 max-w-160 mx-auto">
-          <span className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(166, 180, 255, 0.5), transparent)' }} />
-          <span className="text-[#A6B4FF] text-[9px] tracking-[8px] opacity-70">&#10022; &#10022; &#10022;</span>
-          <span className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(166, 180, 255, 0.5), transparent)' }} />
-        </div>
-
         {/* The Offer */}
         <section id="readings" className="container-editorial py-12 md:py-16">
           <div className="max-w-5xl mx-auto">
@@ -163,6 +153,16 @@ export default function HomePage() {
             </Link>
           </div>
         </section>
+
+        {/* Divider (indigo) */}
+        <div className="flex items-center justify-center gap-2 py-2 max-w-160 mx-auto">
+          <span className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(166, 180, 255, 0.5), transparent)' }} />
+          <span className="text-[#A6B4FF] text-[9px] tracking-[8px] opacity-70">&#10022; &#10022; &#10022;</span>
+          <span className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(166, 180, 255, 0.5), transparent)' }} />
+        </div>
+
+        {/* "Sound familiar?" - Flip Cards */}
+        <ImagineCards />
 
         {/* Social Proof */}
         <ReviewsMarquee />

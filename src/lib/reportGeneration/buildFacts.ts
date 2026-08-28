@@ -56,6 +56,8 @@ export interface OrderFacts {
   perPlanetIdentityFacts?: FactsPayload[];
   cities: CityFacts[];
   rankingFacts: Partial<Record<ThemeName, FactsPayload>>;
+  /** Every computed planet line (relocation/combined tiers only) — retained so assemble.ts can attach each activated line's full lat/lon polyline to ReportContent.planetaryLines for the world-map render. Undefined for natal-only orders, which never compute lines. */
+  allLines?: AstroLine[];
 }
 
 function computeAllPlanetLines(jd: number): AstroLine[] {
@@ -192,5 +194,5 @@ export async function buildFactsForOrder(input: RelocationOrderInput): Promise<O
     rankingFacts[theme] = buildCityRankingFacts(theme, ranked);
   }
 
-  return { chart, timezone, identityFacts, perPlanetIdentityFacts, cities, rankingFacts };
+  return { chart, timezone, identityFacts, perPlanetIdentityFacts, cities, rankingFacts, allLines: lines };
 }

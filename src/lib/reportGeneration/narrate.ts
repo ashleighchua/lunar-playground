@@ -37,6 +37,17 @@ export interface GeneratedProse {
   /** Natal-only tier only — closing whole-chart synthesis. */
   practicalTakeaways?: NatalSynthesisObject;
   cities: Record<string, CityProse>;
+  /**
+   * First-person "If I were you..." editorial synthesis across the whole
+   * reading — relocation-only + combined tiers only (natal-only has no
+   * cities to synthesize across). Deliberately generated with
+   * skipGrounding: true (see generateSection.ts) since it's interpretive
+   * color, not a fact claim, following the same exemption already accepted
+   * for CitySynthesisObject.nickname/.tagline. Undefined if generation
+   * failed — treated as "omit the section," not a hard failure, since this
+   * is one decorative closing paragraph, not core report content.
+   */
+  closingReflection?: string;
 }
 
 /**
@@ -287,6 +298,17 @@ export async function narrateOrder(input: RelocationOrderInput, facts: OrderFact
     }
 
     prose.cities[city.name] = { synthesis: synthesisResult.synthesis, placements };
+  }
+
+  if (input.reportTier !== 'natal-only' && facts.cities.length > 0) {
+    const cityNames = facts.cities.map((c) => c.name).join(', ');
+    const reflectionResult = await generateSection({
+      payload: { sectionId: 'closing-reflection', facts: [] },
+      promptTemplate: `Write a short (4-6 sentence), first-person "If I were you..." closing reflection for ${input.client}'s relocation reading, covering these cities: ${cityNames}. Speak as the astrologer, giving your honest overall impression across the whole reading. Do not restate or introduce any specific planet, sign, house, or angle — this is interpretive color, not a new placement claim.${motivationContext(input)}`,
+      tier: modelTier,
+      skipGrounding: true,
+    });
+    prose.closingReflection = reflectionResult.prose ?? undefined;
   }
 
   return prose;
