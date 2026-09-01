@@ -228,8 +228,8 @@ ${content.toc ? renderTocPage(content.toc) : ''}
 
 <main class="page page-break">
   <h2 class="section-title">Introduction</h2>
-  <p>Thank you for your request and welcome to <em>The Lunar Playground</em>. This is your Natal Chart Reading, a look at who you are according to the exact placement of the sky at the moment you were born: your core drives, your emotional instincts, and the patterns that shape how you move through the world.</p>
-  <p>Your placements are calculated using Swiss Ephemeris, the same tool professional astrologers rely on, and this reading was written by AI trained to stay true to those exact placements, checked against your real chart before it reaches you.</p>
+  <p class="intro-lead">Thank you for your request and welcome to <em>The Lunar Playground</em>. This is your Natal Chart Reading, a look at who you are according to the exact placement of the sky at the moment you were born: your core drives, your emotional instincts, and the patterns that shape how you move through the world.</p>
+  <p>Your placements are calculated using Swiss Ephemeris, the same tool professional astrologers rely on, with every line checked against your real chart before it reaches you.</p>
 
   <div class="client-info">
     <p><strong>Client:</strong> ${esc(content.client)}</p>

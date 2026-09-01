@@ -190,6 +190,23 @@ function dot(planet: Planet, faded = false): string {
   return `<span class="dot" style="background:${PLANET_COLOR[planet]}${faded ? ';opacity:.35' : ''}"></span>`;
 }
 
+/**
+ * Jupiter's Unicode glyph (U+2643) renders as a mis-shapen, wrong-looking
+ * character in this pipeline — verified broken across multiple fonts (Apple
+ * Symbols, Google-hosted Noto Sans Symbols 2) and both plain-text and SVG
+ * text rendering, and confirmed baked into the rasterized PDF output, not
+ * just a preview artifact. Every other planet/sign glyph renders correctly.
+ * Falls back to the same two-letter monogram already used in this
+ * document's badges rather than shipping a broken character.
+ */
+function planetGlyph(planet: Planet): string {
+  const color = PLANET_COLOR[planet];
+  if (planet === 'Jupiter') {
+    return `<span class="glyph glyph-abbr" style="color:${color}">${PLANET_ABBR[planet]}</span>`;
+  }
+  return `<span class="glyph" style="color:${color}">${PLANET_SYMBOL[planet]}</span>`;
+}
+
 function paragraphs(text: string): string {
   return text
     .split(/\n\n+/)
@@ -329,7 +346,7 @@ export function renderBirthChartOverview(chart: NatalChart): string {
       ${chart.planets
         .map(
           (p) => `<tr>
-        <td class="natal-planet"><span class="glyph" style="color:${PLANET_COLOR[p.planet]}">${PLANET_SYMBOL[p.planet]}</span>${esc(p.planet)}</td>
+        <td class="natal-planet">${planetGlyph(p.planet)}${esc(p.planet)}</td>
         <td><span class="glyph glyph-muted">${SIGN_SYMBOL[p.sign] ?? ''}</span>${esc(p.sign)}</td>
         <td>${esc(p.degree)}</td>
         <td>${p.house}</td>
@@ -361,7 +378,7 @@ export function renderChartShowsCards(chart: NatalChart): string {
     .filter((p) => p.description)
     .map(
       (p) => `<div class="placement-box" style="border-left-color:${PLANET_COLOR[p.planet]}">
-      <h3><span class="glyph" style="color:${PLANET_COLOR[p.planet]}">${PLANET_SYMBOL[p.planet]}</span>${esc(p.planet)} in ${esc(p.sign)} <span class="angle-tag">House ${p.house}</span></h3>
+      <h3>${planetGlyph(p.planet)}${esc(p.planet)} in ${esc(p.sign)} <span class="angle-tag">House ${p.house}</span></h3>
       <p>${esc(p.description!)}</p>
     </div>`
     )
@@ -618,7 +635,7 @@ ${content.cities.map((c) => renderCity(c)).join('\n')}
 }
 
 export const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Symbols+2&display=swap');
 
 :root {
   --ink: #1a1a2e;
@@ -838,8 +855,9 @@ p { margin-bottom: 14px; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
 
 /* Classical planet/sign glyphs — real astrological typography, not emoji. */
-.glyph { font-family: 'Playfair Display', serif; font-size: 1.15em; margin-right: 7px; display: inline-block; }
+.glyph { font-family: 'Noto Sans Symbols 2', 'Apple Symbols', 'Segoe UI Symbol', 'Playfair Display', serif; font-size: 1.15em; margin-right: 7px; display: inline-block; }
 .glyph-muted { opacity: 0.55; font-size: 1.05em; }
+.glyph-abbr { font-family: 'Inter', sans-serif; font-size: 0.6em; font-weight: 700; letter-spacing: 0.3px; margin-right: 8px; }
 
 /* planetary lines list */
 .pl-line { font-size: 10.5pt; margin-bottom: 16px; }
