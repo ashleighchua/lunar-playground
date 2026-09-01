@@ -105,7 +105,7 @@ export default function ShopPage() {
             <div>
               <h3 className="font-medium text-[#2D2640] mb-2">Who writes the readings?</h3>
               <p className="text-sm text-[#655E78] leading-relaxed">
-                I designed this system myself. Your chart is calculated with Swiss Ephemeris (the same gold-standard tool real astrologers use), then AI turns your exact placements into plain English. Every line gets checked against your real chart before it reaches you. Nothing generic, nothing templated.
+                I designed this system myself. Your chart is calculated with Swiss Ephemeris (the same gold-standard tool real astrologers use), then turned into plain English true to your exact placements. Every line gets checked against your real chart before it reaches you. Nothing generic, nothing templated.
               </p>
             </div>
           </div>

@@ -24,7 +24,7 @@ const faqCategories = [
       },
       {
         q: 'What\'s the difference between the free tools and the paid readings?',
-        a: 'The free tools give you automated results based on your birth data. Good starting point. Both paid readings go deeper: calculated with Swiss Ephemeris and written by AI I built to stay true to your exact chart, with every claim checked before it reaches you.',
+        a: 'The free tools give you automated results based on your birth data. Good starting point. Both paid readings go deeper: calculated with Swiss Ephemeris, with every claim checked against your exact chart before it reaches you.',
       },
     ],
   },
@@ -37,7 +37,7 @@ const faqCategories = [
       },
       {
         q: 'Who writes the readings?',
-        a: 'Both are calculated with Swiss Ephemeris (the same tool real astrologers use) and written by AI I built and designed myself, with every line checked against your real chart before it reaches you.',
+        a: 'Both are calculated with Swiss Ephemeris (the same tool real astrologers use), using a system I built and designed myself, with every line checked against your real chart before it reaches you.',
       },
       {
         q: 'How long does delivery take?',

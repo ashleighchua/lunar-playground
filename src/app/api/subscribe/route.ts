@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
 
               <!-- Readings CTA -->
               <p style="color: #4A4A4A; font-size: 15px; line-height: 1.8; text-align: center; margin: 0 0 24px;">
-                When you're ready to go deeper, personalised readings are available. Both are calculated with Swiss Ephemeris and written by AI trained to stay true to your chart.
+                When you're ready to go deeper, personalised readings are available. Both are calculated with Swiss Ephemeris, true to your exact chart.
               </p>
 
               <div style="text-align: center; margin-bottom: 40px;">

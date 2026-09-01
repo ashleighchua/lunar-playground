@@ -16,7 +16,7 @@ export default function AppReadingsPage() {
           Two readings.<br />That&rsquo;s it.
         </div>
         <div className="text-sm text-[#F0EBF8]/55 mt-2">
-          One to understand yourself. One to know where to go. Both calculated with Swiss Ephemeris and phrased by AI true to your chart.
+          One to understand yourself. One to know where to go. Both calculated with Swiss Ephemeris and checked against your real chart before they reach you.
         </div>
       </div>
 
