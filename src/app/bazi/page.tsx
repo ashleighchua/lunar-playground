@@ -334,7 +334,7 @@ export default function BaZiPage() {
               <div className="max-w-2xl mb-10">
                 <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">What is BaZi?</h2>
                 <p className="text-[#655E78] leading-relaxed">
-                  BaZi, or Four Pillars of Destiny, is a Chinese astrological system that maps the elemental energy present at the moment of your birth. It breaks your birth date and time into four pillars, Year, Month, Day, and Hour, each built from a Heavenly Stem and an Earthly Branch. Together, they reveal your dominant elements, your Day Master (the core &ldquo;you&rdquo; of the chart), and the patterns that shape your personality, career, and relationships.
+                  BaZi, or Four Pillars of Destiny, is a Chinese astrological system that maps the elemental energy present at the moment of your birth. It breaks your birth date and time into four pillars, Year, Month, Day, and Hour, each built from a Heavenly Stem and an Earthly Branch. Together, they point to your dominant elements, your Day Master (a kind of anchor point in the chart), and patterns worth noticing in your personality, career, and relationships.
                 </p>
               </div>
 

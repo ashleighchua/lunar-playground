@@ -9,11 +9,11 @@ import { SkyTonightCard } from '@/components/app/SkyTonightCard';
 import { RevealCard } from '@/components/app/RevealCard';
 
 const PAIN_CARDS = [
-  { glyph: '☉', title: 'Should I move?', text: 'Some places make you feel like yourself. Others slowly drain you. We can tell you which is which before you pack a box.' },
+  { glyph: '☉', title: 'Should I move?', text: "Some places make you feel like yourself. Others slowly drain you. We'll help you see which is which before you pack a box." },
   { glyph: '☾', title: 'Why do I feel stuck?', text: 'Real talk, it might not be you. It might be where you are.' },
-  { glyph: '✦', title: 'Tokyo vs. London', text: "Not random. Different places bring out different sides of you. We'll show you why." },
+  { glyph: '✦', title: 'Tokyo vs. London', text: "Different places bring out different sides of you, not randomly. We can help you see why." },
   { glyph: '♡', title: 'Same relationship', text: "There's a pattern. Once you see it, you can actually break it." },
-  { glyph: '⚙', title: 'Wrong job, every time', text: "Some work fits how you're built. Some really doesn't. We'll show you which." },
+  { glyph: '⚙', title: 'Wrong job, every time', text: "Some work fits how you're built. Some really doesn't. We can help you see which." },
 ];
 
 function greeting(): string {
@@ -82,7 +82,7 @@ export default function AppHomePage() {
 
       <div className="rounded-[18px] border border-[#F0EBF8]/10 bg-white/4 px-5 py-4.5">
         <div className="font-serif italic text-[18px] leading-relaxed text-[#F0EBF8]/85">
-          &ldquo;I moved across the world because my chart told me to. Sounded unhinged. It worked.&rdquo;
+          &ldquo;I moved across the world because my chart nudged me toward it. Sounded unhinged. It worked.&rdquo;
         </div>
         <div className="text-xs text-[#F0EBF8]/50 mt-2">
           — Ashleigh, your reader ·{' '}

@@ -443,7 +443,7 @@ export default function HumanDesignPage() {
                   Human Design
                 </h1>
                 <p className="mt-5 text-lg text-[#655E78] leading-relaxed">
-                  Your personal operating manual. Human Design shows how you&apos;re wired to make decisions, what drains you, and what lights you up. Based on your exact birth time.
+                  A framework for noticing how you&apos;re wired to make decisions, what drains you, and what lights you up. Based on your exact birth time.
                 </p>
               </div>
             </section>
@@ -545,7 +545,7 @@ export default function HumanDesignPage() {
               <div className="max-w-2xl mb-10">
                 <h2 className="font-serif text-2xl md:text-3xl text-[#2D2640] mb-4">What is Human Design?</h2>
                 <p className="text-[#655E78] leading-relaxed">
-                  Human Design combines astrology, the I Ching, the Kabbalah Tree of Life, and the chakra system into one framework. It maps your exact birth data onto a &ldquo;body graph&rdquo; that reveals your Type, Strategy, Authority, and Profile, a kind of personal operating manual for how you&apos;re designed to make decisions, use your energy, and interact with the world.
+                  Human Design combines astrology, the I Ching, the Kabbalah Tree of Life, and the chakra system into one framework. It maps your exact birth data onto a &ldquo;body graph&rdquo; that shows your Type, Strategy, Authority, and Profile, patterns worth noticing in how you&apos;re wired to make decisions, use your energy, and interact with the world.
                 </p>
               </div>
 

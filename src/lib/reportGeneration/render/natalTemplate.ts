@@ -268,7 +268,7 @@ ${renderPracticalTakeaways(content.practicalTakeaways)}
 
   <div class="about-box">
     <div class="about-label">About The Lunar Playground</div>
-    <p>I'm Ashleigh, an intuitive astrologer drawn to the spaces where energy, place, and purpose meet. My path has been shaped by years of meditation, a deep love of psychology, and a lifelong curiosity about how the stars mirror our inner world. Astrology, for me, isn't about prediction. It's about remembering who we are. Through birth chart and astrocartography readings, I help you tune into the places and patterns that bring you back to yourself. My work is rooted in mindfulness, compassion, and the quiet magic that unfolds when we align with our own rhythm.</p>
+    <p>I'm Ashleigh. I help people understand themselves and make more intentional choices, astrology just happens to be the tool I'm best at. My path has been shaped by years of meditation, a deep love of psychology, and a lifelong curiosity about how the stars mirror our inner world. Astrology, for me, isn't about prediction. It's about remembering who we are. Through birth chart and astrocartography readings, I help you tune into the places and patterns that bring you back to yourself. My work is rooted in mindfulness, compassion, and the quiet magic that unfolds when we align with our own rhythm.</p>
   </div>
 </main>
 

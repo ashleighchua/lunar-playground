@@ -130,7 +130,7 @@ export function HomeHero() {
             <span className="sr-only">{questions.map((question) => question.text).join('. ')}.</span>
           </h1>
           <p className="mt-5 text-base md:text-lg leading-relaxed text-[#B5B0C8] max-w-105">
-            Your birth chart actually knows. We&apos;ll just help you see it.
+            The answers aren&apos;t really in the stars. They&apos;re in you. We just help you see them.
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
             <a

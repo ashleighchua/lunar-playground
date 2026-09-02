@@ -29,7 +29,7 @@ export function Footer() {
             <span className="text-[#7B8AE0]" aria-hidden="true">&#9789;</span> The Lunar Playground
           </p>
           <p className="mt-2.5 text-sm text-[#655E78] leading-relaxed max-w-70">
-            Your birth chart already knows. We just help you see it.
+            The answers aren&apos;t really in the stars. We just help you see them.
           </p>
           <p className="mt-4 text-xs text-[#7B7394]">&copy; {new Date().getFullYear()} The Lunar Playground</p>
         </div>

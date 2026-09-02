@@ -532,7 +532,7 @@ ${content.toc ? renderTocPage(content.toc) : ''}
 <main class="page page-break">
   <h2 class="section-title">Introduction</h2>
   <p class="intro-lead">Thank you for your request and welcome to <em>The Lunar Playground</em>. This reading explores the energetic influences of different locations using astrocartography, the art of mapping your birth chart onto the world to discover where specific planetary energies are strongest for you.</p>
-  <p>Astrocartography reveals that we don't experience life the same way everywhere. Certain places amplify our capacity for love, others catalyze career success, and some invite deep transformation. By understanding which planetary lines cross through the locations you're considering, you can make more aligned choices about where to live, travel, or invest your energy.</p>
+  <p>Astrocartography works from a simple idea: we don't experience life the same way everywhere. Different places can bring different sides of you forward, more ease in relationships in one, more momentum at work in another. Looking at which planetary lines cross the locations you're considering is a way to notice that in advance, not a guarantee of what will happen there.</p>
   <p>Your placements are calculated using Swiss Ephemeris, the same tool professional astrologers rely on, with every line checked against your real chart before it reaches you. Here's what's running through your areas of interest: <strong>${esc(content.citiesListLabel)}</strong>. Each location carries distinct energies that will shape your experience differently.</p>
 
   <div class="client-info">
@@ -612,7 +612,7 @@ ${content.cities.map((c) => renderCity(c)).join('\n')}
 
   <div class="about-box">
     <div class="about-label">About The Lunar Playground</div>
-    <p>I'm Ashleigh, an intuitive astrologer drawn to the spaces where energy, place, and purpose meet. My path has been shaped by years of meditation, a deep love of psychology, and a lifelong curiosity about how the stars mirror our inner world. Astrology, for me, isn't about prediction. It's about remembering who we are. Through birth chart and astrocartography readings, I help you tune into the places and patterns that bring you back to yourself. My work is rooted in mindfulness, compassion, and the quiet magic that unfolds when we align with our own rhythm.</p>
+    <p>I'm Ashleigh. I help people understand themselves and make more intentional choices, astrology just happens to be the tool I'm best at. My path has been shaped by years of meditation, a deep love of psychology, and a lifelong curiosity about how the stars mirror our inner world. Astrology, for me, isn't about prediction. It's about remembering who we are. Through birth chart and astrocartography readings, I help you tune into the places and patterns that bring you back to yourself. My work is rooted in mindfulness, compassion, and the quiet magic that unfolds when we align with our own rhythm.</p>
   </div>
 </main>
 

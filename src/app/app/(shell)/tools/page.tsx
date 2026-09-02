@@ -4,7 +4,7 @@ const TOOLS = [
   { href: '/birth-report', glyph: '☉', name: 'Birth Chart', desc: 'Who you are at your core' },
   { href: '/astrocartography', glyph: '☍', name: 'Relocation Lines', desc: "Where you'll thrive" },
   { href: '/chinese-zodiac', glyph: '☯', name: 'Chinese Zodiac', desc: 'Your natural strengths and cycles' },
-  { href: '/bazi', glyph: '⏳', name: 'BaZi', desc: 'Your destiny blueprint and timing' },
+  { href: '/bazi', glyph: '⏳', name: 'BaZi', desc: 'Your elemental blueprint and timing' },
   { href: '/numerology', glyph: '✦', name: 'Numerology', desc: 'The numbers shaping your path' },
   { href: '/human-design', glyph: '⬡', name: 'Human Design', desc: "How you're designed to decide" },
   { href: '/transit', glyph: '☾', name: 'Sky Guide', desc: 'Moon phase and daily guidance', badge: 'No birth details needed' },

@@ -140,7 +140,7 @@ function generateReportReadyEmail(email: string, productTitle: string): string {
           <a href="mailto:thelunarplayground@gmail.com" style="color: #2D2640;">thelunarplayground@gmail.com</a>.
         </p>
         <p style="color: #2D2640; font-size: 15px; line-height: 1.8; text-align: center; margin: 0 0 36px;">
-          Astro Ashleigh
+          Ashleigh
         </p>
 
         <div style="text-align: center; color: #8A8099; font-size: 14px; letter-spacing: 6px; margin-bottom: 24px;">

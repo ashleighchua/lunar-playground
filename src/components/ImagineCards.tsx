@@ -3,11 +3,11 @@
 import { useState } from 'react';
 
 const insights = [
-  { title: 'Should I move?', icon: '☉', ring: '#FFB8C6', fill: '#FFF0F3', body: 'Some places make you feel like yourself. Others slowly drain you. We can tell you which is which before you pack a box.' },
+  { title: 'Should I move?', icon: '☉', ring: '#FFB8C6', fill: '#FFF0F3', body: 'Some places make you feel like yourself. Others slowly drain you. We’ll help you see which is which before you pack a box.' },
   { title: 'Why do I feel stuck?', icon: '⚱', ring: '#C4BCD4', fill: '#EBE6F2', body: 'Real talk, it might not be you. It might be where you are.' },
-  { title: 'Tokyo vs. London', icon: '☾', ring: '#A6B4FF', fill: '#E8EDF8', body: 'Not random. Different places bring out different sides of you. We’ll show you why.' },
+  { title: 'Tokyo vs. London', icon: '☾', ring: '#A6B4FF', fill: '#E8EDF8', body: 'Different places bring out different sides of you, not randomly. We can help you see why.' },
   { title: 'Same relationship', icon: '♡', ring: '#FFD4B8', fill: '#FFF3EB', body: 'There’s a pattern. Once you see it, you can actually break it.' },
-  { title: 'Wrong job, every time', icon: '✦', ring: '#B8E8D4', fill: '#EDFAF4', body: 'Some work fits how you’re built. Some really doesn’t. We’ll show you which.' },
+  { title: 'Wrong job, every time', icon: '✦', ring: '#B8E8D4', fill: '#EDFAF4', body: 'Some work fits how you’re built. Some really doesn’t. We can help you see which.' },
 ];
 
 function FlipCard({ card }: { card: typeof insights[0] }) {

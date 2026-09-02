@@ -142,7 +142,7 @@ export default function HomePage() {
           <div className="max-w-160 mx-auto relative">
             <span className="text-2xl inline-block" style={{ animation: 'floaty 6s ease-in-out infinite' }} aria-hidden="true">&#9789;</span>
             <p className="mt-4 font-serif italic text-lg md:text-xl leading-relaxed">
-              &ldquo;I moved across the world because my chart told me to. Sounded unhinged. It worked. Now I help people figure out if that pull they feel is real, before they act on it.&rdquo;
+              &ldquo;I moved across the world because my chart nudged me toward it. Sounded unhinged. It worked. Now I help people figure out if that pull they feel is real, before they act on it.&rdquo;
             </p>
             <p className="mt-5 font-semibold">Ashleigh</p>
             <Link

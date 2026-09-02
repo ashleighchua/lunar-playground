@@ -28,14 +28,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'The Lunar Playground | Natal Chart & Relocation Astrology Readings',
-  description: 'Should I move? Why do I feel stuck? Where would I thrive? Your birth chart already knows. Natal chart readings, relocation reports, and free tools to find out.',
+  description: 'Should I move? Why do I feel stuck? Where would I thrive? The answers are in you, not the stars. Natal chart readings, relocation reports, and free tools to find out.',
   icons: {
     icon: '/Images/logo.png',
     apple: '/Images/logo.png',
   },
   openGraph: {
     title: 'The Lunar Playground | Natal Chart & Relocation Astrology Readings',
-    description: 'Should I move? Why do I feel stuck? Where would I thrive? Your birth chart already knows. Natal chart readings, relocation reports, and free tools to find out.',
+    description: 'Should I move? Why do I feel stuck? Where would I thrive? The answers are in you, not the stars. Natal chart readings, relocation reports, and free tools to find out.',
     url: 'https://thelunarplayground.com',
     siteName: 'The Lunar Playground',
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'The Lunar Playground',
-    description: 'Should I move? Why do I feel stuck? Where would I thrive? Your birth chart already knows. Natal chart readings, relocation reports, and free tools to find out.',
+    description: 'Should I move? Why do I feel stuck? Where would I thrive? The answers are in you, not the stars. Natal chart readings, relocation reports, and free tools to find out.',
     images: ['/Images/og-image.png'],
   },
   metadataBase: new URL('https://thelunarplayground.com'),

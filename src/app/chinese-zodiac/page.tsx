@@ -118,7 +118,7 @@ export default function ChineseZodiacPage() {
                 Your Chinese Zodiac
               </h1>
               <p className="mt-5 text-[#655E78] leading-relaxed max-w-lg">
-                Your birth year picks your animal. Your animal shows your personality, your strengths, and the element behind how you move through the world.
+                Your birth year picks your animal. It&apos;s a quick, fun lens on your personality, your strengths, and the element behind how you move through the world.
               </p>
             </div>
           </section>

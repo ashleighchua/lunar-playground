@@ -27,7 +27,7 @@ export default function AboutPage() {
               <br /><span className="text-[#2D2640]">That&apos;s it.</span>
             </h1>
             <p className="mt-6 text-lg text-[#655E78] leading-relaxed">
-              Hi, I&apos;m Ashleigh. I read your birth chart to help with two things: who you are, and where you&apos;ll thrive. That&apos;s the whole toolkit.
+              Hi, I&apos;m Ashleigh. I use your birth chart as a mirror, not a map. It helps with two things: who you are, and where you&apos;ll thrive.
             </p>
           </div>
         </section>
@@ -51,10 +51,10 @@ export default function AboutPage() {
                   I got into astrology the way most people do. Someone sent me a meme about my sign and I thought, &quot;okay wait, that&apos;s annoyingly accurate.&quot; Then I went down the rabbit hole. Sun, Moon, Rising. Suddenly I had language for things I&apos;d been feeling for years.
                 </p>
                 <p>
-                  Astrology gave me the who. Then I found astrocartography, which showed me <em>where</em> I belong, and that was the other half of the puzzle.
+                  Astrology didn&apos;t hand me a new personality. It gave me language for the one I already had. Then I found astrocartography, which did the same thing for place. It helped me notice <em>where</em> I already felt like myself.
                 </p>
                 <p>
-                  So I quit my job. Moved countries. Started over in a city my chart said would light me up. And honestly? It did.
+                  So I quit my job. Moved countries. Started over in a city my chart pointed me toward. And honestly? It did light me up.
                 </p>
               </div>
             </div>
@@ -88,7 +88,7 @@ export default function AboutPage() {
                   Most sites bury you in jargon. I don&apos;t. Here&apos;s who you are. Here&apos;s where you&apos;ll thrive. Plain language, no fluff.
                 </p>
                 <p>
-                  I write personalised readings built around your actual chart, not a template. A natal chart reading for who you are, a relocation report for where you&apos;ll thrive.
+                  I&apos;m not really in the astrology business. I&apos;m in the business of helping people understand themselves and make more intentional choices. Astrology just happens to be the tool I&apos;m best at. Right now that means a natal chart reading for who you are, and a relocation report for where you&apos;ll thrive, built around your actual chart, not a template.
                 </p>
                 <p>
                   I also built the free tools on this site because curiosity shouldn&apos;t cost anything. Play around first. If you want to go deeper, the readings are there.
@@ -129,9 +129,9 @@ export default function AboutPage() {
               />
             </div>
             <div className="flex-1">
-              <h3 className="font-serif text-xl text-[#2D2640] mb-3">Honest, not hype</h3>
+              <h3 className="font-serif text-xl text-[#2D2640] mb-3">A mirror, not an oracle</h3>
               <p className="text-[#655E78] leading-relaxed">
-                I&apos;m not going to tell you a city will magically fix your life. Or that Mercury retrograde is personally victimising you. I give you the information, the patterns, the timing. You decide what to do with it.
+                I don&apos;t think the stars decide your life, or that Mercury retrograde is personally victimising you. I think most of the answers are already in you. Astrology just helps you see them faster. I hand you the patterns and the timing. You still make the call.
               </p>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function AboutPage() {
             <div className="flex-1 md:text-right">
               <h3 className="font-serif text-xl text-[#2D2640] mb-3">Who you are, and where you&apos;ll thrive</h3>
               <p className="text-[#655E78] leading-relaxed">
-                Your chart shows you who you are. It also shows you where that self actually gets to breathe. Most people only ever get the first half. I give you both.
+                Your chart helps you name who you already are. It also points to where that self actually gets to breathe. Most people only ever get the first half. I give you both.
               </p>
             </div>
           </div>
