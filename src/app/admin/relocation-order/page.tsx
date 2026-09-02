@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { Navigation } from '@/components/Navigation';
 import { AdminLoginForm } from '@/components/AdminLoginForm';
 import { AdminRelocationOrderForm } from '@/components/AdminRelocationOrderForm';
+import { AdminRetryJobForm } from '@/components/AdminRetryJobForm';
 import { ADMIN_SESSION_COOKIE, verifySessionCookieValue } from '@/lib/adminAuth';
 import { products } from '@/data/products';
 import type { Metadata } from 'next';
@@ -27,7 +28,10 @@ export default async function AdminRelocationOrderPage() {
             Key in a Fiverr client&apos;s details to trigger report generation directly, outside of Stripe.
           </p>
           {isAuthed ? (
-            <AdminRelocationOrderForm eligibleProducts={eligibleProducts.map((p) => ({ id: p.id, title: p.title }))} />
+            <>
+              <AdminRelocationOrderForm eligibleProducts={eligibleProducts.map((p) => ({ id: p.id, title: p.title }))} />
+              <AdminRetryJobForm />
+            </>
           ) : (
             <AdminLoginForm />
           )}

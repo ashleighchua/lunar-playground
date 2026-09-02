@@ -1,6 +1,6 @@
-import { timingSafeEqual } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { start } from 'workflow/api';
+import { ADMIN_SESSION_COOKIE, verifySessionCookieValue } from '@/lib/adminAuth';
 import { generateRelocationReport } from '@/lib/reportGeneration/orchestrate';
 
 /**
@@ -11,25 +11,13 @@ import { generateRelocationReport } from '@/lib/reportGeneration/orchestrate';
  * safe to call on a job in any status; a second run just overwrites the
  * stale `held_reason`/status once it completes.
  *
- * Reuses the CRON_SECRET bearer-token convention from
- * `api/cron/cleanup-expired-orders` rather than the browser session-cookie
- * admin auth — this is a server-to-server recovery action, not a form a
- * human fills out in the browser.
+ * Gated behind the same admin session cookie as `/admin/relocation-order`
+ * (not a CRON_SECRET bearer token) — this is a human clicking a button in
+ * the browser after logging in, not a scheduled server-to-server call.
  */
-function isAuthorized(request: NextRequest): boolean {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) return false;
-
-  const header = request.headers.get('authorization') ?? '';
-  const expected = `Bearer ${secret}`;
-  const headerBuf = Buffer.from(header);
-  const expectedBuf = Buffer.from(expected);
-  if (headerBuf.length !== expectedBuf.length) return false;
-  return timingSafeEqual(headerBuf, expectedBuf);
-}
-
 export async function POST(request: NextRequest) {
-  if (!isAuthorized(request)) {
+  const sessionCookie = request.cookies.get(ADMIN_SESSION_COOKIE.name)?.value;
+  if (!verifySessionCookieValue(sessionCookie)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -42,9 +30,4 @@ export async function POST(request: NextRequest) {
   await start(generateRelocationReport, [jobId]);
 
   return NextResponse.json({ ok: true, jobId });
-}
-
-export async function GET() {
-  const secret = process.env.CRON_SECRET;
-  return NextResponse.json({ hasSecret: !!secret, length: secret?.length ?? 0 });
 }
