@@ -23,13 +23,21 @@ const nextConfig: NextConfig = {
   // package's files (native binary included) for the workflow step route
   // regardless of what the tracer can see.
   serverExternalPackages: ['pdfjs-dist', '@napi-rs/canvas'],
-  // The glob covers `@napi-rs/canvas` itself plus whichever
+  // The @napi-rs/canvas glob covers the package itself plus whichever
   // platform-specific binary package (`@napi-rs/canvas-linux-x64-gnu` on
   // Vercel) npm resolved as its optionalDependency — js-binding.js picks
   // that package at runtime via process.platform/arch, another dynamic
   // require the tracer can't see on its own.
+  //
+  // pdf.worker.mjs hits the exact same class of gap one file over: getting
+  // past DOMMatrix only revealed the next untraceable reference — pdfjs-dist
+  // falls back to running its "fake worker" (no real Worker/worker_threads
+  // available in this runtime) by importing pdf.worker.mjs as a plain module
+  // rather than inlining it, and the tracer doesn't follow that either.
+  // Confirmed live: fixing DOMMatrix alone still held the job for review,
+  // now on "Cannot find module '.../pdf.worker.mjs'".
   outputFileTracingIncludes: {
-    '/.well-known/workflow/v1/**': ['./node_modules/@napi-rs/canvas*/**'],
+    '/.well-known/workflow/v1/**': ['./node_modules/@napi-rs/canvas*/**', './node_modules/pdfjs-dist/legacy/build/**'],
   },
   images: {
     formats: ['image/avif', 'image/webp'],
