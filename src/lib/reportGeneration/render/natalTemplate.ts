@@ -30,6 +30,7 @@ export interface DomainInsightCard {
   pattern: string;
   watchFor: string;
   practice: string;
+  reflect: string;
 }
 
 export interface PracticalTakeaways {
@@ -39,6 +40,7 @@ export interface PracticalTakeaways {
   reframe: string;
   tryThis: string;
   notice: string;
+  reflect: string;
 }
 
 export interface NatalReportContent {
@@ -127,6 +129,11 @@ function renderDomainSection(sectionId: string, fallbackTitle: string, card: Dom
     <div class="what-to-do-label">In practice</div>
     <p>${esc(card.practice)}</p>
   </div>
+
+  <div class="reflect-box">
+    <div class="reflect-box-label">Reflect</div>
+    <p>${esc(card.reflect)}</p>
+  </div>
 </main>`;
 }
 
@@ -146,6 +153,10 @@ function renderCoreDrives(cards: DomainInsightCard[]): string {
       <div class="what-to-do">
         <div class="what-to-do-label">In practice</div>
         <p>${esc(c.practice)}</p>
+      </div>
+      <div class="reflect-box">
+        <div class="reflect-box-label">Reflect</div>
+        <p>${esc(c.reflect)}</p>
       </div>
     </div>`
       )
@@ -185,6 +196,11 @@ function renderPracticalTakeaways(t: PracticalTakeaways): string {
     <div class="what-to-do-label">This week</div>
     <p><strong>Try:</strong> ${esc(t.tryThis)}</p>
     <p><strong>Notice:</strong> ${esc(t.notice)}</p>
+  </div>
+
+  <div class="reflect-box">
+    <div class="reflect-box-label">Reflect</div>
+    <p>${esc(t.reflect)}</p>
   </div>
 
   <p class="closing-italic">Let the astrology inform you. Let your instincts decide.</p>

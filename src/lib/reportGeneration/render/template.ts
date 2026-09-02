@@ -76,6 +76,7 @@ export interface PlacementBlock {
   header: string; // e.g. "JUPITER ON MIDHEAVEN — CAREER EXPANSION & LUCK"
   body: string;
   whatToDo: string;
+  reflect: string;
 }
 
 export interface SofterInfluence {
@@ -223,6 +224,10 @@ function renderPlacement(p: PlacementBlock): string {
       <div class="what-to-do-label">What to do here</div>
       <p>${esc(p.whatToDo)}</p>
     </div>
+    <div class="reflect-box">
+      <div class="reflect-box-label">Reflect</div>
+      <p>${esc(p.reflect)}</p>
+    </div>
   </div>`;
 }
 
@@ -322,6 +327,8 @@ export function renderBirthChartOverview(chart: NatalChart): string {
   <p class="part-eyebrow">Part One — Your Birth Chart</p>
   <h2 class="section-title">Your Birth Chart</h2>
   <p class="city-intro">${esc(chart.intro)}</p>
+
+  <p class="chart-primer">Quick primer: each planet sits in a <strong>sign</strong> (its flavor) and a <strong>house</strong> — one of 12 life areas, like relationships, career, or rest, that a placement shows up in. Your <strong>Ascendant</strong> and <strong>Midheaven</strong> are two more points on the chart, not planets: the Ascendant is how you tend to come across first, the Midheaven is the direction you're oriented toward publicly.</p>
 
   <div class="chart-wheel-wrap">${renderChartWheelSvg(chart)}</div>
 
@@ -635,7 +642,24 @@ ${content.cities.map((c) => renderCity(c)).join('\n')}
 }
 
 export const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Symbols+2&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/*
+ * The zodiac/planet glyphs below (.glyph) used to reference 'Noto Sans
+ * Symbols 2' pulled from the Google Fonts @import above — wrong on two
+ * counts: that's a real Google font, but it covers Mahjong tiles, Braille
+ * patterns, and similar blocks, not Miscellaneous Symbols (U+2600–26FF)
+ * where ☉☽☿♀♂♃♄♅♆♇♈–♓ actually live, and a live network fetch during
+ * server-side PDF generation is a fragile thing to depend on regardless.
+ * This embeds the correct font (plain 'Noto Sans Symbols', which does cover
+ * that block) as a self-contained data URI — see pdf.ts's
+ * loadGlyphFontDataUri, same pattern as the logo below.
+ */
+@font-face {
+  font-family: 'Noto Sans Symbols';
+  src: url(GLYPH_FONT_SRC) format('woff2');
+  font-display: block;
+}
 
 :root {
   --ink: #1a1a2e;
@@ -855,7 +879,7 @@ p { margin-bottom: 14px; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
 
 /* Classical planet/sign glyphs — real astrological typography, not emoji. */
-.glyph { font-family: 'Noto Sans Symbols 2', 'Apple Symbols', 'Segoe UI Symbol', 'Playfair Display', serif; font-size: 1.15em; margin-right: 7px; display: inline-block; }
+.glyph { font-family: 'Noto Sans Symbols', 'Apple Symbols', 'Segoe UI Symbol', 'Playfair Display', serif; font-size: 1.15em; margin-right: 7px; display: inline-block; }
 .glyph-muted { opacity: 0.55; font-size: 1.05em; }
 .glyph-abbr { font-family: 'Inter', sans-serif; font-size: 0.6em; font-weight: 700; letter-spacing: 0.3px; margin-right: 8px; }
 
@@ -882,6 +906,8 @@ p { margin-bottom: 14px; }
 .city-name { font-size: 22pt; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
 .city-nickname { font-family: 'Playfair Display', serif; font-style: italic; font-size: 13pt; color: var(--gold); margin-bottom: 4px; }
 .city-intro { font-size: 11.5pt; color: #333; margin: 16px 0 22px; }
+.chart-primer { font-size: 9.8pt; font-style: italic; color: #777; margin: 0 0 20px; border-left: 2px solid var(--hairline); padding-left: 12px; }
+.chart-primer strong { color: #555; font-style: normal; }
 
 .placement-box {
   border-left: 3px solid #ccc;
@@ -915,6 +941,17 @@ p { margin-bottom: 14px; }
 }
 .what-to-do-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 4px; }
 .what-to-do p { margin: 0; font-size: 9.8pt; color: #4a4a4a; }
+
+/* Reflect boxes read as a pause, not a task — plum instead of gold, italic
+   serif instead of the "go do this" sans-serif of .what-to-do, so a "sit
+   with this" question is visually distinct from an action item at a glance. */
+.reflect-box {
+  border-left: 2px solid var(--plum);
+  padding: 10px 14px;
+  margin-top: 8px;
+}
+.reflect-box-label { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--plum); margin-bottom: 4px; }
+.reflect-box p { margin: 0; font-size: 9.8pt; font-family: 'Playfair Display', serif; font-style: italic; color: #4a4a4a; }
 
 /* Softer influences, the "what to do" recap, and combined energy read as
    quiet asides rather than more tinted cards — a hairline rule and room to

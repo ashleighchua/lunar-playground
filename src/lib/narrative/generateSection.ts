@@ -35,6 +35,8 @@ STRICT RULES — breaking any of these makes the reading wrong, not just stylist
 - Never invent a city, ranking, or score that isn't in the FACTS.
 - Do not hedge ("might," "could," "perhaps") — state what the chart shows directly and specifically.
 - Write in second person, warm but direct, psychologically grounded — not generic horoscope language.
+- Write for someone with no astrology background. If a term they might not know comes up (house, angle, retrograde, rising sign, etc.), explain what it means in plain words right where you use it — don't assume prior knowledge, and don't lean on jargon to sound authoritative.
+- Frame this as a lens for the reader's own reflection, not a verdict on who they are — the chart describes a pattern worth noticing, not a fixed fact about them.
 - You may use ordinary astrological adjectives (mercurial, jovial, saturnine, etc.) as color/tone without that counting as a placement claim.
 - The prompt may include a short note on why the client wants this reading — that's context from them, not a chart fact. Use it only to shape tone and emphasis; never state it back as if the chart itself said it. If no such note is given, don't invent one — do not reference relocation, moving, or "where you land" unless the facts or prompt below are actually about a location.`;
 

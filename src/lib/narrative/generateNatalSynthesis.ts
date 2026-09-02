@@ -21,6 +21,11 @@ const NATAL_SYNTHESIS_SCHEMA = z.object({
   reframe: z.string().describe('1-2 sentences: one practical reframe that ties the chart together.'),
   tryThis: z.string().describe('1 sentence: something concrete to try this week.'),
   notice: z.string().describe('1 sentence: something to notice about themselves this week.'),
+  reflect: z
+    .string()
+    .describe(
+      '1 open-ended question about the whole chart to sit with — a genuine question inviting their own reflection, not another instruction or a restated fact.'
+    ),
 });
 
 export type NatalSynthesisObject = z.infer<typeof NATAL_SYNTHESIS_SCHEMA>;
@@ -31,7 +36,10 @@ STRICT RULES — breaking any of these makes the reading wrong, not just stylist
 - Only state a planet's sign, house, or angle if it is explicitly listed in the FACTS given to you below. Never state, infer, or guess a placement that isn't listed, even if it would make the writing flow better.
 - Do not hedge ("might," "could," "perhaps") — state what the chart shows directly and specifically.
 - Write in second person, warm but direct, psychologically grounded — not generic horoscope language.
+- Write for someone with no astrology background. If a term they might not know comes up (house, angle, retrograde, etc.), explain what it means in plain words right where you use it — don't assume prior knowledge, and don't lean on jargon to sound authoritative.
 - This is a summary across the WHOLE chart, not a single placement — you may draw connections between multiple facts below, but every claim must still trace back to something actually listed.
+- reflect is an actual open-ended question, not a restated instruction — something they answer for themselves, not something you answer for them.
+- Frame this as a pattern worth noticing about themselves, not a verdict — invite their own reflection rather than declaring a fixed truth.
 - You may use ordinary astrological adjectives (mercurial, jovial, saturnine, etc.) as color/tone without that counting as a placement claim.`;
 
 export interface GenerateNatalSynthesisOptions {
@@ -74,7 +82,9 @@ export async function generateNatalSynthesis(options: GenerateNatalSynthesisOpti
       prompt,
     });
 
-    const combinedProse = [object.keyInsight, ...object.leanInto, ...object.watchFor, object.reframe, object.tryThis, object.notice].join('\n');
+    const combinedProse = [object.keyInsight, ...object.leanInto, ...object.watchFor, object.reframe, object.tryThis, object.notice, object.reflect].join(
+      '\n'
+    );
     const check = checkGrounding(combinedProse, payload);
     if (check.grounded) {
       return { synthesis: object, attempts, heldForReview: false };

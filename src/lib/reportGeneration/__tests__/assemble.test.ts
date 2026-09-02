@@ -85,7 +85,9 @@ function fakeProse(facts: OrderFacts): GeneratedProse {
         forRomance: null,
         forCareer: null,
       },
-      placements: [{ activationIndex: 0, placement: { body: 'Venus DC body.', whatToDo: 'Venus DC what to do.' } }],
+      placements: [
+        { activationIndex: 0, placement: { body: 'Venus DC body.', whatToDo: 'Venus DC what to do.', reflect: 'Venus DC reflect.' } },
+      ],
     };
   }
   return {
@@ -97,7 +99,7 @@ function fakeProse(facts: OrderFacts): GeneratedProse {
 }
 
 function fakeDomainInsight(label: string) {
-  return { pattern: `${label} pattern.`, watchFor: `${label} watch for.`, practice: `${label} practice.` };
+  return { pattern: `${label} pattern.`, watchFor: `${label} watch for.`, practice: `${label} practice.`, reflect: `${label} reflect.` };
 }
 
 /** fakeProse() plus the natal-only domain-section fields assembleNatalReportContent requires. */
@@ -132,6 +134,7 @@ function fakeNatalProse(facts: OrderFacts): GeneratedProse {
       reframe: 'Reframe.',
       tryThis: 'Try this.',
       notice: 'Notice this.',
+      reflect: 'Reflect on this.',
     },
   };
 }

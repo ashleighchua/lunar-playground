@@ -28,6 +28,11 @@ const LIFE_AREA_INSIGHT_SCHEMA = z.object({
   pattern: z.string().describe('2-3 sentences: what this placement means for the client in this specific life area.'),
   watchFor: z.string().describe('1-2 sentences: the trap or blind spot this placement tends to create here.'),
   practice: z.string().describe('1 sentence: one concrete, specific thing the client can actually do about it.'),
+  reflect: z
+    .string()
+    .describe(
+      '1 open-ended question inviting the client to notice this pattern in their own life — a genuine question to sit with, not another instruction or a restated fact.'
+    ),
 });
 
 export type LifeAreaInsightObject = z.infer<typeof LIFE_AREA_INSIGHT_SCHEMA>;
@@ -38,7 +43,9 @@ STRICT RULES — breaking any of these makes the reading wrong, not just stylist
 - Only reference the ONE placement given in the facts below. Do not name any other planet, sign, house, or angle, even in passing.
 - Do not hedge ("might," "could," "perhaps") — state what this placement means directly and specifically.
 - Write in second person, warm but direct, psychologically grounded — not generic horoscope language.
-- Follow the shape: pattern (what this actually looks like for them, specifically in this life area) → watchFor (the trap this creates) → practice (one real thing to do about it, not vague advice like "be mindful").
+- Write for someone with no astrology background. If a term they might not know comes up (house, angle, retrograde, etc.), explain what it means in plain words right where you use it — don't assume prior knowledge, and don't lean on jargon to sound authoritative.
+- Follow the shape: pattern (what this actually looks like for them, specifically in this life area) → watchFor (the trap this creates) → practice (one real thing to do about it, not vague advice like "be mindful") → reflect (an actual open-ended question, not a restated instruction — something they answer for themselves, not something you answer for them). reflect must not name any other planet, sign, house, or angle.
+- Frame this as a pattern worth noticing about themselves, not a verdict — invite their own reflection rather than declaring a fixed truth.
 - You may use ordinary astrological adjectives (mercurial, jovial, saturnine, etc.) as color/tone without that counting as a placement claim.`;
 
 export interface GenerateLifeAreaInsightOptions {
@@ -85,7 +92,7 @@ export async function generateLifeAreaInsight(options: GenerateLifeAreaInsightOp
       prompt,
     });
 
-    const combinedProse = `${object.pattern}\n${object.watchFor}\n${object.practice}`;
+    const combinedProse = `${object.pattern}\n${object.watchFor}\n${object.practice}\n${object.reflect}`;
     const check = checkGrounding(combinedProse, payload);
     if (check.grounded) {
       return { insight: object, attempts, heldForReview: false };

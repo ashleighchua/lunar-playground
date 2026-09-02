@@ -77,6 +77,7 @@ async function main() {
       header: `${a.line.planet.toUpperCase()} ON ${a.line.angle}`,
       body: `Sample body copy: ${a.line.planet} on the ${a.line.angle} runs about ${a.miles} miles from ${dest.name}.`,
       whatToDo: `Sample "what to do" copy for ${a.line.planet} ${a.line.angle} in ${dest.name}.`,
+      reflect: `Sample reflect copy for ${a.line.planet} ${a.line.angle} in ${dest.name}.`,
     }));
     const badges = placements.map((p) => ({ planet: p.planet, angle: p.angle }));
 

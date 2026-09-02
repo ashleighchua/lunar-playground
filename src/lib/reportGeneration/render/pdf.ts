@@ -52,8 +52,8 @@ async function getBrowser(): Promise<Browser> {
   return browser as unknown as Browser;
 }
 
-async function buildMergedPdf(rawHtml: string, browser: Browser, logoDataUri: string): Promise<Uint8Array> {
-  const html = rawHtml.replaceAll('LOGO_SRC', logoDataUri);
+async function buildMergedPdf(rawHtml: string, browser: Browser, logoDataUri: string, glyphFontDataUri: string): Promise<Uint8Array> {
+  const html = rawHtml.replaceAll('LOGO_SRC', logoDataUri).replaceAll('GLYPH_FONT_SRC', glyphFontDataUri);
 
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: 'load' });
@@ -156,6 +156,23 @@ function loadLogoDataUri(): string {
 }
 
 /**
+ * The zodiac/planet glyphs (template.ts's `.glyph` class, chartWheel.ts's
+ * sign symbols) referenced a 'Noto Sans Symbols 2' font that was never
+ * actually loaded anywhere — it happened to fall through to a real font on
+ * every machine this was developed and tested on (macOS/Windows both ship a
+ * symbol font with these glyphs), so it went unnoticed until a customer's
+ * PDF came back with empty glyph boxes: the headless Chromium on Vercel has
+ * no such fallback. Embedding the font ourselves as a data URI, the same
+ * pattern as the logo above, makes this render correctly regardless of what
+ * fonts happen to be installed wherever Chromium runs.
+ */
+function loadGlyphFontDataUri(): string {
+  const fontPath = path.join(process.cwd(), 'public/fonts/noto-sans-symbols.woff2');
+  const fontBase64 = readFileSync(fontPath).toString('base64');
+  return `data:font/woff2;base64,${fontBase64}`;
+}
+
+/**
  * Shared two-pass sequencing: measurement pass with blank ToC page numbers
  * to find where sections land, then a final pass with real page numbers
  * filled in. `buildHtml` renders a document's full HTML for a given ToC
@@ -169,17 +186,19 @@ async function renderTwoPassPdf(options: {
   tocEntries: TocEntry[];
   browser: Browser;
   logoDataUri: string;
+  glyphFontDataUri: string;
 }): Promise<Uint8Array> {
-  const { buildHtml, tocEntries, browser, logoDataUri } = options;
+  const { buildHtml, tocEntries, browser, logoDataUri, glyphFontDataUri } = options;
 
-  const measurementPdf = await buildMergedPdf(buildHtml(tocEntries), browser, logoDataUri);
+  const measurementPdf = await buildMergedPdf(buildHtml(tocEntries), browser, logoDataUri, glyphFontDataUri);
   const tocWithPages = await findTocPageNumbers(measurementPdf, tocEntries);
-  return buildMergedPdf(buildHtml(tocWithPages), browser, logoDataUri);
+  return buildMergedPdf(buildHtml(tocWithPages), browser, logoDataUri, glyphFontDataUri);
 }
 
 /** Renders a relocation-report ReportContent to a finished PDF. */
 export async function renderReportPdf(content: ReportContent): Promise<Uint8Array> {
   const logoDataUri = loadLogoDataUri();
+  const glyphFontDataUri = loadGlyphFontDataUri();
   const browser = await getBrowser();
 
   try {
@@ -188,6 +207,7 @@ export async function renderReportPdf(content: ReportContent): Promise<Uint8Arra
       tocEntries: buildTocEntries(content),
       browser,
       logoDataUri,
+      glyphFontDataUri,
     });
   } finally {
     await browser.close();
@@ -197,6 +217,7 @@ export async function renderReportPdf(content: ReportContent): Promise<Uint8Arra
 /** Renders a standalone Natal Chart Reading NatalReportContent to a finished PDF. */
 export async function renderNatalReportPdf(content: NatalReportContent): Promise<Uint8Array> {
   const logoDataUri = loadLogoDataUri();
+  const glyphFontDataUri = loadGlyphFontDataUri();
   const browser = await getBrowser();
 
   try {
@@ -205,6 +226,7 @@ export async function renderNatalReportPdf(content: NatalReportContent): Promise
       tocEntries: buildNatalTocEntries(),
       browser,
       logoDataUri,
+      glyphFontDataUri,
     });
   } finally {
     await browser.close();

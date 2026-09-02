@@ -26,6 +26,11 @@ import type { ModelTier } from './generateSection';
 const PLACEMENT_SCHEMA = z.object({
   body: z.string().describe('2-4 sentences on what this placement means for the client in this city.'),
   whatToDo: z.string().describe('1-2 sentences of concrete, practical guidance for engaging with this placement here.'),
+  reflect: z
+    .string()
+    .describe(
+      '1 open-ended question inviting the client to notice this in their own experience of the place — a genuine question to sit with, not another instruction or a restated fact.'
+    ),
 });
 
 export type PlacementObject = z.infer<typeof PLACEMENT_SCHEMA>;
@@ -36,6 +41,9 @@ STRICT RULES — breaking any of these makes the reading wrong, not just stylist
 - Only reference the ONE planet+angle placement given in the facts below. Do not name any other planet, sign, house, or angle, even in passing.
 - Do not hedge ("might," "could," "perhaps") — state what this placement means directly and specifically.
 - Write in second person, warm but direct, psychologically grounded — not generic horoscope language.
+- Write for someone with no astrology background. If a term they might not know comes up (house, angle, retrograde, etc.), explain what it means in plain words right where you use it — don't assume prior knowledge, and don't lean on jargon to sound authoritative.
+- reflect is an actual open-ended question, not a restated instruction — something they answer for themselves, not something you answer for them. It must not name any other planet, sign, house, or angle.
+- Frame this as a pattern worth noticing about themselves in this place, not a verdict — invite their own reflection rather than declaring a fixed truth.
 - You may use ordinary astrological adjectives (mercurial, jovial, saturnine, etc.) as color/tone without that counting as a placement claim.`;
 
 export interface GeneratePlacementOptions {
@@ -82,7 +90,7 @@ export async function generatePlacement(options: GeneratePlacementOptions): Prom
       prompt,
     });
 
-    const combinedProse = `${object.body}\n${object.whatToDo}`;
+    const combinedProse = `${object.body}\n${object.whatToDo}\n${object.reflect}`;
     const check = checkGrounding(combinedProse, payload);
     if (check.grounded) {
       return { placement: object, attempts, heldForReview: false };

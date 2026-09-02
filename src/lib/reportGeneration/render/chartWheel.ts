@@ -121,7 +121,7 @@ export function renderChartWheelSvg(chart: NatalChart): string {
   const signGlyphs = wedges
     .map((w) => {
       const p = screenPoint(w.offset + 15, R_SIGN_GLYPH);
-      return `<text x="${p.x.toFixed(1)}" y="${p.y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="15" fill="#a5822f">${SIGN_SYMBOLS[w.signIndex]}</text>`;
+      return `<text x="${p.x.toFixed(1)}" y="${p.y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Sans Symbols', sans-serif" font-size="15" fill="#a5822f">${SIGN_SYMBOLS[w.signIndex]}</text>`;
     })
     .join('');
 

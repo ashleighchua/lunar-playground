@@ -28,7 +28,12 @@ import { deliverReport } from '../../src/lib/reportGeneration/deliver';
 import { SAMPLE_NATAL_ORDER_INPUT } from '../../src/lib/reportGeneration/orderInput';
 
 function stubInsight(label: string) {
-  return { pattern: `[stub ${label} pattern — dry run]`, watchFor: `[stub ${label} watch-for — dry run]`, practice: `[stub ${label} practice — dry run]` };
+  return {
+    pattern: `[stub ${label} pattern — dry run]`,
+    watchFor: `[stub ${label} watch-for — dry run]`,
+    practice: `[stub ${label} practice — dry run]`,
+    reflect: `[stub ${label} reflect — dry run]`,
+  };
 }
 
 function stubProse(): GeneratedProse {
@@ -63,6 +68,7 @@ function stubProse(): GeneratedProse {
       reframe: '[stub reframe — dry run]',
       tryThis: '[stub try-this — dry run]',
       notice: '[stub notice — dry run]',
+      reflect: '[stub reflect — dry run]',
     },
     cities: {},
   };

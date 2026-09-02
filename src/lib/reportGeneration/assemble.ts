@@ -103,6 +103,7 @@ function buildCitySection(city: CityFacts, prose: GeneratedProse['cities'][strin
       header: placementHeader(planet, angle),
       body: placement.body,
       whatToDo: placement.whatToDo,
+      reflect: placement.reflect,
     };
   });
 
@@ -258,6 +259,7 @@ function buildDomainInsightCard(pos: PlanetPosition, insight: LifeAreaInsightObj
     pattern: insight.pattern,
     watchFor: insight.watchFor,
     practice: insight.practice,
+    reflect: insight.reflect,
   };
 }
 

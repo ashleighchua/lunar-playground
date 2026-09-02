@@ -50,7 +50,7 @@ function stubProse(facts: Awaited<ReturnType<typeof buildFactsForOrder>>): Gener
       },
       placements: city.lineActivations.map((_, i) => ({
         activationIndex: i,
-        placement: { body: '[stub placement body — dry run]', whatToDo: '[stub what-to-do — dry run]' },
+        placement: { body: '[stub placement body — dry run]', whatToDo: '[stub what-to-do — dry run]', reflect: '[stub reflect — dry run]' },
       })),
     };
   }
