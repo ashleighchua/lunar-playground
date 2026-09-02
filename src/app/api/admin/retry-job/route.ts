@@ -43,3 +43,8 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ ok: true, jobId });
 }
+
+export async function GET() {
+  const secret = process.env.CRON_SECRET;
+  return NextResponse.json({ hasSecret: !!secret, length: secret?.length ?? 0 });
+}
