@@ -539,8 +539,8 @@ ${content.toc ? renderTocPage(content.toc) : ''}
 <main class="page page-break">
   <h2 class="section-title">Introduction</h2>
   <p class="intro-lead">Thank you for your request and welcome to <em>The Lunar Playground</em>. This reading explores the energetic influences of different locations using astrocartography, the art of mapping your birth chart onto the world to discover where specific planetary energies are strongest for you.</p>
-  <p>Astrocartography works from a simple idea: we don't experience life the same way everywhere. Different places can bring different sides of you forward, more ease in relationships in one, more momentum at work in another. Looking at which planetary lines cross the locations you're considering is a way to notice that in advance, not a guarantee of what will happen there.</p>
-  <p>Your placements are calculated using Swiss Ephemeris, the same tool professional astrologers rely on, with every line checked against your real chart before it reaches you. Here's what's running through your areas of interest: <strong>${esc(content.citiesListLabel)}</strong>. Each location carries distinct energies that will shape your experience differently.</p>
+  <p>Astrocartography works from a simple idea: we don't experience life the same way everywhere. Different places can bring different sides of you forward, more ease in relationships in one, more momentum at work in another. This reading traces your <strong>planetary lines</strong> — the specific paths where one of your planet's themes becomes more active if you're near it — through the locations you're considering, as a way to notice that in advance, not a guarantee of what will happen there.</p>
+  <p>Your placements are calculated using Swiss Ephemeris, the same tool professional astrologers rely on, with every line checked against your real chart before it reaches you. Here's what's running through your areas of interest: <strong>${esc(content.citiesListLabel)}</strong>. Each location carries a distinct pattern worth noticing, not a fixed script for how things will go.</p>
 
   <div class="client-info">
     <p><strong>Client:</strong> ${esc(content.client)}</p>
@@ -599,9 +599,14 @@ ${content.cities.map((c) => renderCity(c)).join('\n')}
   <p class="closing-italic">Let the astrology inform you. Let your instincts decide.</p>
   <p>These are favourable conditions, not guarantees. The planetary lines open doors; walking through them is up to you.</p>
 
+  <div class="reflect-box">
+    <div class="reflect-box-label">Reflect</div>
+    <p>Before you decide anything: which of these places pulled at something in you that you weren't expecting, and what do you think that's actually pointing toward?</p>
+  </div>
+
   <div class="deeper-box">
     <div class="deeper-label">Want to go deeper?</div>
-    <p>A <strong>Relocation Chart Reading</strong> examines how your entire birth chart reshapes when cast for a specific location, revealing which houses your planets occupy, how your angles shift, and what themes become most active in your daily life there. If you're seriously considering a move, this deeper analysis can illuminate the full picture.</p>
+    <p>A <strong>Relocation Chart Reading</strong> examines how your entire birth chart reshapes when cast for a specific location, revealing which life areas your planets occupy there, how your Ascendant and Midheaven shift, and what themes become most active in your daily life there. If you're seriously considering a move, this deeper analysis can illuminate the full picture.</p>
   </div>
 </main>
 
