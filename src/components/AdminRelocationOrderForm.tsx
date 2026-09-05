@@ -11,7 +11,7 @@ const THEME_OPTIONS = Object.keys(THEME_LABELS) as ThemeName[];
 const MOTIVATION_OPTIONS = Object.keys(MOTIVATION_LABELS) as RelocationMotivation[];
 const MAX_THEMES = 3;
 const MAX_MOTIVATIONS = 3;
-const MAX_DESTINATION_CITIES = 3;
+const MAX_DESTINATION_CITIES = 6;
 
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);

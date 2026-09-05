@@ -32,7 +32,7 @@ const RequestSchema = z.object({
         lon: z.number().min(-180).max(180),
       })
     )
-    .max(3)
+    .max(6)
     .optional(),
   motivations: z.array(z.enum(MOTIVATION_VALUES)).max(3).optional(),
 });
