@@ -22,7 +22,17 @@ const nextConfig: NextConfig = {
   // outputFileTracingIncludes below is the actual fix: it force-includes the
   // package's files (native binary included) for the workflow step route
   // regardless of what the tracer can see.
-  serverExternalPackages: ['pdfjs-dist', '@napi-rs/canvas'],
+  //
+  // geo-tz is the same class of gap again: it opens its timezone polygon
+  // data (`data/timezones-1970.geojson.geo.dat`) at runtime via
+  // `path.join(__dirname, '..', 'data')` + fs.openSync, which the tracer
+  // can't follow. Bundled by Turbopack, __dirname became a "/ROOT/..."
+  // placeholder and the .dat file wasn't shipped — every relocation job's
+  // runFacts step failed with ENOENT on that file (order #18, 2026-09-18)
+  // on a build with no config change from one that had worked two weeks
+  // earlier, i.e. the builder's tracing drifted underneath us. Keeping it
+  // external gives it a real __dirname; the tracing include ships the data.
+  serverExternalPackages: ['pdfjs-dist', '@napi-rs/canvas', 'geo-tz'],
   // The @napi-rs/canvas glob covers the package itself plus whichever
   // platform-specific binary package (`@napi-rs/canvas-linux-x64-gnu` on
   // Vercel) npm resolved as its optionalDependency — js-binding.js picks
@@ -37,7 +47,11 @@ const nextConfig: NextConfig = {
   // Confirmed live: fixing DOMMatrix alone still held the job for review,
   // now on "Cannot find module '.../pdf.worker.mjs'".
   outputFileTracingIncludes: {
-    '/.well-known/workflow/v1/**': ['./node_modules/@napi-rs/canvas*/**', './node_modules/pdfjs-dist/legacy/build/**'],
+    '/.well-known/workflow/v1/**': [
+      './node_modules/@napi-rs/canvas*/**',
+      './node_modules/pdfjs-dist/legacy/build/**',
+      './node_modules/geo-tz/data/**',
+    ],
   },
   images: {
     formats: ['image/avif', 'image/webp'],
