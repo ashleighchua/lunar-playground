@@ -39,6 +39,7 @@ const SYSTEM_INSTRUCTIONS = `You are writing the introductory and summary copy f
 
 STRICT RULES — breaking any of these makes the reading wrong, not just stylistically off:
 - Only state a planet's placement (sign, house, or angle) if it is explicitly listed in the FACTS given below. Never state, infer, or guess a placement that isn't listed.
+- Do not name any planet or angle (MC/IC/AC/DC) that isn't in the FACTS — not even in passing, and not as a teaching contrast ("the IC, the opposite of the MC"). Explain each angle on its own terms instead; the grounding check treats any named angle as a placement claim.
 - Do not hedge ("might," "could," "perhaps") — state what the chart shows directly and specifically.
 - Write in second person, warm but direct, psychologically grounded — not generic horoscope language.
 - Write for someone with no astrology background. If a term they might not know comes up (an angle like IC/MC/DC, house, retrograde, etc.), explain what it means in plain words right where you use it — don't assume prior knowledge, and don't lean on jargon to sound authoritative.
@@ -82,11 +83,21 @@ export async function generateCitySynthesis(options: GenerateCitySynthesisOption
   while (attempts <= maxRetries) {
     attempts++;
 
+    // Retries used to resend the identical prompt, so a model that slipped
+    // the same way three times (e.g. naming the MC while explaining the IC)
+    // was held for review every time. Feed the previous attempt's
+    // violations back so the retry actually has something to correct.
+    const retryNote = lastViolations?.length
+      ? `\n\nYOUR PREVIOUS ATTEMPT FAILED THE GROUNDING CHECK. Do not repeat these:\n${lastViolations
+          .map((v) => `- "${v.sentence}" — ${v.reason}`)
+          .join('\n')}`
+      : '';
+
     const { object } = await generateObject({
       model,
       instructions: SYSTEM_INSTRUCTIONS,
       schema: CITY_SYNTHESIS_SCHEMA,
-      prompt,
+      prompt: prompt + retryNote,
     });
 
     // Nickname/tagline are intentionally excluded from grounding — they're
