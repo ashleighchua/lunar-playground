@@ -90,6 +90,17 @@ function angularDistance(lat1: number, lon1: number, lat2: number, lon2: number)
 }
 
 /**
+ * Shift `lon` by whole turns so it lands within 180° of `reference`. Used to
+ * unwrap longitudes before any linear (x/y) geometry on a line segment.
+ */
+function unwrapLongitude(lon: number, reference: number): number {
+  let out = lon;
+  while (out - reference > 180) out -= 360;
+  while (out - reference < -180) out += 360;
+  return out;
+}
+
+/**
  * Point to line segment distance in degrees
  */
 function pointToSegmentDistance(
@@ -97,6 +108,15 @@ function pointToSegmentDistance(
   x1: number, y1: number,
   x2: number, y2: number
 ): number {
+  // AC/DC curves are sampled per degree of latitude and cross the antimeridian
+  // (e.g. 177° -> -177°). Projecting in raw longitude would treat that as a
+  // 354°-wide segment — a phantom line sweeping the whole globe at that
+  // latitude, which previously produced false near-zero distances for cities
+  // nowhere near the planet's horizon. Unwrap both the far endpoint and the
+  // query point relative to the near endpoint first.
+  y2 = unwrapLongitude(y2, y1);
+  py = unwrapLongitude(py, y1);
+
   const dx = x2 - x1;
   const dy = y2 - y1;
 
@@ -161,7 +181,7 @@ export function distanceToLine(lat: number, lon: number, line: AstroLine): numbe
 
       if (lat >= Math.min(p1.lat, p2.lat) && lat <= Math.max(p1.lat, p2.lat)) {
         const t = (lat - p1.lat) / (p2.lat - p1.lat);
-        const interpolatedLon = p1.lon + t * (p2.lon - p1.lon);
+        const interpolatedLon = p1.lon + t * (unwrapLongitude(p2.lon, p1.lon) - p1.lon);
         const dist = longitudeDifference(lon, interpolatedLon);
         minDistance = Math.min(minDistance, dist);
       }
