@@ -556,9 +556,9 @@ ${content.themeHighlights.length > 0 ? renderThemeHighlights(content.themeHighli
 ${content.natalChart ? renderNatalChart(content.natalChart) : ''}
 
 <main class="page page-break">
-  <p class="part-eyebrow">Part Two — Astrocartography</p>
+  ${content.natalChart ? '<p class="part-eyebrow">Part Two — Astrocartography</p>' : ''}
   <h2 class="section-title">What is Astrocartography?</h2>
-  <p>Your birth chart, on the previous pages, captures the positions of the planets at the exact moment you were born, as seen from ${esc(content.birth.placeLabel)}. But if you had been born at that same moment in a different location, those planets would have appeared in different positions relative to you.</p>
+  <p>Your birth chart${content.natalChart ? ', on the previous pages,' : ''} captures the positions of the planets at the exact moment you were born, as seen from ${esc(content.birth.placeLabel)}. But if you had been born at that same moment in a different location, those planets would have appeared in different positions relative to you.</p>
   <p>Astrocartography maps those differences across the globe. It shows where each planet was rising, setting, or at its peak at your birth moment. When you visit or live near one of these lines, that planet's themes become more active in your life. The four angles below are the same Ascendant, Descendant, Midheaven, and IC from your birth chart, just traced as lines across the world instead of fixed points at one location.</p>
 
   <div class="glossary-box">
