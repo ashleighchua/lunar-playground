@@ -21,8 +21,8 @@ describe('AC/DC lines sit on the true horizon', () => {
 
   function altitudeAt(ra: number, dec: number, lat: number, lon: number): number {
     const observer = new Astronomy.Observer(lat, lon, 0);
-    // astronomy-engine wants RA in sidereal hours; no refraction so we get the geometric horizon.
-    const hor = Astronomy.Horizon(time, observer, ra / 15, dec, 'normal');
+    // astronomy-engine wants RA in sidereal hours; '' = no refraction, so we get the geometric horizon ('normal' would lift it ~0.5°).
+    const hor = Astronomy.Horizon(time, observer, ra / 15, dec, '');
     return hor.altitude;
   }
 
@@ -48,4 +48,34 @@ describe('AC/DC lines sit on the true horizon', () => {
     if (sep > 180) sep = 360 - sep;
     expect(Math.abs(sep - 180)).toBeGreaterThan(10);
   });
+});
+
+/**
+ * Regression test for a second real bug: calculatePlanetEquatorial returned
+ * J2000 RA/Dec, but the line calculator subtracts sidereal time *of date*
+ * from RA. The mismatch rotated every line by the precession since 2000 —
+ * invisible in the test above (it feeds the engine's own RA back into
+ * Horizon, and 1989 is too close to 2000 to notice), but ~0.6° / ~30 miles
+ * for a 1956 birth. Here the altitude check uses astronomy-engine's own
+ * independent of-date position for the planet instead of the engine's RA.
+ */
+describe('lines use of-date RA/Dec, not J2000', () => {
+  // 1956-07-16 10:06 UT — 44 years of precession from J2000 (~0.6°).
+  const jd = toJulianDay(1956, 7, 16, 10 + 6 / 60);
+  const time = new Astronomy.AstroTime(jd - 2451545.0);
+
+  for (const planet of ['Venus', 'Jupiter', 'Pluto']) {
+    it(`${planet}: the planet is actually on the horizon at its AC/DC line points`, () => {
+      const eq = calculatePlanetEquatorial(planet, jd);
+      const body = Astronomy.Body[planet as keyof typeof Astronomy.Body];
+      for (const line of [calculateACLine(planet, eq, jd), calculateDCLine(planet, eq, jd)]) {
+        for (const p of line.points.filter((pt) => Math.abs(pt.lat) <= 60)) {
+          const observer = new Astronomy.Observer(p.lat, p.lon, 0);
+          const ofDate = Astronomy.Equator(body, time, observer, true, true);
+          const hor = Astronomy.Horizon(time, observer, ofDate.ra, ofDate.dec, '');
+          expect(Math.abs(hor.altitude)).toBeLessThan(0.1);
+        }
+      }
+    });
+  }
 });

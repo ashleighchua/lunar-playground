@@ -453,7 +453,13 @@ export function calculatePlanetEquatorial(planet: string, jd: number): { ra: num
   const body = EQUATORIAL_BODY_MAP[planet];
   if (!body) throw new Error(`Unknown planet for equatorial calculation: ${planet}`);
   const time = jdToAstroTime(jd);
-  const vec = Astronomy.GeoVector(body, time, true);
+  // GeoVector is in J2000 equatorial coordinates (EQJ). The line calculator
+  // subtracts sidereal time *of date* from this RA to get a longitude, so the
+  // RA must be of date too (EQD) — otherwise every line is rotated by the
+  // precession accumulated since 2000 (~0.014°/yr: ~0.6°, or ~30 miles at
+  // mid-latitudes, for a 1956 birth; negligible only for births near 2000).
+  // Caught 2026-09-18 by an independent hand calculation of a client chart.
+  const vec = Astronomy.RotateVector(Astronomy.Rotation_EQJ_EQD(time), Astronomy.GeoVector(body, time, true));
   const eq = Astronomy.EquatorFromVector(vec);
   let ra = (eq.ra * 15) % 360; // hours -> degrees
   if (ra < 0) ra += 360;
